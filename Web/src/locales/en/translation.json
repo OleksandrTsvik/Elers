@@ -1,0 +1,9 @@
+{
+  "loading_app": "Loading app ...",
+  "header": {
+    "avatar": {
+      "profile": "Profile",
+      "logout": "Logout"
+    }
+  }
+}

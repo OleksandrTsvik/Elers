@@ -11,6 +11,7 @@ export default function LanguageButton() {
 
   return (
     <Dropdown
+      trigger={['click']}
       menu={{
         items: languages,
         selectable: true,

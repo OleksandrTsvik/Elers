@@ -24,5 +24,5 @@ export type Locales = { [key in LocaleCode]: LocaleSettings };
 
 export const locales: Locales = {
   uk: { antd: ukUA, dayjs: 'uk' },
-  us: { antd: enUS, dayjs: 'en' },
+  en: { antd: enUS, dayjs: 'en' },
 };

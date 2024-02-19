@@ -1,0 +1,9 @@
+{
+  "loading_app": "Завантаження ...",
+  "header": {
+    "avatar": {
+      "profile": "Профіль",
+      "logout": "Вийти"
+    }
+  }
+}

@@ -44,11 +44,6 @@ module.exports = {
             position: 'after',
           },
           {
-            patternOptions: {
-              dot: true,
-              nocomment: true,
-              matchBase: true,
-            },
             pattern: 'dayjs/locale/*',
             group: 'type',
             position: 'after',
@@ -60,6 +55,16 @@ module.exports = {
               matchBase: true,
             },
             pattern: '*.{css,scss}',
+            group: 'type',
+            position: 'after',
+          },
+          {
+            pattern: './locales/**',
+            group: 'type',
+            position: 'after',
+          },
+          {
+            pattern: './i18n',
             group: 'type',
             position: 'after',
           },

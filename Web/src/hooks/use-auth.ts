@@ -1,4 +1,4 @@
-import { useAppSelector } from './store';
+import { useAppSelector } from './redux-hooks';
 import { selectAuthState } from '../auth/auth.slice';
 
 export default function useAuth() {

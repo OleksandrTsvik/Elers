@@ -15,5 +15,5 @@ function getItem(language: string, code: LocaleCode): MenuItem {
 
 export const languages: MenuProps['items'] = [
   getItem('Українська', 'uk'),
-  getItem('English', 'us'),
+  getItem('English', 'en'),
 ];

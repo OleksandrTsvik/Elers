@@ -6,6 +6,8 @@ import { router } from './router/routes';
 import { store } from './store';
 import AntdProvider from './utils/antd/provider.antd';
 
+import './i18n';
+
 export default function App() {
   return (
     <Provider store={store}>

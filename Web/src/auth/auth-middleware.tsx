@@ -1,8 +1,9 @@
 import { Spin } from 'antd';
 import { useLayoutEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { setCredentials } from './auth.slice';
-import { useAppDispatch } from '../hooks/store';
+import { useAppDispatch } from '../hooks/redux-hooks';
 import useAuth from '../hooks/use-auth';
 
 interface Props {
@@ -10,6 +11,7 @@ interface Props {
 }
 
 export default function AuthMiddleware({ children }: Props) {
+  const { t } = useTranslation();
   const appDispatch = useAppDispatch();
 
   const [isLoading, setIsLoading] = useState(true);
@@ -27,7 +29,7 @@ export default function AuthMiddleware({ children }: Props) {
   }, [user, appDispatch]);
 
   if (isLoading) {
-    return <Spin fullscreen tip="Loading app..." />;
+    return <Spin fullscreen tip={t('loading_app')} />;
   }
 
   return <>{children}</>;
