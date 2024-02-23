@@ -2,8 +2,11 @@ import { LogoutOutlined, UserOutlined } from '@ant-design/icons';
 import { Avatar, Dropdown, MenuProps } from 'antd';
 import { useTranslation } from 'react-i18next';
 
+import useLogout from '../../../auth/use-logout';
+
 export default function HeaderAvatar() {
   const { t } = useTranslation();
+  const { logout } = useLogout();
 
   const items: MenuProps['items'] = [
     {
@@ -18,6 +21,7 @@ export default function HeaderAvatar() {
       key: '2',
       icon: <LogoutOutlined />,
       label: t('header.avatar.logout'),
+      onClick: logout,
     },
   ];
 

@@ -1,9 +1,25 @@
 {
   "loading_app": "Loading app ...",
+  "loading_logout": "Logging out ...",
+  "error": {
+    "simple": "Something went wrong!",
+    "status": "An error occurred while processing your request! Status - {{status}}."
+  },
   "header": {
     "avatar": {
       "profile": "Profile",
       "logout": "Logout"
+    }
+  },
+  "login_page": {
+    "title": "Authentication",
+    "password": "Password",
+    "email": "Email",
+    "submit": "Login",
+    "rules": {
+      "email_required": "Enter a valid email address",
+      "password_required": "Enter your password",
+      "password_len": "Password length should be from {{min}} to {{max}} characters"
     }
   }
 }

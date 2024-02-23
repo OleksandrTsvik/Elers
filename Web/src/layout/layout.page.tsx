@@ -5,6 +5,7 @@ import { Outlet } from 'react-router-dom';
 import Footer from './footer';
 import Header from './header';
 import Sider from './sider';
+import useAuth from '../hooks/use-auth';
 import { COLLAPSED_SIDER } from '../utils/constants/local-storage.constants';
 
 import './layout.css';
@@ -16,6 +17,7 @@ export default function LayoutPage() {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
 
+  const { isAuth } = useAuth();
   const [collapsed, setCollapsed] = useState(false);
 
   useLayoutEffect(() => {
@@ -41,7 +43,9 @@ export default function LayoutPage() {
     <>
       <Header collapsed={collapsed} setCollapsed={updateCollapsed} />
       <Layout>
-        <Sider collapsed={collapsed} setCollapsed={updateCollapsed} />
+        {isAuth && (
+          <Sider collapsed={collapsed} setCollapsed={updateCollapsed} />
+        )}
         <Layout style={breakpoints.md ? { padding: '0 24px' } : undefined}>
           <Layout.Content
             style={{

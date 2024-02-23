@@ -1,9 +1,11 @@
-import { Flex, Grid, Layout } from 'antd';
+import { Flex, Layout } from 'antd';
 
 import HeaderRightItems from './header-right';
 import HeaderLogo from './header.logo';
 import SiderCollapseButton from './sider-collapse.button';
-import { useColorModeValue } from '../../hooks/use-color-mode-value';
+import useAuth from '../../hooks/use-auth';
+import useBreakpointValue from '../../hooks/use-breakpoint-value';
+import useColorModeValue from '../../hooks/use-color-mode-value';
 import {
   SIDER_COLLAPSED_WIDTH,
   SIDER_COLLAPSED_WIDTH_MOBILE,
@@ -15,7 +17,7 @@ interface Props {
 }
 
 export default function Header({ collapsed, setCollapsed }: Props) {
-  const breakpoints = Grid.useBreakpoint();
+  const { isAuth } = useAuth();
 
   return (
     <Layout.Header
@@ -26,15 +28,21 @@ export default function Header({ collapsed, setCollapsed }: Props) {
         justifyContent: 'center',
         alignItems: 'center',
         width: '100%',
-        padding: breakpoints.md
-          ? `0 ${SIDER_COLLAPSED_WIDTH}px`
-          : `0 ${SIDER_COLLAPSED_WIDTH_MOBILE}px`,
+        padding: useBreakpointValue({
+          md: `0 ${SIDER_COLLAPSED_WIDTH}px`,
+          xs: `0 ${SIDER_COLLAPSED_WIDTH_MOBILE}px`,
+        }),
         backgroundColor: useColorModeValue('#fff', '#001529'),
         borderBlockEnd: '1px solid rgba(5, 5, 5, 0.06)',
         zIndex: 1,
       }}
     >
-      <SiderCollapseButton collapsed={collapsed} setCollapsed={setCollapsed} />
+      {isAuth && (
+        <SiderCollapseButton
+          collapsed={collapsed}
+          setCollapsed={setCollapsed}
+        />
+      )}
       <Flex flex={1} justify="space-between" align="center">
         <HeaderLogo />
         <HeaderRightItems />

@@ -1,9 +1,9 @@
-import { Grid, Typography } from 'antd';
+import { Typography } from 'antd';
 import { Link } from 'react-router-dom';
 
-export default function HeaderLogo() {
-  const breakpoints = Grid.useBreakpoint();
+import useBreakpointValue from '../../hooks/use-breakpoint-value';
 
+export default function HeaderLogo() {
   return (
     <Link
       to="/"
@@ -12,7 +12,7 @@ export default function HeaderLogo() {
       }}
     >
       <Typography.Text>
-        {breakpoints.sm ? 'Електронне навчання' : 'ЕН'}
+        {useBreakpointValue({ sm: 'Електронне навчання', xs: 'ЕН' })}
       </Typography.Text>
     </Link>
   );

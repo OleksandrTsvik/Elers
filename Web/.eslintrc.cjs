@@ -23,6 +23,7 @@ module.exports = {
       'warn',
       { allowConstantExport: true },
     ],
+    '@typescript-eslint/no-misused-promises': 'off',
     'react/react-in-jsx-scope': 'off',
     'no-console': 'warn',
     quotes: ['warn', 'single'],

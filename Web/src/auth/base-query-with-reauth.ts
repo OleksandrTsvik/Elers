@@ -13,7 +13,10 @@ import type {
 // https://redux-toolkit.js.org/rtk-query/usage/customizing-queries#preventing-multiple-unauthorized-errors
 const mutex = new Mutex();
 
-const baseQuery = fetchBaseQuery({ baseUrl: REACT_APP_API_URL });
+const baseQuery = fetchBaseQuery({
+  baseUrl: REACT_APP_API_URL,
+  credentials: 'include',
+});
 
 export const baseQueryWithReauth: BaseQueryFn<
   string | FetchArgs,
