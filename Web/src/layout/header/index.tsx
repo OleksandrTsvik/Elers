@@ -1,6 +1,6 @@
 import { Flex, Layout } from 'antd';
 
-import HeaderRightItems from './header-right';
+import HeaderRightItems from './header-right-items';
 import HeaderLogo from './header.logo';
 import SiderCollapseButton from './sider-collapse.button';
 import useAuth from '../../hooks/use-auth';
