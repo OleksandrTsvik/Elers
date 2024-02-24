@@ -11,6 +11,8 @@ import {
   SIDER_COLLAPSED_WIDTH_MOBILE,
 } from '../layout.constants';
 
+import styles from './header.module.scss';
+
 interface Props {
   collapsed: boolean;
   setCollapsed: (value: boolean) => void;
@@ -21,20 +23,13 @@ export default function Header({ collapsed, setCollapsed }: Props) {
 
   return (
     <Layout.Header
+      className={styles.header}
       style={{
-        position: 'sticky',
-        top: 0,
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        width: '100%',
         padding: useBreakpointValue({
           md: `0 ${SIDER_COLLAPSED_WIDTH}px`,
           xs: `0 ${SIDER_COLLAPSED_WIDTH_MOBILE}px`,
         }),
         backgroundColor: useColorModeValue('#fff', '#001529'),
-        borderBlockEnd: '1px solid rgba(5, 5, 5, 0.06)',
-        zIndex: 1,
       }}
     >
       {isAuth && (

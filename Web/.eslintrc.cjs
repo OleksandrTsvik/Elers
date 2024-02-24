@@ -55,6 +55,16 @@ module.exports = {
               nocomment: true,
               matchBase: true,
             },
+            pattern: '*.{svg,png,jpg}',
+            group: 'type',
+            position: 'after',
+          },
+          {
+            patternOptions: {
+              dot: true,
+              nocomment: true,
+              matchBase: true,
+            },
             pattern: '*.{css,scss}',
             group: 'type',
             position: 'after',
