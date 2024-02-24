@@ -11,7 +11,14 @@
       "logout": "Logout"
     }
   },
+  "not_found_page": {
+    "head_title": "Page not found",
+    "title": "404 error. Page not found",
+    "sub_title": "The address is incorrect or the page does not exist on the site.",
+    "home_link": "Go to the home page"
+  },
   "login_page": {
+    "head_title": "Authentication",
     "title": "Authentication",
     "password": "Password",
     "email": "Email",
