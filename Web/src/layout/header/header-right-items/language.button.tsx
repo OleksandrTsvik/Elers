@@ -1,10 +1,10 @@
-import Icon from '@ant-design/icons';
 import { Button, Dropdown } from 'antd';
-import { HiLanguage } from 'react-icons/hi2';
 
-import { languages } from './language.items';
+import { languages, localeTitles } from './language.items';
 import useLocale from '../../../hooks/use-locale';
 import { LocaleCode } from '../../../store/locale.slice';
+
+import styles from './language.module.scss';
 
 export default function LanguageButton() {
   const { locale, setLocale } = useLocale();
@@ -19,7 +19,9 @@ export default function LanguageButton() {
         onSelect: ({ key }) => setLocale(key as LocaleCode),
       }}
     >
-      <Button type="text" icon={<Icon component={HiLanguage} />} />
+      <Button className={styles.languageButton} type="text">
+        {localeTitles[locale]}
+      </Button>
     </Dropdown>
   );
 }
