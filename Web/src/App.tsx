@@ -1,3 +1,4 @@
+import { HelmetProvider } from 'react-helmet-async';
 import { Provider } from 'react-redux';
 import { RouterProvider } from 'react-router-dom';
 
@@ -11,11 +12,13 @@ import './i18n';
 export default function App() {
   return (
     <Provider store={store}>
-      <AntdProvider>
-        <AuthMiddleware>
-          <RouterProvider router={router} />
-        </AuthMiddleware>
-      </AntdProvider>
+      <HelmetProvider>
+        <AntdProvider>
+          <AuthMiddleware>
+            <RouterProvider router={router} />
+          </AuthMiddleware>
+        </AntdProvider>
+      </HelmetProvider>
     </Provider>
   );
 }
