@@ -4,6 +4,6 @@ public class AuthUserDto
 {
     public string Email { get; set; } = string.Empty;
     public string? AvatarUrl { get; set; }
-    public List<string> Roles { get; set; } = new();
-    public List<string> Permissions { get; set; } = new();
+    public List<string> Roles { get; set; } = [];
+    public List<string> Permissions { get; set; } = [];
 }

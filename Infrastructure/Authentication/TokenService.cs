@@ -31,7 +31,7 @@ public class TokenService : ITokenService
             new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtOptions.SecretKey)),
             SecurityAlgorithms.HmacSha256);
 
-        var expiresDate = DateTime.UtcNow.AddMinutes(_jwtOptions.ExpirationInMinutes);
+        DateTime expiresDate = DateTime.UtcNow.AddMinutes(_jwtOptions.ExpirationInMinutes);
 
         var securityToken = new JwtSecurityToken(
             issuer: _jwtOptions.Issuer,
@@ -49,7 +49,7 @@ public class TokenService : ITokenService
     public string GenerateRefreshToken()
     {
         byte[] randomNumber = new byte[32];
-        using RandomNumberGenerator rng = RandomNumberGenerator.Create();
+        using var rng = RandomNumberGenerator.Create();
 
         rng.GetBytes(randomNumber);
 

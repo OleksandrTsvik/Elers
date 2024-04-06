@@ -27,7 +27,7 @@ public class PagedList<T>
     {
         int count = await query.CountAsync();
 
-        var items = await query
+        List<T> items = await query
             .Skip((pageNumber - 1) * pageSize)
             .Take(pageSize)
             .ToListAsync();

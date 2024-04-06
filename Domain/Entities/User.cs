@@ -12,7 +12,7 @@ public class User
     public string? AvatarUrl { get; set; }
     public DateTime? BirthDate { get; set; }
 
-    public List<Role> Roles { get; set; } = new();
+    public List<Role> Roles { get; set; } = [];
 
     public User()
     {

@@ -13,7 +13,8 @@ public static class DependencyInjection
     {
         services.AddDbContext<IApplicationDbContext, ApplicationDbContext>((sp, options) =>
         {
-            var connectionStringsOptions = sp.GetRequiredService<IOptions<ConnectionStringsOptions>>().Value;
+            ConnectionStringsOptions connectionStringsOptions = sp.GetRequiredService<
+                IOptions<ConnectionStringsOptions>>().Value;
 
             options.UseNpgsql(
                 connectionStringsOptions.DefaultConnection,

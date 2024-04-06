@@ -34,7 +34,7 @@ public class RegisterCommandHandler : ICommandHandler<RegisterCommand, AuthDto>
             return UserErrors.EmailNotUnique();
         }
 
-        User user = new User
+        var user = new User
         {
             Email = request.Email,
             PasswordHash = _passwordService.HashPassword(request.Password)

@@ -26,7 +26,7 @@ public class AppExceptionMiddleware
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, ex.Message);
+            _logger.LogError(ex, "{Message}", ex.Message);
 
             httpContext.Response.ContentType = "application/json";
             httpContext.Response.StatusCode = StatusCodes.Status500InternalServerError;

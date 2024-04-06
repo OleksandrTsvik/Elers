@@ -25,9 +25,9 @@ public class FluentValidateOptions<TOptions> : IValidateOptions<TOptions>
 
         ArgumentNullException.ThrowIfNull(options);
 
-        using var scope = _serviceProvider.CreateScope();
+        using IServiceScope scope = _serviceProvider.CreateScope();
 
-        var validator = scope.ServiceProvider.GetRequiredService<IValidator<TOptions>>();
+        IValidator<TOptions> validator = scope.ServiceProvider.GetRequiredService<IValidator<TOptions>>();
 
         ValidationResult result = validator.Validate(options);
 
@@ -36,10 +36,10 @@ public class FluentValidateOptions<TOptions> : IValidateOptions<TOptions>
             return ValidateOptionsResult.Success;
         }
 
-        var type = options.GetType().Name;
+        string type = options.GetType().Name;
         var errors = new List<string>();
 
-        foreach (var failure in result.Errors)
+        foreach (ValidationFailure failure in result.Errors)
         {
             errors.Add($"Fluent validation failed for {type}.{failure.PropertyName} with the error: {failure.ErrorMessage}");
         }
