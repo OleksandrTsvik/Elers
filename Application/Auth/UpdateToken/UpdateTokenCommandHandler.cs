@@ -43,6 +43,7 @@ public class UpdateTokenCommandHandler : ICommandHandler<UpdateTokenCommand, Aut
 
         User? user = await _context.Users
             .Include(x => x.Roles)
+                .ThenInclude(x => x.Permissions)
             .FirstOrDefaultAsync(x => x.Id == _userContext.UserId, cancellationToken);
 
         if (user is null)

@@ -14,8 +14,6 @@ public class User
 
     public List<Role> Roles { get; set; } = new();
 
-    public string FullName => $"{LastName} {FirstName} {Patronymic}";
-
     public User()
     {
         RegistrationDate = DateTime.UtcNow;

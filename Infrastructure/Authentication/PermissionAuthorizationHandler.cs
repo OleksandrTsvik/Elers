@@ -1,23 +1,21 @@
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Authorization.Infrastructure;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Infrastructure.Authentication;
 
-public class RolesAuthorizationHandler
-    : AuthorizationHandler<RolesAuthorizationRequirement>, IAuthorizationHandler
+public class PermissionAuthorizationHandler : AuthorizationHandler<PermissionRequirement>
 {
     private readonly IServiceScopeFactory _serviceScopeFactory;
 
-    public RolesAuthorizationHandler(IServiceScopeFactory serviceScopeFactory)
+    public PermissionAuthorizationHandler(IServiceScopeFactory serviceScopeFactory)
     {
         _serviceScopeFactory = serviceScopeFactory;
     }
 
     protected override async Task HandleRequirementAsync(
         AuthorizationHandlerContext context,
-        RolesAuthorizationRequirement requirement)
+        PermissionRequirement requirement)
     {
         string? userId = context.User?.FindFirstValue(ClaimTypes.NameIdentifier);
 
@@ -27,11 +25,11 @@ public class RolesAuthorizationHandler
         }
 
         using IServiceScope scope = _serviceScopeFactory.CreateScope();
-        IRolesService rolesService = scope.ServiceProvider.GetRequiredService<IRolesService>();
+        IPermissionService permissionService = scope.ServiceProvider.GetRequiredService<IPermissionService>();
 
-        HashSet<string> userRoles = await rolesService.GetRolesAsync(parsedUserId);
+        List<string> userPermissions = await permissionService.GetPermissionsAsync(parsedUserId);
 
-        if (userRoles.Any(x => requirement.AllowedRoles.Contains(x)))
+        if (userPermissions.Contains(requirement.Permission))
         {
             context.Succeed(requirement);
         }

@@ -28,6 +28,7 @@ public class LoginCommandHandler : ICommandHandler<LoginCommand, AuthDto>
     {
         User? user = await _context.Users
             .Include(x => x.Roles)
+                .ThenInclude(x => x.Permissions)
             .FirstOrDefaultAsync(x => x.Email == request.Email, cancellationToken);
 
         if (user is null)

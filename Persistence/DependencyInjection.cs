@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Persistence.Common;
+using Persistence.Seed;
 
 namespace Persistence;
 
@@ -14,8 +15,12 @@ public static class DependencyInjection
         {
             var connectionStringsOptions = sp.GetRequiredService<IOptions<ConnectionStringsOptions>>().Value;
 
-            options.UseNpgsql(connectionStringsOptions.DefaultConnection);
+            options.UseNpgsql(
+                connectionStringsOptions.DefaultConnection,
+                options => options.UseQuerySplittingBehavior(QuerySplittingBehavior.SingleQuery));
         });
+
+        services.AddScoped<ApplicationDbContextSeed>();
 
         return services;
     }

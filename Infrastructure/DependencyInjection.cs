@@ -17,10 +17,11 @@ public static class DependencyInjection
 
     private static IServiceCollection AddAuth(this IServiceCollection services)
     {
-        services.AddSingleton<IAuthorizationHandler, RolesAuthorizationHandler>();
-        services.AddScoped<IRolesService, RolesService>();
-        services.AddScoped<ITokenService, TokenService>();
+        services.AddSingleton<IAuthorizationHandler, PermissionAuthorizationHandler>();
+        services.AddSingleton<IAuthorizationPolicyProvider, PermissionAuthorizationPolicyProvider>();
 
+        services.AddScoped<IPermissionService, PermissionService>();
+        services.AddScoped<ITokenService, TokenService>();
         services.AddScoped<IPasswordService, PasswordService>();
 
         services.AddHttpContextAccessor();

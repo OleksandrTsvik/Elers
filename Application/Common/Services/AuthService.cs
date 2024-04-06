@@ -20,7 +20,7 @@ public class AuthService : IAuthService
         TokenDto accessToken = _tokenService.GenerateAccessToken(user);
         string refreshToken = _tokenService.GenerateRefreshToken();
 
-        RefreshToken refreshTokenEntity = new RefreshToken
+        var refreshTokenEntity = new RefreshToken
         {
             UserId = user.Id,
             Token = refreshToken
@@ -36,7 +36,12 @@ public class AuthService : IAuthService
             {
                 Email = user.Email,
                 AvatarUrl = user.AvatarUrl,
-                Roles = user.Roles.Select(x => x.Name).ToList()
+                Roles = user.Roles.Select(x => x.Name).ToList(),
+                Permissions = user.Roles
+                    .SelectMany(x => x.Permissions)
+                    .Select(x => x.Name)
+                    .Distinct()
+                    .ToList()
             },
             AccessToken = accessToken,
             RefreshToken = new TokenDto

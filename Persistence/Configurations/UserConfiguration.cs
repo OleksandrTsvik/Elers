@@ -51,7 +51,5 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
         builder
             .Property(user => user.BirthDate)
             .IsRequired(false);
-
-        builder.Ignore(x => x.FullName);
     }
 }
