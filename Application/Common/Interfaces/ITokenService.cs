@@ -6,5 +6,5 @@ namespace Application.Common.Interfaces;
 public interface ITokenService
 {
     TokenDto GenerateAccessToken(User user);
-    string GenerateRefreshToken();
+    TokenDto GenerateRefreshToken();
 }

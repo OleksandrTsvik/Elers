@@ -39,8 +39,6 @@ public class UpdateTokenCommandHandler : ICommandHandler<UpdateTokenCommand, Aut
 
         _context.RefreshTokens.Remove(refreshToken);
 
-        await _context.SaveChangesAsync(cancellationToken);
-
         User? user = await _context.Users
             .Include(x => x.Roles)
                 .ThenInclude(x => x.Permissions)
@@ -51,7 +49,10 @@ public class UpdateTokenCommandHandler : ICommandHandler<UpdateTokenCommand, Aut
             return UserErrors.NotFoundByUserContext();
         }
 
-        AuthDto authDto = await _authService.CreateAuthDto(user, cancellationToken);
+        AuthDto authDto = _authService.CreateAuthDto(user);
+        _authService.AddRefreshToken(user.Id, authDto.RefreshToken);
+
+        await _context.SaveChangesAsync(cancellationToken);
 
         return authDto;
     }

@@ -5,5 +5,6 @@ namespace Application.Common.Interfaces;
 
 public interface IAuthService
 {
-    Task<AuthDto> CreateAuthDto(User user, CancellationToken cancellationToken);
+    AuthDto CreateAuthDto(User user);
+    void AddRefreshToken(Guid userId, TokenDto refreshToken);
 }

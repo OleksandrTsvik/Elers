@@ -31,7 +31,7 @@ public class TokenService : ITokenService
             new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtOptions.SecretKey)),
             SecurityAlgorithms.HmacSha256);
 
-        DateTime expiresDate = DateTime.UtcNow.AddMinutes(_jwtOptions.ExpirationInMinutes);
+        DateTime expiresDate = DateTime.UtcNow.AddMinutes(_jwtOptions.AccessTokenExpirationInMinutes);
 
         var securityToken = new JwtSecurityToken(
             issuer: _jwtOptions.Issuer,
@@ -46,13 +46,16 @@ public class TokenService : ITokenService
         return new TokenDto { Token = token, ExpiresDate = expiresDate };
     }
 
-    public string GenerateRefreshToken()
+    public TokenDto GenerateRefreshToken()
     {
         byte[] randomNumber = new byte[32];
         using var rng = RandomNumberGenerator.Create();
 
         rng.GetBytes(randomNumber);
 
-        return Convert.ToBase64String(randomNumber);
+        string token = Convert.ToBase64String(randomNumber);
+        DateTime expiresDate = DateTime.UtcNow.AddDays(_jwtOptions.RefreshTokenExpirationInDays);
+
+        return new TokenDto { Token = token, ExpiresDate = expiresDate };
     }
 }

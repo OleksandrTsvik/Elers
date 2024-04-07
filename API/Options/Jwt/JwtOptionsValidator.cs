@@ -11,9 +11,13 @@ public class JwtOptionsValidator : AbstractValidator<JwtOptions>
 
         RuleFor(x => x.Audience).NotEmpty();
 
-        RuleFor(x => x.ExpirationInMinutes)
+        RuleFor(x => x.AccessTokenExpirationInMinutes)
             .GreaterThan(0)
             .LessThan(60 * 24 * 30);
+
+        RuleFor(x => x.RefreshTokenExpirationInDays)
+            .GreaterThan(0)
+            .LessThan(40);
 
         RuleFor(x => x.SecretKey)
             .NotEmpty()

@@ -15,20 +15,10 @@ public class AuthService : IAuthService
         _tokenService = tokenService;
     }
 
-    public async Task<AuthDto> CreateAuthDto(User user, CancellationToken cancellationToken)
+    public AuthDto CreateAuthDto(User user)
     {
         TokenDto accessToken = _tokenService.GenerateAccessToken(user);
-        string refreshToken = _tokenService.GenerateRefreshToken();
-
-        var refreshTokenEntity = new RefreshToken
-        {
-            UserId = user.Id,
-            Token = refreshToken
-        };
-
-        _context.RefreshTokens.Add(refreshTokenEntity);
-
-        await _context.SaveChangesAsync(cancellationToken);
+        TokenDto refreshToken = _tokenService.GenerateRefreshToken();
 
         return new AuthDto
         {
@@ -44,11 +34,19 @@ public class AuthService : IAuthService
                     .ToList()
             },
             AccessToken = accessToken,
-            RefreshToken = new TokenDto
-            {
-                Token = refreshTokenEntity.Token,
-                ExpiresDate = refreshTokenEntity.ExpiresDate
-            }
+            RefreshToken = refreshToken
         };
+    }
+
+    public void AddRefreshToken(Guid userId, TokenDto refreshToken)
+    {
+        var refreshTokenEntity = new RefreshToken()
+        {
+            UserId = userId,
+            Token = refreshToken.Token,
+            ExpiryDate = refreshToken.ExpiresDate
+        };
+
+        _context.RefreshTokens.Add(refreshTokenEntity);
     }
 }

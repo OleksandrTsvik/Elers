@@ -41,7 +41,10 @@ public class LoginCommandHandler : ICommandHandler<LoginCommand, AuthDto>
             return UserErrors.InvalidCredentials();
         }
 
-        AuthDto authDto = await _authService.CreateAuthDto(user, cancellationToken);
+        AuthDto authDto = _authService.CreateAuthDto(user);
+        _authService.AddRefreshToken(user.Id, authDto.RefreshToken);
+
+        await _context.SaveChangesAsync(cancellationToken);
 
         return authDto;
     }

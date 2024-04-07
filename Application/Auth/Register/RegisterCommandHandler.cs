@@ -42,9 +42,10 @@ public class RegisterCommandHandler : ICommandHandler<RegisterCommand, AuthDto>
 
         _context.Users.Add(user);
 
-        await _context.SaveChangesAsync(cancellationToken);
+        AuthDto authDto = _authService.CreateAuthDto(user);
+        _authService.AddRefreshToken(user.Id, authDto.RefreshToken);
 
-        AuthDto authDto = await _authService.CreateAuthDto(user, cancellationToken);
+        await _context.SaveChangesAsync(cancellationToken);
 
         return authDto;
     }
