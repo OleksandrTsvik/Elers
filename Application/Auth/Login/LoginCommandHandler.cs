@@ -41,6 +41,13 @@ public class LoginCommandHandler : ICommandHandler<LoginCommand, AuthDto>
             return UserErrors.InvalidCredentials();
         }
 
+        List<RefreshToken> invalidRefreshTokens = await _context.RefreshTokens
+            .Where(x => x.UserId == user.Id &&
+                (x.RevokedDate != null || DateTime.UtcNow >= x.ExpiryDate))
+            .ToListAsync(cancellationToken);
+
+        _context.RefreshTokens.RemoveRange(invalidRefreshTokens);
+
         AuthDto authDto = _authService.CreateAuthDto(user);
         _authService.AddRefreshToken(user.Id, authDto.RefreshToken);
 
