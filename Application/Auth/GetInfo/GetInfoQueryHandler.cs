@@ -11,16 +11,13 @@ public class GetInfoQueryHandler : IQueryHandler<GetInfoQuery, InfoResponse>
 {
     private readonly IApplicationDbContext _context;
     private readonly IUserContext _userContext;
-    private readonly IUserErrors _userErrors;
 
     public GetInfoQueryHandler(
         IApplicationDbContext context,
-        IUserContext userContext,
-        IUserErrors userErrors)
+        IUserContext userContext)
     {
         _context = context;
         _userContext = userContext;
-        _userErrors = userErrors;
     }
 
     public async Task<Result<InfoResponse>> Handle(GetInfoQuery request, CancellationToken cancellationToken)
@@ -30,7 +27,7 @@ public class GetInfoQueryHandler : IQueryHandler<GetInfoQuery, InfoResponse>
 
         if (user is null)
         {
-            return _userErrors.NotFoundByUserContext();
+            return UserErrors.NotFoundByUserContext();
         }
 
         return new InfoResponse

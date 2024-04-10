@@ -1,4 +1,4 @@
-using Domain.Errors;
+using Application.Common.Interfaces;
 using Domain.Shared;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -13,16 +13,16 @@ public class ApiControllerBase : ControllerBase
     protected ISender Sender => _sender ??=
         HttpContext.RequestServices.GetRequiredService<ISender>();
 
-    private IDefaultErrors? _defaultErrors;
-    protected IDefaultErrors DefaultErrors => _defaultErrors ??=
-        HttpContext.RequestServices.GetRequiredService<IDefaultErrors>();
+    private ITranslator? _translator;
+    protected ITranslator Translator => _translator ??=
+        HttpContext.RequestServices.GetRequiredService<ITranslator>();
 
     [NonAction]
     protected ActionResult HandleResult(Result result)
     {
         if (result is null)
         {
-            return GetErrorResult(DefaultErrors.NullResult());
+            return GetErrorResult(Error.NullResult);
         }
 
         if (result.IsSuccess)
@@ -38,7 +38,7 @@ public class ApiControllerBase : ControllerBase
     {
         if (result is null)
         {
-            return GetErrorResult(DefaultErrors.NullResult());
+            return GetErrorResult(Error.NullResult);
         }
 
         if (result.IsSuccess && result.Value is not null)
@@ -55,8 +55,19 @@ public class ApiControllerBase : ControllerBase
     }
 
     [NonAction]
-    protected ObjectResult GetErrorResult(Error error) =>
-        StatusCode(GetStatusCode(error.Type), error);
+    protected ObjectResult GetErrorResult(Error error)
+    {
+        string message = Translator.GetString(error.Code, error.MessageArguments);
+
+        if (message == error.Code)
+        {
+            message = error.Message;
+        }
+
+        var errorResponse = new ErrorResponse(error.Code, message);
+
+        return StatusCode(GetStatusCode(error.Type), errorResponse);
+    }
 
     [NonAction]
     private static int GetStatusCode(ErrorType errorType) =>

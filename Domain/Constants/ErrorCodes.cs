@@ -2,18 +2,18 @@ namespace Domain.Constants;
 
 public class ErrorCodes
 {
-    public static class Default
+    public static class Error
     {
         public const string NullValue = "Error.NullValue";
         public const string NullResult = "Error.NullResult";
     }
 
-    public static class RefreshToken
+    public static class RefreshTokens
     {
         public const string InvalidToken = "RefreshTokens.InvalidToken";
     }
 
-    public static class User
+    public static class Users
     {
         public const string NotFound = "Users.NotFound";
         public const string NotFoundByEmail = "Users.NotFoundByEmail";

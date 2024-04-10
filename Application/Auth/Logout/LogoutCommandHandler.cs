@@ -11,16 +11,13 @@ public class LogoutCommandHandler : ICommandHandler<LogoutCommand>
 {
     private readonly IApplicationDbContext _context;
     private readonly IUserContext _userContext;
-    private readonly IRefreshTokenErrors _refreshTokenErrors;
 
     public LogoutCommandHandler(
         IApplicationDbContext context,
-        IUserContext userContext,
-        IRefreshTokenErrors refreshTokenErrors)
+        IUserContext userContext)
     {
         _context = context;
         _userContext = userContext;
-        _refreshTokenErrors = refreshTokenErrors;
     }
 
     public async Task<Result> Handle(LogoutCommand request, CancellationToken cancellationToken)
@@ -33,7 +30,7 @@ public class LogoutCommandHandler : ICommandHandler<LogoutCommand>
 
         if (refreshToken is null)
         {
-            return _refreshTokenErrors.InvalidToken();
+            return RefreshTokenErrors.InvalidToken();
         }
 
         _context.RefreshTokens.Remove(refreshToken);

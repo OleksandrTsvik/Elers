@@ -13,18 +13,15 @@ public class RegisterCommandHandler : ICommandHandler<RegisterCommand, AuthDto>
     private readonly IApplicationDbContext _context;
     private readonly IPasswordService _passwordService;
     private readonly IAuthService _authService;
-    private readonly IUserErrors _userErrors;
 
     public RegisterCommandHandler(
         IApplicationDbContext context,
         IPasswordService passwordService,
-        IAuthService authService,
-        IUserErrors userErrors)
+        IAuthService authService)
     {
         _context = context;
         _passwordService = passwordService;
         _authService = authService;
-        _userErrors = userErrors;
     }
 
     public async Task<Result<AuthDto>> Handle(RegisterCommand request, CancellationToken cancellationToken)
@@ -34,7 +31,7 @@ public class RegisterCommandHandler : ICommandHandler<RegisterCommand, AuthDto>
 
         if (userByEmail is not null)
         {
-            return _userErrors.EmailNotUnique();
+            return UserErrors.EmailNotUnique();
         }
 
         var user = new User

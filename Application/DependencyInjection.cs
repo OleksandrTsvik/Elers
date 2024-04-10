@@ -1,9 +1,7 @@
 using System.Reflection;
 using Application.Common.Behaviors;
-using Application.Common.Errors;
 using Application.Common.Interfaces;
 using Application.Common.Services;
-using Domain.Errors;
 using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
@@ -23,25 +21,12 @@ public static class DependencyInjection
 
         services.AddScoped<IAuthService, AuthService>();
 
-        services.AddErrors();
-
         return services;
     }
 
     private static IServiceCollection AddBehaviors(this IServiceCollection services)
     {
         services.AddScoped(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
-
-        return services;
-    }
-
-    private static IServiceCollection AddErrors(this IServiceCollection services)
-    {
-        services.AddSingleton<IErrorGenerator, ErrorGenerator>();
-
-        services.AddSingleton<IDefaultErrors, DefaultErrors>();
-        services.AddSingleton<IRefreshTokenErrors, RefreshTokenErrors>();
-        services.AddSingleton<IUserErrors, UserErrors>();
 
         return services;
     }

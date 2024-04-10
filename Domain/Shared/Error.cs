@@ -1,20 +1,39 @@
+using Domain.Constants;
+
 namespace Domain.Shared;
 
 public class Error
 {
     public static readonly Error None = new(string.Empty, string.Empty);
+    public static readonly Error NullValue = new(ErrorCodes.Error.NullValue, "Null value was provided.");
+    public static readonly Error NullResult = new(ErrorCodes.Error.NullResult, "Null result was provided.");
 
     public string Code { get; }
-    public string Description { get; }
+    public string Message { get; }
     public ErrorType Type { get; }
+    public object[] MessageArguments { get; }
 
-    private Error(string code, string description, ErrorType type = ErrorType.Failure)
+    private Error(string code, string message, ErrorType type = ErrorType.Failure,
+        object[]? messageArguments = null)
     {
         Code = code;
-        Description = description;
+        Message = message;
         Type = type;
+        MessageArguments = messageArguments ?? [];
     }
 
-    public static Error Create(ErrorType type, string code, string description) =>
-        new(code, description, type);
+    public static Error Failure(string code, string message, params object[] messageArguments) =>
+        new(code, message, ErrorType.Failure, messageArguments);
+
+    public static Error NotFound(string code, string message, params object[] messageArguments) =>
+        new(code, message, ErrorType.NotFound, messageArguments);
+
+    public static Error Validation(string code, string message, params object[] messageArguments) =>
+        new(code, message, ErrorType.Validation, messageArguments);
+
+    public static Error Conflict(string code, string message, params object[] messageArguments) =>
+        new(code, message, ErrorType.Conflict, messageArguments);
+
+    public static Error Unauthorized(string code, string message, params object[] messageArguments) =>
+        new(code, message, ErrorType.Unauthorized, messageArguments);
 }
