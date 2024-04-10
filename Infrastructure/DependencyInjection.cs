@@ -25,6 +25,8 @@ public static class DependencyInjection
 
         services.Configure<RequestLocalizationOptions>(options =>
         {
+            // Supported Culture and Country Codes
+            // https://azuliadesigns.com/c-sharp-tutorials/list-net-culture-country-codes/
             string[] supportedCultures = ["uk", "en"];
 
             // header - cookie - query
