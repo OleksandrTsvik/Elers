@@ -1,9 +1,11 @@
 using System.Reflection;
+using Application.Common.Behaviors;
 using Application.Common.Errors;
 using Application.Common.Interfaces;
 using Application.Common.Services;
 using Domain.Errors;
 using FluentValidation;
+using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Application;
@@ -17,9 +19,18 @@ public static class DependencyInjection
         services.AddMediatR(config => config.RegisterServicesFromAssembly(assembly));
         services.AddValidatorsFromAssembly(assembly);
 
+        services.AddBehaviors();
+
         services.AddScoped<IAuthService, AuthService>();
 
         services.AddErrors();
+
+        return services;
+    }
+
+    private static IServiceCollection AddBehaviors(this IServiceCollection services)
+    {
+        services.AddScoped(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
 
         return services;
     }

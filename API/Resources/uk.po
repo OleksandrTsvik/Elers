@@ -1,35 +1,44 @@
 # Error messages
 msgid "Error.NullValue"
-msgstr "Надано значення null"
+msgstr "Надано значення null."
 
 msgid "Error.NullResult"
-msgstr "Надано результат null"
+msgstr "Надано результат null."
 
 msgid "RefreshTokens.InvalidToken"
-msgstr "Недійсний токен оновлення"
+msgstr "Недійсний токен оновлення."
 
 msgid "Users.NotFound"
-msgstr "Користувача з Id = '{0}' не знайдено"
+msgstr "Користувача з Id = '{0}' не знайдено."
 
 msgid "Users.NotFoundByEmail"
-msgstr "Користувача з електронною поштою = '{0}' не знайдено"
+msgstr "Користувача з електронною поштою = '{0}' не знайдено."
 
 msgid "Users.EmailNotUnique"
-msgstr "Вказана електронна адреса уже використовується"
+msgstr "Вказана електронна адреса уже використовується."
 
 msgid "Users.InvalidCredentials"
-msgstr "Неправильна адреса електронної пошти або пароль"
+msgstr "Неправильна адреса електронної пошти або пароль."
 
 msgid "Users.NotFoundByUserContext"
-msgstr "Користувач не знайдений"
-
-msgid ""
-msgstr ""
+msgstr "Користувач не знайдений."
 
 # Validation errors
 msgid ""
 msgstr ""
 
 # Exception messages
-msgid ""
-msgstr ""
+msgid "Internal Server Error."
+msgstr "Внутрішня помилка сервера."
+
+msgid "Validation Error."
+msgstr "Помилка валідації."
+
+msgid "Success and error states are contradictory."
+msgstr "Стани успіху та помилки суперечать один одному."
+
+msgid "The result value cannot be accessed due to an error."
+msgstr "Через помилку неможливо отримати доступ до значення результату."
+
+msgid "User id is unavailable."
+msgstr "Ідентифікатор користувача недоступний."

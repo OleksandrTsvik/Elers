@@ -49,44 +49,44 @@ public class AuthController : ApiControllerBase
 
     [HttpPost("logout")]
     public async Task<IActionResult> Logout(
-        [FromBody] RefreshTokenDto request,
+        [FromBody] LogoutRequest request,
         CancellationToken cancellationToken,
         [FromQuery] bool useCookies = useCookiesByDefault)
     {
-        string? logoutRefreshToken = request.RefreshToken;
+        string? refreshToken = request.RefreshToken;
 
         if (useCookies)
         {
-            logoutRefreshToken = GetRefreshTokenFromCookie();
+            refreshToken = GetRefreshTokenFromCookie();
             RemoveAuthCookies();
         }
 
-        if (string.IsNullOrWhiteSpace(logoutRefreshToken))
+        if (string.IsNullOrWhiteSpace(refreshToken))
         {
             return Unauthorized();
         }
 
-        var command = new LogoutCommand(logoutRefreshToken);
+        var command = new LogoutCommand(refreshToken);
 
         return HandleResult(await Sender.Send(command, cancellationToken));
     }
 
     [HttpPost("refresh")]
     public async Task<IActionResult> Refresh(
-        [FromBody] RefreshTokenDto request,
+        [FromBody] UpdateTokenRequest request,
         CancellationToken cancellationToken,
         [FromQuery] bool useCookies = useCookiesByDefault)
     {
-        string? token = useCookies
+        string? refreshToken = useCookies
             ? GetRefreshTokenFromCookie()
             : request.RefreshToken;
 
-        if (string.IsNullOrWhiteSpace(token))
+        if (string.IsNullOrWhiteSpace(refreshToken))
         {
             return Unauthorized();
         }
 
-        var command = new UpdateTokenCommand(token);
+        var command = new UpdateTokenCommand(refreshToken);
 
         return HandleAuthResult(useCookies, await Sender.Send(command, cancellationToken));
     }

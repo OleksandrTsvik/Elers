@@ -1,3 +1,5 @@
+using Domain.Exceptions;
+
 namespace Domain.Shared;
 
 public class Result
@@ -12,7 +14,7 @@ public class Result
         if (isSuccess && error != Error.None ||
             !isSuccess && error == Error.None)
         {
-            throw new ArgumentException("Invalid error", nameof(error));
+            throw new InvalidResultException(nameof(error));
         }
 
         IsSuccess = isSuccess;

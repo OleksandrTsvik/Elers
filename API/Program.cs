@@ -18,7 +18,6 @@ WebApplication app = builder.Build();
 await app.InitDbAsync();
 
 app.ApplyApiCors();
-app.ApplyApiMiddlewares();
 
 if (app.Environment.IsDevelopment())
 {
@@ -27,6 +26,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseRequestLocalization();
+
+app.ApplyApiMiddlewares();
 
 app.UseAuthentication();
 app.UseAuthorization();

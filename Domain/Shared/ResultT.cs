@@ -1,3 +1,5 @@
+using Domain.Exceptions;
+
 namespace Domain.Shared;
 
 public class Result<TValue> : Result
@@ -5,7 +7,7 @@ public class Result<TValue> : Result
     private readonly TValue? _value;
     public TValue? Value => IsSuccess
         ? _value
-        : throw new InvalidOperationException("The value of a failure result can't be accessed");
+        : throw new ResultValueAccessException();
 
     protected internal Result(bool isSuccess, Error error, TValue? value)
         : base(isSuccess, error)

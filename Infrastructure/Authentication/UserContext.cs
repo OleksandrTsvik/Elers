@@ -1,5 +1,6 @@
 using System.Security.Claims;
 using Application.Common.Interfaces;
+using Domain.Exceptions;
 using Microsoft.AspNetCore.Http;
 
 namespace Infrastructure.Authentication;
@@ -21,7 +22,7 @@ public class UserContext : IUserContext
 
             return Guid.TryParse(userId, out Guid parsedUserId)
                 ? parsedUserId
-                : throw new ApplicationException("User id is unavailable");
+                : throw new UserIdUnavailableException();
         }
     }
 }

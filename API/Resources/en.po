@@ -1,35 +1,28 @@
 # Error messages
 msgid "Error.NullValue"
-msgstr "Null value was provided"
+msgstr "Null value was provided."
 
 msgid "Error.NullResult"
-msgstr "Null result was provided"
+msgstr "Null result was provided."
 
 msgid "RefreshTokens.InvalidToken"
-msgstr "Invalid refresh token"
+msgstr "Invalid refresh token."
 
 msgid "Users.NotFound"
-msgstr "The user with the Id = '{0}' was not found"
+msgstr "The user with the Id = '{0}' was not found."
 
 msgid "Users.NotFoundByEmail"
-msgstr "The user with the Email = '{0}' was not found"
+msgstr "The user with the Email = '{0}' was not found."
 
 msgid "Users.EmailNotUnique"
-msgstr "The provided email is not unique"
+msgstr "The provided email is not unique."
 
 msgid "Users.InvalidCredentials"
-msgstr "Invalid email or password"
+msgstr "Invalid email or password."
 
 msgid "Users.NotFoundByUserContext"
-msgstr "User not found"
-
-msgid ""
-msgstr ""
+msgstr "User not found."
 
 # Validation errors
-msgid ""
-msgstr ""
-
-# Exception messages
 msgid ""
 msgstr ""
