@@ -1,0 +1,35 @@
+# Error messages
+msgid "Error.NullValue"
+msgstr "Надано значення null"
+
+msgid "Error.NullResult"
+msgstr "Надано результат null"
+
+msgid "RefreshTokens.InvalidToken"
+msgstr "Недійсний токен оновлення"
+
+msgid "Users.NotFound"
+msgstr "Користувача з Id = '{0}' не знайдено"
+
+msgid "Users.NotFoundByEmail"
+msgstr "Користувача з електронною поштою = '{0}' не знайдено"
+
+msgid "Users.EmailNotUnique"
+msgstr "Вказана електронна адреса уже використовується"
+
+msgid "Users.InvalidCredentials"
+msgstr "Неправильна адреса електронної пошти або пароль"
+
+msgid "Users.NotFoundByUserContext"
+msgstr "Користувач не знайдений"
+
+msgid ""
+msgstr ""
+
+# Validation errors
+msgid ""
+msgstr ""
+
+# Exception messages
+msgid ""
+msgstr ""

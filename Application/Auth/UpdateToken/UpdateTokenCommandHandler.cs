@@ -13,15 +13,21 @@ public class UpdateTokenCommandHandler : ICommandHandler<UpdateTokenCommand, Aut
     private readonly IApplicationDbContext _context;
     private readonly IUserContext _userContext;
     private readonly IAuthService _authService;
+    private readonly IRefreshTokenErrors _refreshTokenErrors;
+    private readonly IUserErrors _userErrors;
 
     public UpdateTokenCommandHandler(
         IApplicationDbContext context,
         IUserContext userContext,
-        IAuthService authService)
+        IAuthService authService,
+        IRefreshTokenErrors refreshTokenErrors,
+        IUserErrors userErrors)
     {
         _context = context;
         _userContext = userContext;
         _authService = authService;
+        _refreshTokenErrors = refreshTokenErrors;
+        _userErrors = userErrors;
     }
 
     public async Task<Result<AuthDto>> Handle(UpdateTokenCommand request, CancellationToken cancellationToken)
@@ -34,7 +40,7 @@ public class UpdateTokenCommandHandler : ICommandHandler<UpdateTokenCommand, Aut
 
         if (refreshToken is null || !refreshToken.IsActive)
         {
-            return RefreshTokenErrors.InvalidToken();
+            return _refreshTokenErrors.InvalidToken();
         }
 
         _context.RefreshTokens.Remove(refreshToken);
@@ -46,7 +52,7 @@ public class UpdateTokenCommandHandler : ICommandHandler<UpdateTokenCommand, Aut
 
         if (user is null)
         {
-            return UserErrors.NotFoundByUserContext();
+            return _userErrors.NotFoundByUserContext();
         }
 
         AuthDto authDto = _authService.CreateAuthDto(user);

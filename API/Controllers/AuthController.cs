@@ -104,7 +104,7 @@ public class AuthController : ApiControllerBase
     {
         if (result is null)
         {
-            return GetErrorResult(Error.NullResult);
+            return GetErrorResult(DefaultErrors.NullResult());
         }
 
         if (result.IsFailure)

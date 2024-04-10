@@ -25,6 +25,10 @@ indent_size = 4
 [*.{js,jsx,ts,tsx}]
 indent_size = 2
 
+# Portable Object localization
+[*.po]
+insert_final_newline = true
+
 # C# code
 [*.cs]
 indent_size = 4
@@ -58,17 +62,20 @@ csharp_style_var_when_type_is_apparent = true:error
 
 # StyleCop.Analyzers
 
+# IDE0028: Use collection initializers or expressions
+dotnet_diagnostic.IDE0028.severity = warning
+
 # IDE0290: Use primary constructor
 dotnet_diagnostic.IDE0290.severity = none
 
-# IDE0028: Collection initialization can be simplified
-dotnet_diagnostic.IDE0028.severity = warning
+# IDE0305: Collection initialization can be simplified
+dotnet_diagnostic.IDE0305.severity = none
+
+# IDE1006: Naming rule violation: Missing prefix: 'I'
+dotnet_diagnostic.IDE1006.severity = warning
 
 # CS8019: Unnecessary using directive
 dotnet_diagnostic.CS8019.severity = warning
-
-# IDE0305: Collection initialization can be simplified
-dotnet_diagnostic.IDE0305.severity = none
 
 # Exclude EF Migrations
 [Persistence/Migrations/**.cs]

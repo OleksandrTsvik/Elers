@@ -1,3 +1,4 @@
+using Domain.Errors;
 using Domain.Shared;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -9,16 +10,19 @@ namespace API.Controllers;
 public class ApiControllerBase : ControllerBase
 {
     private ISender? _sender;
-
     protected ISender Sender => _sender ??=
         HttpContext.RequestServices.GetRequiredService<ISender>();
+
+    private IDefaultErrors? _defaultErrors;
+    protected IDefaultErrors DefaultErrors => _defaultErrors ??=
+        HttpContext.RequestServices.GetRequiredService<IDefaultErrors>();
 
     [NonAction]
     protected ActionResult HandleResult(Result result)
     {
         if (result is null)
         {
-            return GetErrorResult(Error.NullResult);
+            return GetErrorResult(DefaultErrors.NullResult());
         }
 
         if (result.IsSuccess)
@@ -34,7 +38,7 @@ public class ApiControllerBase : ControllerBase
     {
         if (result is null)
         {
-            return GetErrorResult(Error.NullResult);
+            return GetErrorResult(DefaultErrors.NullResult());
         }
 
         if (result.IsSuccess && result.Value is not null)

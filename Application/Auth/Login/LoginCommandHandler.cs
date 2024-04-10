@@ -13,15 +13,18 @@ public class LoginCommandHandler : ICommandHandler<LoginCommand, AuthDto>
     private readonly IApplicationDbContext _context;
     private readonly IPasswordService _passwordService;
     private readonly IAuthService _authService;
+    private readonly IUserErrors _userErrors;
 
     public LoginCommandHandler(
         IApplicationDbContext context,
         IPasswordService passwordService,
-        IAuthService authService)
+        IAuthService authService,
+        IUserErrors userErrors)
     {
         _context = context;
         _passwordService = passwordService;
         _authService = authService;
+        _userErrors = userErrors;
     }
 
     public async Task<Result<AuthDto>> Handle(LoginCommand request, CancellationToken cancellationToken)
@@ -33,12 +36,12 @@ public class LoginCommandHandler : ICommandHandler<LoginCommand, AuthDto>
 
         if (user is null)
         {
-            return UserErrors.InvalidCredentials();
+            return _userErrors.InvalidCredentials();
         }
 
         if (!_passwordService.VerifyHashedPassword(request.Password, user.PasswordHash))
         {
-            return UserErrors.InvalidCredentials();
+            return _userErrors.InvalidCredentials();
         }
 
         List<RefreshToken> invalidRefreshTokens = await _context.RefreshTokens

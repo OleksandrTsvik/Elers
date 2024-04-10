@@ -26,6 +26,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseRequestLocalization();
+
 app.UseAuthentication();
 app.UseAuthorization();
 
