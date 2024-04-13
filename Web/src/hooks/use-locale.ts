@@ -17,6 +17,9 @@ export default function useLocale() {
     appDispatch(setLocaleCode(code));
 
     void i18n.changeLanguage(code);
+
+    document.documentElement.lang = code;
+    document.documentElement.dir = i18n.dir(code);
   };
 
   return { locale, setLocale };

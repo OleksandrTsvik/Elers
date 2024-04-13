@@ -1,0 +1,32 @@
+{
+  "error": {
+    "simple": "Something went wrong!",
+    "status": "An error occurred while processing your request! Status - {{status}}."
+  },
+  "header": {
+    "avatar": {
+      "logout": "Logout",
+      "profile": "Profile"
+    }
+  },
+  "loading_app": "Loading app ...",
+  "loading_logout": "Logging out ...",
+  "login_page": {
+    "email": "Email",
+    "head_title": "Authentication",
+    "password": "Password",
+    "rules": {
+      "email_required": "Enter a valid email address",
+      "password_len": "Password length should be from {{min}} to {{max}} characters",
+      "password_required": "Enter your password"
+    },
+    "submit": "Login",
+    "title": "Authentication"
+  },
+  "not_found_page": {
+    "head_title": "Page not found",
+    "home_link": "Go to the home page",
+    "sub_title": "The address is incorrect or the page does not exist on the site.",
+    "title": "404 error. Page not found"
+  }
+}
