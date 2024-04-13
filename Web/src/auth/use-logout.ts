@@ -1,5 +1,4 @@
 import { App } from 'antd';
-import { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { useLogoutMutation } from './auth.api';
@@ -16,7 +15,7 @@ export default function useLogout() {
 
   const [logoutMutation, { isLoading, isError, error }] = useLogoutMutation();
 
-  const logout = useCallback(() => {
+  const logout = () => {
     const messageLoadingKey = 'logout';
 
     void message.loading({
@@ -28,14 +27,13 @@ export default function useLogout() {
     logoutMutation()
       .unwrap()
       .catch((error) => {
-        message.destroy(messageLoadingKey);
         displayError(error);
       })
       .finally(() => {
         appDispatch(resetAuthState());
         message.destroy(messageLoadingKey);
       });
-  }, [message, t, logoutMutation, displayError, appDispatch]);
+  };
 
   return { logout, isLoading, isError, error };
 }

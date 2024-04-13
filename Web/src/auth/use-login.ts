@@ -1,5 +1,3 @@
-import { useCallback } from 'react';
-
 import { LoginRequest, useLoginMutation } from './auth.api';
 import { setCredentials } from './auth.slice';
 import { useAppDispatch } from '../hooks/redux-hooks';
@@ -11,15 +9,12 @@ export default function useLogin() {
 
   const [loginMutation, { isLoading, isError, error }] = useLoginMutation();
 
-  const login = useCallback(
-    (data: LoginRequest) => {
-      loginMutation(data)
-        .unwrap()
-        .then((response) => appDispatch(setCredentials(response)))
-        .catch((error) => displayError(error, { display: false }));
-    },
-    [loginMutation, appDispatch, displayError],
-  );
+  const login = (data: LoginRequest) => {
+    loginMutation(data)
+      .unwrap()
+      .then((response) => appDispatch(setCredentials(response)))
+      .catch((error) => displayError(error, { display: false }));
+  };
 
   return { login, isLoading, isError, error };
 }

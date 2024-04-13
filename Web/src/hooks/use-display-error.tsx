@@ -1,5 +1,4 @@
 import { App } from 'antd';
-import { useCallback } from 'react';
 
 import { ErrorMessage } from '../components';
 
@@ -11,28 +10,25 @@ interface DisplayErrorConfig {
 export default function useDisplayError() {
   const { message, notification } = App.useApp();
 
-  const displayError = useCallback(
-    (
-      error: unknown,
-      { displayType, display }: DisplayErrorConfig = {
-        displayType: 'message',
-        display: true,
-      },
-    ): void => {
-      if (!display) {
-        return;
-      }
-
-      switch (displayType) {
-        case 'notification':
-          notification.error({ message: <ErrorMessage error={error} /> });
-          break;
-        default:
-          void message.error(<ErrorMessage error={error} />);
-      }
+  const displayError = (
+    error: unknown,
+    { displayType, display }: DisplayErrorConfig = {
+      displayType: 'message',
+      display: true,
     },
-    [notification, message],
-  );
+  ): void => {
+    if (!display) {
+      return;
+    }
+
+    switch (displayType) {
+      case 'notification':
+        notification.error({ message: <ErrorMessage error={error} /> });
+        break;
+      default:
+        void message.error(<ErrorMessage error={error} />);
+    }
+  };
 
   return { displayError };
 }

@@ -1,9 +1,9 @@
 import { App, ConfigProvider, Layout } from 'antd';
 import dayjs from 'dayjs';
-import { useMemo } from 'react';
+import { useEffect } from 'react';
 
 import configTheme from './antd.config-theme';
-import { Locale, locales } from './antd.locales';
+import { locales } from './antd.locales';
 import useColorMode from '../../hooks/use-color-mode';
 import useLocale from '../../hooks/use-locale';
 
@@ -13,20 +13,17 @@ interface Props {
 
 export default function AntdProvider({ children }: Props) {
   const { locale } = useLocale();
+  const { colorMode } = useColorMode();
 
-  const componentsLocale: Locale = useMemo(() => {
-    const localeSettings = locales[locale];
-
-    dayjs.locale(localeSettings.dayjs);
-
-    return localeSettings.antd;
+  useEffect(() => {
+    dayjs.locale(locales[locale].dayjs);
   }, [locale]);
 
-  const { colorMode } = useColorMode();
-  const theme = useMemo(() => configTheme(colorMode), [colorMode]);
-
   return (
-    <ConfigProvider theme={theme} locale={componentsLocale}>
+    <ConfigProvider
+      theme={configTheme(colorMode)}
+      locale={locales[locale].antd}
+    >
       <App>
         <Layout style={{ minHeight: '100vh' }}>{children}</Layout>
       </App>
