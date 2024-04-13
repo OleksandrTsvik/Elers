@@ -2,8 +2,8 @@ import { App, ConfigProvider, Layout } from 'antd';
 import dayjs from 'dayjs';
 import { useMemo } from 'react';
 
-import configTheme from './config-theme.antd';
-import { Locale, locales } from './locales.antd';
+import configTheme from './antd.config-theme';
+import { Locale, locales } from './antd.locales';
 import useColorMode from '../../hooks/use-color-mode';
 import useLocale from '../../hooks/use-locale';
 
