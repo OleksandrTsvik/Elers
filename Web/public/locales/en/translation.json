@@ -1,5 +1,6 @@
 {
   "error": {
+    "access_denied": "Access denied!",
     "simple": "Something went wrong!",
     "status": "An error occurred while processing your request! Status - {{status}}."
   },
@@ -9,8 +10,10 @@
       "profile": "Profile"
     }
   },
-  "loading_app": "Loading app ...",
-  "loading_logout": "Logging out ...",
+  "loading": {
+    "app": "Loading app ...",
+    "logout": "Logging out ..."
+  },
   "login_page": {
     "email": "Email",
     "head_title": "Authentication",

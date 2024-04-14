@@ -1,8 +1,7 @@
-import { fetchBaseQuery } from '@reduxjs/toolkit/query';
 import { Mutex } from 'async-mutex';
 
 import { logout } from './auth.slice';
-import { REACT_APP_API_URL } from '../utils/constants/node-env.constants';
+import { getBaseQuery } from '../api/get-base-query';
 
 import type {
   BaseQueryFn,
@@ -13,10 +12,7 @@ import type {
 // https://redux-toolkit.js.org/rtk-query/usage/customizing-queries#preventing-multiple-unauthorized-errors
 const mutex = new Mutex();
 
-const baseQuery = fetchBaseQuery({
-  baseUrl: REACT_APP_API_URL,
-  credentials: 'include',
-});
+const baseQuery = getBaseQuery();
 
 export const baseQueryWithReauth: BaseQueryFn<
   string | FetchArgs,
@@ -35,7 +31,11 @@ export const baseQueryWithReauth: BaseQueryFn<
 
       try {
         const refreshResult = await baseQuery(
-          '/auth/refreshToken',
+          {
+            url: '/auth/refresh',
+            method: 'PUT',
+            body: {},
+          },
           api,
           extraOptions,
         );

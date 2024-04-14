@@ -1,4 +1,5 @@
 import { ConfigProviderProps } from 'antd';
+import { DirectionType } from 'antd/es/config-provider';
 
 import enUS from 'antd/locale/en_US';
 import ukUA from 'antd/locale/uk_UA';
@@ -12,6 +13,7 @@ export type Locale = ConfigProviderProps['locale'];
 export interface LocaleSettings {
   antd: Locale;
   dayjs: string;
+  direction?: DirectionType;
 }
 
 export type Locales = { [key in LocaleCode]: LocaleSettings };

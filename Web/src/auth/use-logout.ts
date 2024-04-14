@@ -1,8 +1,8 @@
 import { App } from 'antd';
 import { useTranslation } from 'react-i18next';
 
-import { useLogoutMutation } from './auth.api';
 import { logout as resetAuthState } from './auth.slice';
+import { useLogoutMutation } from '../api/account.api';
 import { useAppDispatch } from '../hooks/redux-hooks';
 import useDisplayError from '../hooks/use-display-error';
 
@@ -20,19 +20,15 @@ export default function useLogout() {
 
     void message.loading({
       key: messageLoadingKey,
-      content: t('loading_logout'),
+      content: t('loading.logout'),
       duration: 0,
     });
 
     logoutMutation()
       .unwrap()
-      .catch((error) => {
-        displayError(error);
-      })
-      .finally(() => {
-        appDispatch(resetAuthState());
-        message.destroy(messageLoadingKey);
-      });
+      .then(() => appDispatch(resetAuthState()))
+      .catch((error) => displayError(error))
+      .finally(() => message.destroy(messageLoadingKey));
   };
 
   return { logout, isLoading, isError, error };

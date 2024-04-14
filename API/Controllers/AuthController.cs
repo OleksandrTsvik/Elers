@@ -3,8 +3,8 @@ using Application.Auth.DTOs;
 using Application.Auth.GetInfo;
 using Application.Auth.Login;
 using Application.Auth.Logout;
-using Application.Auth.Register;
 using Application.Auth.UpdateToken;
+using Domain.Errors;
 using Domain.Shared;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -35,18 +35,6 @@ public class AuthController : ApiControllerBase
         return HandleAuthResult(useCookies, await Sender.Send(command, cancellationToken));
     }
 
-    [AllowAnonymous]
-    [HttpPost("register")]
-    public async Task<IActionResult> Register(
-        [FromBody] RegisterRequest request,
-        CancellationToken cancellationToken,
-        [FromQuery] bool useCookies = useCookiesByDefault)
-    {
-        var command = new RegisterCommand(request.Email, request.Password);
-
-        return HandleAuthResult(useCookies, await Sender.Send(command, cancellationToken));
-    }
-
     [HttpPost("logout")]
     public async Task<IActionResult> Logout(
         [FromBody] LogoutRequest request,
@@ -63,7 +51,7 @@ public class AuthController : ApiControllerBase
 
         if (string.IsNullOrWhiteSpace(refreshToken))
         {
-            return Unauthorized();
+            return GetErrorResult(UserErrors.Unauthorized());
         }
 
         var command = new LogoutCommand(refreshToken);
@@ -71,7 +59,8 @@ public class AuthController : ApiControllerBase
         return HandleResult(await Sender.Send(command, cancellationToken));
     }
 
-    [HttpPost("refresh")]
+    [AllowAnonymous]
+    [HttpPut("refresh")]
     public async Task<IActionResult> Refresh(
         [FromBody] UpdateTokenRequest request,
         CancellationToken cancellationToken,
@@ -83,7 +72,7 @@ public class AuthController : ApiControllerBase
 
         if (string.IsNullOrWhiteSpace(refreshToken))
         {
-            return Unauthorized();
+            return GetErrorResult(UserErrors.Unauthorized());
         }
 
         var command = new UpdateTokenCommand(refreshToken);
@@ -114,7 +103,7 @@ public class AuthController : ApiControllerBase
 
         if (result.Value is null)
         {
-            return Unauthorized();
+            return GetErrorResult(UserErrors.Unauthorized());
         }
 
         SetAuthCookies(result.Value.AccessToken, result.Value.RefreshToken);

@@ -26,7 +26,6 @@ public class AuthService : IAuthService
             {
                 Email = user.Email,
                 AvatarUrl = user.AvatarUrl,
-                Roles = user.Roles.Select(x => x.Name).ToList(),
                 Permissions = user.Roles
                     .SelectMany(x => x.Permissions)
                     .Select(x => x.Name)

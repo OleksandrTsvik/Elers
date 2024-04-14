@@ -18,6 +18,7 @@ WebApplication app = builder.Build();
 await app.InitDbAsync();
 
 app.ApplyApiCors();
+app.ApplyApiCookie();
 
 if (app.Environment.IsDevelopment())
 {

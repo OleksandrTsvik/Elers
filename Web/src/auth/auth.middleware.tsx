@@ -40,7 +40,7 @@ export default function AuthMiddleware({ children }: Props) {
   }, []);
 
   if (isLoading) {
-    return <Spin fullscreen tip={t('loading_app')} />;
+    return <Spin fullscreen tip={t('loading.app')} />;
   }
 
   return <>{children}</>;

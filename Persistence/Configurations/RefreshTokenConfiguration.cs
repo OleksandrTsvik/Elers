@@ -16,6 +16,10 @@ public class RefreshTokenConfiguration : IEntityTypeConfiguration<RefreshToken>
             .HasMaxLength(1024);
 
         builder
+            .HasIndex(refreshToken => refreshToken.Token)
+            .IsUnique();
+
+        builder
             .Property(refreshToken => refreshToken.ExpiryDate)
             .IsRequired();
 

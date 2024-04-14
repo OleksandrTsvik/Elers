@@ -2,7 +2,7 @@ import { App, ConfigProvider, Layout } from 'antd';
 import dayjs from 'dayjs';
 import { useEffect } from 'react';
 
-import configTheme from './antd.config-theme';
+import { configTheme, messageConfig, notificationConfig } from './antd.config';
 import { locales } from './antd.locales';
 import useColorMode from '../../hooks/use-color-mode';
 import useLocale from '../../hooks/use-locale';
@@ -23,8 +23,9 @@ export default function AntdProvider({ children }: Props) {
     <ConfigProvider
       theme={configTheme(colorMode)}
       locale={locales[locale].antd}
+      direction={locales[locale].direction}
     >
-      <App>
+      <App message={messageConfig} notification={notificationConfig}>
         <Layout style={{ minHeight: '100vh' }}>{children}</Layout>
       </App>
     </ConfigProvider>

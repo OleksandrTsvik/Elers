@@ -1,7 +1,7 @@
 import { Alert } from 'antd';
 import React from 'react';
 
-import { ErrorMessage } from '..';
+import ErrorDetails from './error-details';
 
 interface Props {
   error: unknown;
@@ -13,7 +13,7 @@ export default function ErrorAlert({ error, style }: Props) {
     <Alert
       type="error"
       style={style}
-      message={<ErrorMessage error={error} />}
+      message={<ErrorDetails error={error} />}
     />
   );
 }

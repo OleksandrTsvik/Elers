@@ -11,26 +11,20 @@ namespace Application.Auth.UpdateToken;
 public class UpdateTokenCommandHandler : ICommandHandler<UpdateTokenCommand, AuthDto>
 {
     private readonly IApplicationDbContext _context;
-    private readonly IUserContext _userContext;
     private readonly IAuthService _authService;
 
     public UpdateTokenCommandHandler(
         IApplicationDbContext context,
-        IUserContext userContext,
         IAuthService authService)
     {
         _context = context;
-        _userContext = userContext;
         _authService = authService;
     }
 
     public async Task<Result<AuthDto>> Handle(UpdateTokenCommand request, CancellationToken cancellationToken)
     {
         RefreshToken? refreshToken = await _context.RefreshTokens
-            .FirstOrDefaultAsync(
-                x => x.Token == request.RefreshToken &&
-                    x.UserId == _userContext.UserId,
-                cancellationToken);
+            .FirstOrDefaultAsync(x => x.Token == request.RefreshToken, cancellationToken);
 
         if (refreshToken is null || !refreshToken.IsActive)
         {
@@ -42,11 +36,11 @@ public class UpdateTokenCommandHandler : ICommandHandler<UpdateTokenCommand, Aut
         User? user = await _context.Users
             .Include(x => x.Roles)
                 .ThenInclude(x => x.Permissions)
-            .FirstOrDefaultAsync(x => x.Id == _userContext.UserId, cancellationToken);
+            .FirstOrDefaultAsync(x => x.Id == refreshToken.UserId, cancellationToken);
 
         if (user is null)
         {
-            return UserErrors.NotFoundByUserContext();
+            return UserErrors.NotFound(refreshToken.UserId);
         }
 
         AuthDto authDto = _authService.CreateAuthDto(user);

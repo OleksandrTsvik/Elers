@@ -1,4 +1,5 @@
-import ErrorAlert from './error-alert';
-import ErrorMessage from './error-alert/error-message';
+import ErrorAlert from './error/error-alert';
+import ErrorDetails from './error/error-details';
+import ErrorMessage from './error/error-message';
 
-export { ErrorAlert, ErrorMessage };
+export { ErrorAlert, ErrorDetails, ErrorMessage };

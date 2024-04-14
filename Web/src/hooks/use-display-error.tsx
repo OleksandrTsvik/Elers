@@ -17,7 +17,7 @@ export default function useDisplayError() {
       display: true,
     },
   ): void => {
-    if (!display) {
+    if (display === false) {
       return;
     }
 

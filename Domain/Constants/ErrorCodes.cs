@@ -20,5 +20,6 @@ public class ErrorCodes
         public const string EmailNotUnique = "Users.EmailNotUnique";
         public const string InvalidCredentials = "Users.InvalidCredentials";
         public const string NotFoundByUserContext = "Users.NotFoundByUserContext";
+        public const string Unauthorized = "Users.Unauthorized";
     }
 }

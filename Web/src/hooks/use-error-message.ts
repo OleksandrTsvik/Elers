@@ -5,20 +5,19 @@ import parseErrorObject from '../utils/helpers/parse-error-object.util';
 export default function useErrorMessage() {
   const { t } = useTranslation();
 
-  const getErrorMessage = (error: unknown): string | string[] => {
+  const getErrorMessage = (error: unknown) => {
     const errorObject = parseErrorObject(error);
 
-    let errorMessage: string | string[] = t('error.simple');
+    const description = errorObject.description;
+    let message: string | string[] = t('error.simple');
 
     if (errorObject.message) {
-      errorMessage = errorObject.message;
-    } else if (errorObject.description) {
-      errorMessage = errorObject.description;
+      message = errorObject.message;
     } else if (errorObject.status) {
-      errorMessage = t('error.status', { status: errorObject.status });
+      message = t('error.status', { status: errorObject.status });
     }
 
-    return errorMessage;
+    return { message, description };
   };
 
   return { getErrorMessage };

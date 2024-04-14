@@ -17,6 +17,10 @@ public static class UserErrors
         ErrorCodes.Users.EmailNotUnique,
         "The provided email is not unique.");
 
+    public static Error Unauthorized() => Error.Unauthorized(
+        ErrorCodes.Users.Unauthorized,
+        "Please authenticate to access this resource.");
+
     public static Error InvalidCredentials() => Error.Unauthorized(
         ErrorCodes.Users.InvalidCredentials,
         "Invalid email or password.");

@@ -1,21 +1,16 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { createApi } from '@reduxjs/toolkit/query/react';
 
+import { getBaseQuery } from '../api/get-base-query';
 import { User } from '../models/user.interface';
-import { REACT_APP_API_URL } from '../utils/constants/node-env.constants';
 
 export interface LoginRequest {
   email: string;
   password: string;
 }
 
-const baseQuery = fetchBaseQuery({
-  baseUrl: REACT_APP_API_URL + '/auth',
-  credentials: 'include',
-});
-
 export const authApi = createApi({
   reducerPath: 'authApi',
-  baseQuery,
+  baseQuery: getBaseQuery('/auth'),
   endpoints: (builder) => ({
     login: builder.mutation<User, LoginRequest>({
       query: (data) => ({
@@ -24,22 +19,14 @@ export const authApi = createApi({
         body: data,
       }),
     }),
-    logout: builder.mutation<void, void>({
-      query: () => ({
-        url: '/logout',
-        method: 'POST',
-        body: {},
-      }),
-    }),
     refresh: builder.mutation<User, void>({
       query: () => ({
         url: '/refresh',
-        method: 'POST',
+        method: 'PUT',
         body: {},
       }),
     }),
   }),
 });
 
-export const { useLoginMutation, useLogoutMutation, useRefreshMutation } =
-  authApi;
+export const { useLoginMutation, useRefreshMutation } = authApi;
