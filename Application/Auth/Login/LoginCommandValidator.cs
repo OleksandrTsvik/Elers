@@ -1,3 +1,4 @@
+using Domain.Rules;
 using FluentValidation;
 
 namespace Application.Auth.Login;
@@ -8,6 +9,8 @@ public class LoginCommandValidator : AbstractValidator<LoginCommand>
     {
         RuleFor(x => x.Email).EmailAddress();
 
-        RuleFor(x => x.Password).MinimumLength(6).MaximumLength(32);
+        RuleFor(x => x.Password)
+            .MinimumLength(UserRules.MinPasswordLength)
+            .MaximumLength(UserRules.MaxPasswordLength);
     }
 }

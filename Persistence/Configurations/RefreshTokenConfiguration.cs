@@ -1,4 +1,5 @@
 using Domain.Entities;
+using Domain.Rules;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -13,7 +14,7 @@ public class RefreshTokenConfiguration : IEntityTypeConfiguration<RefreshToken>
         builder
             .Property(refreshToken => refreshToken.Token)
             .IsRequired()
-            .HasMaxLength(1024);
+            .HasMaxLength(RefreshTokenRules.MaxTokenLength);
 
         builder
             .HasIndex(refreshToken => refreshToken.Token)

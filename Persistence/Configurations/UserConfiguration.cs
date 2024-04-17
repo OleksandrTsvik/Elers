@@ -1,4 +1,5 @@
 using Domain.Entities;
+using Domain.Rules;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -13,7 +14,7 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
         builder
             .Property(user => user.Email)
             .IsRequired()
-            .HasMaxLength(64);
+            .HasMaxLength(UserRules.MaxEmailLength);
 
         builder
             .HasIndex(user => user.Email)
@@ -22,7 +23,7 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
         builder
             .Property(user => user.PasswordHash)
             .IsRequired()
-            .HasMaxLength(512);
+            .HasMaxLength(UserRules.MaxPasswordHashLength);
 
         builder
             .Property(user => user.RegistrationDate)
@@ -31,22 +32,22 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
         builder
             .Property(user => user.FirstName)
             .IsRequired(false)
-            .HasMaxLength(64);
+            .HasMaxLength(UserRules.MaxFirstNameLength);
 
         builder
             .Property(user => user.LastName)
             .IsRequired(false)
-            .HasMaxLength(64);
+            .HasMaxLength(UserRules.MaxLastNameLength);
 
         builder
             .Property(user => user.Patronymic)
             .IsRequired(false)
-            .HasMaxLength(64);
+            .HasMaxLength(UserRules.MaxPatronymicLength);
 
         builder
             .Property(user => user.AvatarUrl)
             .IsRequired(false)
-            .HasMaxLength(512);
+            .HasMaxLength(UserRules.MaxAvatarUrlLength);
 
         builder
             .Property(user => user.BirthDate)

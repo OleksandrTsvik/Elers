@@ -1,4 +1,5 @@
 using Domain.Entities;
+using Domain.Rules;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -13,7 +14,7 @@ public class PermissionConfiguration : IEntityTypeConfiguration<Permission>
         builder
             .Property(permission => permission.Name)
             .IsRequired()
-            .HasMaxLength(128);
+            .HasMaxLength(PermissionRules.MaxNameLength);
 
         builder
             .HasIndex(permission => permission.Name)

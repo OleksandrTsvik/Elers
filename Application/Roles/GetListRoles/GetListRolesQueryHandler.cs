@@ -18,7 +18,7 @@ public class GetListRolesQueryHandler : IQueryHandler<GetListRolesQuery, GetList
         GetListRolesQuery request,
         CancellationToken cancellationToken)
     {
-        var roles = await _context.Roles
+        GetListRoleItemResponse[] roles = await _context.Roles
             .Include(x => x.Permissions)
             .Select(x => new GetListRoleItemResponse
             {
@@ -31,7 +31,7 @@ public class GetListRolesQueryHandler : IQueryHandler<GetListRolesQuery, GetList
                 })
                 .ToArray()
             })
-            .ToArrayAsync();
+            .ToArrayAsync(cancellationToken);
 
         return roles;
     }
