@@ -8,6 +8,12 @@ msgstr "Надано результат null."
 msgid "RefreshTokens.InvalidToken"
 msgstr "Недійсний токен оновлення."
 
+msgid "Roles.NotFound"
+msgstr "Роль з Id = '{0}' не знайдено."
+
+msgid "Roles.NameNotUnique"
+msgstr "Роль із назвою = '{0}' уже існує."
+
 msgid "Users.NotFound"
 msgstr "Користувача з Id = '{0}' не знайдено."
 

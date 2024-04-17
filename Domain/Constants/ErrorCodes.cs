@@ -13,6 +13,12 @@ public class ErrorCodes
         public const string InvalidToken = "RefreshTokens.InvalidToken";
     }
 
+    public static class Roles
+    {
+        public const string NotFound = "Roles.NotFound";
+        public const string NameNotUnique = "Roles.NameNotUnique";
+    }
+
     public static class Users
     {
         public const string NotFound = "Users.NotFound";

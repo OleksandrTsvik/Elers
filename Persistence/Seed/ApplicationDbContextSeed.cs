@@ -66,18 +66,23 @@ public class ApplicationDbContextSeed
 
     private async Task<List<Role>> GetAndSeedRolesAsync(List<Permission> allPermissions)
     {
-        List<Role> existingRoles = await _context.Roles.ToListAsync();
+        List<Role> existingRoles = await _context.Roles
+            .Include(x => x.Permissions)
+            .ToListAsync();
+
         var newRoles = new List<Role>();
 
         foreach (DefaultRole role in PermissionsSetup.DefaultRolePermissions.Keys)
         {
-            if (!existingRoles.Any(x => x.Name == role.ToString()))
-            {
-                var rolePermissions = allPermissions
-                    .Where(x => PermissionsSetup.DefaultRolePermissions[role]
-                        .ContainsPermission(x.Name))
-                    .ToList();
+            Role? currentRole = existingRoles.Find(x => x.Name == role.ToString());
 
+            var rolePermissions = allPermissions
+                .Where(x => PermissionsSetup.DefaultRolePermissions[role]
+                    .ContainsPermission(x.Name))
+                .ToList();
+
+            if (currentRole is null)
+            {
                 var newRole = new Role
                 {
                     Name = role.ToString(),
@@ -85,6 +90,10 @@ public class ApplicationDbContextSeed
                 };
 
                 newRoles.Add(newRole);
+            }
+            else
+            {
+                currentRole.Permissions = rolePermissions;
             }
         }
 
@@ -132,12 +141,12 @@ public class ApplicationDbContextSeed
     }
 
     private static List<UserDto> GetUsersSeedData() =>
-    [
-        new UserDto
-        {
-            Email = "ipz203_tsos@student.ztu.edu.ua",
-            Password = "123456",
-            DefaultRoles = [DefaultRole.Admin]
-        }
-    ];
+        [
+            new UserDto
+            {
+                Email = "ipz203_tsos@student.ztu.edu.ua",
+                Password = "123456",
+                DefaultRoles = [DefaultRole.Admin]
+            }
+        ];
 }

@@ -1,4 +1,5 @@
 using Domain.Entities;
+using Domain.Rules;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -13,7 +14,7 @@ public class RoleConfiguration : IEntityTypeConfiguration<Role>
         builder
             .Property(role => role.Name)
             .IsRequired()
-            .HasMaxLength(32);
+            .HasMaxLength(RoleRules.MaxNameLength);
 
         builder
             .HasIndex(role => role.Name)
