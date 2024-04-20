@@ -2,12 +2,23 @@ import { RouteObject } from 'react-router-dom';
 
 import PermissionsOutlet from './permissions.outlet';
 import { Permission } from '../models/permission.enum';
+import { RolesPage } from '../pages';
 
 export const privateRoutes: RouteObject[] = [
-  { path: 'private', element: <>private</> },
+  { path: 'courses', element: <>courses</> },
   {
-    path: 'permissions',
-    element: <PermissionsOutlet permissions={Permission.CreateUser} />,
-    children: [],
+    path: 'roles',
+    element: (
+      <PermissionsOutlet
+        permissions={[
+          Permission.CreateRole,
+          Permission.ReadRole,
+          Permission.UpdateRole,
+          Permission.UpdateRolePermissions,
+          Permission.DeleteRole,
+        ]}
+      />
+    ),
+    children: [{ index: true, element: <RolesPage /> }],
   },
 ];

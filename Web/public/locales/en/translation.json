@@ -1,4 +1,8 @@
 {
+  "actions": {
+    "delete": "Delete",
+    "edit": "Edit"
+  },
   "error": {
     "access_denied": "Access denied!",
     "simple": "Something went wrong!",
@@ -31,5 +35,17 @@
     "home_link": "Go to the home page",
     "sub_title": "The address is incorrect or the page does not exist on the site.",
     "title": "404 error. Page not found"
+  },
+  "roles_page": {
+    "head_title": "Roles",
+    "permissions": "Number of permissions",
+    "role": "Role",
+    "title": "Roles"
+  },
+  "sider_items": {
+    "courses": "Courses",
+    "home": "Home",
+    "user_permissions": "Permissions",
+    "user_roles": "Roles"
   }
 }

@@ -12,6 +12,10 @@ export default function hasPermission(
     return true;
   }
 
+  if (userPermissions.length === 0) {
+    return false;
+  }
+
   return permissionsArr.some((permission) =>
     userPermissions.includes(permission),
   );

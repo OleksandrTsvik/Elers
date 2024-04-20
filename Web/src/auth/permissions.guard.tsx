@@ -1,4 +1,3 @@
-import hasPermission from './has-permission.util';
 import useAuth from '../hooks/use-auth';
 import { Permission } from '../models/permission.enum';
 
@@ -8,9 +7,9 @@ interface Props {
 }
 
 export default function PermissionsGuard({ permissions, children }: Props) {
-  const { user } = useAuth();
+  const { checkPermission } = useAuth();
 
-  if (!user || !hasPermission(user.permissions, permissions)) {
+  if (!checkPermission(permissions)) {
     return null;
   }
 

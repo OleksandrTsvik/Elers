@@ -2,7 +2,6 @@ import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
 
-import hasPermission from '../auth/has-permission.util';
 import useAuth from '../hooks/use-auth';
 import useDisplayError from '../hooks/use-display-error';
 import useLocationFrom from '../hooks/use-location-from';
@@ -17,21 +16,23 @@ export default function PermissionsOutlet({ permissions }: Props) {
   const location = useLocation();
 
   const redirectTo = useLocationFrom();
-  const { user } = useAuth();
+  const { isAuth, checkPermission } = useAuth();
 
   const { displayError } = useDisplayError();
 
+  const hasPermission = checkPermission(permissions);
+
   useEffect(() => {
-    if (user && !hasPermission(user.permissions, permissions)) {
+    if (!hasPermission) {
       displayError(t('error.access_denied'), { displayType: 'notification' });
     }
-  }, [displayError, permissions, t, user]);
+  }, [displayError, hasPermission, t]);
 
-  if (!user) {
+  if (!isAuth) {
     return <Navigate to="/login" replace state={{ from: location }} />;
   }
 
-  if (!hasPermission(user.permissions, permissions)) {
+  if (!hasPermission) {
     return <Navigate to={redirectTo} replace />;
   }
 

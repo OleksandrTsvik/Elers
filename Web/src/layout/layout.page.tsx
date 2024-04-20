@@ -4,6 +4,7 @@ import { Outlet } from 'react-router-dom';
 
 import Footer from './footer';
 import Header from './header';
+import { CONTENT_MAX_WIDTH } from './layout.constants';
 import Sider from './sider';
 import useAuth from '../hooks/use-auth';
 import { COLLAPSED_SIDER } from '../utils/constants/local-storage.constants';
@@ -55,7 +56,9 @@ export default function LayoutPage() {
               borderRadius: breakpoints.md ? borderRadiusLG : undefined,
             }}
           >
-            <Outlet />
+            <div style={{ margin: '0 auto', maxWidth: CONTENT_MAX_WIDTH }}>
+              <Outlet />
+            </div>
           </Layout.Content>
           <Footer />
         </Layout>

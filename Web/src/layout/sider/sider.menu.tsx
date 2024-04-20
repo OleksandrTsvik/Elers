@@ -1,14 +1,21 @@
 import { Menu } from 'antd';
+import { useLocation, useNavigate } from 'react-router-dom';
 
-import { items } from './sider.items';
+import useSiderItems from './use-sider.items';
 
 export default function SiderMenu() {
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const items = useSiderItems();
+
   return (
     <Menu
       mode="inline"
-      defaultSelectedKeys={['1']}
-      style={{ borderRight: 0 }}
       items={items}
+      defaultSelectedKeys={[location.pathname]}
+      style={{ borderRight: 0 }}
+      onSelect={({ key }) => navigate(key)}
     />
   );
 }
