@@ -19,6 +19,7 @@ public class UpdateRoleCommandHandler : ICommandHandler<UpdateRoleCommand>
     public async Task<Result> Handle(UpdateRoleCommand request, CancellationToken cancellationToken)
     {
         Role? role = await _context.Roles
+            .Include(x => x.Permissions)
             .FirstOrDefaultAsync(x => x.Id == request.RoleId, cancellationToken);
 
         if (role is null)
@@ -33,6 +34,19 @@ public class UpdateRoleCommandHandler : ICommandHandler<UpdateRoleCommand>
 
         role.Name = request.Name;
 
+        if (request.PermissionIds.Length == 0)
+        {
+            role.Permissions.Clear();
+        }
+        else
+        {
+            List<Permission> newRolePermissions = await _context.Permissions
+                .Where(x => request.PermissionIds.Contains(x.Id))
+                .ToListAsync(cancellationToken);
+
+            role.Permissions = newRolePermissions;
+        }
+
         await _context.SaveChangesAsync(cancellationToken);
 
         return Result.Success();
@@ -43,7 +57,7 @@ public class UpdateRoleCommandHandler : ICommandHandler<UpdateRoleCommand>
         string newName,
         CancellationToken cancellationToken)
     {
-        return currentName == newName
-            || await _context.Roles.AnyAsync(x => x.Name == newName, cancellationToken);
+        return currentName != newName
+            && await _context.Roles.AnyAsync(x => x.Name == newName, cancellationToken);
     }
 }

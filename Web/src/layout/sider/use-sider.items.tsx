@@ -8,10 +8,10 @@ import { ItemType } from 'antd/es/menu/hooks/useItems';
 import { useTranslation } from 'react-i18next';
 
 import useAuth from '../../hooks/use-auth';
-import { Permission } from '../../models/permission.enum';
+import { PermissionType } from '../../models/permission-type.enum';
 
 type SiderItem = ItemType & {
-  permissions: Permission[];
+  permissions: PermissionType[];
 };
 
 export default function useSiderItems(): SiderItem[] {
@@ -36,18 +36,17 @@ export default function useSiderItems(): SiderItem[] {
       icon: <SolutionOutlined />,
       label: t('sider_items.user_roles'),
       permissions: [
-        Permission.CreateRole,
-        Permission.ReadRole,
-        Permission.UpdateRole,
-        Permission.UpdateRolePermissions,
-        Permission.DeleteRole,
+        PermissionType.CreateRole,
+        PermissionType.ReadRole,
+        PermissionType.UpdateRole,
+        PermissionType.DeleteRole,
       ],
     },
     {
       key: '/permissions',
       icon: <SafetyOutlined />,
       label: t('sider_items.user_permissions'),
-      permissions: [Permission.ReadPermission],
+      permissions: [PermissionType.ReadPermission],
     },
   ].filter((item) => checkPermission(item.permissions));
 }

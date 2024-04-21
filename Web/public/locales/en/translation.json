@@ -16,6 +16,7 @@
   },
   "loading": {
     "app": "Loading app ...",
+    "data": "Loading data ...",
     "logout": "Logging out ..."
   },
   "login_page": {
@@ -24,7 +25,7 @@
     "password": "Password",
     "rules": {
       "email_required": "Enter a valid email address",
-      "password_len": "Password length should be from {{min}} to {{max}} characters",
+      "password_len": "Password length must be from {{min}} to {{max}} characters",
       "password_required": "Enter your password"
     },
     "submit": "Login",
@@ -36,9 +37,23 @@
     "sub_title": "The address is incorrect or the page does not exist on the site.",
     "title": "404 error. Page not found"
   },
+  "role_edit_page": {
+    "description": "Description",
+    "head_title": "Edit a role",
+    "name": "Role",
+    "permission": "Permission",
+    "permissionIds": "Permissions",
+    "rules": {
+      "name_len": "The role name must be from {{min}} to {{max}} characters",
+      "name_required": "Enter a role name"
+    },
+    "submit": "Save changes",
+    "title": "Edit a role"
+  },
   "roles_page": {
     "head_title": "Roles",
-    "permissions": "Number of permissions",
+    "number_permissions": "Number of permissions",
+    "permissions": "Permissions",
     "role": "Role",
     "title": "Roles"
   },

@@ -1,18 +1,44 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
 
 import { baseQueryWithReauth } from '../auth/base-query-with-reauth';
-import { ListRoleItem } from '../models/role.interface';
+import { ListRoleItem, Role } from '../models/role.interface';
+
+interface UpdateRoleRequest {
+  roleId: string;
+  name: string;
+  permissionIds: string[];
+}
 
 export const rolesApi = createApi({
   reducerPath: 'rolesApi',
   baseQuery: baseQueryWithReauth,
+  tagTypes: ['Roles'],
   endpoints: (builder) => ({
+    getRoleById: builder.query<Role, { id: string }>({
+      query: ({ id }) => ({
+        url: `/roles/${id}`,
+      }),
+      providesTags: ['Roles'],
+    }),
     getListRoles: builder.query<ListRoleItem[], void>({
       query: () => ({
         url: '/roles',
       }),
+      providesTags: ['Roles'],
+    }),
+    updateRole: builder.mutation<void, UpdateRoleRequest>({
+      query: ({ roleId, ...data }) => ({
+        url: `/roles/${roleId}`,
+        method: 'PUT',
+        body: data,
+      }),
+      invalidatesTags: ['Roles'],
     }),
   }),
 });
 
-export const { useGetListRolesQuery } = rolesApi;
+export const {
+  useGetRoleByIdQuery,
+  useGetListRolesQuery,
+  useUpdateRoleMutation,
+} = rolesApi;

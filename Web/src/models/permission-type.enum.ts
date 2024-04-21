@@ -1,9 +1,8 @@
-export enum Permission {
+export enum PermissionType {
   ReadPermission = 'ReadPermission',
   CreateRole = 'CreateRole',
   ReadRole = 'ReadRole',
   UpdateRole = 'UpdateRole',
-  UpdateRolePermissions = 'UpdateRolePermissions',
   DeleteRole = 'DeleteRole',
   CreateUser = 'CreateUser',
   ReadUser = 'ReadUser',

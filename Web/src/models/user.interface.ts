@@ -1,7 +1,7 @@
-import { Permission } from './permission.enum';
+import { PermissionType } from './permission-type.enum';
 
 export interface User {
   email: string;
   avatarUrl: string;
-  permissions: Permission[];
+  permissions: PermissionType[];
 }

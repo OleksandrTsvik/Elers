@@ -1,8 +1,8 @@
-import { Permission } from '../models/permission.enum';
+import { PermissionType } from '../models/permission-type.enum';
 
 export default function hasPermission(
-  userPermissions: Permission[],
-  permissions: Permission | Permission[],
+  userPermissions: PermissionType[],
+  permissions: PermissionType | PermissionType[],
 ): boolean {
   const permissionsArr = Array.isArray(permissions)
     ? permissions

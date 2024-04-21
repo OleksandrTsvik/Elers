@@ -1,12 +1,12 @@
 import { useAppSelector } from './redux-hooks';
 import { selectAuthState } from '../auth/auth.slice';
 import hasPermission from '../auth/has-permission.util';
-import { Permission } from '../models/permission.enum';
+import { PermissionType } from '../models/permission-type.enum';
 
 export default function useAuth() {
   const auth = useAppSelector(selectAuthState);
 
-  const checkPermission = (permissions: Permission | Permission[]) => {
+  const checkPermission = (permissions: PermissionType | PermissionType[]) => {
     const userPermissions = auth.user?.permissions || [];
 
     return hasPermission(userPermissions, permissions);

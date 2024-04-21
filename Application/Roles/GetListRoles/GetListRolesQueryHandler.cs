@@ -24,7 +24,9 @@ public class GetListRolesQueryHandler : IQueryHandler<GetListRolesQuery, GetList
             {
                 Id = x.Id,
                 Name = x.Name,
-                PermissionsCount = x.Permissions.Count()
+                Permissions = x.Permissions
+                    .Select(permission => permission.Name)
+                    .ToArray()
             })
             .OrderBy(x => x.Name)
             .ToArrayAsync(cancellationToken);

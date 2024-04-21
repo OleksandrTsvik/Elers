@@ -14,6 +14,7 @@ export default function SiderMenu() {
       mode="inline"
       items={items}
       defaultSelectedKeys={[location.pathname]}
+      selectedKeys={[location.pathname]}
       style={{ borderRight: 0 }}
       onSelect={({ key }) => navigate(key)}
     />

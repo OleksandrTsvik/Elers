@@ -1,8 +1,8 @@
 import { RouteObject, createBrowserRouter } from 'react-router-dom';
 
-import AnonymousOutlet from './anonymous.outlet';
 import { anonymousRoutes } from './anonymous.routes';
-import PrivateOutlet from './private.outlet';
+import AnonymousOutlet from './outlets/anonymous.outlet';
+import PrivateOutlet from './outlets/private.outlet';
 import { privateRoutes } from './private.routes';
 import { publicRoutes } from './public.routes';
 import LayoutPage from '../layout/layout.page';

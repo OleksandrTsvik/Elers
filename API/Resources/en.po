@@ -1,3 +1,31 @@
+# Description of permissions
+msgid "ReadPermission"
+msgstr "Allows the user to get the full list of permission data."
+
+msgid "CreateRole"
+msgstr "Allows the user to create new roles."
+
+msgid "ReadRole"
+msgstr "Allows the user to view information about existing roles and their permissions."
+
+msgid "UpdateRole"
+msgstr "Allows the user to change the information of roles and their permissions."
+
+msgid "DeleteRole"
+msgstr "Allows the user to delete existing roles."
+
+msgid "CreateUser"
+msgstr "Allows the user to create new users in the system."
+
+msgid "ReadUser"
+msgstr "Allows the user to view the data of system users."
+
+msgid "UpdateUser"
+msgstr "Allows the user to change the information of system users."
+
+msgid "DeleteUser"
+msgstr "Allows the user to delete existing users from the system."
+
 # Validation errors
 msgid ""
 msgstr ""

@@ -4,7 +4,7 @@ import { RouterProvider } from 'react-router-dom';
 
 import AuthMiddleware from './auth/auth.middleware';
 import I18nProvider from './i18n/i18n.provider';
-import { router } from './router/routes';
+import { router } from './router/router';
 import { store } from './store';
 import AntdProvider from './utils/antd/antd.provider';
 

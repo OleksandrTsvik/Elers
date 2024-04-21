@@ -1,3 +1,35 @@
+# Description of permissions
+msgid "ReadPermission"
+msgstr "Перегляд інформації про дозволи. Дозволяє користувачу отримати весь список даних про дозволи."
+
+msgid "CreateRole"
+msgstr "Створення ролі. Дозволяє користувачу створювати нові ролі."
+
+msgid "ReadRole"
+msgstr "Перегляд інформації про ролі. Дозволяє користувачу переглядати інформацію про існуючі ролі та їхні дозволи."
+
+msgid "UpdateRole"
+msgstr "Оновлення ролі. Дозволяє користувачу змінювати інформацію ролей та їх дозволи."
+
+msgid "DeleteRole"
+msgstr "Видалення ролі. Дозволяє користувачу видаляти існуючі ролі."
+
+msgid "CreateUser"
+msgstr "Створення користувача. Дозволяє користувачу створювати нових користувачів в системі."
+
+msgid "ReadUser"
+msgstr "Перегляд інформації про користувача. Дозволяє користувачу переглядати дані користувачів системи."
+
+msgid "UpdateUser"
+msgstr "Оновлення користувача. Дозволяє користувачу змінювати інформацію користувачів системи."
+
+msgid "DeleteUser"
+msgstr "Видалення користувача. Дозволяє користувачу видаляти існуючих користувачів з системи."
+
+# Validation errors
+msgid ""
+msgstr ""
+
 # Error messages
 msgid "Error.NullValue"
 msgstr "Надано значення null."
@@ -31,10 +63,6 @@ msgstr "Користувач не знайдений."
 
 msgid "Users.Unauthorized"
 msgstr "Щоб отримати доступ до цього ресурсу, пройдіть авторизацію."
-
-# Validation errors
-msgid ""
-msgstr ""
 
 # Exception messages
 msgid "Internal Server Error."

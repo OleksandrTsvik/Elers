@@ -3,7 +3,6 @@ using Application.Roles.DeleteRole;
 using Application.Roles.GetListRoles;
 using Application.Roles.GetRoleById;
 using Application.Roles.UpdateRole;
-using Application.Roles.UpdateRolePermissions;
 using Domain.Enums;
 using Infrastructure.Authentication;
 using Microsoft.AspNetCore.Mvc;
@@ -50,19 +49,7 @@ public class RolesController : ApiControllerBase
         [FromBody] UpdateRoleRequest request,
         CancellationToken cancellationToken)
     {
-        var command = new UpdateRoleCommand(id, request.Name);
-
-        return HandleResult(await Sender.Send(command, cancellationToken));
-    }
-
-    [HasPermission(PermissionType.UpdateRolePermissions)]
-    [HttpPut("{id:guid}/permissions")]
-    public async Task<IActionResult> UpdateRolePermissions(
-        Guid id,
-        [FromBody] UpdateRolePermissionsRequest request,
-        CancellationToken cancellationToken)
-    {
-        var command = new UpdateRolePermissionsCommand(id, request.PermissionIds);
+        var command = new UpdateRoleCommand(id, request.Name, request.PermissionIds);
 
         return HandleResult(await Sender.Send(command, cancellationToken));
     }

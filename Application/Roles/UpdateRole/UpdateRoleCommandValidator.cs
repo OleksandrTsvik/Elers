@@ -12,5 +12,7 @@ public class UpdateRoleCommandValidator : AbstractValidator<UpdateRoleCommand>
         RuleFor(x => x.Name)
             .MinimumLength(RoleRules.MinNameLength)
             .MaximumLength(RoleRules.MaxNameLength);
+
+        RuleForEach(x => x.PermissionIds).NotEmpty();
     }
 }

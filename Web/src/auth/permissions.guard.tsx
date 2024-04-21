@@ -1,8 +1,8 @@
 import useAuth from '../hooks/use-auth';
-import { Permission } from '../models/permission.enum';
+import { PermissionType } from '../models/permission-type.enum';
 
 interface Props {
-  permissions: Permission | Permission[];
+  permissions: PermissionType | PermissionType[];
   children: React.ReactNode;
 }
 
