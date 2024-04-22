@@ -26,7 +26,15 @@ public class CreateRoleCommandHandler : ICommandHandler<CreateRoleCommand>
             return RoleErrors.NameNotUnique(request.Name);
         }
 
-        var role = new Role { Name = request.Name };
+        List<Permission> rolePermissions = await _context.Permissions
+                .Where(x => request.PermissionIds.Contains(x.Id))
+                .ToListAsync(cancellationToken);
+
+        var role = new Role
+        {
+            Name = request.Name,
+            Permissions = rolePermissions
+        };
 
         _context.Roles.Add(role);
 

@@ -1,3 +1,3 @@
 namespace Application.Roles.CreateRole;
 
-public record CreateRoleRequest(string Name);
+public record CreateRoleRequest(string Name, Guid[] PermissionIds);

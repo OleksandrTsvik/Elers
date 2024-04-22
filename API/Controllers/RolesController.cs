@@ -37,7 +37,7 @@ public class RolesController : ApiControllerBase
         [FromBody] CreateRoleRequest request,
         CancellationToken cancellationToken)
     {
-        var command = new CreateRoleCommand(request.Name);
+        var command = new CreateRoleCommand(request.Name, request.PermissionIds);
 
         return HandleResult(await Sender.Send(command, cancellationToken));
     }

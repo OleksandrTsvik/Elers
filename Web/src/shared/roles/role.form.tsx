@@ -13,8 +13,8 @@ export interface RoleFormValues {
 }
 
 interface Props {
-  initialValues?: RoleFormValues;
-  permissions: Permission[];
+  initialValues: RoleFormValues;
+  permissions?: Permission[];
   textOnSubmitButton: string;
   isLoading: boolean;
   isError: boolean;
@@ -65,7 +65,7 @@ export default function RoleForm({
       <Form.Item name="permissionIds" label={t('roles_page.permissionIds')}>
         <PermissionsTable
           permissions={permissions}
-          defaultSelectedRowKeys={initialValues?.permissionIds}
+          defaultSelectedRowKeys={initialValues.permissionIds}
           onChangeRowSelection={handleChangePermissionIds}
         />
       </Form.Item>

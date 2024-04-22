@@ -1,3 +1,4 @@
+import { permissionsRoutes } from './permissions.routes';
 import { rolesRoutes } from './roles.routes';
 
-export { rolesRoutes };
+export { permissionsRoutes, rolesRoutes };

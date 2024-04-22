@@ -10,5 +10,7 @@ public class CreateRoleCommandValidator : AbstractValidator<CreateRoleCommand>
         RuleFor(x => x.Name)
             .MinimumLength(RoleRules.MinNameLength)
             .MaximumLength(RoleRules.MaxNameLength);
+
+        RuleForEach(x => x.PermissionIds).NotEmpty();
     }
 }

@@ -1,7 +1,7 @@
 import { RouteObject } from 'react-router-dom';
 
 import { PermissionType } from '../../models/permission-type.enum';
-import { RoleEditPage, RolesPage } from '../../pages';
+import { RoleCreationPage, RoleEditPage, RolesPage } from '../../pages';
 import PermissionsOutlet from '../outlets/permissions.outlet';
 
 export const rolesRoutes: RouteObject = {
@@ -22,6 +22,11 @@ export const rolesRoutes: RouteObject = {
       path: 'edit/:roleId',
       element: <PermissionsOutlet permissions={[PermissionType.UpdateRole]} />,
       children: [{ index: true, element: <RoleEditPage /> }],
+    },
+    {
+      path: 'add',
+      element: <PermissionsOutlet permissions={[PermissionType.CreateRole]} />,
+      children: [{ index: true, element: <RoleCreationPage /> }],
     },
   ],
 };

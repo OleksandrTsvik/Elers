@@ -1,7 +1,9 @@
 {
   "actions": {
+    "add": "Add",
     "delete": "Delete",
-    "edit": "Edit"
+    "edit": "Edit",
+    "save_changes": "Save changes"
   },
   "error": {
     "access_denied": "Access denied!",
@@ -37,12 +39,18 @@
     "sub_title": "The address is incorrect or the page does not exist on the site.",
     "title": "404 error. Page not found"
   },
+  "permissions_page": {
+    "description": "Description",
+    "head_title": "Permissions",
+    "permission": "Permission",
+    "title": "Permissions"
+  },
   "role_creation_page": {
-    "head_title": "Create a role"
+    "head_title": "Create a role",
+    "title": "Create a role"
   },
   "role_edit_page": {
     "head_title": "Edit a role",
-    "submit": "Save changes",
     "title": "Edit a role"
   },
   "roles_page": {
@@ -56,8 +64,8 @@
     "permissions": "Permissions",
     "role": "Role",
     "rules": {
-      "name_len": "Enter a role name",
-      "name_required": "The role name must be from {{min}} to {{max}} characters"
+      "name_len": "The role name must be from {{min}} to {{max}} characters",
+      "name_required": "Enter a role name"
     },
     "title": "Roles"
   },

@@ -1,5 +1,5 @@
 import { RouteObject } from 'react-router-dom';
 
-import { rolesRoutes } from './routes';
+import { permissionsRoutes, rolesRoutes } from './routes';
 
-export const privateRoutes: RouteObject[] = [rolesRoutes];
+export const privateRoutes: RouteObject[] = [permissionsRoutes, rolesRoutes];

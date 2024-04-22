@@ -6,7 +6,7 @@ import { TableContainer } from '../../components';
 import { Permission } from '../../models/permission.interface';
 
 interface Props {
-  permissions: Permission[];
+  permissions?: Permission[];
   defaultSelectedRowKeys?: Key[];
   onChangeRowSelection: (selectedRowKeys: Key[]) => void;
 }

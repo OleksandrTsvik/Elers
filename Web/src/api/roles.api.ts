@@ -9,6 +9,11 @@ interface UpdateRoleRequest {
   permissionIds: string[];
 }
 
+interface CreateRoleRequest {
+  name: string;
+  permissionIds: string[];
+}
+
 export const rolesApi = createApi({
   reducerPath: 'rolesApi',
   baseQuery: baseQueryWithReauth,
@@ -26,6 +31,14 @@ export const rolesApi = createApi({
       }),
       providesTags: ['Roles'],
     }),
+    createRole: builder.mutation<void, CreateRoleRequest>({
+      query: (data) => ({
+        url: '/roles',
+        method: 'POST',
+        body: data,
+      }),
+      invalidatesTags: ['Roles'],
+    }),
     updateRole: builder.mutation<void, UpdateRoleRequest>({
       query: ({ roleId, ...data }) => ({
         url: `/roles/${roleId}`,
@@ -40,5 +53,6 @@ export const rolesApi = createApi({
 export const {
   useGetRoleByIdQuery,
   useGetListRolesQuery,
+  useCreateRoleMutation,
   useUpdateRoleMutation,
 } = rolesApi;

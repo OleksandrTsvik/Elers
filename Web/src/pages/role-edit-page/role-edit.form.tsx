@@ -39,7 +39,7 @@ export default function RoleEditForm({ roleId }: Props) {
     <RoleForm
       initialValues={getInitialValues(data)}
       permissions={data.permissions}
-      textOnSubmitButton={t('role_edit_page.submit')}
+      textOnSubmitButton={t('actions.save_changes')}
       isLoading={isLoading}
       isError={isError}
       error={error}
