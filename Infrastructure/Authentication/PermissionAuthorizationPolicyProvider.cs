@@ -14,13 +14,22 @@ public class PermissionAuthorizationPolicyProvider : DefaultAuthorizationPolicyP
     {
         AuthorizationPolicy? policy = await base.GetPolicyAsync(policyName);
 
+        if (!policyName.StartsWith(HasPermissionAttribute.PolicyPrefix))
+        {
+            return policy;
+        }
+
         if (policy is not null)
         {
             return policy;
         }
 
+        string[] permissions = policyName
+            .Substring(HasPermissionAttribute.PolicyPrefix.Length)
+            .Split(",");
+
         return new AuthorizationPolicyBuilder()
-            .AddRequirements(new PermissionRequirement(policyName))
+            .AddRequirements(new PermissionRequirement(permissions))
             .Build();
     }
 }

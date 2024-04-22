@@ -7,7 +7,7 @@ namespace API.Controllers;
 
 public class PermissionsController : ApiControllerBase
 {
-    [HasPermission(PermissionType.ReadPermission)]
+    [HasPermission(PermissionType.ReadPermission, PermissionType.CreateRole)]
     [HttpGet]
     public async Task<IActionResult> GetListPermissions(CancellationToken cancellationToken)
     {

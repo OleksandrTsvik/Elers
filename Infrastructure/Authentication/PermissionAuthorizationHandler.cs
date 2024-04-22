@@ -29,7 +29,7 @@ public class PermissionAuthorizationHandler : AuthorizationHandler<PermissionReq
 
         List<string> userPermissions = await permissionService.GetPermissionsAsync(parsedUserId);
 
-        if (userPermissions.Contains(requirement.Permission))
+        if (userPermissions.Any(x => requirement.Permissions.Contains(x)))
         {
             context.Succeed(requirement);
         }

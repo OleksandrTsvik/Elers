@@ -5,8 +5,10 @@ namespace Infrastructure.Authentication;
 
 public class HasPermissionAttribute : AuthorizeAttribute
 {
-    public HasPermissionAttribute(PermissionType permission)
-        : base(policy: permission.ToString())
+    public const string PolicyPrefix = "PERMISSION:";
+
+    public HasPermissionAttribute(params PermissionType[] permissions)
     {
+        Policy = $"{PolicyPrefix}{string.Join(",", permissions)}";
     }
 }

@@ -3,7 +3,6 @@ using API.Constants;
 using FluentValidation;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc.Authorization;
 
 namespace API.Extensions;
 
@@ -17,14 +16,7 @@ public static class ApiServiceExtensions
 
         services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 
-        services.AddControllers(options =>
-        {
-            AuthorizationPolicy policy = new AuthorizationPolicyBuilder()
-                .RequireAuthenticatedUser()
-                .Build();
-
-            options.Filters.Add(new AuthorizeFilter(policy));
-        });
+        services.AddControllers();
 
         services.AddAuth();
 
@@ -56,7 +48,10 @@ public static class ApiServiceExtensions
                 options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
             });
 
-        services.AddAuthorization();
+        services.AddAuthorizationBuilder()
+            .SetFallbackPolicy(new AuthorizationPolicyBuilder()
+                .RequireAuthenticatedUser()
+                .Build());
 
         return services;
     }
