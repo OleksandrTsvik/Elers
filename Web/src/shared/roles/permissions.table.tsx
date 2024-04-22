@@ -1,18 +1,19 @@
 import { Table } from 'antd';
 import { Key } from 'antd/es/table/interface';
 
-import { getDefaultSelectedRowKeys } from './role-edit-page.utils';
 import usePermissionsColumns from './use-permissions.columns';
 import { TableContainer } from '../../components';
-import { RolePermissions } from '../../models/permission.interface';
+import { Permission } from '../../models/permission.interface';
 
 interface Props {
-  data: RolePermissions[];
+  permissions: Permission[];
+  defaultSelectedRowKeys?: Key[];
   onChangeRowSelection: (selectedRowKeys: Key[]) => void;
 }
 
 export default function PermissionsTable({
-  data,
+  permissions,
+  defaultSelectedRowKeys,
   onChangeRowSelection,
 }: Props) {
   const columns = usePermissionsColumns();
@@ -24,11 +25,11 @@ export default function PermissionsTable({
         size="small"
         rowSelection={{
           type: 'checkbox',
-          defaultSelectedRowKeys: getDefaultSelectedRowKeys(data),
+          defaultSelectedRowKeys,
           onChange: onChangeRowSelection,
         }}
         columns={columns}
-        dataSource={data}
+        dataSource={permissions}
         rowKey={(record) => record.id}
         pagination={false}
       />

@@ -37,24 +37,28 @@
     "sub_title": "The address is incorrect or the page does not exist on the site.",
     "title": "404 error. Page not found"
   },
+  "role_creation_page": {
+    "head_title": "Create a role"
+  },
   "role_edit_page": {
-    "description": "Description",
     "head_title": "Edit a role",
-    "name": "Role",
-    "permission": "Permission",
-    "permissionIds": "Permissions",
-    "rules": {
-      "name_len": "The role name must be from {{min}} to {{max}} characters",
-      "name_required": "Enter a role name"
-    },
     "submit": "Save changes",
     "title": "Edit a role"
   },
   "roles_page": {
+    "create_role": "Create a role",
+    "description": "Description",
     "head_title": "Roles",
+    "name": "Role",
     "number_permissions": "Number of permissions",
+    "permission": "Permission",
+    "permissionIds": "Permissions",
     "permissions": "Permissions",
     "role": "Role",
+    "rules": {
+      "name_len": "Enter a role name",
+      "name_required": "The role name must be from {{min}} to {{max}} characters"
+    },
     "title": "Roles"
   },
   "sider_items": {

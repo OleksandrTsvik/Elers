@@ -14,12 +14,12 @@ export default function usePermissionsColumns() {
     {
       key: 'permission',
       dataIndex: 'name',
-      title: t('role_edit_page.permission'),
+      title: t('roles_page.permission'),
     },
     {
       key: 'description',
       dataIndex: 'description',
-      title: t('role_edit_page.description'),
+      title: t('roles_page.description'),
     },
   ];
 

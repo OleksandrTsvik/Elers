@@ -37,24 +37,28 @@
     "sub_title": "Неправильно набрано адресу або такої сторінки на сайті не існує.",
     "title": "Помилка 404. Сторінку не знайдено"
   },
+  "role_creation_page": {
+    "head_title": "Створення ролі"
+  },
   "role_edit_page": {
-    "description": "Опис",
     "head_title": "Редагування ролі",
-    "name": "Роль",
-    "permission": "Дозвіл",
-    "permissionIds": "Дозволи",
-    "rules": {
-      "name_len": "Назва ролі повинна мати від {{min}} до {{max}} символів",
-      "name_required": "Введіть назву ролі"
-    },
     "submit": "Зберегти зміни",
     "title": "Редагування ролі"
   },
   "roles_page": {
+    "create_role": "Створити роль",
+    "description": "Опис",
     "head_title": "Ролі",
+    "name": "Роль",
     "number_permissions": "Кількість дозволів",
+    "permission": "Дозвіл",
+    "permissionIds": "Дозволи",
     "permissions": "Дозволи",
     "role": "Роль",
+    "rules": {
+      "name_len": "Введіть назву ролі",
+      "name_required": "Назва ролі повинна мати від {{min}} до {{max}} символів"
+    },
     "title": "Ролі"
   },
   "sider_items": {

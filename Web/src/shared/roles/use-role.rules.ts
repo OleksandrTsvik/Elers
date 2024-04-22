@@ -12,12 +12,12 @@ export default function useRoleEditRules(): Rules {
     name: [
       {
         required: true,
-        message: t('role_edit_page.rules.name_required'),
+        message: t('roles_page.rules.name_required'),
       },
       {
         min: 2,
         max: 32,
-        message: t('role_edit_page.rules.name_len', { min: 2, max: 32 }),
+        message: t('roles_page.rules.name_len', { min: 2, max: 32 }),
       },
     ],
   };
