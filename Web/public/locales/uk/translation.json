@@ -54,6 +54,10 @@
     "title": "Редагування ролі"
   },
   "roles_page": {
+    "confirm_delete": {
+      "content": "Цю дію неможливо відмінити!",
+      "title": "Ви дійсно бажаєте видалити роль '{{role}}'?"
+    },
     "create_role": "Створити роль",
     "description": "Опис",
     "head_title": "Ролі",

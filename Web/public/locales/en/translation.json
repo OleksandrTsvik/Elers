@@ -54,6 +54,10 @@
     "title": "Edit a role"
   },
   "roles_page": {
+    "confirm_delete": {
+      "content": "This action cannot be canceled!",
+      "title": "Are you sure you want to delete the '{{role}}' role?"
+    },
     "create_role": "Create a role",
     "description": "Description",
     "head_title": "Roles",
