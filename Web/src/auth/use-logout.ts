@@ -2,6 +2,7 @@ import { App } from 'antd';
 import { useTranslation } from 'react-i18next';
 
 import { logout as resetAuthState } from './auth.slice';
+import { logoutApiReducers } from '../api';
 import { useLogoutMutation } from '../api/account.api';
 import { useAppDispatch } from '../hooks/redux-hooks';
 import useDisplayError from '../hooks/use-display-error';
@@ -26,7 +27,13 @@ export default function useLogout() {
 
     logoutMutation()
       .unwrap()
-      .then(() => appDispatch(resetAuthState()))
+      .then(() => {
+        appDispatch(resetAuthState());
+
+        logoutApiReducers.forEach((api) =>
+          appDispatch(api.util.resetApiState()),
+        );
+      })
       .catch((error) => displayError(error))
       .finally(() => message.destroy(messageLoadingKey));
   };

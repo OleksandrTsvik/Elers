@@ -1,4 +1,4 @@
-import {
+import Icon, {
   BookOutlined,
   HomeOutlined,
   SafetyOutlined,
@@ -6,6 +6,7 @@ import {
 } from '@ant-design/icons';
 import { ItemType } from 'antd/es/menu/hooks/useItems';
 import { useTranslation } from 'react-i18next';
+import { PiUsers } from 'react-icons/pi';
 
 import useAuth from '../../hooks/use-auth';
 import { PermissionType } from '../../models/permission-type.enum';
@@ -32,6 +33,17 @@ export default function useSiderItems(): SiderItem[] {
       permissions: [],
     },
     {
+      key: '/users',
+      icon: <Icon component={PiUsers} />,
+      label: t('sider_items.users'),
+      permissions: [
+        PermissionType.CreateUser,
+        PermissionType.ReadUser,
+        PermissionType.UpdateUser,
+        PermissionType.DeleteUser,
+      ],
+    },
+    {
       key: '/roles',
       icon: <SolutionOutlined />,
       label: t('sider_items.user_roles'),
@@ -46,7 +58,7 @@ export default function useSiderItems(): SiderItem[] {
       key: '/permissions',
       icon: <SafetyOutlined />,
       label: t('sider_items.user_permissions'),
-      permissions: [PermissionType.ReadPermission],
+      permissions: [PermissionType.ReadPermission, PermissionType.CreateRole],
     },
   ].filter((item) => checkPermission(item.permissions));
 }
