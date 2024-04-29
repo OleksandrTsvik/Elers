@@ -16,6 +16,9 @@
       "profile": "Профіль"
     }
   },
+  "home_page": {
+    "search_courses": "Пошук курсів"
+  },
   "loading": {
     "app": "Завантаження ...",
     "data": "Завантаження даних ...",
@@ -79,5 +82,15 @@
     "user_permissions": "Дозволи",
     "user_roles": "Ролі",
     "users": "Користувачі"
+  },
+  "users_page": {
+    "create_user": "Додати користувача",
+    "email": "Електронна пошта",
+    "firstName": "Ім'я",
+    "head_title": "Користувачі",
+    "lastName": "Прізвище",
+    "patronymic": "По батькові",
+    "roles": "Ролі",
+    "title": "Користувачі"
   }
 }

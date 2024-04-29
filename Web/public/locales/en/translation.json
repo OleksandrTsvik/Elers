@@ -16,6 +16,9 @@
       "profile": "Profile"
     }
   },
+  "home_page": {
+    "search_courses": "Search for courses"
+  },
   "loading": {
     "app": "Loading app ...",
     "data": "Loading data ...",
@@ -79,5 +82,15 @@
     "user_permissions": "Permissions",
     "user_roles": "Roles",
     "users": "Users"
+  },
+  "users_page": {
+    "create_user": "Add user",
+    "email": "Email",
+    "firstName": "First name",
+    "head_title": "Users",
+    "lastName": "Last name",
+    "patronymic": "Patronymic",
+    "roles": "Roles",
+    "title": "Users"
   }
 }

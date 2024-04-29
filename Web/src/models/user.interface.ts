@@ -1,7 +1,16 @@
 import { PermissionType } from './permission-type.enum';
 
-export interface User {
+export interface AuthUser {
   email: string;
   avatarUrl: string;
   permissions: PermissionType[];
+}
+
+export interface User {
+  id: string;
+  firstName: string;
+  lastName: string;
+  patronymic: string;
+  email: string;
+  roles: string[];
 }
