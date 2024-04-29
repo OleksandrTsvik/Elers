@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Application.Auth.GetInfo;
 
-public class GetInfoQueryHandler : IQueryHandler<GetInfoQuery, InfoResponse>
+public class GetInfoQueryHandler : IQueryHandler<GetInfoQuery, GetInfoResponse>
 {
     private readonly IApplicationDbContext _context;
     private readonly IUserContext _userContext;
@@ -20,7 +20,7 @@ public class GetInfoQueryHandler : IQueryHandler<GetInfoQuery, InfoResponse>
         _userContext = userContext;
     }
 
-    public async Task<Result<InfoResponse>> Handle(GetInfoQuery request, CancellationToken cancellationToken)
+    public async Task<Result<GetInfoResponse>> Handle(GetInfoQuery request, CancellationToken cancellationToken)
     {
         User? user = await _context.Users
             .FirstOrDefaultAsync(x => x.Id == _userContext.UserId, cancellationToken);
@@ -30,7 +30,7 @@ public class GetInfoQueryHandler : IQueryHandler<GetInfoQuery, InfoResponse>
             return UserErrors.NotFoundByUserContext();
         }
 
-        return new InfoResponse
+        return new GetInfoResponse
         {
             Email = user.Email,
             RegistrationDate = user.RegistrationDate,

@@ -1,6 +1,6 @@
 namespace Application.Auth.GetInfo;
 
-public class InfoResponse
+public class GetInfoResponse
 {
     public string Email { get; set; } = string.Empty;
     public DateTime RegistrationDate { get; set; }
