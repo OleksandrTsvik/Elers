@@ -1,5 +1,3 @@
-import { blue, red } from '@ant-design/colors';
-import { DeleteFilled, EditFilled } from '@ant-design/icons';
 import { App } from 'antd';
 import { ItemType } from 'antd/es/menu/hooks/useItems';
 import { useTranslation } from 'react-i18next';
@@ -8,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDeleteRoleMutation } from '../../api/roles.api';
 import useDisplayError from '../../hooks/use-display-error';
 import { ListRoleItem } from '../../models/role.interface';
+import { DeleteIcon, EditIcon } from '../../shared';
 
 export default function useRolesActions() {
   const { t } = useTranslation();
@@ -21,13 +20,13 @@ export default function useRolesActions() {
   const getActionItems = (record: ListRoleItem): ItemType[] => [
     {
       key: '1',
-      icon: <EditFilled style={{ color: blue.primary }} />,
+      icon: <EditIcon />,
       label: t('actions.edit'),
       onClick: () => navigate(`/roles/edit/${record.id}`),
     },
     {
       key: '2',
-      icon: <DeleteFilled style={{ color: red.primary }} />,
+      icon: <DeleteIcon />,
       label: t('actions.delete'),
       onClick: () =>
         modal.confirm({

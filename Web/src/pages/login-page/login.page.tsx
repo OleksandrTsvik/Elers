@@ -1,20 +1,16 @@
-import { Flex, Typography } from 'antd';
-import { useTranslation } from 'react-i18next';
+import { Flex } from 'antd';
 
 import LoginForm from './login.form';
 import LoginHead from './login.head';
+import LoginTitle from './login.title';
 
 export default function LoginPage() {
-  const { t } = useTranslation();
-
   return (
     <>
       <LoginHead />
       <Flex justify="center" align="center">
         <Flex vertical style={{ width: 320 }}>
-          <Typography.Title style={{ textAlign: 'center' }}>
-            {t('login_page.title')}
-          </Typography.Title>
+          <LoginTitle />
           <LoginForm />
         </Flex>
       </Flex>
