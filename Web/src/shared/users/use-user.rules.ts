@@ -1,6 +1,8 @@
 import { Rule } from 'antd/es/form';
 import { useTranslation } from 'react-i18next';
 
+import { FormMode } from '../../models/form-mode.enum';
+
 interface Rules {
   email: Rule[];
   password: Rule[];
@@ -16,10 +18,10 @@ const RULES = {
   patronymic: { min: 1, max: 64 },
 };
 
-export default function useUserRules(): Rules {
+export default function useUserRules(mode: FormMode): Rules {
   const { t } = useTranslation();
 
-  return {
+  const rules: Rules = {
     email: [
       {
         required: true,
@@ -28,10 +30,6 @@ export default function useUserRules(): Rules {
       },
     ],
     password: [
-      {
-        required: true,
-        message: t('users_page.rules.password_required'),
-      },
       {
         min: RULES.password.min,
         max: RULES.password.max,
@@ -60,4 +58,15 @@ export default function useUserRules(): Rules {
       },
     ],
   };
+
+  switch (mode) {
+    case FormMode.Creation:
+      rules.password.push({
+        required: true,
+        message: t('users_page.rules.password_required'),
+      });
+      break;
+  }
+
+  return rules;
 }

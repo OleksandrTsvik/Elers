@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 
 import useUserRules from './use-user.rules';
 import { ErrorAlert } from '../../components';
+import { FormMode } from '../../models/form-mode.enum';
 import { UserRole } from '../../models/role.interface';
 
 export interface UserFormValues {
@@ -15,6 +16,7 @@ export interface UserFormValues {
 }
 
 interface Props {
+  mode: FormMode;
   initialValues: UserFormValues;
   roles?: UserRole[];
   textOnSubmitButton: string;
@@ -25,6 +27,7 @@ interface Props {
 }
 
 export default function UserForm({
+  mode,
   initialValues,
   roles,
   textOnSubmitButton,
@@ -36,7 +39,7 @@ export default function UserForm({
   const { t } = useTranslation();
 
   const [form] = Form.useForm<UserFormValues>();
-  const rules = useUserRules();
+  const rules = useUserRules(mode);
 
   return (
     <Form

@@ -12,11 +12,27 @@ interface CreateUserRequest {
   roleIds: string[];
 }
 
+interface UpdateUserRequest {
+  userId: string;
+  email: string;
+  password: string;
+  firstName: string;
+  lastName: string;
+  patronymic: string;
+  roleIds: string[];
+}
+
 export const usersApi = createApi({
   reducerPath: 'usersApi',
   baseQuery: baseQueryWithReauth,
   tagTypes: ['Users'],
   endpoints: (builder) => ({
+    getUserById: builder.query<User, { id: string }>({
+      query: ({ id }) => ({
+        url: `/users/${id}`,
+      }),
+      providesTags: ['Users'],
+    }),
     getListUsers: builder.query<User[], void>({
       query: () => ({
         url: '/users',
@@ -31,7 +47,20 @@ export const usersApi = createApi({
       }),
       invalidatesTags: ['Users'],
     }),
+    updateUser: builder.mutation<void, UpdateUserRequest>({
+      query: ({ userId, ...data }) => ({
+        url: `/users/${userId}`,
+        method: 'PUT',
+        body: data,
+      }),
+      invalidatesTags: ['Users'],
+    }),
   }),
 });
 
-export const { useGetListUsersQuery, useCreateUserMutation } = usersApi;
+export const {
+  useGetUserByIdQuery,
+  useGetListUsersQuery,
+  useCreateUserMutation,
+  useUpdateUserMutation,
+} = usersApi;

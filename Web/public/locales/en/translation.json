@@ -87,6 +87,10 @@
     "head_title": "Create a user",
     "title": "Create a user"
   },
+  "user_edit_page": {
+    "head_title": "Update user data",
+    "title": "Update user data"
+  },
   "users_page": {
     "create_user": "Add user",
     "email": "Email",

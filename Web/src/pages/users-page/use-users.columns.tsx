@@ -45,7 +45,7 @@ export default function useUsersColumns() {
     {
       key: 'action',
       width: 1,
-      render: () => <ActionsDropdown items={getActionItems()} />,
+      render: (_, record) => <ActionsDropdown items={getActionItems(record)} />,
     },
   ];
 

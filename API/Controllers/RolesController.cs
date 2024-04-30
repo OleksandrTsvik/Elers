@@ -1,6 +1,7 @@
 using Application.Roles.CreateRole;
 using Application.Roles.DeleteRole;
 using Application.Roles.GetListRoles;
+using Application.Roles.GetListUserRoles;
 using Application.Roles.GetRoleById;
 using Application.Roles.UpdateRole;
 using Domain.Enums;
@@ -11,11 +12,11 @@ namespace API.Controllers;
 
 public class RolesController : ApiControllerBase
 {
-    [HasPermission(PermissionType.ReadRole, PermissionType.CreateUser)]
+    [HasPermission(PermissionType.ReadRole, PermissionType.CreateUser, PermissionType.UpdateUser)]
     [HttpGet("users")]
     public async Task<IActionResult> GetListUserRoles(CancellationToken cancellationToken)
     {
-        var query = new GetListRolesQuery();
+        var query = new GetListUserRolesQuery();
 
         return HandleResult(await Sender.Send(query, cancellationToken));
     }
