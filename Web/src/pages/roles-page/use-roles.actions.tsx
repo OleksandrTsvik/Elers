@@ -30,8 +30,8 @@ export default function useRolesActions() {
       label: t('actions.delete'),
       onClick: () =>
         modal.confirm({
-          title: t('roles_page.confirm_delete.title', { role: record.name }),
-          content: t('roles_page.confirm_delete.content'),
+          title: t('roles_page.confirm_delete_title', { role: record.name }),
+          content: t('actions.confirm_delete'),
           okButtonProps: { danger: true },
           onOk: () =>
             deleteRole({ id: record.id })

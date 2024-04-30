@@ -1,4 +1,5 @@
 using Application.Users.CreateUser;
+using Application.Users.DeleteUser;
 using Application.Users.GetListUsers;
 using Application.Users.GetUserById;
 using Application.Users.UpdateUser;
@@ -62,6 +63,15 @@ public class UsersController : ApiControllerBase
             request.LastName,
             request.Patronymic,
             request.RoleIds);
+
+        return HandleResult(await Sender.Send(command, cancellationToken));
+    }
+
+    [HasPermission(PermissionType.DeleteUser)]
+    [HttpDelete("{id:guid}")]
+    public async Task<IActionResult> DeleteUser(Guid id, CancellationToken cancellationToken)
+    {
+        var command = new DeleteUserCommand(id);
 
         return HandleResult(await Sender.Send(command, cancellationToken));
     }

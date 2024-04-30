@@ -1,6 +1,7 @@
 {
   "actions": {
     "add": "Add",
+    "confirm_delete": "This action cannot be canceled!",
     "delete": "Delete",
     "edit": "Edit",
     "save_changes": "Save changes"
@@ -57,10 +58,7 @@
     "title": "Edit a role"
   },
   "roles_page": {
-    "confirm_delete": {
-      "content": "This action cannot be canceled!",
-      "title": "Are you sure you want to delete the '{{role}}' role?"
-    },
+    "confirm_delete_title": "Are you sure you want to delete the '{{role}}' role?",
     "create_role": "Create a role",
     "description": "Description",
     "head_title": "Roles",
@@ -92,6 +90,7 @@
     "title": "Update user data"
   },
   "users_page": {
+    "confirm_delete_title": "Are you sure you want to delete the user with the email address '{{email}}'?",
     "create_user": "Add user",
     "email": "Email",
     "firstName": "First name",
