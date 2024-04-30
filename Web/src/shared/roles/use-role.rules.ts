@@ -5,7 +5,7 @@ interface Rules {
   name: Rule[];
 }
 
-export default function useRoleEditRules(): Rules {
+export default function useRoleRules(): Rules {
   const { t } = useTranslation();
 
   return {

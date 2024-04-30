@@ -3,7 +3,7 @@ import { Key } from 'antd/es/table/interface';
 import { useTranslation } from 'react-i18next';
 
 import PermissionsTable from './permissions.table';
-import useRoleEditRules from './use-role.rules';
+import useRoleRules from './use-role.rules';
 import { ErrorAlert } from '../../components';
 import { Permission } from '../../models/permission.interface';
 
@@ -34,7 +34,7 @@ export default function RoleForm({
   const { t } = useTranslation();
 
   const [form] = Form.useForm<RoleFormValues>();
-  const rules = useRoleEditRules();
+  const rules = useRoleRules();
 
   const handleChangePermissionIds = (permissionIds: Key[]) => {
     form.setFieldValue('permissionIds', permissionIds);

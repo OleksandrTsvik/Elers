@@ -1,7 +1,7 @@
 import { RouteObject } from 'react-router-dom';
 
 import { PermissionType } from '../../models/permission-type.enum';
-import { UsersPage } from '../../pages';
+import { UserCreationPage, UsersPage } from '../../pages';
 import PermissionsOutlet from '../outlets/permissions.outlet';
 
 export const usersRoutes: RouteObject = {
@@ -16,5 +16,12 @@ export const usersRoutes: RouteObject = {
       ]}
     />
   ),
-  children: [{ index: true, element: <UsersPage /> }],
+  children: [
+    { index: true, element: <UsersPage /> },
+    {
+      path: 'add',
+      element: <PermissionsOutlet permissions={PermissionType.CreateUser} />,
+      children: [{ index: true, element: <UserCreationPage /> }],
+    },
+  ],
 };

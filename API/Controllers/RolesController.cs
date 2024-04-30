@@ -11,6 +11,15 @@ namespace API.Controllers;
 
 public class RolesController : ApiControllerBase
 {
+    [HasPermission(PermissionType.ReadRole, PermissionType.CreateUser)]
+    [HttpGet("users")]
+    public async Task<IActionResult> GetListUserRoles(CancellationToken cancellationToken)
+    {
+        var query = new GetListRolesQuery();
+
+        return HandleResult(await Sender.Send(query, cancellationToken));
+    }
+
     [HasPermission(PermissionType.ReadRole)]
     [HttpGet("{id:guid}")]
     public async Task<IActionResult> GetRoleById(

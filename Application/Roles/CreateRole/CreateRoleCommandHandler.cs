@@ -18,17 +18,17 @@ public class CreateRoleCommandHandler : ICommandHandler<CreateRoleCommand>
 
     public async Task<Result> Handle(CreateRoleCommand request, CancellationToken cancellationToken)
     {
-        Role? roleByName = await _context.Roles
-            .FirstOrDefaultAsync(x => x.Name == request.Name, cancellationToken);
+        bool roleByName = await _context.Roles
+            .AnyAsync(x => x.Name == request.Name, cancellationToken);
 
-        if (roleByName is not null)
+        if (roleByName)
         {
             return RoleErrors.NameNotUnique(request.Name);
         }
 
         List<Permission> rolePermissions = await _context.Permissions
-                .Where(x => request.PermissionIds.Contains(x.Id))
-                .ToListAsync(cancellationToken);
+            .Where(x => request.PermissionIds.Contains(x.Id))
+            .ToListAsync(cancellationToken);
 
         var role = new Role
         {

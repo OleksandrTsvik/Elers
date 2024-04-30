@@ -31,6 +31,7 @@ public class GetListUsersQueryHandler : IQueryHandler<GetListUsersQuery, GetList
             .OrderBy(x => x.FirstName)
                 .ThenBy(x => x.LastName)
                 .ThenBy(x => x.Patronymic)
+                .ThenBy(x => x.Email)
             .ToArrayAsync(cancellationToken);
 
         return users;

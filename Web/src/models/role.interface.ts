@@ -11,3 +11,8 @@ export interface ListRoleItem {
   name: string;
   permissions: string[];
 }
+
+export interface UserRole {
+  id: string;
+  name: string;
+}

@@ -83,14 +83,27 @@
     "user_roles": "Ролі",
     "users": "Користувачі"
   },
+  "user_creation_page": {
+    "head_title": "Створення користувача",
+    "title": "Створення користувача"
+  },
   "users_page": {
     "create_user": "Додати користувача",
     "email": "Електронна пошта",
     "firstName": "Ім'я",
     "head_title": "Користувачі",
     "lastName": "Прізвище",
+    "password": "Пароль",
     "patronymic": "По батькові",
     "roles": "Ролі",
+    "rules": {
+      "email_required": "Введіть дійсну адресу електронної пошти",
+      "firstName_len": "Ім'я має містити від {{min}} до {{max}} символів",
+      "lastName_len": "Прізвище має містити від {{min}} до {{max}} символів",
+      "password_len": "Довжина пароля має бути від {{min}} до {{max}} символів",
+      "password_required": "Пароль є обов'язковим",
+      "patronymic_len": "По батькові має містити від {{min}} до {{max}} символів"
+    },
     "title": "Користувачі"
   }
 }

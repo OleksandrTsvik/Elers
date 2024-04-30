@@ -83,14 +83,27 @@
     "user_roles": "Roles",
     "users": "Users"
   },
+  "user_creation_page": {
+    "head_title": "Create a user",
+    "title": "Create a user"
+  },
   "users_page": {
     "create_user": "Add user",
     "email": "Email",
     "firstName": "First name",
     "head_title": "Users",
     "lastName": "Last name",
+    "password": "Password",
     "patronymic": "Patronymic",
     "roles": "Roles",
+    "rules": {
+      "email_required": "Enter a valid email address",
+      "firstName_len": "The first name must contain from {{min}} to {{max}} characters",
+      "lastName_len": "The last name must contain from {{min}} to {{max}} characters",
+      "password_len": "Password length must be from {{min}} to {{max}} characters",
+      "password_required": "Password is required",
+      "patronymic_len": "The patronymic must contain from {{min}} to {{max}} characters"
+    },
     "title": "Users"
   }
 }
