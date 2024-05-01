@@ -14,3 +14,7 @@ export function isArrayOf<T>(
 export function isObject(value: unknown): value is object {
   return typeof value === 'object' && value !== null && !Array.isArray(value);
 }
+
+export function isNumber(value: unknown): value is number {
+  return typeof value === 'number';
+}

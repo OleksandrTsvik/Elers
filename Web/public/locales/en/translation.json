@@ -7,9 +7,10 @@
     "save_changes": "Save changes"
   },
   "error": {
-    "access_denied": "Access denied!",
+    "forbidden": "Access denied!",
     "simple": "Something went wrong!",
-    "status": "An error occurred while processing your request! Status - {{status}}."
+    "status": "An error occurred while processing your request! Status - {{status}}.",
+    "unauthorized": "Unauthorized access. Please log in!"
   },
   "header": {
     "avatar": {

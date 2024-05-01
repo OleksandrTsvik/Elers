@@ -24,7 +24,7 @@ export default function PermissionsOutlet({ permissions }: Props) {
 
   useEffect(() => {
     if (!hasPermission) {
-      displayError(t('error.access_denied'), { displayType: 'notification' });
+      displayError(t('error.forbidden'), { displayType: 'notification' });
     }
   }, [displayError, hasPermission, t]);
 
