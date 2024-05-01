@@ -6,6 +6,19 @@
     "edit": "Редагувати",
     "save_changes": "Зберегти зміни"
   },
+  "courses_page": {
+    "create_course": "Створити курс",
+    "creation_title": "Створення курсу",
+    "form_description": "Опис",
+    "form_title": "Заголовок",
+    "head_title": "Мої курси",
+    "rules": {
+      "description_len": "Максимальна довжина опису {{max}} символів",
+      "title_len": "Заголовок курсу повинен мати від {{min}} до {{max}} символів",
+      "title_required": "Введіть заголовок курсу"
+    },
+    "title": "Мої курси"
+  },
   "error": {
     "forbidden": "У доступі відмовлено!",
     "simple": "Щось пішло не так!",
@@ -76,7 +89,7 @@
     "title": "Ролі"
   },
   "sider_items": {
-    "courses": "Курси",
+    "courses": "Мої курси",
     "home": "Головна",
     "user_permissions": "Дозволи",
     "user_roles": "Ролі",

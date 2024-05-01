@@ -6,6 +6,19 @@
     "edit": "Edit",
     "save_changes": "Save changes"
   },
+  "courses_page": {
+    "create_course": "Create a course",
+    "creation_title": "Create a course",
+    "form_description": "Description",
+    "form_title": "Title",
+    "head_title": "My courses",
+    "rules": {
+      "description_len": "Maximum description length {{max}} characters",
+      "title_len": "The course title must be from {{min}} to {{max}} characters",
+      "title_required": "Enter the course title"
+    },
+    "title": "My courses"
+  },
   "error": {
     "forbidden": "Access denied!",
     "simple": "Something went wrong!",
@@ -76,7 +89,7 @@
     "title": "Roles"
   },
   "sider_items": {
-    "courses": "Courses",
+    "courses": "My courses",
     "home": "Home",
     "user_permissions": "Permissions",
     "user_roles": "Roles",
