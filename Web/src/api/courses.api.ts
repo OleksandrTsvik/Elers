@@ -1,6 +1,7 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
 
 import { baseQueryWithReauth } from '../auth/base-query-with-reauth';
+import { Course } from '../models/course.interface';
 
 interface CreateCourseRequest {
   title: string;
@@ -12,6 +13,12 @@ export const coursesApi = createApi({
   baseQuery: baseQueryWithReauth,
   tagTypes: ['Courses'],
   endpoints: (builder) => ({
+    getListCourses: builder.query<Course[], void>({
+      query: () => ({
+        url: '/courses',
+      }),
+      providesTags: ['Courses'],
+    }),
     createCourse: builder.mutation<void, CreateCourseRequest>({
       query: (data) => ({
         url: '/courses',
@@ -23,4 +30,4 @@ export const coursesApi = createApi({
   }),
 });
 
-export const { useCreateCourseMutation } = coursesApi;
+export const { useGetListCoursesQuery, useCreateCourseMutation } = coursesApi;
