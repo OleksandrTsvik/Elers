@@ -1,7 +1,7 @@
 import CoursePage from './course-page/course.page';
-import CoursesPage from './courses-page/courses.page';
 import HomePage from './home-page/home.page';
 import LoginPage from './login-page/login.page';
+import MyCoursesPage from './my-courses-page/my-courses.page';
 import NotFoundPage from './not-found-page/not-found.page';
 import PermissionsPage from './permissions-page/permissions.page';
 import RoleCreationPage from './role-creation-page/role-creation.page';
@@ -13,9 +13,9 @@ import UsersPage from './users-page/users.page';
 
 export {
   CoursePage,
-  CoursesPage,
   HomePage,
   LoginPage,
+  MyCoursesPage,
   PermissionsPage,
   NotFoundPage,
   RoleCreationPage,

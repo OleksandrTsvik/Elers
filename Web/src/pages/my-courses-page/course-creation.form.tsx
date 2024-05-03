@@ -45,7 +45,7 @@ export default function CourseCreationFrom({
       <Form.Item
         hasFeedback
         name="title"
-        label={t('courses_page.form_title')}
+        label={t('my_courses_page.form_title')}
         rules={rules.title}
       >
         <Input />
@@ -54,7 +54,7 @@ export default function CourseCreationFrom({
       <Form.Item
         hasFeedback
         name="description"
-        label={t('courses_page.form_description')}
+        label={t('my_courses_page.form_description')}
         rules={rules.description}
       >
         <Input.TextArea autoSize={{ minRows: 3, maxRows: 6 }} />

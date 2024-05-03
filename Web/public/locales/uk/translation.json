@@ -9,7 +9,7 @@
   "course_page": {
     "head_title": "Курс: {{title}}"
   },
-  "courses_page": {
+  "my_courses_page": {
     "create_course": "Створити курс",
     "creation_title": "Створення курсу",
     "form_description": "Опис",

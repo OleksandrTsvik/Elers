@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 
 import CourseCreationModalButton from './course-creation.modal-button';
 
-export default function CoursesTitle() {
+export default function MyCoursesTitle() {
   const { t } = useTranslation();
 
   return (
@@ -15,7 +15,7 @@ export default function CoursesTitle() {
       style={{ marginBottom: 18 }}
     >
       <Typography.Title style={{ margin: 0 }}>
-        {t('courses_page.title')}
+        {t('my_courses_page.title')}
       </Typography.Title>
       <CourseCreationModalButton />
     </Flex>

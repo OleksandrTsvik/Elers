@@ -31,13 +31,13 @@ export default function CourseCreationModalButton() {
   return (
     <>
       <Button type="primary" onClick={onOpen}>
-        {t('courses_page.create_course')}
+        {t('my_courses_page.create_course')}
       </Button>
       <Modal
         destroyOnClose
         open={isOpen}
         confirmLoading={isLoading}
-        title={t('courses_page.creation_title')}
+        title={t('my_courses_page.creation_title')}
         okText={t('actions.add')}
         onOk={handleOk}
         onCancel={onClose}
