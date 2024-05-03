@@ -13,6 +13,12 @@ export const coursesApi = createApi({
   baseQuery: baseQueryWithReauth,
   tagTypes: ['Courses'],
   endpoints: (builder) => ({
+    getCourseById: builder.query<Course, { id: string }>({
+      query: ({ id }) => ({
+        url: `/courses/${id}`,
+      }),
+      providesTags: ['Courses'],
+    }),
     getListCourses: builder.query<Course[], void>({
       query: () => ({
         url: '/courses',
@@ -30,4 +36,8 @@ export const coursesApi = createApi({
   }),
 });
 
-export const { useGetListCoursesQuery, useCreateCourseMutation } = coursesApi;
+export const {
+  useGetCourseByIdQuery,
+  useGetListCoursesQuery,
+  useCreateCourseMutation,
+} = coursesApi;

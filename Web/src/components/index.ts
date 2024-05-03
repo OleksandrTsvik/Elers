@@ -3,7 +3,6 @@ import ErrorAlert from './error/error-alert';
 import ErrorDetails from './error/error-details';
 import ErrorMessage from './error/error-message';
 import IconText from './icon-text';
-import NavigateToNotFound from './navigate-to-not-found';
 import TableContainer from './table-container';
 
 export {
@@ -12,6 +11,5 @@ export {
   ErrorDetails,
   ErrorMessage,
   IconText,
-  NavigateToNotFound,
   TableContainer,
 };

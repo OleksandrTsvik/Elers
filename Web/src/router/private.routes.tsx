@@ -8,7 +8,7 @@ import {
 } from './routes';
 
 export const privateRoutes: RouteObject[] = [
-  coursesRoutes,
+  coursesRoutes.private,
   permissionsRoutes,
   rolesRoutes,
   usersRoutes,

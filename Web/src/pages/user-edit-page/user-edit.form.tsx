@@ -8,9 +8,8 @@ import {
   useGetUserByIdQuery,
   useUpdateUserMutation,
 } from '../../api/users.api';
-import { NavigateToNotFound } from '../../components';
 import { FormMode } from '../../models/form-mode.enum';
-import { UserForm, UserFormValues } from '../../shared';
+import { NavigateToNotFound, UserForm, UserFormValues } from '../../shared';
 
 interface Props {
   userId: string;

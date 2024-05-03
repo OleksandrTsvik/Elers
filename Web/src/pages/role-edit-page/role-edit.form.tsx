@@ -7,8 +7,7 @@ import {
   useGetRoleByIdQuery,
   useUpdateRoleMutation,
 } from '../../api/roles.api';
-import { NavigateToNotFound } from '../../components';
-import { RoleForm, RoleFormValues } from '../../shared';
+import { NavigateToNotFound, RoleForm, RoleFormValues } from '../../shared';
 
 interface Props {
   roleId: string;

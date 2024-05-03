@@ -6,6 +6,9 @@
     "edit": "Edit",
     "save_changes": "Save changes"
   },
+  "course_page": {
+    "head_title": "Course: {{title}}"
+  },
   "courses_page": {
     "create_course": "Create a course",
     "creation_title": "Create a course",

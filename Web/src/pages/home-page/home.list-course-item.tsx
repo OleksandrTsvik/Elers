@@ -9,6 +9,8 @@ import { Course } from '../../models/course.interface';
 
 import courseImage from '../../assets/course.svg';
 
+import styles from './home.module.scss';
+
 interface Props {
   courseItem: Course;
 }
@@ -31,6 +33,7 @@ export default function HomeListCourseItem({ courseItem }: Props) {
       }
     >
       <List.Item.Meta
+        className={styles.courseItemMeta}
         title={<Link to={`/courses/${courseItem.id}`}>{courseItem.title}</Link>}
         description={courseItem.description}
       />

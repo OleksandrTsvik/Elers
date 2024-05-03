@@ -1,8 +1,13 @@
-import { RouteObject } from 'react-router-dom';
+import { RoutesType } from './routes-type.interface';
+import { CoursePage, CoursesPage } from '../../pages';
 
-import { CoursesPage } from '../../pages';
-
-export const coursesRoutes: RouteObject = {
-  path: 'courses',
-  children: [{ index: true, element: <CoursesPage /> }],
+export const coursesRoutes: RoutesType = {
+  private: {
+    path: 'courses',
+    children: [{ index: true, element: <CoursesPage /> }],
+  },
+  public: {
+    path: 'courses',
+    children: [{ path: ':courseId', element: <CoursePage /> }],
+  },
 };

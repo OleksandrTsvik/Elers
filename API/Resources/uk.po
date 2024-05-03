@@ -37,6 +37,9 @@ msgstr "Надано значення null."
 msgid "Error.NullResult"
 msgstr "Надано результат null."
 
+msgid "Courses.NotFound"
+msgstr "Курс з Id = '{0}' не знайдено."
+
 msgid "RefreshTokens.InvalidToken"
 msgstr "Недійсний токен оновлення."
 

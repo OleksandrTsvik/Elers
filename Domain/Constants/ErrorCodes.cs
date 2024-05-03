@@ -8,6 +8,11 @@ public class ErrorCodes
         public const string NullResult = "Error.NullResult";
     }
 
+    public static class Courses
+    {
+        public const string NotFound = "Courses.NotFound";
+    }
+
     public static class RefreshTokens
     {
         public const string InvalidToken = "RefreshTokens.InvalidToken";
