@@ -3,4 +3,13 @@ import { permissionsRoutes } from './permissions.routes';
 import { rolesRoutes } from './roles.routes';
 import { usersRoutes } from './users.routes';
 
-export { coursesRoutes, permissionsRoutes, rolesRoutes, usersRoutes };
+const arrayRoutes = [
+  coursesRoutes,
+  permissionsRoutes,
+  rolesRoutes,
+  usersRoutes,
+];
+
+export const arrayPrivateRoutes = arrayRoutes.map((routes) => routes.private);
+
+export const arrayPublicRoutes = arrayRoutes.map((routes) => routes.public);

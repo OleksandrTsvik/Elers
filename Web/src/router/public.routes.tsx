@@ -1,10 +1,10 @@
 import { RouteObject } from 'react-router-dom';
 
-import { coursesRoutes } from './routes';
+import { arrayPublicRoutes } from './routes';
 import { HomePage, NotFoundPage } from '../pages';
 
 export const publicRoutes: RouteObject[] = [
   { index: true, element: <HomePage /> },
-  coursesRoutes.public,
+  ...arrayPublicRoutes,
   { path: '*', element: <NotFoundPage /> },
 ];
