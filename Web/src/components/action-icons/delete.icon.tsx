@@ -1,6 +1,9 @@
 import { red } from '@ant-design/colors';
 import { DeleteFilled } from '@ant-design/icons';
+import { GetProps } from 'antd';
 
-export default function DeleteIcon(props: typeof DeleteFilled.defaultProps) {
+type Props = GetProps<typeof DeleteFilled>;
+
+export default function DeleteIcon(props: Props) {
   return <DeleteFilled style={{ color: red.primary }} {...props} />;
 }

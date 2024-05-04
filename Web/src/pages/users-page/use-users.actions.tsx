@@ -4,9 +4,9 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
 import { useDeleteUserMutation } from '../../api/users.api';
+import { EditIcon, DeleteIcon } from '../../components';
 import useDisplayError from '../../hooks/use-display-error';
 import { User } from '../../models/user.interface';
-import { DeleteIcon, EditIcon } from '../../shared';
 
 export default function useUsersActions() {
   const { t } = useTranslation();

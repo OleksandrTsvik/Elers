@@ -4,9 +4,9 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
 import { useDeleteRoleMutation } from '../../api/roles.api';
+import { EditIcon, DeleteIcon } from '../../components';
 import useDisplayError from '../../hooks/use-display-error';
 import { ListRoleItem } from '../../models/role.interface';
-import { DeleteIcon, EditIcon } from '../../shared';
 
 export default function useRolesActions() {
   const { t } = useTranslation();
