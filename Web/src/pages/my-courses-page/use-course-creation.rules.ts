@@ -1,15 +1,12 @@
 import { Rule } from 'antd/es/form';
 import { useTranslation } from 'react-i18next';
 
+import { COURSE_RULES } from '../../shared/rules';
+
 interface Rules {
   title: Rule[];
   description: Rule[];
 }
-
-const RULES = {
-  title: { min: 2, max: 64 },
-  description: { max: 512 },
-};
 
 export default function useCourseCreationRules(): Rules {
   const { t } = useTranslation();
@@ -21,15 +18,15 @@ export default function useCourseCreationRules(): Rules {
         message: t('course.rules.title_required'),
       },
       {
-        min: RULES.title.min,
-        max: RULES.title.max,
-        message: t('course.rules.title_len', RULES.title),
+        min: COURSE_RULES.title.min,
+        max: COURSE_RULES.title.max,
+        message: t('course.rules.title_len', COURSE_RULES.title),
       },
     ],
     description: [
       {
-        max: RULES.description.max,
-        message: t('course.rules.description_len', RULES.description),
+        max: COURSE_RULES.description.max,
+        message: t('course.rules.description_len', COURSE_RULES.description),
       },
     ],
   };

@@ -5,6 +5,7 @@ import useUserRules from './use-user.rules';
 import { FormMode } from '../../models/form-mode.enum';
 import { UserRole } from '../../models/role.interface';
 import { ErrorAlert } from '../error';
+import { USER_RULES } from '../rules';
 
 export interface UserFormValues {
   email: string;
@@ -60,7 +61,7 @@ export default function UserForm({
         label={t('users_page.email')}
         rules={rules.email}
       >
-        <Input />
+        <Input showCount maxLength={USER_RULES.email.max} />
       </Form.Item>
 
       <Form.Item
@@ -69,7 +70,7 @@ export default function UserForm({
         label={t('users_page.password')}
         rules={rules.password}
       >
-        <Input />
+        <Input showCount maxLength={USER_RULES.password.max} />
       </Form.Item>
 
       <Form.Item
@@ -78,7 +79,7 @@ export default function UserForm({
         label={t('users_page.firstName')}
         rules={rules.firstName}
       >
-        <Input />
+        <Input showCount maxLength={USER_RULES.firstName.max} />
       </Form.Item>
 
       <Form.Item
@@ -87,7 +88,7 @@ export default function UserForm({
         label={t('users_page.lastName')}
         rules={rules.lastName}
       >
-        <Input />
+        <Input showCount maxLength={USER_RULES.lastName.max} />
       </Form.Item>
 
       <Form.Item
@@ -96,7 +97,7 @@ export default function UserForm({
         label={t('users_page.patronymic')}
         rules={rules.patronymic}
       >
-        <Input />
+        <Input showCount maxLength={USER_RULES.patronymic.max} />
       </Form.Item>
 
       {roles && (

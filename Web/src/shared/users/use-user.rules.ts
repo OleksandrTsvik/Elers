@@ -2,6 +2,7 @@ import { Rule } from 'antd/es/form';
 import { useTranslation } from 'react-i18next';
 
 import { FormMode } from '../../models/form-mode.enum';
+import { USER_RULES } from '../rules';
 
 interface Rules {
   email: Rule[];
@@ -10,13 +11,6 @@ interface Rules {
   lastName: Rule[];
   patronymic: Rule[];
 }
-
-const RULES = {
-  password: { min: 6, max: 32 },
-  firstName: { min: 1, max: 64 },
-  lastName: { min: 1, max: 64 },
-  patronymic: { min: 1, max: 64 },
-};
 
 export default function useUserRules(mode: FormMode): Rules {
   const { t } = useTranslation();
@@ -28,33 +22,37 @@ export default function useUserRules(mode: FormMode): Rules {
         type: 'email',
         message: t('users_page.rules.email_required'),
       },
+      {
+        max: USER_RULES.email.max,
+        message: t('users_page.rules.email_len', USER_RULES.email),
+      },
     ],
     password: [
       {
-        min: RULES.password.min,
-        max: RULES.password.max,
-        message: t('users_page.rules.password_len', RULES.password),
+        min: USER_RULES.password.min,
+        max: USER_RULES.password.max,
+        message: t('users_page.rules.password_len', USER_RULES.password),
       },
     ],
     firstName: [
       {
-        min: RULES.firstName.min,
-        max: RULES.firstName.max,
-        message: t('users_page.rules.firstName_len', RULES.firstName),
+        min: USER_RULES.firstName.min,
+        max: USER_RULES.firstName.max,
+        message: t('users_page.rules.firstName_len', USER_RULES.firstName),
       },
     ],
     lastName: [
       {
-        min: RULES.lastName.min,
-        max: RULES.lastName.max,
-        message: t('users_page.rules.lastName_len', RULES.lastName),
+        min: USER_RULES.lastName.min,
+        max: USER_RULES.lastName.max,
+        message: t('users_page.rules.lastName_len', USER_RULES.lastName),
       },
     ],
     patronymic: [
       {
-        min: RULES.patronymic.min,
-        max: RULES.patronymic.max,
-        message: t('users_page.rules.patronymic_len', RULES.patronymic),
+        min: USER_RULES.patronymic.min,
+        max: USER_RULES.patronymic.max,
+        message: t('users_page.rules.patronymic_len', USER_RULES.patronymic),
       },
     ],
   };

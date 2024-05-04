@@ -2,6 +2,7 @@ import { useTranslation } from 'react-i18next';
 
 import { useUpdateCourseTitleMutation } from '../../api/courses.api';
 import { EditableText, ResponsiveTitle } from '../../shared';
+import { COURSE_RULES } from '../../shared/rules';
 
 import styles from './course-edit.module.scss';
 
@@ -32,16 +33,13 @@ export default function CourseEditTitle({
       text={title}
       loading={isLoading}
       changeText={t('course_edit_page.change_title')}
-      inputProps={{ maxLength: 64 }}
+      inputProps={{ maxLength: COURSE_RULES.title.max }}
       textRules={[
         {
           required: true,
-          min: 2,
-          max: 64,
-          message: t('course.rules.title_len', {
-            min: 2,
-            max: 64,
-          }),
+          min: COURSE_RULES.title.min,
+          max: COURSE_RULES.title.max,
+          message: t('course.rules.title_len', COURSE_RULES.title),
         },
       ]}
       error={error}

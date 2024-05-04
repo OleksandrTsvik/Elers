@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 
 import { useUpdateCourseDescriptionMutation } from '../../api/courses.api';
 import { EditableText } from '../../shared';
+import { COURSE_RULES } from '../../shared/rules';
 
 import styles from './course-edit.module.scss';
 
@@ -34,7 +35,7 @@ export default function CourseEditDescription({
       text={description}
       loading={isLoading}
       changeText={t('course_edit_page.change_description')}
-      inputProps={{ maxLength: 512 }}
+      inputProps={{ maxLength: COURSE_RULES.description.max }}
       error={error}
       onChange={handleChange}
     >

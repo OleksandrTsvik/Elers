@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 
 import useCourseCreationRules from './use-course-creation.rules';
 import { ErrorAlert } from '../../shared';
+import { COURSE_RULES } from '../../shared/rules';
 
 export interface CourseCreationFormValues {
   title: string;
@@ -48,7 +49,7 @@ export default function CourseCreationFrom({
         label={t('my_courses_page.form_title')}
         rules={rules.title}
       >
-        <Input />
+        <Input showCount maxLength={COURSE_RULES.title.max} />
       </Form.Item>
 
       <Form.Item
@@ -57,7 +58,11 @@ export default function CourseCreationFrom({
         label={t('my_courses_page.form_description')}
         rules={rules.description}
       >
-        <Input.TextArea autoSize={{ minRows: 3, maxRows: 6 }} />
+        <Input.TextArea
+          showCount
+          maxLength={COURSE_RULES.description.max}
+          autoSize={{ minRows: 3, maxRows: 6 }}
+        />
       </Form.Item>
     </Form>
   );

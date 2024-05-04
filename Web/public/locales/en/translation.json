@@ -131,6 +131,7 @@
     "patronymic": "Patronymic",
     "roles": "Roles",
     "rules": {
+      "email_len": "Maximum email length {{max}} characters",
       "email_required": "Enter a valid email address",
       "firstName_len": "The first name must contain from {{min}} to {{max}} characters",
       "lastName_len": "The last name must contain from {{min}} to {{max}} characters",

@@ -1,6 +1,8 @@
 import { Rule } from 'antd/es/form';
 import { useTranslation } from 'react-i18next';
 
+import { ROLE_RULES } from '../rules';
+
 interface Rules {
   name: Rule[];
 }
@@ -15,9 +17,9 @@ export default function useRoleRules(): Rules {
         message: t('roles_page.rules.name_required'),
       },
       {
-        min: 2,
-        max: 32,
-        message: t('roles_page.rules.name_len', { min: 2, max: 32 }),
+        min: ROLE_RULES.name.min,
+        max: ROLE_RULES.name.max,
+        message: t('roles_page.rules.name_len', ROLE_RULES.name),
       },
     ],
   };

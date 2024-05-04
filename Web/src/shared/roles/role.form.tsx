@@ -6,6 +6,7 @@ import PermissionsTable from './permissions.table';
 import useRoleRules from './use-role.rules';
 import { Permission } from '../../models/permission.interface';
 import { ErrorAlert } from '../error';
+import { ROLE_RULES } from '../rules';
 
 export interface RoleFormValues {
   name: string;
@@ -59,7 +60,7 @@ export default function RoleForm({
         label={t('roles_page.name')}
         rules={rules.name}
       >
-        <Input />
+        <Input showCount maxLength={ROLE_RULES.name.max} />
       </Form.Item>
 
       <Form.Item name="permissionIds" label={t('roles_page.permissionIds')}>
