@@ -1,6 +1,6 @@
 import { Breakpoint, Grid } from 'antd';
 
-type BreakpointValues<T> = { [key in Breakpoint]?: T };
+export type BreakpointValues<T> = { [key in Breakpoint]?: T };
 
 /**
  * Breakpoints:

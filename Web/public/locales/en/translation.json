@@ -1,26 +1,27 @@
 {
   "actions": {
     "add": "Add",
+    "change": "Change",
     "confirm_delete": "This action cannot be canceled!",
     "delete": "Delete",
     "edit": "Edit",
     "save_changes": "Save changes"
   },
-  "course_page": {
-    "head_title": "Course: {{title}}"
-  },
-  "my_courses_page": {
-    "create_course": "Create a course",
-    "creation_title": "Create a course",
-    "form_description": "Description",
-    "form_title": "Title",
-    "head_title": "My courses",
+  "course": {
     "rules": {
       "description_len": "Maximum description length {{max}} characters",
       "title_len": "The course title must be from {{min}} to {{max}} characters",
       "title_required": "Enter the course title"
-    },
-    "title": "My courses"
+    }
+  },
+  "course_edit_page": {
+    "change_description": "Change the description",
+    "change_title": "Change the title",
+    "head_title": "Course: {{title}}",
+    "title": "Editing"
+  },
+  "course_page": {
+    "head_title": "Course: {{title}}"
   },
   "error": {
     "forbidden": "Access denied!",
@@ -53,6 +54,14 @@
     },
     "submit": "Login",
     "title": "Authentication"
+  },
+  "my_courses_page": {
+    "create_course": "Create a course",
+    "creation_title": "Create a course",
+    "form_description": "Description",
+    "form_title": "Title",
+    "head_title": "My courses",
+    "title": "My courses"
   },
   "not_found_page": {
     "head_title": "Page not found",

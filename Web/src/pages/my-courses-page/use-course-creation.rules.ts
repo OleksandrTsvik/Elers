@@ -18,18 +18,18 @@ export default function useCourseCreationRules(): Rules {
     title: [
       {
         required: true,
-        message: t('my_courses_page.rules.title_required'),
+        message: t('course.rules.title_required'),
       },
       {
         min: RULES.title.min,
         max: RULES.title.max,
-        message: t('my_courses_page.rules.title_len', RULES.title),
+        message: t('course.rules.title_len', RULES.title),
       },
     ],
     description: [
       {
         max: RULES.description.max,
-        message: t('my_courses_page.rules.description_len', RULES.description),
+        message: t('course.rules.description_len', RULES.description),
       },
     ],
   };

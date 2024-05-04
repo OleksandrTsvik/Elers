@@ -1,6 +1,8 @@
 using Application.Courses.CreateCourse;
 using Application.Courses.GetCourseById;
 using Application.Courses.GetListCourses;
+using Application.Courses.UpdateCourseDescription;
+using Application.Courses.UpdateCourseTitle;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -34,6 +36,28 @@ public class CoursesController : ApiControllerBase
         CancellationToken cancellationToken)
     {
         var command = new CreateCourseCommand(request.Title, request.Description);
+
+        return HandleResult(await Sender.Send(command, cancellationToken));
+    }
+
+    [HttpPatch("title/{id:guid}")]
+    public async Task<IActionResult> UpdateCourseTitle(
+        Guid id,
+        [FromBody] UpdateCourseTitleRequest request,
+        CancellationToken cancellationToken)
+    {
+        var command = new UpdateCourseTitleCommand(id, request.Title);
+
+        return HandleResult(await Sender.Send(command, cancellationToken));
+    }
+
+    [HttpPatch("description/{id:guid}")]
+    public async Task<IActionResult> UpdateCourseDescription(
+        Guid id,
+        [FromBody] UpdateCourseDescriptionRequest request,
+        CancellationToken cancellationToken)
+    {
+        var command = new UpdateCourseDescriptionCommand(id, request.Description);
 
         return HandleResult(await Sender.Send(command, cancellationToken));
     }

@@ -1,26 +1,27 @@
 {
   "actions": {
     "add": "Додати",
+    "change": "Змінити",
     "confirm_delete": "Цю дію неможливо відмінити!",
     "delete": "Видалити",
     "edit": "Редагувати",
     "save_changes": "Зберегти зміни"
   },
-  "course_page": {
-    "head_title": "Курс: {{title}}"
-  },
-  "my_courses_page": {
-    "create_course": "Створити курс",
-    "creation_title": "Створення курсу",
-    "form_description": "Опис",
-    "form_title": "Заголовок",
-    "head_title": "Мої курси",
+  "course": {
     "rules": {
       "description_len": "Максимальна довжина опису {{max}} символів",
       "title_len": "Заголовок курсу повинен мати від {{min}} до {{max}} символів",
       "title_required": "Введіть заголовок курсу"
-    },
-    "title": "Мої курси"
+    }
+  },
+  "course_edit_page": {
+    "change_description": "Змінити опис",
+    "change_title": "Змінити заголовок",
+    "head_title": "Курс: {{title}}",
+    "title": "Редагування"
+  },
+  "course_page": {
+    "head_title": "Курс: {{title}}"
   },
   "error": {
     "forbidden": "У доступі відмовлено!",
@@ -53,6 +54,14 @@
     },
     "submit": "Увійти",
     "title": "Аутентифікація"
+  },
+  "my_courses_page": {
+    "create_course": "Створити курс",
+    "creation_title": "Створення курсу",
+    "form_description": "Опис",
+    "form_title": "Заголовок",
+    "head_title": "Мої курси",
+    "title": "Мої курси"
   },
   "not_found_page": {
     "head_title": "Сторінку не знайдено",

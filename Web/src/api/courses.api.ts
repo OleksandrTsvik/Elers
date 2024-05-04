@@ -11,13 +11,19 @@ interface CreateCourseRequest {
 export const coursesApi = createApi({
   reducerPath: 'coursesApi',
   baseQuery: baseQueryWithReauth,
-  tagTypes: ['Courses'],
+  tagTypes: ['Course', 'Courses', 'CourseToEdit'],
   endpoints: (builder) => ({
-    getCourseById: builder.query<Course, { id: string }>({
+    getCourseById: builder.query<Course, { id?: string }>({
       query: ({ id }) => ({
         url: `/courses/${id}`,
       }),
-      providesTags: ['Courses'],
+      providesTags: ['Course'],
+    }),
+    getCourseByIdToEdit: builder.query<Course, { id?: string }>({
+      query: ({ id }) => ({
+        url: `/courses/${id}`,
+      }),
+      providesTags: ['CourseToEdit'],
     }),
     getListCourses: builder.query<Course[], void>({
       query: () => ({
@@ -33,11 +39,33 @@ export const coursesApi = createApi({
       }),
       invalidatesTags: ['Courses'],
     }),
+    updateCourseTitle: builder.mutation<void, { id: string; title: string }>({
+      query: ({ id, ...data }) => ({
+        url: `/courses/title/${id}`,
+        method: 'PATCH',
+        body: data,
+      }),
+      invalidatesTags: ['Course', 'Courses'],
+    }),
+    updateCourseDescription: builder.mutation<
+      void,
+      { id: string; description?: string }
+    >({
+      query: ({ id, ...data }) => ({
+        url: `/courses/description/${id}`,
+        method: 'PATCH',
+        body: data,
+      }),
+      invalidatesTags: ['Course', 'Courses'],
+    }),
   }),
 });
 
 export const {
   useGetCourseByIdQuery,
+  useGetCourseByIdToEditQuery,
   useGetListCoursesQuery,
   useCreateCourseMutation,
+  useUpdateCourseTitleMutation,
+  useUpdateCourseDescriptionMutation,
 } = coursesApi;
