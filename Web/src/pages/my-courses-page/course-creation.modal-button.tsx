@@ -15,8 +15,7 @@ export default function CourseCreationModalButton() {
   const [formInstance, setFormInstance] =
     useState<FormInstance<CourseCreationFormValues>>();
 
-  const [createCourse, { isLoading, isError, error }] =
-    useCreateCourseMutation();
+  const [createCourse, { isLoading, error }] = useCreateCourseMutation();
 
   const handleOk = () => {
     formInstance?.submit();
@@ -43,7 +42,6 @@ export default function CourseCreationModalButton() {
         onCancel={onClose}
       >
         <CourseCreationFrom
-          isError={isError}
           error={error}
           onFormInstanceReady={setFormInstance}
           onSubmit={handleSubmit}

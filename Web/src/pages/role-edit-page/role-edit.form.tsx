@@ -18,7 +18,7 @@ export default function RoleEditForm({ roleId }: Props) {
   const navigate = useNavigate();
 
   const { data, isFetching } = useGetRoleByIdQuery({ id: roleId });
-  const [updateRole, { isLoading, isError, error }] = useUpdateRoleMutation();
+  const [updateRole, { isLoading, error }] = useUpdateRoleMutation();
 
   const handleSubmit = async (values: RoleFormValues) => {
     await updateRole({ roleId, ...values })
@@ -40,7 +40,6 @@ export default function RoleEditForm({ roleId }: Props) {
       permissions={data.permissions}
       textOnSubmitButton={t('actions.save_changes')}
       isLoading={isLoading}
-      isError={isError}
       error={error}
       onSubmit={handleSubmit}
     />

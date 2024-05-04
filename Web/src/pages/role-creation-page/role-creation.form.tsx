@@ -11,7 +11,7 @@ export default function RoleCreationForm() {
   const navigate = useNavigate();
 
   const { data, isFetching } = useGetListPermissionsQuery();
-  const [createRole, { isLoading, isError, error }] = useCreateRoleMutation();
+  const [createRole, { isLoading, error }] = useCreateRoleMutation();
 
   const handleSubmit = async (values: RoleFormValues) => {
     await createRole(values)
@@ -29,7 +29,6 @@ export default function RoleCreationForm() {
       permissions={data}
       textOnSubmitButton={t('actions.add')}
       isLoading={isLoading}
-      isError={isError}
       error={error}
       onSubmit={handleSubmit}
     />

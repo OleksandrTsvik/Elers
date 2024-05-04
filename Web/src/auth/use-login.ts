@@ -7,7 +7,7 @@ export default function useLogin() {
   const appDispatch = useAppDispatch();
   const { displayError } = useDisplayError();
 
-  const [loginMutation, { isLoading, isError, error }] = useLoginMutation();
+  const [loginMutation, { isLoading, error }] = useLoginMutation();
 
   const login = (data: LoginRequest) => {
     loginMutation(data)
@@ -16,5 +16,5 @@ export default function useLogin() {
       .catch((error) => displayError(error, { display: false }));
   };
 
-  return { login, isLoading, isError, error };
+  return { login, isLoading, error };
 }

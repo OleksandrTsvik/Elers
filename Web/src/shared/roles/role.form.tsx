@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import PermissionsTable from './permissions.table';
 import useRoleRules from './use-role.rules';
 import { Permission } from '../../models/permission.interface';
-import { ErrorAlert } from '../error';
+import { ErrorForm } from '../error';
 import { ROLE_RULES } from '../rules';
 
 export interface RoleFormValues {
@@ -18,7 +18,6 @@ interface Props {
   permissions?: Permission[];
   textOnSubmitButton: string;
   isLoading: boolean;
-  isError: boolean;
   error: unknown;
   onSubmit: (values: RoleFormValues) => Promise<void> | void;
 }
@@ -28,7 +27,6 @@ export default function RoleForm({
   permissions,
   textOnSubmitButton,
   isLoading,
-  isError,
   error,
   onSubmit,
 }: Props) {
@@ -48,11 +46,7 @@ export default function RoleForm({
       initialValues={initialValues}
       onFinish={onSubmit}
     >
-      {isError && (
-        <Form.Item>
-          <ErrorAlert error={error} />
-        </Form.Item>
-      )}
+      <ErrorForm error={error} />
 
       <Form.Item
         hasFeedback

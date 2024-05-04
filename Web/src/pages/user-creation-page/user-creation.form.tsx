@@ -12,7 +12,7 @@ export default function UserCreationForm() {
   const navigate = useNavigate();
 
   const { data, isFetching } = useGetListUserRolesQuery();
-  const [createUser, { isLoading, isError, error }] = useCreateUserMutation();
+  const [createUser, { isLoading, error }] = useCreateUserMutation();
 
   const handleSubmit = async (values: UserFormValues) => {
     await createUser(values)
@@ -38,7 +38,6 @@ export default function UserCreationForm() {
       roles={data}
       textOnSubmitButton={t('actions.add')}
       isLoading={isLoading}
-      isError={isError}
       error={error}
       onSubmit={handleSubmit}
     />

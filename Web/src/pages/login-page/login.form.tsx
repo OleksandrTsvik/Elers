@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 
 import useLoginRules from './use-login.rules';
 import useLogin from '../../auth/use-login';
-import { ErrorAlert } from '../../shared';
+import { ErrorForm } from '../../shared';
 
 interface FormValues {
   email: string;
@@ -17,7 +17,7 @@ export default function LoginForm() {
   const [form] = Form.useForm<FormValues>();
   const rules = useLoginRules();
 
-  const { login, isLoading, isError, error } = useLogin();
+  const { login, isLoading, error } = useLogin();
 
   const handleSubmit = (values: FormValues) => {
     login(values);
@@ -25,11 +25,7 @@ export default function LoginForm() {
 
   return (
     <Form form={form} onFinish={handleSubmit}>
-      {isError && (
-        <Form.Item>
-          <ErrorAlert error={error} />
-        </Form.Item>
-      )}
+      <ErrorForm error={error} />
 
       <Form.Item hasFeedback name="email" rules={rules.email}>
         <Input prefix={<MailOutlined />} placeholder={t('login_page.email')} />

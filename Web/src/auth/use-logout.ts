@@ -14,7 +14,7 @@ export default function useLogout() {
   const { message } = App.useApp();
   const { displayError } = useDisplayError();
 
-  const [logoutMutation, { isLoading, isError, error }] = useLogoutMutation();
+  const [logoutMutation, { isLoading, error }] = useLogoutMutation();
 
   const logout = () => {
     const messageLoadingKey = 'logout';
@@ -38,5 +38,5 @@ export default function useLogout() {
       .finally(() => message.destroy(messageLoadingKey));
   };
 
-  return { logout, isLoading, isError, error };
+  return { logout, isLoading, error };
 }

@@ -24,7 +24,7 @@ export default function UserEditForm({ userId }: Props) {
   const { data: dataRoles, isFetching: isFetchingRoles } =
     useGetListUserRolesQuery();
 
-  const [updateUser, { isLoading, isError, error }] = useUpdateUserMutation();
+  const [updateUser, { isLoading, error }] = useUpdateUserMutation();
 
   const handleSubmit = async (values: UserFormValues) => {
     await updateUser({ userId, ...values })
@@ -47,7 +47,6 @@ export default function UserEditForm({ userId }: Props) {
       roles={dataRoles}
       textOnSubmitButton={t('actions.save_changes')}
       isLoading={isLoading}
-      isError={isError}
       error={error}
       onSubmit={handleSubmit}
     />

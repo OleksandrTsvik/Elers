@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import useUserRules from './use-user.rules';
 import { FormMode } from '../../models/form-mode.enum';
 import { UserRole } from '../../models/role.interface';
-import { ErrorAlert } from '../error';
+import { ErrorForm } from '../error';
 import { USER_RULES } from '../rules';
 
 export interface UserFormValues {
@@ -22,7 +22,6 @@ interface Props {
   roles?: UserRole[];
   textOnSubmitButton: string;
   isLoading: boolean;
-  isError: boolean;
   error: unknown;
   onSubmit: (values: UserFormValues) => Promise<void> | void;
 }
@@ -33,7 +32,6 @@ export default function UserForm({
   roles,
   textOnSubmitButton,
   isLoading,
-  isError,
   error,
   onSubmit,
 }: Props) {
@@ -49,11 +47,7 @@ export default function UserForm({
       initialValues={initialValues}
       onFinish={onSubmit}
     >
-      {isError && (
-        <Form.Item>
-          <ErrorAlert error={error} />
-        </Form.Item>
-      )}
+      <ErrorForm error={error} />
 
       <Form.Item
         hasFeedback

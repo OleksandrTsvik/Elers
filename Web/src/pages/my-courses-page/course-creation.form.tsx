@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import useCourseCreationRules from './use-course-creation.rules';
-import { ErrorAlert } from '../../shared';
+import { ErrorForm } from '../../shared';
 import { COURSE_RULES } from '../../shared/rules';
 
 export interface CourseCreationFormValues {
@@ -12,7 +12,6 @@ export interface CourseCreationFormValues {
 }
 
 interface Props {
-  isError: boolean;
   error: unknown;
   onFormInstanceReady: (
     instance: FormInstance<CourseCreationFormValues>,
@@ -21,7 +20,6 @@ interface Props {
 }
 
 export default function CourseCreationFrom({
-  isError,
   error,
   onFormInstanceReady,
   onSubmit,
@@ -37,11 +35,7 @@ export default function CourseCreationFrom({
 
   return (
     <Form form={form} layout="vertical" onFinish={onSubmit}>
-      {isError && (
-        <Form.Item>
-          <ErrorAlert error={error} />
-        </Form.Item>
-      )}
+      <ErrorForm error={error} />
 
       <Form.Item
         hasFeedback
