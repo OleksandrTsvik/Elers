@@ -2,9 +2,9 @@ import { Button, Checkbox, Form, Input } from 'antd';
 import { useTranslation } from 'react-i18next';
 
 import useUserRules from './use-user.rules';
-import { ErrorAlert } from '../../components';
 import { FormMode } from '../../models/form-mode.enum';
 import { UserRole } from '../../models/role.interface';
+import { ErrorAlert } from '../error';
 
 export interface UserFormValues {
   email: string;

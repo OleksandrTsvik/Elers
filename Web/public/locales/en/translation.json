@@ -24,10 +24,15 @@
     "head_title": "Course: {{title}}"
   },
   "error": {
+    "bad_request": "Bad Request. Please check your data and try again.",
+    "conflict": "Conflict. Try again with different data.",
     "forbidden": "Access denied!",
+    "internal_server_error": "Internal server error. Please try again later.",
+    "not_found": "Not found. Please check the URL or try again later.",
     "simple": "Something went wrong!",
     "status": "An error occurred while processing your request! Status - {{status}}.",
-    "unauthorized": "Unauthorized access. Please log in!"
+    "unauthorized": "Unauthorized access. Please log in!",
+    "unsupported_media_type": "Unsupported Media Type"
   },
   "header": {
     "avatar": {

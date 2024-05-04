@@ -4,8 +4,8 @@ import { useTranslation } from 'react-i18next';
 
 import PermissionsTable from './permissions.table';
 import useRoleRules from './use-role.rules';
-import { ErrorAlert } from '../../components';
 import { Permission } from '../../models/permission.interface';
+import { ErrorAlert } from '../error';
 
 export interface RoleFormValues {
   name: string;

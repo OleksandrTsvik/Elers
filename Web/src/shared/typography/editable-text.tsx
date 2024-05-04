@@ -6,7 +6,7 @@ import { ReactNode, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import EditableTextInput from './editable-text.input';
-import { ErrorAlert } from '../../components';
+import { ErrorAlert } from '../error';
 
 import styles from './typography.module.scss';
 

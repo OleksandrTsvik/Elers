@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import useCourseCreationRules from './use-course-creation.rules';
-import { ErrorAlert } from '../../components';
+import { ErrorAlert } from '../../shared';
 
 export interface CourseCreationFormValues {
   title: string;
