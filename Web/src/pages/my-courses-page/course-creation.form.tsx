@@ -40,7 +40,7 @@ export default function CourseCreationFrom({
       <Form.Item
         hasFeedback
         name="title"
-        label={t('my_courses_page.form_title')}
+        label={t('course.title')}
         rules={rules.title}
       >
         <Input showCount maxLength={COURSE_RULES.title.max} />
@@ -49,7 +49,7 @@ export default function CourseCreationFrom({
       <Form.Item
         hasFeedback
         name="description"
-        label={t('my_courses_page.form_description')}
+        label={t('course.description')}
         rules={rules.description}
       >
         <Input.TextArea

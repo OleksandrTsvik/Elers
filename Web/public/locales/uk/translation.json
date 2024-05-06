@@ -1,6 +1,7 @@
 {
   "actions": {
     "add": "Додати",
+    "cancel": "Скасувати",
     "change": "Змінити",
     "confirm_delete": "Цю дію неможливо відмінити!",
     "delete": "Видалити",
@@ -8,16 +9,23 @@
     "save_changes": "Зберегти зміни"
   },
   "course": {
+    "description": "Опис",
     "rules": {
       "description_len": "Максимальна довжина опису {{max}} символів",
+      "section_name_len": "Назва секції повинна мати від {{min}} до {{max}} символів",
       "title_len": "Заголовок курсу повинен мати від {{min}} до {{max}} символів",
       "title_required": "Введіть заголовок курсу"
-    }
+    },
+    "section_name": "Назва секції",
+    "title": "Заголовок"
   },
   "course_edit_page": {
+    "add_section": "Додати секцію",
     "change_description": "Змінити опис",
     "change_title": "Змінити заголовок",
+    "delete_section": "Видалити секцію",
     "head_title": "Курс: {{title}}",
+    "no_sections": "Немає секцій",
     "title": "Редагування"
   },
   "course_page": {
@@ -63,8 +71,6 @@
   "my_courses_page": {
     "create_course": "Створити курс",
     "creation_title": "Створення курсу",
-    "form_description": "Опис",
-    "form_title": "Заголовок",
     "head_title": "Мої курси",
     "title": "Мої курси"
   },

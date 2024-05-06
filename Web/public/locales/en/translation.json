@@ -1,6 +1,7 @@
 {
   "actions": {
     "add": "Add",
+    "cancel": "Cancel",
     "change": "Change",
     "confirm_delete": "This action cannot be canceled!",
     "delete": "Delete",
@@ -8,16 +9,23 @@
     "save_changes": "Save changes"
   },
   "course": {
+    "description": "Description",
     "rules": {
       "description_len": "Maximum description length {{max}} characters",
-      "title_len": "The course title must be from {{min}} to {{max}} characters",
+      "section_name_len": "The section name must contain from {{min}} to {{max}} characters",
+      "title_len": "The course title must contain from {{min}} to {{max}} characters",
       "title_required": "Enter the course title"
-    }
+    },
+    "section_name": "Section name",
+    "title": "Title"
   },
   "course_edit_page": {
+    "add_section": "Add section",
     "change_description": "Change the description",
     "change_title": "Change the title",
+    "delete_section": "Delete section",
     "head_title": "Course: {{title}}",
+    "no_sections": "No sections",
     "title": "Editing"
   },
   "course_page": {
@@ -54,7 +62,7 @@
     "password": "Password",
     "rules": {
       "email_required": "Enter a valid email address",
-      "password_len": "Password length must be from {{min}} to {{max}} characters",
+      "password_len": "Password length must contain from {{min}} to {{max}} characters",
       "password_required": "Enter your password"
     },
     "submit": "Login",
@@ -63,8 +71,6 @@
   "my_courses_page": {
     "create_course": "Create a course",
     "creation_title": "Create a course",
-    "form_description": "Description",
-    "form_title": "Title",
     "head_title": "My courses",
     "title": "My courses"
   },
@@ -100,7 +106,7 @@
     "permissions": "Permissions",
     "role": "Role",
     "rules": {
-      "name_len": "The role name must be from {{min}} to {{max}} characters",
+      "name_len": "The role name must contain from {{min}} to {{max}} characters",
       "name_required": "Enter a role name"
     },
     "title": "Roles"
@@ -135,7 +141,7 @@
       "email_required": "Enter a valid email address",
       "firstName_len": "The first name must contain from {{min}} to {{max}} characters",
       "lastName_len": "The last name must contain from {{min}} to {{max}} characters",
-      "password_len": "Password length must be from {{min}} to {{max}} characters",
+      "password_len": "Password length must contain from {{min}} to {{max}} characters",
       "password_required": "Password is required",
       "patronymic_len": "The patronymic must contain from {{min}} to {{max}} characters"
     },

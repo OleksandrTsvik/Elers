@@ -9,7 +9,7 @@ import styles from './course-edit.module.scss';
 interface Props {
   courseId: string;
   title: string;
-  onUpdateTitle: (value: string) => void;
+  onUpdateTitle: (title: string) => void;
 }
 
 export default function CourseEditTitle({
@@ -33,6 +33,7 @@ export default function CourseEditTitle({
       text={title}
       loading={isLoading}
       changeText={t('course_edit_page.change_title')}
+      label={t('course.title')}
       inputProps={{ maxLength: COURSE_RULES.title.max }}
       textRules={[
         {

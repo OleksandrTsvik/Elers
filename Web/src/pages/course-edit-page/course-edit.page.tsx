@@ -2,7 +2,7 @@ import { Skeleton } from 'antd';
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
-import CourseEditContent from './course-edit.content';
+import CourseEditPageContent from './course-edit.page-content';
 import { coursesApi, useGetCourseByIdToEditQuery } from '../../api/courses.api';
 import { useAppDispatch } from '../../hooks/redux-hooks';
 import { NavigateToNotFound } from '../../shared';
@@ -27,5 +27,5 @@ export default function CourseEditPage() {
     return <NavigateToNotFound />;
   }
 
-  return <CourseEditContent course={data} />;
+  return <CourseEditPageContent course={data} />;
 }

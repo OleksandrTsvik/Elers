@@ -1,0 +1,13 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.btn-success {
+  background: #00b96b;
+  box-shadow: 0 2px 0 rgba(5, 213, 88, 0.12);
+
+  &:hover {
+    background: #20c77c !important;
+  }
+}

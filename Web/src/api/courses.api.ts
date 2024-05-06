@@ -1,11 +1,16 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
 
 import { baseQueryWithReauth } from '../auth/base-query-with-reauth';
-import { Course } from '../models/course.interface';
+import { Course, CourseListItem, CourseTab } from '../models/course.interface';
 
 interface CreateCourseRequest {
   title: string;
   description: string;
+}
+
+interface CreateCourseTabRequest {
+  courseId: string;
+  name: string;
 }
 
 export const coursesApi = createApi({
@@ -25,7 +30,7 @@ export const coursesApi = createApi({
       }),
       providesTags: ['CourseToEdit'],
     }),
-    getListCourses: builder.query<Course[], void>({
+    getListCourses: builder.query<CourseListItem[], void>({
       query: () => ({
         url: '/courses',
       }),
@@ -58,6 +63,14 @@ export const coursesApi = createApi({
       }),
       invalidatesTags: ['Course', 'Courses'],
     }),
+    createCourseTab: builder.mutation<CourseTab, CreateCourseTabRequest>({
+      query: ({ courseId, ...data }) => ({
+        url: `/courseTabs/${courseId}`,
+        method: 'POST',
+        body: data,
+      }),
+      invalidatesTags: ['Course'],
+    }),
   }),
 });
 
@@ -68,4 +81,5 @@ export const {
   useCreateCourseMutation,
   useUpdateCourseTitleMutation,
   useUpdateCourseDescriptionMutation,
+  useCreateCourseTabMutation,
 } = coursesApi;

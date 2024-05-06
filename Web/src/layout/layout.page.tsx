@@ -8,7 +8,7 @@ import Sider from './sider';
 import useAuth from '../hooks/use-auth';
 import { COLLAPSED_SIDER } from '../utils/constants/local-storage.constants';
 
-import './layout.css';
+import './layout.scss';
 
 export default function LayoutPage() {
   const breakpoints = Grid.useBreakpoint();

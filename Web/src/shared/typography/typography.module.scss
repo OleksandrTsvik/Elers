@@ -6,12 +6,16 @@
   padding-right: 0;
 }
 
+.editableText_errorAlert {
+  margin-bottom: 0.5em;
+}
+
 .editableText_actionButtons {
   display: flex;
   justify-content: right;
   gap: 8px;
   margin-top: 8px;
-  margin-bottom: 1em;
+  margin-bottom: 2em;
 }
 
 .editableTextInput_textarea {

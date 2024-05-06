@@ -10,7 +10,7 @@ import styles from './course-edit.module.scss';
 interface Props {
   courseId: string;
   description?: string;
-  onUpdateDescription: (value: string) => void;
+  onUpdateDescription: (description: string) => void;
 }
 
 export default function CourseEditDescription({
@@ -35,6 +35,7 @@ export default function CourseEditDescription({
       text={description}
       loading={isLoading}
       changeText={t('course_edit_page.change_description')}
+      label={t('course.description')}
       inputProps={{ maxLength: COURSE_RULES.description.max }}
       error={error}
       onChange={handleChange}

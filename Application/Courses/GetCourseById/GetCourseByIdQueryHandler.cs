@@ -20,12 +20,25 @@ public class GetCourseByIdQueryHandler : IQueryHandler<GetCourseByIdQuery, GetCo
         CancellationToken cancellationToken)
     {
         GetCourseByIdResponse? course = await _context.Courses
+            .Include(x => x.CourseTabs)
             .Select(x => new GetCourseByIdResponse
             {
                 Id = x.Id,
                 Title = x.Title,
                 Description = x.Description,
-                PhotoUrl = x.PhotoUrl
+                PhotoUrl = x.PhotoUrl,
+                CourseTabs = x.CourseTabs.Select(courseTab => new CourseTabResponse
+                {
+                    Id = courseTab.Id,
+                    CourseId = courseTab.CourseId,
+                    Name = courseTab.Name,
+                    IsActive = courseTab.IsActive,
+                    Order = courseTab.Order,
+                    Color = courseTab.Color,
+                    ShowMaterialsCount = courseTab.ShowMaterialsCount,
+                })
+                .OrderBy(courseTab => courseTab.Order)
+                .ToArray()
             })
             .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
 

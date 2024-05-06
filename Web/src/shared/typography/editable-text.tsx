@@ -20,6 +20,7 @@ interface CommonProps {
   text: string | undefined;
   loading?: boolean;
   changeText?: string;
+  label?: ReactNode;
   textRules?: Rule[];
   error?: unknown;
   formProps?: FormProps;
@@ -37,6 +38,7 @@ export default function EditableText({
   text,
   loading,
   changeText,
+  label,
   textRules,
   error,
   formProps,
@@ -86,14 +88,17 @@ export default function EditableText({
 
   return (
     <>
-      {error && <ErrorAlert error={error} style={{ marginBottom: '0.5em' }} />}
+      {error && (
+        <ErrorAlert className={styles.editableText_errorAlert} error={error} />
+      )}
       <Form
+        layout="vertical"
         {...formProps}
         form={form}
         initialValues={{ value: text || '' }}
         onFinish={handleSubmit}
       >
-        <Form.Item hasFeedback name="value" rules={textRules}>
+        <Form.Item hasFeedback name="value" label={label} rules={textRules}>
           <EditableTextInput inputType={props.type} {...props.inputProps} />
         </Form.Item>
       </Form>
