@@ -3,14 +3,14 @@ import { Button, Dropdown, TableColumnsType } from 'antd';
 import { useTranslation } from 'react-i18next';
 
 import useRolesActions from './use-roles.actions';
-import { ListRoleItem } from '../../models/role.interface';
+import { RoleListItem } from '../../models/role.interface';
 
 export default function useRolesColumns() {
   const { t } = useTranslation();
 
   const { getActionItems } = useRolesActions();
 
-  const columns: TableColumnsType<ListRoleItem> = [
+  const columns: TableColumnsType<RoleListItem> = [
     {
       key: 'index',
       title: '#',

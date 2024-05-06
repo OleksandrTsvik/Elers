@@ -1,12 +1,12 @@
-import { RolePermissions } from './permission.interface';
+import { RolePermissionListItem } from './permission.interface';
 
 export interface Role {
   id: string;
   name: string;
-  permissions: RolePermissions[];
+  permissions: RolePermissionListItem[];
 }
 
-export interface ListRoleItem {
+export interface RoleListItem {
   id: string;
   name: string;
   permissions: string[];

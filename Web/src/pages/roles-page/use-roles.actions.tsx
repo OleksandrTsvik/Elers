@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDeleteRoleMutation } from '../../api/roles.api';
 import { EditIcon, DeleteIcon } from '../../components';
 import useDisplayError from '../../hooks/use-display-error';
-import { ListRoleItem } from '../../models/role.interface';
+import { RoleListItem } from '../../models/role.interface';
 
 export default function useRolesActions() {
   const { t } = useTranslation();
@@ -17,7 +17,7 @@ export default function useRolesActions() {
 
   const [deleteRole] = useDeleteRoleMutation();
 
-  const getActionItems = (record: ListRoleItem): ItemType[] => [
+  const getActionItems = (record: RoleListItem): ItemType[] => [
     {
       key: '1',
       icon: <EditIcon />,

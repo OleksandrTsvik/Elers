@@ -4,7 +4,7 @@ export interface Permission {
   description: string;
 }
 
-export interface RolePermissions {
+export interface RolePermissionListItem {
   id: string;
   name: string;
   description: string;

@@ -1,7 +1,7 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
 
 import { baseQueryWithReauth } from '../auth/base-query-with-reauth';
-import { ListRoleItem, Role, UserRole } from '../models/role.interface';
+import { RoleListItem, Role, UserRole } from '../models/role.interface';
 
 interface UpdateRoleRequest {
   roleId: string;
@@ -25,7 +25,7 @@ export const rolesApi = createApi({
       }),
       providesTags: ['Roles'],
     }),
-    getListRoles: builder.query<ListRoleItem[], void>({
+    getListRoles: builder.query<RoleListItem[], void>({
       query: () => ({
         url: '/roles',
       }),
