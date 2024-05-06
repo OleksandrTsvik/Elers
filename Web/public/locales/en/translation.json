@@ -23,6 +23,7 @@
     "add_section": "Add section",
     "change_description": "Change the description",
     "change_title": "Change the title",
+    "confirm_delete_section": "Are you sure you want to delete the '{{section}}' section?",
     "delete_section": "Delete section",
     "head_title": "Course: {{title}}",
     "no_sections": "No sections",

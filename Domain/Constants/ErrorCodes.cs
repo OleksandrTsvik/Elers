@@ -13,6 +13,11 @@ public class ErrorCodes
         public const string NotFound = "Courses.NotFound";
     }
 
+    public static class CourseTabs
+    {
+        public const string NotFound = "CourseTabs.NotFound";
+    }
+
     public static class RefreshTokens
     {
         public const string InvalidToken = "RefreshTokens.InvalidToken";

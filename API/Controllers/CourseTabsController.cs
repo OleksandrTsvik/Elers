@@ -1,4 +1,5 @@
 using Application.CourseTabs.CreateCourseTab;
+using Application.CourseTabs.DeleteCourseTab;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers;
@@ -12,6 +13,16 @@ public class CourseTabsController : ApiControllerBase
         CancellationToken cancellationToken)
     {
         var command = new CreateCourseTabCommand(courseId, request.Name);
+
+        return HandleResult(await Sender.Send(command, cancellationToken));
+    }
+
+    [HttpDelete("{id:guid}")]
+    public async Task<IActionResult> DeleteCourseTab(
+        Guid id,
+        CancellationToken cancellationToken)
+    {
+        var command = new DeleteCourseTabCommand(id);
 
         return HandleResult(await Sender.Send(command, cancellationToken));
     }

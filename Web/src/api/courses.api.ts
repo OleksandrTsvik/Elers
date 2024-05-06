@@ -71,6 +71,13 @@ export const coursesApi = createApi({
       }),
       invalidatesTags: ['Course'],
     }),
+    deleteCourseTab: builder.mutation<void, { id: string }>({
+      query: ({ id }) => ({
+        url: `/courseTabs/${id}`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: ['Course'],
+    }),
   }),
 });
 
@@ -82,4 +89,5 @@ export const {
   useUpdateCourseTitleMutation,
   useUpdateCourseDescriptionMutation,
   useCreateCourseTabMutation,
+  useDeleteCourseTabMutation,
 } = coursesApi;

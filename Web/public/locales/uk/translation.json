@@ -23,6 +23,7 @@
     "add_section": "Додати секцію",
     "change_description": "Змінити опис",
     "change_title": "Змінити заголовок",
+    "confirm_delete_section": "Ви дійсно бажаєте видалити секцію '{{section}}'?",
     "delete_section": "Видалити секцію",
     "head_title": "Курс: {{title}}",
     "no_sections": "Немає секцій",
