@@ -1,29 +1,22 @@
-import { Divider } from 'antd';
+import { Divider, Typography } from 'antd';
 
-import SectionListItemTitle from './section-list.item-title';
 import { CourseTab } from '../../../models/course.interface';
-import CourseEditTabContent from '../tabs/course-edit.tab-content';
+import TabContent from '../tabs/tab.content';
+import TabSettingsDropdown from '../tabs/tab.settings-dropdown';
 
 interface Props {
   section: CourseTab;
-  onUpdateSection: (section: CourseTab) => void;
-  onDeleteSection: (section: CourseTab) => void;
 }
 
-export default function SectionListItem({
-  section,
-  onDeleteSection,
-  onUpdateSection,
-}: Props) {
+export default function SectionListItem({ section }: Props) {
   return (
     <>
       <Divider />
-      <SectionListItemTitle
-        section={section}
-        onUpdateSection={onUpdateSection}
-        onDeleteSection={onDeleteSection}
-      />
-      <CourseEditTabContent tab={section} />
+      <Typography.Title level={3}>
+        {section.name}
+        <TabSettingsDropdown courseTab={section} />
+      </Typography.Title>
+      <TabContent tab={section} />
     </>
   );
 }

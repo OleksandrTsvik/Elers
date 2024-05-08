@@ -9,22 +9,15 @@ import styles from './course-edit.module.scss';
 interface Props {
   courseId: string;
   title: string;
-  onUpdateTitle: (title: string) => void;
 }
 
-export default function CourseEditTitle({
-  courseId,
-  title,
-  onUpdateTitle,
-}: Props) {
+export default function CourseEditTitle({ courseId, title }: Props) {
   const { t } = useTranslation();
 
   const [updateCourse, { isLoading, error }] = useUpdateCourseTitleMutation();
 
   const handleChange = async (value: string) => {
-    await updateCourse({ id: courseId, title: value })
-      .unwrap()
-      .then(() => onUpdateTitle(value));
+    await updateCourse({ id: courseId, title: value }).unwrap();
   };
 
   return (

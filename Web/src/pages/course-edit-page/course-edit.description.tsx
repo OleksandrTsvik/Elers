@@ -10,13 +10,11 @@ import styles from './course-edit.module.scss';
 interface Props {
   courseId: string;
   description?: string;
-  onUpdateDescription: (description: string) => void;
 }
 
 export default function CourseEditDescription({
   courseId,
   description,
-  onUpdateDescription,
 }: Props) {
   const { t } = useTranslation();
 
@@ -24,9 +22,7 @@ export default function CourseEditDescription({
     useUpdateCourseDescriptionMutation();
 
   const handleChange = async (value: string) => {
-    await updateCourse({ id: courseId, description: value })
-      .unwrap()
-      .then(() => onUpdateDescription(value));
+    await updateCourse({ id: courseId, description: value }).unwrap();
   };
 
   return (

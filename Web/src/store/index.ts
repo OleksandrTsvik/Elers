@@ -4,6 +4,7 @@ import { colorModeReducer } from './color-mode.slice';
 import { localeReducer } from './locale.slice';
 import { apiReducers } from '../api';
 import { authReducer } from '../auth/auth.slice';
+import { courseEditReducer } from '../pages/course-edit-page/course-edit.slice';
 import { IS_DEVELOPMENT } from '../utils/constants/node-env.constants';
 
 const apiReducersObj = apiReducers.reduce(
@@ -22,6 +23,7 @@ export const store = configureStore({
     auth: authReducer,
     locale: localeReducer,
     colorMode: colorModeReducer,
+    courseEdit: courseEditReducer,
     ...apiReducersObj,
   },
   middleware: (getDefaultMiddleware) =>

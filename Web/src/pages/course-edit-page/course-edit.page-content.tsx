@@ -1,10 +1,9 @@
-import { useState } from 'react';
-
 import CourseEditBreadcrumb from './course-edit.breadcrumb';
 import CourseEditDescription from './course-edit.description';
 import CourseEditHead from './course-edit.head';
+import CourseEditTabs from './course-edit.tabs';
 import CourseEditTitle from './course-edit.title';
-import CourseEditSections from './sections/course-edit.sections';
+import TabModals from './tabs/tab.modals';
 import { Course } from '../../models/course.interface';
 
 interface Props {
@@ -12,30 +11,17 @@ interface Props {
 }
 
 export default function CourseEditPageContent({ course }: Props) {
-  const [title, setTitle] = useState(course.title);
-  const [description, setDescription] = useState(course.description);
-
-  const [tabs, setTabs] = useState(course.courseTabs);
-
   return (
     <>
-      <CourseEditHead title={title} />
-      <CourseEditBreadcrumb courseId={course.id} title={title} />
-      <CourseEditTitle
-        courseId={course.id}
-        title={title}
-        onUpdateTitle={setTitle}
-      />
+      <CourseEditHead title={course.title} />
+      <CourseEditBreadcrumb courseId={course.id} title={course.title} />
+      <CourseEditTitle courseId={course.id} title={course.title} />
       <CourseEditDescription
         courseId={course.id}
-        description={description}
-        onUpdateDescription={setDescription}
+        description={course.description}
       />
-      <CourseEditSections
-        courseId={course.id}
-        sections={tabs}
-        onUpdateSections={setTabs}
-      />
+      <CourseEditTabs courseTabs={course.courseTabs} />
+      <TabModals courseId={course.id} />
     </>
   );
 }

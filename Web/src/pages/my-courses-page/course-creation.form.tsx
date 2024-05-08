@@ -19,7 +19,7 @@ interface Props {
   onSubmit: (values: CourseCreationFormValues) => Promise<void> | void;
 }
 
-export default function CourseCreationFrom({
+export default function CourseCreationForm({
   error,
   onFormInstanceReady,
   onSubmit,

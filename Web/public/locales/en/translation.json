@@ -12,7 +12,7 @@
     "description": "Description",
     "rules": {
       "description_len": "Maximum description length {{max}} characters",
-      "section_name_len": "The section name must contain from {{min}} to {{max}} characters",
+      "tab_name_len": "The section name must contain from {{min}} to {{max}} characters",
       "title_len": "The course title must contain from {{min}} to {{max}} characters",
       "title_required": "Enter the course title"
     },
@@ -20,12 +20,15 @@
     "title": "Title"
   },
   "course_edit_page": {
+    "add_material": "Add material",
     "add_section": "Add section",
     "change_description": "Change the description",
+    "change_tab_name": "Change the name of the section",
     "change_title": "Change the title",
     "confirm_delete_section": "Are you sure you want to delete the '{{section}}' section?",
     "delete_section": "Delete section",
     "head_title": "Course: {{title}}",
+    "new_section": "New section",
     "no_sections": "No sections",
     "title": "Editing"
   },
@@ -54,6 +57,7 @@
   },
   "loading": {
     "app": "Loading app ...",
+    "changes": "Loading changes ...",
     "data": "Loading data ...",
     "logout": "Logging out ..."
   },

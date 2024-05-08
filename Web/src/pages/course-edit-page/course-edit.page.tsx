@@ -1,25 +1,20 @@
-import { Skeleton } from 'antd';
-import { useEffect } from 'react';
+import { Skeleton, Spin } from 'antd';
+import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 
 import CourseEditPageContent from './course-edit.page-content';
-import { coursesApi, useGetCourseByIdToEditQuery } from '../../api/courses.api';
-import { useAppDispatch } from '../../hooks/redux-hooks';
+import { useGetCourseByIdQuery } from '../../api/courses.api';
 import { NavigateToNotFound } from '../../shared';
 
 export default function CourseEditPage() {
-  const appDispatch = useAppDispatch();
-
   const { courseId } = useParams();
-  const { data, isFetching } = useGetCourseByIdToEditQuery({ id: courseId });
+  const { t } = useTranslation();
 
-  useEffect(() => {
-    return () => {
-      appDispatch(coursesApi.util.invalidateTags(['CourseToEdit']));
-    };
-  }, [appDispatch]);
+  const { data, isLoading, isFetching } = useGetCourseByIdQuery({
+    id: courseId,
+  });
 
-  if (isFetching) {
+  if (isLoading) {
     return <Skeleton />;
   }
 
@@ -27,5 +22,9 @@ export default function CourseEditPage() {
     return <NavigateToNotFound />;
   }
 
-  return <CourseEditPageContent course={data} />;
+  return (
+    <Spin spinning={isFetching} tip={t('loading.changes')}>
+      <CourseEditPageContent course={data} />
+    </Spin>
+  );
 }

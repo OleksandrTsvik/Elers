@@ -1,5 +1,6 @@
 using Application.CourseTabs.CreateCourseTab;
 using Application.CourseTabs.DeleteCourseTab;
+using Application.CourseTabs.UpdateCourseTabName;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers;
@@ -13,6 +14,17 @@ public class CourseTabsController : ApiControllerBase
         CancellationToken cancellationToken)
     {
         var command = new CreateCourseTabCommand(courseId, request.Name);
+
+        return HandleResult(await Sender.Send(command, cancellationToken));
+    }
+
+    [HttpPatch("name/{id:guid}")]
+    public async Task<IActionResult> UpdateCourseTabName(
+        Guid id,
+        [FromBody] UpdateCourseTabNameRequest request,
+        CancellationToken cancellationToken)
+    {
+        var command = new UpdateCourseTabNameCommand(id, request.Name);
 
         return HandleResult(await Sender.Send(command, cancellationToken));
     }

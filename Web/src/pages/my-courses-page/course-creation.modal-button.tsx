@@ -2,7 +2,7 @@ import { Button, FormInstance, Modal } from 'antd';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import CourseCreationFrom, {
+import CourseCreationForm, {
   CourseCreationFormValues,
 } from './course-creation.form';
 import { useCreateCourseMutation } from '../../api/courses.api';
@@ -16,10 +16,6 @@ export default function CourseCreationModalButton() {
     useState<FormInstance<CourseCreationFormValues>>();
 
   const [createCourse, { isLoading, error }] = useCreateCourseMutation();
-
-  const handleOk = () => {
-    formInstance?.submit();
-  };
 
   const handleSubmit = async (values: CourseCreationFormValues) => {
     await createCourse(values)
@@ -38,10 +34,10 @@ export default function CourseCreationModalButton() {
         confirmLoading={isLoading}
         title={t('my_courses_page.creation_title')}
         okText={t('actions.add')}
-        onOk={handleOk}
+        onOk={formInstance?.submit}
         onCancel={onClose}
       >
-        <CourseCreationFrom
+        <CourseCreationForm
           error={error}
           onFormInstanceReady={setFormInstance}
           onSubmit={handleSubmit}
