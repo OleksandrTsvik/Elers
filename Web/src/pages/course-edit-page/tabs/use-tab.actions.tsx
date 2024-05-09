@@ -3,7 +3,7 @@ import { ItemType } from 'antd/es/menu/hooks/useItems';
 import { useTranslation } from 'react-i18next';
 
 import { useDeleteCourseTabMutation } from '../../../api/course-tabs.api';
-import { DeleteIcon, EditIcon } from '../../../components';
+import { ChangeColorIcon, DeleteIcon, EditIcon } from '../../../components';
 import { useAppDispatch } from '../../../hooks/redux-hooks';
 import useDisplayError from '../../../hooks/use-display-error';
 import { CourseTab } from '../../../models/course-tab.interface';
@@ -24,29 +24,38 @@ export default function useTabActions(tab: CourseTab): ItemType[] {
     appDispatch(setModalMode(modalMode));
   };
 
+  const handleDeleteClick = async () => {
+    await modal.confirm({
+      title: t('course_edit_page.confirm_delete_section', {
+        section: tab.name,
+      }),
+      content: t('actions.confirm_delete'),
+      okButtonProps: { danger: true },
+      onOk: () =>
+        deleteCourseTab({ id: tab.id })
+          .unwrap()
+          .catch((error) => displayError(error)),
+    });
+  };
+
   return [
     {
-      key: '1',
+      key: 'edit',
       icon: <EditIcon />,
       label: t('actions.edit'),
       onClick: () => changeModalMode(CourseTabModalMode.EditName),
     },
     {
-      key: '2',
+      key: 'changeColor',
+      icon: <ChangeColorIcon />,
+      label: t('actions.change_color'),
+      onClick: () => changeModalMode(CourseTabModalMode.EditColor),
+    },
+    {
+      key: 'delete',
       icon: <DeleteIcon />,
       label: t('actions.delete'),
-      onClick: () =>
-        modal.confirm({
-          title: t('course_edit_page.confirm_delete_section', {
-            section: tab.name,
-          }),
-          content: t('actions.confirm_delete'),
-          okButtonProps: { danger: true },
-          onOk: () =>
-            deleteCourseTab({ id: tab.id })
-              .unwrap()
-              .catch((error) => displayError(error)),
-        }),
+      onClick: handleDeleteClick,
     },
   ];
 }

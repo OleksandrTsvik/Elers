@@ -12,7 +12,7 @@ export default function SectionListItem({ section }: Props) {
   return (
     <>
       <Divider />
-      <Typography.Title level={3}>
+      <Typography.Title level={3} style={{ color: section.color }}>
         {section.name}
         <TabSettingsDropdown courseTab={section} />
       </Typography.Title>

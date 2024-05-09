@@ -1,3 +1,4 @@
+import TabColorUpdateModal from '../modals/tab-color.update-modal';
 import TabNameCreateModal from '../modals/tab-name.create-modal';
 import TabNameUpdateModal from '../modals/tab-name.update-modal';
 import useCourseEditState from '../use-course-edit.state';
@@ -12,7 +13,13 @@ export default function TabModals({ courseId }: Props) {
   return (
     <>
       <TabNameCreateModal courseId={courseId} />
-      {activeCourseTab && <TabNameUpdateModal courseTab={activeCourseTab} />}
+
+      {activeCourseTab && (
+        <>
+          <TabNameUpdateModal courseTab={activeCourseTab} />
+          <TabColorUpdateModal courseTab={activeCourseTab} />
+        </>
+      )}
     </>
   );
 }

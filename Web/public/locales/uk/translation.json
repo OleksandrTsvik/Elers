@@ -3,10 +3,27 @@
     "add": "Додати",
     "cancel": "Скасувати",
     "change": "Змінити",
+    "change_color": "Змінити колір",
     "confirm_delete": "Цю дію неможливо відмінити!",
     "delete": "Видалити",
     "edit": "Редагувати",
     "save_changes": "Зберегти зміни"
+  },
+  "color": {
+    "blue": "Синій",
+    "cyan": "Блакитний",
+    "geekblue": "Відтінок синього",
+    "gold": "Золото",
+    "green": "Зелений",
+    "grey": "Сірий",
+    "lime": "Лайм",
+    "magenta": "Пурпуровий",
+    "orange": "Помаранчевий",
+    "purple": "Фіолетовий",
+    "red": "Червоний",
+    "unspecific": "Невідомий колір",
+    "volcano": "Вулкан",
+    "yellow": "Жовтий"
   },
   "course": {
     "description": "Опис",
@@ -17,12 +34,14 @@
       "title_required": "Введіть заголовок курсу"
     },
     "section_name": "Назва секції",
+    "tab_color": "Колір заголовка секції",
     "title": "Заголовок"
   },
   "course_edit_page": {
     "add_material": "Додати матеріал",
     "add_section": "Додати секцію",
     "change_description": "Змінити опис",
+    "change_tab_color": "Зміна кольору заголовка секції",
     "change_tab_name": "Зміна назви секції",
     "change_title": "Змінити заголовок",
     "confirm_delete_section": "Ви дійсно бажаєте видалити секцію '{{section}}'?",

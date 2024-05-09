@@ -10,6 +10,11 @@ interface UpdateCourseTabNameRequest {
   name: string;
 }
 
+interface UpdateCourseTabColorRequest {
+  tabId: string;
+  color?: string;
+}
+
 export const courseTabsApi = coursesApi.injectEndpoints({
   endpoints: (builder) => ({
     createCourseTab: builder.mutation<void, CreateCourseTabRequest>({
@@ -28,6 +33,14 @@ export const courseTabsApi = coursesApi.injectEndpoints({
       }),
       invalidatesTags: ['Course'],
     }),
+    updateCourseTabColor: builder.mutation<void, UpdateCourseTabColorRequest>({
+      query: ({ tabId, ...data }) => ({
+        url: `/courseTabs/color/${tabId}`,
+        method: 'PATCH',
+        body: data,
+      }),
+      invalidatesTags: ['Course'],
+    }),
     deleteCourseTab: builder.mutation<void, { id: string }>({
       query: ({ id }) => ({
         url: `/courseTabs/${id}`,
@@ -41,5 +54,6 @@ export const courseTabsApi = coursesApi.injectEndpoints({
 export const {
   useCreateCourseTabMutation,
   useUpdateCourseTabNameMutation,
+  useUpdateCourseTabColorMutation,
   useDeleteCourseTabMutation,
 } = courseTabsApi;

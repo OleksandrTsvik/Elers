@@ -1,5 +1,6 @@
 using Application.CourseTabs.CreateCourseTab;
 using Application.CourseTabs.DeleteCourseTab;
+using Application.CourseTabs.UpdateCourseTabColor;
 using Application.CourseTabs.UpdateCourseTabName;
 using Microsoft.AspNetCore.Mvc;
 
@@ -25,6 +26,17 @@ public class CourseTabsController : ApiControllerBase
         CancellationToken cancellationToken)
     {
         var command = new UpdateCourseTabNameCommand(id, request.Name);
+
+        return HandleResult(await Sender.Send(command, cancellationToken));
+    }
+
+    [HttpPatch("color/{id:guid}")]
+    public async Task<IActionResult> UpdateCourseTabColor(
+        Guid id,
+        [FromBody] UpdateCourseTabColorRequest request,
+        CancellationToken cancellationToken)
+    {
+        var command = new UpdateCourseTabColorCommand(id, request.Color);
 
         return HandleResult(await Sender.Send(command, cancellationToken));
     }

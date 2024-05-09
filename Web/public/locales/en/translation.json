@@ -3,10 +3,27 @@
     "add": "Add",
     "cancel": "Cancel",
     "change": "Change",
+    "change_color": "Change color",
     "confirm_delete": "This action cannot be canceled!",
     "delete": "Delete",
     "edit": "Edit",
     "save_changes": "Save changes"
+  },
+  "color": {
+    "blue": "Blue",
+    "cyan": "Cyan",
+    "geekblue": "Geekblue",
+    "gold": "Gold",
+    "green": "Green",
+    "grey": "Grey",
+    "lime": "Lime",
+    "magenta": "Magenta",
+    "orange": "Orange",
+    "purple": "Purple",
+    "red": "Red",
+    "unspecific": "Unknown color",
+    "volcano": "Volcano",
+    "yellow": "Yellow"
   },
   "course": {
     "description": "Description",
@@ -17,12 +34,14 @@
       "title_required": "Enter the course title"
     },
     "section_name": "Section name",
+    "tab_color": "Section title color",
     "title": "Title"
   },
   "course_edit_page": {
     "add_material": "Add material",
     "add_section": "Add section",
     "change_description": "Change the description",
+    "change_tab_color": "Change the color of the section",
     "change_tab_name": "Change the name of the section",
     "change_title": "Change the title",
     "confirm_delete_section": "Are you sure you want to delete the '{{section}}' section?",
