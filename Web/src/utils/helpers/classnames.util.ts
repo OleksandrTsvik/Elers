@@ -1,3 +1,3 @@
-export default function classnames(...classNames: string[]): string {
+export function classnames(...classNames: string[]): string {
   return classNames.join(' ');
 }

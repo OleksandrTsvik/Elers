@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { ImSection } from 'react-icons/im';
 
 import { useAppDispatch } from '../../../hooks/redux-hooks';
-import classnames from '../../../utils/helpers/classnames.util';
+import { classnames } from '../../../utils/helpers';
 import { setModalMode } from '../course-edit.slice';
 import { CourseTabModalMode } from '../modals/tab-modal-mode.enum';
 

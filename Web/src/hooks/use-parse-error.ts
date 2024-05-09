@@ -1,8 +1,7 @@
 import { TFunction } from 'i18next';
 import { useTranslation } from 'react-i18next';
 
-import parseErrorObject from '../utils/helpers/parse-error-object.util';
-import { isNumber } from '../utils/helpers/type-guards.util';
+import { isNumber, parseErrorObject } from '../utils/helpers';
 
 export default function useParseError(error: unknown) {
   const { t } = useTranslation();

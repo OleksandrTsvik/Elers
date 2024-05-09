@@ -30,7 +30,7 @@ interface DetailsValidationError {
   message: string;
 }
 
-export default function parseErrorObject(error: unknown): ErrorObject {
+export function parseErrorObject(error: unknown): ErrorObject {
   if (!error) {
     return {};
   }
