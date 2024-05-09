@@ -1,7 +1,7 @@
 import { Rule } from 'antd/es/form';
 import { useTranslation } from 'react-i18next';
 
-import { USER_RULES } from '../../shared/rules';
+import { USER_RULES } from '../../common/rules';
 
 interface Rules {
   email: Rule[];

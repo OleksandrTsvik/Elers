@@ -1,6 +1,6 @@
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
 
-import useAuth from '../../hooks/use-auth';
+import useAuth from '../../auth/use-auth';
 
 export default function PrivateOutlet() {
   const location = useLocation();

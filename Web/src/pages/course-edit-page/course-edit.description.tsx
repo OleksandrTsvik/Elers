@@ -2,8 +2,8 @@ import { Typography } from 'antd';
 import { useTranslation } from 'react-i18next';
 
 import { useUpdateCourseDescriptionMutation } from '../../api/courses.api';
-import { EditableText } from '../../shared';
-import { COURSE_RULES } from '../../shared/rules';
+import { EditableText } from '../../common';
+import { COURSE_RULES } from '../../common/rules';
 
 import styles from './course-edit.module.scss';
 

@@ -1,3 +1,5 @@
+import { CourseTab } from './course-tab.interface';
+
 export interface CourseListItem {
   id: string;
   title: string;
@@ -11,14 +13,4 @@ export interface Course {
   description?: string;
   photoUrl?: string;
   courseTabs: CourseTab[];
-}
-
-export interface CourseTab {
-  id: string;
-  courseId: string;
-  name: string;
-  isActive: boolean;
-  order: number;
-  color?: string;
-  showMaterialsCount: boolean;
 }

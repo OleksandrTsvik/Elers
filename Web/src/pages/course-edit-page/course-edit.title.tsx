@@ -1,8 +1,8 @@
 import { useTranslation } from 'react-i18next';
 
 import { useUpdateCourseTitleMutation } from '../../api/courses.api';
-import { EditableText, ResponsiveTitle } from '../../shared';
-import { COURSE_RULES } from '../../shared/rules';
+import { EditableText, ResponsiveTitle } from '../../common';
+import { COURSE_RULES } from '../../common/rules';
 
 import styles from './course-edit.module.scss';
 

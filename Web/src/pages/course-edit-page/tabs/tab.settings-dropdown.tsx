@@ -1,6 +1,6 @@
 import useTabActions from './use-tab.actions';
 import { SettingsDropdown } from '../../../components';
-import { CourseTab } from '../../../models/course.interface';
+import { CourseTab } from '../../../models/course-tab.interface';
 
 interface Props {
   courseTab: CourseTab;

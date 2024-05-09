@@ -28,7 +28,7 @@ const initialState: ColorModeState = {
   mode: initColorMode(),
 };
 
-const colorModeSlice = createSlice({
+export const colorModeSlice = createSlice({
   name: 'colorModeSlice',
   initialState,
   reducers: {
@@ -49,8 +49,6 @@ const colorModeSlice = createSlice({
   },
 });
 
-export const colorModeReducer = colorModeSlice.reducer;
-
 export const { setColorMode, toogleColorMode } = colorModeSlice.actions;
 
-export const selectColorMode = (state: RootState) => state.colorMode.mode;
+export const selectColorMode = (state: RootState) => state.colorModeSlice.mode;

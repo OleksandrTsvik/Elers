@@ -8,8 +8,8 @@ import { ItemType } from 'antd/es/menu/hooks/useItems';
 import { useTranslation } from 'react-i18next';
 import { PiUsers } from 'react-icons/pi';
 
-import useAuth from '../../hooks/use-auth';
-import { PermissionType } from '../../models/permission-type.enum';
+import { PermissionType } from '../../auth/permission-type.enum';
+import useAuth from '../../auth/use-auth';
 
 type SiderItem = ItemType & {
   permissions: PermissionType[];

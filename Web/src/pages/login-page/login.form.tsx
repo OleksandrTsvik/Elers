@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 
 import useLoginRules from './use-login.rules';
 import useLogin from '../../auth/use-login';
-import { ErrorForm } from '../../shared';
+import { ErrorForm } from '../../common';
 
 interface FormValues {
   email: string;

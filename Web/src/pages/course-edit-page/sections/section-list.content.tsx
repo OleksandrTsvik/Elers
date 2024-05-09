@@ -2,7 +2,7 @@ import { Empty } from 'antd';
 import { useTranslation } from 'react-i18next';
 
 import SectionListItem from './section-list.item';
-import { CourseTab } from '../../../models/course.interface';
+import { CourseTab } from '../../../models/course-tab.interface';
 
 interface Props {
   sections: CourseTab[];

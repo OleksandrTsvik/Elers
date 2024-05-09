@@ -4,8 +4,8 @@ import { useTranslation } from 'react-i18next';
 
 import { useRefreshMutation } from './auth.api';
 import { setCredentials } from './auth.slice';
+import useAuth from './use-auth';
 import { useAppDispatch } from '../hooks/redux-hooks';
-import useAuth from '../hooks/use-auth';
 import useDisplayError from '../hooks/use-display-error';
 
 interface Props {

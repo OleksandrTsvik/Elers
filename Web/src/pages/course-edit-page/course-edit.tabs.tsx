@@ -1,6 +1,6 @@
 import SectionCreationModalButton from './sections/section-creation.button';
 import SectionListContent from './sections/section-list.content';
-import { CourseTab } from '../../models/course.interface';
+import { CourseTab } from '../../models/course-tab.interface';
 
 interface Props {
   courseTabs: CourseTab[];

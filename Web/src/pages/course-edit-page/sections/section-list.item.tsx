@@ -1,6 +1,6 @@
 import { Divider, Typography } from 'antd';
 
-import { CourseTab } from '../../../models/course.interface';
+import { CourseTab } from '../../../models/course-tab.interface';
 import TabContent from '../tabs/tab.content';
 import TabSettingsDropdown from '../tabs/tab.settings-dropdown';
 

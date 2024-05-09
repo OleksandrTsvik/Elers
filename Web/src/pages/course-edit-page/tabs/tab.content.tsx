@@ -1,5 +1,5 @@
 import MaterialCreationButton from './material-creation.button';
-import { CourseTab } from '../../../models/course.interface';
+import { CourseTab } from '../../../models/course-tab.interface';
 
 interface Props {
   tab: CourseTab;

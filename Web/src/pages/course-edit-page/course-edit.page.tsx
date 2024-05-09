@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 
 import CourseEditPageContent from './course-edit.page-content';
 import { useGetCourseByIdQuery } from '../../api/courses.api';
-import { NavigateToNotFound } from '../../shared';
+import { NavigateToNotFound } from '../../common';
 
 export default function CourseEditPage() {
   const { courseId } = useParams();

@@ -10,7 +10,7 @@ export const getBaseQuery = (url: string = '') =>
     prepareHeaders: (headers, { getState }) => {
       const state = getState() as RootState;
 
-      headers.set('Accept-Language', state.locale.locale);
+      headers.set('Accept-Language', state.localeSlice.locale);
 
       return headers;
     },

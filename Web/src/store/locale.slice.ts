@@ -25,7 +25,7 @@ const initialState: LocaleState = {
   locale: initLocale(),
 };
 
-const localeSlice = createSlice({
+export const localeSlice = createSlice({
   name: 'localeSlice',
   initialState,
   reducers: {
@@ -36,8 +36,6 @@ const localeSlice = createSlice({
   },
 });
 
-export const localeReducer = localeSlice.reducer;
-
 export const { setLocale } = localeSlice.actions;
 
-export const selectLocale = (state: RootState) => state.locale.locale;
+export const selectLocale = (state: RootState) => state.localeSlice.locale;

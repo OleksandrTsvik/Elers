@@ -2,8 +2,8 @@ import { Form, FormInstance, Input } from 'antd';
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { ErrorForm } from '../../../shared';
-import { COURSE_RULES } from '../../../shared/rules';
+import { ErrorForm } from '../../../common';
+import { COURSE_RULES } from '../../../common/rules';
 import useTabRules from '../tabs/use-tab.rules';
 
 export interface TabNameFormValues {

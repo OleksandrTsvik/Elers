@@ -1,7 +1,7 @@
 import { Rule } from 'antd/es/form';
 import { useTranslation } from 'react-i18next';
 
-import { ROLE_RULES } from '../rules';
+import { ROLE_RULES } from '../../common/rules';
 
 interface Rules {
   name: Rule[];

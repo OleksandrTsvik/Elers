@@ -1,7 +1,7 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 import { CourseTabModalMode } from './modals/tab-modal-mode.enum';
-import { CourseTab } from '../../models/course.interface';
+import { CourseTab } from '../../models/course-tab.interface';
 import { RootState } from '../../store';
 
 interface CourseEditState {
@@ -11,7 +11,7 @@ interface CourseEditState {
 
 const initialState: CourseEditState = {};
 
-const courseEditSlice = createSlice({
+export const courseEditSlice = createSlice({
   name: 'courseEditSlice',
   initialState,
   reducers: {
@@ -30,8 +30,7 @@ const courseEditSlice = createSlice({
   },
 });
 
-export const courseEditReducer = courseEditSlice.reducer;
-
 export const { setActiveCourseTab, setModalMode } = courseEditSlice.actions;
 
-export const selectCourseEditState = (state: RootState) => state.courseEdit;
+export const selectCourseEditState = (state: RootState) =>
+  state.courseEditSlice;

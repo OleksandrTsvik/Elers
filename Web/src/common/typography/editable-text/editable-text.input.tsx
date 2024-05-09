@@ -1,7 +1,7 @@
 import { Input } from 'antd';
 import { InputProps, TextAreaProps } from 'antd/es/input';
 
-import styles from './typography.module.scss';
+import styles from './editable-text.module.scss';
 
 interface CommonProps {
   inputType: 'input' | 'textarea';
@@ -16,7 +16,7 @@ export default function EditableTextInput({ inputType, ...props }: Props) {
     case 'textarea':
       return (
         <Input.TextArea
-          className={styles.editableTextInput_textarea}
+          className={styles.textarea}
           showCount
           autoSize={{ minRows: 2 }}
           {...(props as TextAreaProps)}

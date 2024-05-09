@@ -6,7 +6,7 @@ import { useDeleteCourseTabMutation } from '../../../api/course-tabs.api';
 import { DeleteIcon, EditIcon } from '../../../components';
 import { useAppDispatch } from '../../../hooks/redux-hooks';
 import useDisplayError from '../../../hooks/use-display-error';
-import { CourseTab } from '../../../models/course.interface';
+import { CourseTab } from '../../../models/course-tab.interface';
 import { setActiveCourseTab, setModalMode } from '../course-edit.slice';
 import { CourseTabModalMode } from '../modals/tab-modal-mode.enum';
 

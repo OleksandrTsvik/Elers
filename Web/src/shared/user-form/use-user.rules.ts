@@ -1,8 +1,8 @@
 import { Rule } from 'antd/es/form';
 import { useTranslation } from 'react-i18next';
 
-import { FormMode } from '../../models/form-mode.enum';
-import { USER_RULES } from '../rules';
+import { USER_RULES } from '../../common/rules';
+import { FormMode } from '../../common/types';
 
 interface Rules {
   email: Rule[];

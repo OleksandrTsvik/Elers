@@ -5,7 +5,7 @@ import Footer from './footer';
 import Header from './header';
 import Main from './main';
 import Sider from './sider';
-import useAuth from '../hooks/use-auth';
+import useAuth from '../auth/use-auth';
 import { COLLAPSED_SIDER } from '../utils/constants/local-storage.constants';
 
 import './layout.scss';

@@ -1,4 +1,4 @@
-import { PermissionType } from '../models/permission-type.enum';
+import { PermissionType } from './permission-type.enum';
 
 export default function hasPermission(
   userPermissions: PermissionType[],

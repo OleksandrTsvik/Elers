@@ -1,6 +1,6 @@
 import { App } from 'antd';
 
-import { ErrorMessage } from '../shared';
+import { ErrorMessage } from '../common';
 
 interface DisplayErrorConfig {
   displayType?: 'message' | 'notification';

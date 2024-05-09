@@ -1,31 +1,13 @@
-import { Middleware, Reducer, configureStore } from '@reduxjs/toolkit';
+import { Middleware, configureStore } from '@reduxjs/toolkit';
 
-import { colorModeReducer } from './color-mode.slice';
-import { localeReducer } from './locale.slice';
+import rootReducer from './reducers';
 import { apiReducers } from '../api';
-import { authReducer } from '../auth/auth.slice';
-import { courseEditReducer } from '../pages/course-edit-page/course-edit.slice';
 import { IS_DEVELOPMENT } from '../utils/constants/node-env.constants';
-
-const apiReducersObj = apiReducers.reduce(
-  (obj, api) => {
-    obj[api.reducerPath] = api.reducer;
-
-    return obj;
-  },
-  {} as { [key: string]: Reducer },
-);
 
 const apiMiddlewares: Middleware[] = apiReducers.map((api) => api.middleware);
 
 export const store = configureStore({
-  reducer: {
-    auth: authReducer,
-    locale: localeReducer,
-    colorMode: colorModeReducer,
-    courseEdit: courseEditReducer,
-    ...apiReducersObj,
-  },
+  reducer: rootReducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(apiMiddlewares),
   devTools: IS_DEVELOPMENT,

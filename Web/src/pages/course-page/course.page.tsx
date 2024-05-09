@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import CourseHead from './course.head';
 import CourseHeader from './course.header';
 import { useGetCourseByIdQuery } from '../../api/courses.api';
-import { NavigateToNotFound } from '../../shared';
+import { NavigateToNotFound } from '../../common';
 
 export default function CoursePage() {
   const { courseId } = useParams();

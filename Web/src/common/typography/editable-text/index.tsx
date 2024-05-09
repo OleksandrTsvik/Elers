@@ -6,9 +6,9 @@ import { ReactNode, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import EditableTextInput from './editable-text.input';
-import { ErrorAlert } from '../error';
+import { ErrorAlert } from '../../error';
 
-import styles from './typography.module.scss';
+import styles from './editable-text.module.scss';
 
 interface FormValues {
   value: string;
@@ -76,7 +76,7 @@ export default function EditableText({
       <>
         {children}
         <Button
-          className={styles.editableText_changeButton}
+          className={styles.changeButton}
           type="link"
           onClick={() => setIsEditing(true)}
         >
@@ -88,9 +88,7 @@ export default function EditableText({
 
   return (
     <>
-      {error && (
-        <ErrorAlert className={styles.editableText_errorAlert} error={error} />
-      )}
+      {error && <ErrorAlert className={styles.errorAlert} error={error} />}
       <Form
         layout="vertical"
         {...formProps}
@@ -102,7 +100,7 @@ export default function EditableText({
           <EditableTextInput inputType={props.type} {...props.inputProps} />
         </Form.Item>
       </Form>
-      <div className={styles.editableText_actionButtons}>
+      <div className={styles.actionButtons}>
         <Button
           danger
           type="primary"

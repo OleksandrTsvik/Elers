@@ -4,7 +4,7 @@ import ColorModeButton from './color-mode.button';
 import HeaderAvatar from './header.avatar';
 import LanguageButton from './language.button';
 import LoginButton from './login.button';
-import useAuth from '../../../hooks/use-auth';
+import useAuth from '../../../auth/use-auth';
 
 export default function HeaderRightItems() {
   const { isAuth } = useAuth();

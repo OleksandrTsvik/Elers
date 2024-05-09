@@ -2,10 +2,10 @@ import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
 
-import useAuth from '../../hooks/use-auth';
+import { PermissionType } from '../../auth/permission-type.enum';
+import useAuth from '../../auth/use-auth';
 import useDisplayError from '../../hooks/use-display-error';
 import useLocationFrom from '../../hooks/use-location-from';
-import { PermissionType } from '../../models/permission-type.enum';
 
 interface Props {
   permissions: PermissionType | PermissionType[];

@@ -3,7 +3,7 @@ import { Flex, Layout } from 'antd';
 import HeaderRightItems from './header-right-items';
 import HeaderLogo from './header.logo';
 import SiderCollapseButton from './sider-collapse.button';
-import useAuth from '../../hooks/use-auth';
+import useAuth from '../../auth/use-auth';
 import useBreakpointValue from '../../hooks/use-breakpoint-value';
 import useColorModeValue from '../../hooks/use-color-mode-value';
 import {
