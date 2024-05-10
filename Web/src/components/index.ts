@@ -1,16 +1,16 @@
-import { ChangeColorIcon, DeleteIcon, EditIcon } from './action-icons';
 import ActionsDropdown from './actions-dropdown';
 import ColorPickerWithHorizontalPresets from './color-picker';
+import HidableBadge from './hidable-badge';
 import IconText from './icon-text';
 import SettingsDropdown from './settings-dropdown';
 import TableContainer from './table-container';
 
+export * from './action-icons';
+
 export {
-  ChangeColorIcon,
-  DeleteIcon,
-  EditIcon,
   ActionsDropdown,
   ColorPickerWithHorizontalPresets,
+  HidableBadge,
   IconText,
   SettingsDropdown,
   TableContainer,

@@ -1,7 +1,7 @@
 using Application.CourseTabs.CreateCourseTab;
 using Application.CourseTabs.DeleteCourseTab;
+using Application.CourseTabs.UpdateCourseTab;
 using Application.CourseTabs.UpdateCourseTabColor;
-using Application.CourseTabs.UpdateCourseTabName;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers;
@@ -19,13 +19,17 @@ public class CourseTabsController : ApiControllerBase
         return HandleResult(await Sender.Send(command, cancellationToken));
     }
 
-    [HttpPatch("name/{id:guid}")]
-    public async Task<IActionResult> UpdateCourseTabName(
+    [HttpPut("{id:guid}")]
+    public async Task<IActionResult> UpdateCourseTab(
         Guid id,
-        [FromBody] UpdateCourseTabNameRequest request,
+        [FromBody] UpdateCourseTabRequest request,
         CancellationToken cancellationToken)
     {
-        var command = new UpdateCourseTabNameCommand(id, request.Name);
+        var command = new UpdateCourseTabCommand(
+            id,
+            request.Name,
+            request.IsActive,
+            request.ShowMaterialsCount);
 
         return HandleResult(await Sender.Send(command, cancellationToken));
     }

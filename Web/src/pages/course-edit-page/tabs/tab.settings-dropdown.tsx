@@ -7,7 +7,7 @@ interface Props {
 }
 
 export default function TabSettingsDropdown({ courseTab }: Props) {
-  const tabActions = useTabActions(courseTab);
+  const { tabActions, isLoading } = useTabActions(courseTab);
 
-  return <SettingsDropdown items={tabActions} />;
+  return <SettingsDropdown items={tabActions} loading={isLoading} />;
 }

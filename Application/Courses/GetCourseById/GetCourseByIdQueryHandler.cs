@@ -38,6 +38,7 @@ public class GetCourseByIdQueryHandler : IQueryHandler<GetCourseByIdQuery, GetCo
                     ShowMaterialsCount = courseTab.ShowMaterialsCount,
                 })
                 .OrderBy(courseTab => courseTab.Order)
+                    .ThenBy(courseTab => courseTab.Name)
                 .ToArray()
             })
             .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);

@@ -7,6 +7,8 @@
     "confirm_delete": "This action cannot be canceled!",
     "delete": "Delete",
     "edit": "Edit",
+    "make_invisible": "Make invisible",
+    "make_visible": "Make visible",
     "save_changes": "Save changes"
   },
   "color": {
@@ -27,6 +29,7 @@
   },
   "course": {
     "description": "Description",
+    "materials_count": "Number of materials",
     "rules": {
       "description_len": "Maximum description length {{max}} characters",
       "tab_name_len": "The section name must contain from {{min}} to {{max}} characters",
@@ -47,9 +50,13 @@
     "confirm_delete_section": "Are you sure you want to delete the '{{section}}' section?",
     "delete_section": "Delete section",
     "head_title": "Course: {{title}}",
+    "invisible_section": "This section is not displayed on the course page",
     "new_section": "New section",
     "no_sections": "No sections",
-    "title": "Editing"
+    "not_show_materials_count": "Do not show the number of materials",
+    "show_materials_count": "Show the number of materials",
+    "title": "Editing",
+    "visible_section": "This section is displayed on the course page"
   },
   "course_page": {
     "head_title": "Course: {{title}}"
