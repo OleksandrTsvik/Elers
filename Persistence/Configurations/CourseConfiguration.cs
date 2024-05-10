@@ -25,5 +25,10 @@ public class CourseConfiguration : IEntityTypeConfiguration<Course>
             .Property(course => course.PhotoUrl)
             .IsRequired(false)
             .HasMaxLength(CourseRules.MaxPhotoUrlLength);
+
+        builder
+            .Property(course => course.TabType)
+            .IsRequired(false)
+            .HasMaxLength(CourseRules.MaxTabTypeLength);
     }
 }

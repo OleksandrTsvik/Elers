@@ -4,3 +4,5 @@ import UserForm, { UserFormValues } from './user-form/user.form';
 export { RoleForm, UserForm };
 
 export type { RoleFormValues, UserFormValues };
+
+export * from './courses';

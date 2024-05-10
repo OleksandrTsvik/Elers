@@ -12,5 +12,6 @@ export interface Course {
   title: string;
   description?: string;
   photoUrl?: string;
+  tabType?: string;
   courseTabs: CourseTab[];
 }

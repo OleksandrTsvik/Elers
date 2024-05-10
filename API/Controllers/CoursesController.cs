@@ -2,6 +2,7 @@ using Application.Courses.CreateCourse;
 using Application.Courses.GetCourseById;
 using Application.Courses.GetListCourses;
 using Application.Courses.UpdateCourseDescription;
+using Application.Courses.UpdateCourseTabType;
 using Application.Courses.UpdateCourseTitle;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -35,7 +36,10 @@ public class CoursesController : ApiControllerBase
         [FromBody] CreateCourseRequest request,
         CancellationToken cancellationToken)
     {
-        var command = new CreateCourseCommand(request.Title, request.Description);
+        var command = new CreateCourseCommand(
+            request.Title,
+            request.Description,
+            request.TabType);
 
         return HandleResult(await Sender.Send(command, cancellationToken));
     }
@@ -58,6 +62,17 @@ public class CoursesController : ApiControllerBase
         CancellationToken cancellationToken)
     {
         var command = new UpdateCourseDescriptionCommand(id, request.Description);
+
+        return HandleResult(await Sender.Send(command, cancellationToken));
+    }
+
+    [HttpPatch("tab-type/{id:guid}")]
+    public async Task<IActionResult> UpdateCourseTabType(
+        Guid id,
+        [FromBody] UpdateCourseTabTypeRequest request,
+        CancellationToken cancellationToken)
+    {
+        var command = new UpdateCourseTabTypeCommand(id, request.TabType);
 
         return HandleResult(await Sender.Send(command, cancellationToken));
     }

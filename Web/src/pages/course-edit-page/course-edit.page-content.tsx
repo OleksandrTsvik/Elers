@@ -1,6 +1,7 @@
 import CourseEditBreadcrumb from './course-edit.breadcrumb';
 import CourseEditDescription from './course-edit.description';
 import CourseEditHead from './course-edit.head';
+import CourseEditTabType from './course-edit.tab-type';
 import CourseEditTabs from './course-edit.tabs';
 import CourseEditTitle from './course-edit.title';
 import TabModals from './tabs/tab.modals';
@@ -20,8 +21,9 @@ export default function CourseEditPageContent({ course }: Props) {
         courseId={course.id}
         description={course.description}
       />
-      <CourseEditTabs courseTabs={course.courseTabs} />
-      <TabModals courseId={course.id} />
+      <CourseEditTabType courseId={course.id} currentTabType={course.tabType} />
+      <CourseEditTabs tabType={course.tabType} courseTabs={course.courseTabs} />
+      <TabModals courseId={course.id} tabType={course.tabType} />
     </>
   );
 }

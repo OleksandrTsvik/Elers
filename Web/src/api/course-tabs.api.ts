@@ -19,7 +19,7 @@ interface UpdateCourseTabColorRequest {
 
 export const courseTabsApi = coursesApi.injectEndpoints({
   endpoints: (builder) => ({
-    createCourseTab: builder.mutation<void, CreateCourseTabRequest>({
+    createCourseTab: builder.mutation<string, CreateCourseTabRequest>({
       query: ({ courseId, ...data }) => ({
         url: `/courseTabs/${courseId}`,
         method: 'POST',

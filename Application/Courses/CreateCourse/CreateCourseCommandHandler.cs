@@ -19,7 +19,8 @@ public class CreateCourseCommandHandler : ICommandHandler<CreateCourseCommand>
         var course = new Course
         {
             Title = request.Title,
-            Description = request.Description
+            Description = request.Description,
+            TabType = request.TabType
         };
 
         _context.Courses.Add(course);

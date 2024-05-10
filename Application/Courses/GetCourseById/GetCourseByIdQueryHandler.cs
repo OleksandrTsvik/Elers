@@ -27,6 +27,7 @@ public class GetCourseByIdQueryHandler : IQueryHandler<GetCourseByIdQuery, GetCo
                 Title = x.Title,
                 Description = x.Description,
                 PhotoUrl = x.PhotoUrl,
+                TabType = x.TabType,
                 CourseTabs = x.CourseTabs.Select(courseTab => new CourseTabResponse
                 {
                     Id = courseTab.Id,

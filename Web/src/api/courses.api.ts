@@ -52,6 +52,17 @@ export const coursesApi = createApi({
       }),
       invalidatesTags: ['Course', 'CourseList'],
     }),
+    updateCourseTabType: builder.mutation<
+      void,
+      { id: string; tabType?: string }
+    >({
+      query: ({ id, ...data }) => ({
+        url: `/courses/tab-type/${id}`,
+        method: 'PATCH',
+        body: data,
+      }),
+      invalidatesTags: ['Course'],
+    }),
   }),
 });
 
@@ -61,4 +72,5 @@ export const {
   useCreateCourseMutation,
   useUpdateCourseTitleMutation,
   useUpdateCourseDescriptionMutation,
+  useUpdateCourseTabTypeMutation,
 } = coursesApi;

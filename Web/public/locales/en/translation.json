@@ -38,6 +38,11 @@
     },
     "section_name": "Section name",
     "tab_color": "Section title color",
+    "tab_type": "Course presentation type",
+    "tab_types": {
+      "sections": "Sections",
+      "tabs": "Tabs"
+    },
     "title": "Title"
   },
   "course_edit_page": {

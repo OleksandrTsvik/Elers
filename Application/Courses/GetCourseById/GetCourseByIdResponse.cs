@@ -6,6 +6,7 @@ public class GetCourseByIdResponse
     public string Title { get; init; } = string.Empty;
     public string? Description { get; init; }
     public string? PhotoUrl { get; init; }
+    public string? TabType { get; init; }
     public CourseTabResponse[] CourseTabs { get; set; } = [];
 }
 

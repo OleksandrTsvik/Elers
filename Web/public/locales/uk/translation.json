@@ -38,6 +38,11 @@
     },
     "section_name": "Назва секції",
     "tab_color": "Колір заголовка секції",
+    "tab_type": "Тип представлення курсу",
+    "tab_types": {
+      "sections": "Секції",
+      "tabs": "Вкладки"
+    },
     "title": "Заголовок"
   },
   "course_edit_page": {

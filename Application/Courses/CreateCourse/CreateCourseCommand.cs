@@ -2,4 +2,7 @@ using Application.Common.Messaging;
 
 namespace Application.Courses.CreateCourse;
 
-public record CreateCourseCommand(string Title, string? Description) : ICommand;
+public record CreateCourseCommand(
+    string Title,
+    string? Description,
+    string? TabType) : ICommand;

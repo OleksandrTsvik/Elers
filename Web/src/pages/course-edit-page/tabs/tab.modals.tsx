@@ -5,14 +5,15 @@ import useCourseEditState from '../use-course-edit.state';
 
 interface Props {
   courseId: string;
+  tabType: string | undefined;
 }
 
-export default function TabModals({ courseId }: Props) {
+export default function TabModals({ courseId, tabType }: Props) {
   const { activeCourseTab } = useCourseEditState();
 
   return (
     <>
-      <TabNameCreateModal courseId={courseId} />
+      <TabNameCreateModal courseId={courseId} tabType={tabType} />
 
       {activeCourseTab && (
         <>

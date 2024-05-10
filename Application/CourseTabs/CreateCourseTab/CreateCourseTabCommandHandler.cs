@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Application.CourseTabs.CreateCourseTab;
 
-public class CreateCourseTabCommandHandler : ICommandHandler<CreateCourseTabCommand>
+public class CreateCourseTabCommandHandler : ICommandHandler<CreateCourseTabCommand, Guid>
 {
     private readonly IApplicationDbContext _context;
 
@@ -16,7 +16,7 @@ public class CreateCourseTabCommandHandler : ICommandHandler<CreateCourseTabComm
         _context = context;
     }
 
-    public async Task<Result> Handle(CreateCourseTabCommand request, CancellationToken cancellationToken)
+    public async Task<Result<Guid>> Handle(CreateCourseTabCommand request, CancellationToken cancellationToken)
     {
         bool courseById = await _context.Courses
             .AnyAsync(x => x.Id == request.CourseId, cancellationToken);
@@ -36,6 +36,6 @@ public class CreateCourseTabCommandHandler : ICommandHandler<CreateCourseTabComm
 
         await _context.SaveChangesAsync(cancellationToken);
 
-        return Result.Success();
+        return courseTab.Id;
     }
 }

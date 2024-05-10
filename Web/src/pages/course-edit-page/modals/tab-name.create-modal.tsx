@@ -1,23 +1,37 @@
 import { useTranslation } from 'react-i18next';
+import { useSearchParams } from 'react-router-dom';
 
 import { CourseTabModalMode } from './tab-modal-mode.enum';
 import TabNameModal from './tab-name.modal';
 import { useCreateCourseTabMutation } from '../../../api/course-tabs.api';
+import { CourseTabType, SEARCH_PARAM_COURSE_TAB } from '../../../shared';
 import { TabNameFormValues } from '../forms/tab-name.form';
 import useCourseEditState from '../use-course-edit.state';
 
 interface Props {
   courseId: string;
+  tabType: string | undefined;
 }
 
-export default function TabNameCreateModal({ courseId }: Props) {
+export default function TabNameCreateModal({ courseId, tabType }: Props) {
+  const [, setSearchParams] = useSearchParams();
+
   const { t } = useTranslation();
   const { modalMode, onCloseModal } = useCourseEditState();
 
   const [createCourseTab, { isLoading, error }] = useCreateCourseTabMutation();
 
   const handleSubmit = async ({ tabName }: TabNameFormValues) => {
-    await createCourseTab({ courseId, name: tabName }).unwrap();
+    await createCourseTab({ courseId, name: tabName })
+      .unwrap()
+      .then((tabId) => {
+        if (!tabType || tabType === CourseTabType.Tabs.toString()) {
+          setSearchParams((prev) => ({
+            ...prev,
+            [SEARCH_PARAM_COURSE_TAB]: tabId,
+          }));
+        }
+      });
   };
 
   return (
