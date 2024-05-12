@@ -27,8 +27,8 @@ msgid "DeleteUser"
 msgstr "Видалення користувача. Дозволяє користувачу видаляти існуючих користувачів з системи."
 
 # Validation errors
-msgid ""
-msgstr ""
+msgid "Remove unnecessary spaces at the beginning or end."
+msgstr "Видаліть зайві пробіли на початку чи в кінці."
 
 # Error messages
 msgid "Error.NullValue"

@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useUpdateCourseTitleMutation } from '../../api/courses.api';
 import { EditableText, ResponsiveTitle } from '../../common';
 import { COURSE_RULES } from '../../common/rules';
+import useValidationRules from '../../hooks/use-validation-rules';
 
 import styles from './course-edit.module.scss';
 
@@ -13,6 +14,7 @@ interface Props {
 
 export default function CourseEditTitle({ courseId, title }: Props) {
   const { t } = useTranslation();
+  const { trimWhitespace } = useValidationRules();
 
   const [updateCourse, { isLoading, error }] = useUpdateCourseTitleMutation();
 
@@ -35,6 +37,7 @@ export default function CourseEditTitle({ courseId, title }: Props) {
           max: COURSE_RULES.title.max,
           message: t('course.rules.title_len', COURSE_RULES.title),
         },
+        trimWhitespace,
       ]}
       error={error}
       onChange={handleChange}

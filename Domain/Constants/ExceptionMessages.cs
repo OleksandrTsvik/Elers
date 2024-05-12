@@ -1,6 +1,6 @@
 namespace Domain.Constants;
 
-public class ExceptionMessages
+public static class ExceptionMessages
 {
     public const string Validation = "Validation Error.";
     public const string InvalidResult = "Success and error states are contradictory.";

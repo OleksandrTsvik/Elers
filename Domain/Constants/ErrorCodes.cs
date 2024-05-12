@@ -1,6 +1,6 @@
 namespace Domain.Constants;
 
-public class ErrorCodes
+public static class ErrorCodes
 {
     public static class Error
     {

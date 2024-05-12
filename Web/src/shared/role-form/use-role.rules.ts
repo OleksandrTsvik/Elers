@@ -2,6 +2,7 @@ import { Rule } from 'antd/es/form';
 import { useTranslation } from 'react-i18next';
 
 import { ROLE_RULES } from '../../common/rules';
+import useValidationRules from '../../hooks/use-validation-rules';
 
 interface Rules {
   name: Rule[];
@@ -9,6 +10,7 @@ interface Rules {
 
 export default function useRoleRules(): Rules {
   const { t } = useTranslation();
+  const { trimWhitespace } = useValidationRules();
 
   return {
     name: [
@@ -21,6 +23,7 @@ export default function useRoleRules(): Rules {
         max: ROLE_RULES.name.max,
         message: t('roles_page.rules.name_len', ROLE_RULES.name),
       },
+      trimWhitespace,
     ],
   };
 }

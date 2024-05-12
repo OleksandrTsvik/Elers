@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 
 import { USER_RULES } from '../../common/rules';
 import { FormMode } from '../../common/types';
+import useValidationRules from '../../hooks/use-validation-rules';
 
 interface Rules {
   email: Rule[];
@@ -14,6 +15,7 @@ interface Rules {
 
 export default function useUserRules(mode: FormMode): Rules {
   const { t } = useTranslation();
+  const { trimWhitespace } = useValidationRules();
 
   const rules: Rules = {
     email: [
@@ -40,6 +42,7 @@ export default function useUserRules(mode: FormMode): Rules {
         max: USER_RULES.firstName.max,
         message: t('users_page.rules.firstName_len', USER_RULES.firstName),
       },
+      trimWhitespace,
     ],
     lastName: [
       {
@@ -47,6 +50,7 @@ export default function useUserRules(mode: FormMode): Rules {
         max: USER_RULES.lastName.max,
         message: t('users_page.rules.lastName_len', USER_RULES.lastName),
       },
+      trimWhitespace,
     ],
     patronymic: [
       {
@@ -54,6 +58,7 @@ export default function useUserRules(mode: FormMode): Rules {
         max: USER_RULES.patronymic.max,
         message: t('users_page.rules.patronymic_len', USER_RULES.patronymic),
       },
+      trimWhitespace,
     ],
   };
 

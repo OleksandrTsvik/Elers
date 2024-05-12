@@ -182,5 +182,8 @@
       "patronymic_len": "The patronymic must contain from {{min}} to {{max}} characters"
     },
     "title": "Users"
+  },
+  "validation_rule": {
+    "trim_whitespace": "Remove unnecessary spaces at the beginning or end"
   }
 }
