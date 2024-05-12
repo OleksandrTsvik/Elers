@@ -2,6 +2,7 @@ import { App } from 'antd';
 import { ItemType } from 'antd/es/menu/hooks/useItems';
 import { useTranslation } from 'react-i18next';
 
+import useTabQueryParams from './use-tab.query-params';
 import {
   useDeleteCourseTabMutation,
   useUpdateCourseTabMutation,
@@ -20,6 +21,8 @@ import { setActiveCourseTab, setModalMode } from '../course-edit.slice';
 import { CourseTabModalMode } from '../modals/tab-modal-mode.enum';
 
 export default function useTabActions(tab: CourseTab) {
+  const { deleteTab } = useTabQueryParams();
+
   const { t } = useTranslation();
   const appDispatch = useAppDispatch();
 
@@ -35,14 +38,18 @@ export default function useTabActions(tab: CourseTab) {
   };
 
   const handleChangeVisibilityClick = async () => {
-    await updateCourseTab({ tabId: tab.id, isActive: !tab.isActive }).unwrap();
+    await updateCourseTab({ tabId: tab.id, isActive: !tab.isActive })
+      .unwrap()
+      .catch((error) => displayError(error));
   };
 
   const handleShowMaterialsCountClick = async () => {
     await updateCourseTab({
       tabId: tab.id,
       showMaterialsCount: !tab.showMaterialsCount,
-    }).unwrap();
+    })
+      .unwrap()
+      .catch((error) => displayError(error));
   };
 
   const handleDeleteClick = async () => {
@@ -55,6 +62,7 @@ export default function useTabActions(tab: CourseTab) {
       onOk: () =>
         deleteCourseTab({ id: tab.id })
           .unwrap()
+          .then(() => deleteTab())
           .catch((error) => displayError(error)),
     });
   };

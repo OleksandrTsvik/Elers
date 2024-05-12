@@ -1,14 +1,10 @@
 import { Flex, Radio, RadioChangeEvent, Spin, Typography } from 'antd';
 import { useTranslation } from 'react-i18next';
-import { useSearchParams } from 'react-router-dom';
 
+import useTabQueryParams from './tabs/use-tab.query-params';
 import { useUpdateCourseTabTypeMutation } from '../../api/courses.api';
 import { ErrorAlert } from '../../common';
-import {
-  CourseTabType,
-  DEFAULT_COURSE_TAB_TYPE,
-  SEARCH_PARAM_COURSE_TAB,
-} from '../../shared';
+import { CourseTabType, DEFAULT_COURSE_TAB_TYPE } from '../../shared';
 
 import styles from './course-edit.module.scss';
 
@@ -18,7 +14,7 @@ interface Props {
 }
 
 export default function CourseEditTabType({ courseId, currentTabType }: Props) {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const { deleteTab } = useTabQueryParams();
   const { t } = useTranslation();
 
   const [updateCourseTabType, { isLoading, error }] =
@@ -30,12 +26,7 @@ export default function CourseEditTabType({ courseId, currentTabType }: Props) {
       tabType: value as string,
     })
       .unwrap()
-      .then(() => {
-        if (searchParams.has(SEARCH_PARAM_COURSE_TAB)) {
-          searchParams.delete(SEARCH_PARAM_COURSE_TAB);
-          setSearchParams(searchParams);
-        }
-      });
+      .then(() => deleteTab());
   };
 
   return (

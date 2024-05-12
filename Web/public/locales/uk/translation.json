@@ -57,7 +57,7 @@
     "head_title": "Курс: {{title}}",
     "invisible_section": "Ця секція не відображається на сторінці курса",
     "new_section": "Нова секція",
-    "no_sections": "Немає секцій",
+    "no_sections": "Секції відсутні",
     "not_show_materials_count": "Не показувати кількість матеріалів",
     "show_materials_count": "Показувати кількість матеріалів",
     "title": "Редагування",

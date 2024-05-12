@@ -1,10 +1,10 @@
 import { Tabs } from 'antd';
-import { useSearchParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 
 import { getTabsItems } from './tab.utils';
+import useTabQueryParams from './use-tab.query-params';
 import { useAppDispatch } from '../../../hooks/redux-hooks';
 import { CourseTab } from '../../../models/course-tab.interface';
-import { SEARCH_PARAM_COURSE_TAB } from '../../../shared';
 import { setModalMode } from '../course-edit.slice';
 import { CourseTabModalMode } from '../modals/tab-modal-mode.enum';
 
@@ -13,22 +13,22 @@ interface Props {
 }
 
 export default function TabListContent({ tabs }: Props) {
-  const [searchParams, setSearchParams] = useSearchParams({
-    [SEARCH_PARAM_COURSE_TAB]: tabs[0]?.id,
-  });
+  const [activeTab, setActiveTab] = useState<string>();
+  const { getTabFromQueryOrFirst, setTab } = useTabQueryParams();
 
   const appDispatch = useAppDispatch();
-
   const items = getTabsItems(tabs);
 
-  const onChange = (activeKey: string) => {
-    setSearchParams((prev) => ({
-      ...prev,
-      [SEARCH_PARAM_COURSE_TAB]: activeKey,
-    }));
+  useEffect(() => {
+    setActiveTab(undefined);
+  }, [tabs]);
+
+  const handleChange = (activeKey: string) => {
+    setActiveTab(activeKey);
+    setTab(activeKey);
   };
 
-  const onEdit = (action: 'add' | 'remove') => {
+  const handleEdit = (action: 'add' | 'remove') => {
     if (action === 'add') {
       appDispatch(setModalMode(CourseTabModalMode.CreateTab));
     }
@@ -38,10 +38,10 @@ export default function TabListContent({ tabs }: Props) {
     <Tabs
       destroyInactiveTabPane
       type="editable-card"
-      activeKey={searchParams.get('tab') ?? undefined}
+      activeKey={activeTab ?? getTabFromQueryOrFirst(tabs)}
       items={items}
-      onChange={onChange}
-      onEdit={(_, action) => onEdit(action)}
+      onChange={handleChange}
+      onEdit={(_, action) => handleEdit(action)}
     />
   );
 }
