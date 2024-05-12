@@ -1,8 +1,8 @@
 import { Tabs } from 'antd';
 import { useEffect, useState } from 'react';
 
+import { getTabFromQueryOrFirst, setTab } from './tab-query-params.utils';
 import { getTabsItems } from './tab.utils';
-import useTabQueryParams from './use-tab.query-params';
 import { useAppDispatch } from '../../../hooks/redux-hooks';
 import { CourseTab } from '../../../models/course-tab.interface';
 import { setModalMode } from '../course-edit.slice';
@@ -14,7 +14,6 @@ interface Props {
 
 export default function TabListContent({ tabs }: Props) {
   const [activeTab, setActiveTab] = useState<string>();
-  const { getTabFromQueryOrFirst, setTab } = useTabQueryParams();
 
   const appDispatch = useAppDispatch();
   const items = getTabsItems(tabs);

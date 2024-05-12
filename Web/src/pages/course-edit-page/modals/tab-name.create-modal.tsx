@@ -4,7 +4,7 @@ import { CourseTabModalMode } from './tab-modal-mode.enum';
 import TabNameModal from './tab-name.modal';
 import { useCreateCourseTabMutation } from '../../../api/course-tabs.api';
 import { TabNameFormValues } from '../forms/tab-name.form';
-import useTabQueryParams from '../tabs/use-tab.query-params';
+import { setTabByType } from '../tabs/tab-query-params.utils';
 import useCourseEditState from '../use-course-edit.state';
 
 interface Props {
@@ -13,7 +13,6 @@ interface Props {
 }
 
 export default function TabNameCreateModal({ courseId, tabType }: Props) {
-  const { setTabByType } = useTabQueryParams();
   const { t } = useTranslation();
 
   const { modalMode, onCloseModal } = useCourseEditState();

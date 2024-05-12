@@ -1,7 +1,7 @@
 import { Flex, Radio, RadioChangeEvent, Spin, Typography } from 'antd';
 import { useTranslation } from 'react-i18next';
 
-import useTabQueryParams from './tabs/use-tab.query-params';
+import { deleteTab } from './tabs/tab-query-params.utils';
 import { useUpdateCourseTabTypeMutation } from '../../api/courses.api';
 import { ErrorAlert } from '../../common';
 import { CourseTabType, DEFAULT_COURSE_TAB_TYPE } from '../../shared';
@@ -14,7 +14,6 @@ interface Props {
 }
 
 export default function CourseEditTabType({ courseId, currentTabType }: Props) {
-  const { deleteTab } = useTabQueryParams();
   const { t } = useTranslation();
 
   const [updateCourseTabType, { isLoading, error }] =

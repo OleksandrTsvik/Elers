@@ -2,7 +2,7 @@ import { App } from 'antd';
 import { ItemType } from 'antd/es/menu/hooks/useItems';
 import { useTranslation } from 'react-i18next';
 
-import useTabQueryParams from './use-tab.query-params';
+import { deleteTab } from './tab-query-params.utils';
 import {
   useDeleteCourseTabMutation,
   useUpdateCourseTabMutation,
@@ -21,8 +21,6 @@ import { setActiveCourseTab, setModalMode } from '../course-edit.slice';
 import { CourseTabModalMode } from '../modals/tab-modal-mode.enum';
 
 export default function useTabActions(tab: CourseTab) {
-  const { deleteTab } = useTabQueryParams();
-
   const { t } = useTranslation();
   const appDispatch = useAppDispatch();
 
