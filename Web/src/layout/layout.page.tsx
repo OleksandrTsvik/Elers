@@ -1,5 +1,6 @@
 import { Grid, Layout } from 'antd';
 import { useLayoutEffect, useState } from 'react';
+import { ScrollRestoration } from 'react-router-dom';
 
 import Footer from './footer';
 import Header from './header';
@@ -37,6 +38,7 @@ export default function LayoutPage() {
 
   return (
     <>
+      <ScrollRestoration />
       <Header collapsed={collapsed} setCollapsed={updateCollapsed} />
       <Layout>
         {isAuth && (
