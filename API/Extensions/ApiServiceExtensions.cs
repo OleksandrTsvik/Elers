@@ -1,5 +1,6 @@
 using System.Reflection;
 using API.Constants;
+using API.Middleware;
 using FluentValidation;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -16,7 +17,11 @@ public static class ApiServiceExtensions
 
         services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 
-        services.AddControllers();
+        services.AddControllers()
+            .ConfigureApiBehaviorOptions(options =>
+            {
+                options.InvalidModelStateResponseFactory = InvalidModelStateResponseBuilder.BuildResponse;
+            });
 
         services.AddAuth();
 

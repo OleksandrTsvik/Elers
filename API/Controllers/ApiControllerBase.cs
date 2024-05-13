@@ -64,7 +64,7 @@ public class ApiControllerBase : ControllerBase
             message = error.Message;
         }
 
-        var errorResponse = new ErrorResponse(error.Code, message);
+        var errorResponse = new ErrorResultResponse(error.Code, message);
 
         return StatusCode(GetStatusCode(error.Type), errorResponse);
     }

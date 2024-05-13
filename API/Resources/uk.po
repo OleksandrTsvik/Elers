@@ -30,6 +30,9 @@ msgstr "Видалення користувача. Дозволяє корист
 msgid "Remove unnecessary spaces at the beginning or end."
 msgstr "Видаліть зайві пробіли на початку чи в кінці."
 
+msgid "Bad Request. Please check your data and try again."
+msgstr "Некоректний запит. Переконайтеся, що введено правильні дані."
+
 # Error messages
 msgid "Error.NullValue"
 msgstr "Надано значення null."
@@ -75,7 +78,7 @@ msgid "Internal Server Error."
 msgstr "Внутрішня помилка сервера."
 
 msgid "Validation Error."
-msgstr "Помилка валідації."
+msgstr "Помилка валідації даних."
 
 msgid "Success and error states are contradictory."
 msgstr "Стани успіху та помилки суперечать один одному."

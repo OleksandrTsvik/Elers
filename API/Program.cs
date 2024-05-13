@@ -8,6 +8,7 @@ WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 builder.Services
     .AddApiOptions()
     .AddApiServices()
+    .AddApiMiddlewares()
     .AddApiCors()
     .AddApplication()
     .AddPersistence()

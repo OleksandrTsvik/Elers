@@ -1,11 +1,11 @@
 namespace Domain.Shared;
 
-public class ErrorResponse
+public class ErrorResultResponse
 {
     public string Code { get; }
     public string Message { get; }
 
-    public ErrorResponse(string code, string message)
+    public ErrorResultResponse(string code, string message)
     {
         Code = code;
         Message = message;

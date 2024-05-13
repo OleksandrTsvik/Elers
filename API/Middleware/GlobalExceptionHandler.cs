@@ -1,41 +1,28 @@
 using Application.Common.Interfaces;
 using Domain.Exceptions;
 using Domain.Shared;
+using Microsoft.AspNetCore.Diagnostics;
 
 namespace API.Middleware;
 
-public class AppExceptionMiddleware
+public class GlobalExceptionHandler : IExceptionHandler
 {
-    private readonly RequestDelegate _next;
-    private readonly ILogger<AppExceptionMiddleware> _logger;
+    private readonly ILogger<GlobalExceptionHandler> _logger;
     private readonly ITranslator _translator;
 
-    public AppExceptionMiddleware(
-        RequestDelegate next,
-        ILogger<AppExceptionMiddleware> logger,
-        ITranslator translator)
+    public GlobalExceptionHandler(ILogger<GlobalExceptionHandler> logger, ITranslator translator)
     {
-        _next = next;
         _logger = logger;
         _translator = translator;
     }
 
-    public async Task InvokeAsync(HttpContext httpContext)
+    public async ValueTask<bool> TryHandleAsync(
+        HttpContext httpContext,
+        Exception exception,
+        CancellationToken cancellationToken)
     {
-        try
-        {
-            await _next(httpContext);
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex, "{Message}", ex.Message);
+        _logger.LogError(exception, "{Message}", exception.Message);
 
-            await HandleExceptionAsync(httpContext, ex);
-        }
-    }
-
-    private async Task HandleExceptionAsync(HttpContext httpContext, Exception exception)
-    {
         int statusCode = GetStatusCode(exception);
         string message = _translator.GetString(GetMessage(exception));
         object? details = GetDetails(exception);
@@ -45,7 +32,9 @@ public class AppExceptionMiddleware
         httpContext.Response.ContentType = "application/json";
         httpContext.Response.StatusCode = statusCode;
 
-        await httpContext.Response.WriteAsJsonAsync(exceptionResponse);
+        await httpContext.Response.WriteAsJsonAsync(exceptionResponse, cancellationToken);
+
+        return true;
     }
 
     private static int GetStatusCode(Exception exception) =>

@@ -2,7 +2,6 @@ using Application.Common.Interfaces;
 using Infrastructure.Authentication;
 using Infrastructure.Localization;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Infrastructure;
@@ -23,7 +22,7 @@ public static class DependencyInjection
         services.AddMemoryCache();
         services.AddPortableObjectLocalization(options => options.ResourcesPath = "Resources");
 
-        services.Configure<RequestLocalizationOptions>(options =>
+        services.AddRequestLocalization(options =>
         {
             // Supported Culture and Country Codes
             // https://azuliadesigns.com/c-sharp-tutorials/list-net-culture-country-codes/
