@@ -4,7 +4,7 @@ import useAuth from '../../auth/use-auth';
 import useLocationFrom from '../../hooks/use-location-from';
 
 export default function AnonymousOutlet() {
-  const redirectTo = useLocationFrom();
+  const { locationFrom: redirectTo } = useLocationFrom();
   const { isAuth } = useAuth();
 
   if (isAuth) {

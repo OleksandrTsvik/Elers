@@ -15,7 +15,7 @@ export default function PermissionsOutlet({ permissions }: Props) {
   const { t } = useTranslation();
   const location = useLocation();
 
-  const redirectTo = useLocationFrom();
+  const { locationFrom: redirectTo } = useLocationFrom();
   const { isAuth, checkPermission } = useAuth();
 
   const { displayError } = useDisplayError();

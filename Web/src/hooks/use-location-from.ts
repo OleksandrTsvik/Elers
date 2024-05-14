@@ -1,11 +1,15 @@
 import { Location, useLocation } from 'react-router-dom';
 
-type LocationState = { from: Location } | null;
+export type LocationFrom = string | Partial<Location>;
+export type LocationStateFrom = { from: LocationFrom } | undefined;
 
-export default function useLocationFrom(
-  defaultLocation: string | Partial<Location> = '/',
-) {
+export default function useLocationFrom(defaultLocation: LocationFrom = '/') {
   const location = useLocation();
 
-  return (location.state as LocationState)?.from || defaultLocation;
+  const locationFrom = (location.state as LocationStateFrom)?.from;
+
+  return {
+    locationFrom: locationFrom ?? defaultLocation,
+    hasFromLocation: !!locationFrom,
+  };
 }
