@@ -14,7 +14,7 @@ function updateURL(url: URL) {
   window.history.replaceState(null, '', url);
 }
 
-function getSearchParams(): URLSearchParams {
+export function getSearchParams(): URLSearchParams {
   return new URLSearchParams(window.location.search);
 }
 

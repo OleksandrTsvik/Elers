@@ -1,9 +1,10 @@
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Navigate, Outlet, useLocation } from 'react-router-dom';
+import { Navigate, Outlet } from 'react-router-dom';
 
 import { PermissionType } from '../../auth/permission-type.enum';
 import useAuth from '../../auth/use-auth';
+import { NavigateFrom } from '../../common/navigate';
 import useDisplayError from '../../hooks/use-display-error';
 import useLocationFrom from '../../hooks/use-location-from';
 
@@ -13,7 +14,6 @@ interface Props {
 
 export default function PermissionsOutlet({ permissions }: Props) {
   const { t } = useTranslation();
-  const location = useLocation();
 
   const { locationFrom: redirectTo } = useLocationFrom();
   const { isAuth, checkPermission } = useAuth();
@@ -29,7 +29,7 @@ export default function PermissionsOutlet({ permissions }: Props) {
   }, [displayError, hasPermission, t]);
 
   if (!isAuth) {
-    return <Navigate to="/login" replace state={{ from: location }} />;
+    return <NavigateFrom to="/login" replace />;
   }
 
   if (!hasPermission) {
