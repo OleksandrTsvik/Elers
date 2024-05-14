@@ -7,7 +7,7 @@ import {
   useGetRoleByIdQuery,
   useUpdateRoleMutation,
 } from '../../api/roles.api';
-import { NavigateToNotFound } from '../../common';
+import { NavigateToNotFound } from '../../common/navigate';
 import { RoleForm, RoleFormValues } from '../../shared';
 
 interface Props {

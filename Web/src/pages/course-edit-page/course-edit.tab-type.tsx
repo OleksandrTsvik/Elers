@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 
 import { deleteTab } from './tabs/tab-query-params.utils';
 import { useUpdateCourseTabTypeMutation } from '../../api/courses.api';
-import { ErrorAlert } from '../../common';
+import { ErrorAlert } from '../../common/error';
 import { CourseTabType, DEFAULT_COURSE_TAB_TYPE } from '../../shared';
 
 import styles from './course-edit.module.scss';

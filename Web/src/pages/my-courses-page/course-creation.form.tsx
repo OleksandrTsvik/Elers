@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import useCourseCreationRules from './use-course-creation.rules';
-import { ErrorForm } from '../../common';
+import { ErrorForm } from '../../common/error';
 import { COURSE_RULES } from '../../common/rules';
 
 export interface CourseCreationFormValues {

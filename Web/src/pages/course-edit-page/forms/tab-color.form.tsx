@@ -2,7 +2,7 @@ import { Form, FormInstance, theme } from 'antd';
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { ErrorForm } from '../../../common';
+import { ErrorForm } from '../../../common/error';
 import { ColorPickerWithHorizontalPresets } from '../../../components';
 import useColorPresets from '../../../hooks/use-color.presets';
 import { parseColorPickerValue } from '../../../utils/helpers';

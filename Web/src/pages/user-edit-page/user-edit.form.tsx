@@ -8,7 +8,7 @@ import {
   useGetUserByIdQuery,
   useUpdateUserMutation,
 } from '../../api/users.api';
-import { NavigateToNotFound } from '../../common';
+import { NavigateToNotFound } from '../../common/navigate';
 import { FormMode } from '../../common/types';
 import { UserForm, UserFormValues } from '../../shared';
 

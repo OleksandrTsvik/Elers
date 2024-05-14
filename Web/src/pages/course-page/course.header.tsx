@@ -1,7 +1,7 @@
 import { Flex, Typography } from 'antd';
 
 import useCourseActions from './use-course.actions';
-import { ResponsiveTitle } from '../../common';
+import { ResponsiveTitle } from '../../common/typography';
 import { SettingsDropdown } from '../../components';
 
 import styles from './course.module.scss';

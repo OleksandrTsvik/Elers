@@ -4,7 +4,7 @@ import RoleEditBreadcrumb from './role-edit.breadcrumb';
 import RoleEditForm from './role-edit.form';
 import RoleEditHead from './role-edit.head';
 import RoleEditTitle from './role-edit.title';
-import { NavigateToNotFound } from '../../common';
+import { NavigateToNotFound } from '../../common/navigate';
 
 export default function RoleEditPage() {
   const { roleId } = useParams();

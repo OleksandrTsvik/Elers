@@ -4,7 +4,7 @@ import UserEditBreadcrumb from './user-edit.breadcrumb';
 import UserEditForm from './user-edit.form';
 import UserEditHead from './user-edit.head';
 import UserEditTitle from './user-edit.title';
-import { NavigateToNotFound } from '../../common';
+import { NavigateToNotFound } from '../../common/navigate';
 
 export default function UserEditPage() {
   const { userId } = useParams();
