@@ -31,7 +31,7 @@ export default function CourseEditTabType({ courseId, currentTabType }: Props) {
   return (
     <Spin spinning={isLoading}>
       <Flex className={styles.tabTypeContainer} vertical gap="small">
-        {error && <ErrorAlert error={error} />}
+        <ErrorAlert error={error} />
 
         <Typography.Text>{t('course.tab_type')}:</Typography.Text>
 

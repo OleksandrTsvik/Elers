@@ -46,7 +46,7 @@ export default function RoleForm({
       initialValues={initialValues}
       onFinish={onSubmit}
     >
-      <ErrorForm error={error} />
+      <ErrorForm error={error} form={form} />
 
       <Form.Item
         hasFeedback

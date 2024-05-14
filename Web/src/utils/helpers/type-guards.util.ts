@@ -1,7 +1,5 @@
 export function isArrayOfStrings(value: unknown): value is string[] {
-  return (
-    Array.isArray(value) && value.every((item) => typeof item === 'string')
-  );
+  return Array.isArray(value) && value.every((item) => isString(item));
 }
 
 export function isArrayOf<T>(
@@ -17,4 +15,8 @@ export function isObject(value: unknown): value is object {
 
 export function isNumber(value: unknown): value is number {
   return typeof value === 'number';
+}
+
+export function isString(value: unknown): value is string {
+  return typeof value === 'string';
 }

@@ -1,12 +1,19 @@
-import { isArrayOf, isArrayOfStrings, isObject } from './type-guards.util';
+import {
+  isArrayOf,
+  isArrayOfStrings,
+  isObject,
+  isString,
+} from './type-guards.util';
 
 type MessageError = string | undefined;
 type DescriptionError = string | string[] | undefined;
+type ValidationError = ValidationErrors | undefined;
 type StatusError = number | string | undefined;
 
-export interface ErrorObject {
+interface ErrorObject {
   message?: MessageError;
   description?: DescriptionError;
+  validation?: ValidationError;
   status?: StatusError;
 }
 
@@ -18,16 +25,19 @@ interface PossibleError {
 }
 
 interface PossibleErrorData {
-  message?: string;
-  title?: string;
-  details?: string | string[] | DetailsValidationError[];
-  code?: string;
   statusCode?: number;
+  code?: string;
+  message?: string;
+  details?: string | string[] | DetailValidationError[];
 }
 
-interface DetailsValidationError {
+interface DetailValidationError {
   code: string;
   message: string;
+}
+
+export interface ValidationErrors {
+  [propertyName: string]: string[];
 }
 
 export function parseErrorObject(error: unknown): ErrorObject {
@@ -35,7 +45,7 @@ export function parseErrorObject(error: unknown): ErrorObject {
     return {};
   }
 
-  if (typeof error === 'string') {
+  if (isString(error)) {
     return { message: error };
   }
 
@@ -44,18 +54,17 @@ export function parseErrorObject(error: unknown): ErrorObject {
   return {
     message: getMessageError(possibleError),
     description: getDescriptionError(possibleError),
+    validation: getValidationError(possibleError),
     status: getStatusError(possibleError),
   };
 }
 
 function getMessageError(error: PossibleError): MessageError {
-  if (typeof error.data === 'string') {
+  if (isString(error.data)) {
     return error.data;
   } else if (error.data?.message) {
     return error.data.message;
-  } else if (error.data?.title) {
-    return error.data.title;
-  } else if (typeof error.data?.details === 'string') {
+  } else if (isString(error.data?.details)) {
     return error.data.details;
   } else if (error.message) {
     return error.message;
@@ -67,21 +76,40 @@ function getMessageError(error: PossibleError): MessageError {
 }
 
 function getDescriptionError(error: PossibleError): DescriptionError {
-  if (typeof error.data === 'string' && error.message) {
+  if (isString(error.data) && error.message) {
     return error.message;
-  } else if (typeof error.data === 'string' && error.error) {
+  } else if (isString(error.data) && error.error) {
     return error.error;
   } else if (
-    typeof error.data !== 'string' &&
+    !isString(error.data) &&
     error.data?.message &&
     isArrayOfStrings(error.data.details)
   ) {
     return error.data.details;
-  } else if (
-    typeof error.data !== 'string' &&
-    isArrayOf<DetailsValidationError>(error.data?.details, isValidationError)
+  }
+
+  return undefined;
+}
+
+function getValidationError(error: PossibleError): ValidationError {
+  if (
+    !isString(error.data) &&
+    isArrayOf<DetailValidationError>(
+      error.data?.details,
+      isDetailValidationError,
+    )
   ) {
-    return error.data.details.map((item) => item.message);
+    const obj: ValidationErrors = {};
+
+    for (const detail of error.data.details) {
+      if (!obj[detail.code]) {
+        obj[detail.code] = [];
+      }
+
+      obj[detail.code].push(detail.message);
+    }
+
+    return obj;
   }
 
   return undefined;
@@ -90,26 +118,28 @@ function getDescriptionError(error: PossibleError): DescriptionError {
 function getStatusError(error: PossibleError): StatusError {
   if (error.status) {
     return error.status;
-  } else if (error.data && typeof error.data !== 'string') {
-    if (error.data.code) {
-      return error.data.code;
-    } else if (error.data.statusCode) {
+  } else if (error.data && !isString(error.data)) {
+    if (error.data.statusCode) {
       return error.data.statusCode;
+    } else if (error.data.code) {
+      return error.data.code;
     }
   }
 
   return undefined;
 }
 
-function isValidationError(value: unknown): value is DetailsValidationError {
+function isDetailValidationError(
+  value: unknown,
+): value is DetailValidationError {
   if (!isObject(value)) {
     return false;
   }
 
   return (
     'code' in value &&
-    typeof value.code === 'string' &&
+    isString(value.code) &&
     'message' in value &&
-    typeof value.message === 'string'
+    isString(value.message)
   );
 }

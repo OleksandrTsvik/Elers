@@ -1,9 +1,16 @@
 import { TFunction } from 'i18next';
 import { useTranslation } from 'react-i18next';
 
-import { isNumber, parseErrorObject } from '../utils/helpers';
+import { IS_DEVELOPMENT } from '../utils/constants/node-env.constants';
+import { ValidationErrors, isNumber, parseErrorObject } from '../utils/helpers';
 
-export default function useParseError(error: unknown) {
+interface ErrorData {
+  message: string;
+  description: string[];
+  validation?: ValidationErrors;
+}
+
+export default function useParseError(error: unknown): ErrorData {
   const { t } = useTranslation();
 
   const errorObject = parseErrorObject(error);
@@ -23,7 +30,7 @@ export default function useParseError(error: unknown) {
       : [errorObject.description];
   }
 
-  return { message, description };
+  return { message, description, validation: errorObject.validation };
 }
 
 function getErrorMessageByStatus(
@@ -49,5 +56,9 @@ function getErrorMessageByStatus(
     }
   }
 
-  return t('error.status', { status: statusCode });
+  if (IS_DEVELOPMENT) {
+    return t('error.status', { status: statusCode });
+  }
+
+  return t('error.default');
 }

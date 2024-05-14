@@ -88,12 +88,12 @@ export default function EditableText({
 
   return (
     <>
-      {error && <ErrorAlert className={styles.errorAlert} error={error} />}
+      <ErrorAlert className={styles.errorAlert} error={error} />
       <Form
         layout="vertical"
         {...formProps}
         form={form}
-        initialValues={{ value: text || '' }}
+        initialValues={{ value: text ?? '' } as FormValues}
         onFinish={handleSubmit}
       >
         <Form.Item hasFeedback name="value" label={label} rules={textRules}>

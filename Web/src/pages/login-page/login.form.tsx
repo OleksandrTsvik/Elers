@@ -11,6 +11,8 @@ interface FormValues {
   password: string;
 }
 
+const initialValues: FormValues = { email: '', password: '' };
+
 export default function LoginForm() {
   const { t } = useTranslation();
 
@@ -24,8 +26,8 @@ export default function LoginForm() {
   };
 
   return (
-    <Form form={form} onFinish={handleSubmit}>
-      <ErrorForm error={error} />
+    <Form form={form} initialValues={initialValues} onFinish={handleSubmit}>
+      <ErrorForm error={error} form={form} />
 
       <Form.Item hasFeedback name="email" rules={rules.email}>
         <Input prefix={<MailOutlined />} placeholder={t('login_page.email')} />

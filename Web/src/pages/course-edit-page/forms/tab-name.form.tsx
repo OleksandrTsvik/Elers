@@ -39,7 +39,7 @@ export default function TabNameForm({
       initialValues={initialValues}
       onFinish={onSubmit}
     >
-      <ErrorForm error={error} />
+      <ErrorForm error={error} form={form} />
 
       <Form.Item
         hasFeedback

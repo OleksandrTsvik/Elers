@@ -69,6 +69,7 @@
   "error": {
     "bad_request": "Bad Request. Please check your data and try again.",
     "conflict": "Conflict. Try again with different data.",
+    "default": "An error occurred while processing your request!",
     "forbidden": "Access denied!",
     "internal_server_error": "Internal server error. Please try again later.",
     "not_found": "Not found. Please check the URL or try again later.",

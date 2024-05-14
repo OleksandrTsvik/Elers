@@ -8,8 +8,13 @@ import { COURSE_RULES } from '../../common/rules';
 
 export interface CourseCreationFormValues {
   title: string;
-  description: string;
+  description?: string;
 }
+
+const initialValues: CourseCreationFormValues = {
+  title: '',
+  description: undefined,
+};
 
 interface Props {
   error: unknown;
@@ -34,8 +39,13 @@ export default function CourseCreationForm({
   }, [form, onFormInstanceReady]);
 
   return (
-    <Form form={form} layout="vertical" onFinish={onSubmit}>
-      <ErrorForm error={error} />
+    <Form
+      form={form}
+      layout="vertical"
+      initialValues={initialValues}
+      onFinish={onSubmit}
+    >
+      <ErrorForm error={error} form={form} />
 
       <Form.Item
         hasFeedback

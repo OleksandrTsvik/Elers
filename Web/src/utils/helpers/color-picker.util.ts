@@ -1,6 +1,9 @@
 import { presetPalettes } from '@ant-design/colors';
 import { Color } from 'antd/es/color-picker';
 
+import { getUniqueArrayItems } from './type-converters.util';
+import { isString } from './type-guards.util';
+
 export type ColorPickerValue = Color | string | null;
 
 export interface DefaultPresetsItem {
@@ -14,7 +17,7 @@ export interface DefaultPresetsItem {
 export function generatePresets(presets = presetPalettes) {
   return Object.entries(presets).map<DefaultPresetsItem>(([label, colors]) => ({
     label,
-    colors: [...new Set(colors)],
+    colors: getUniqueArrayItems(colors),
   }));
 }
 
@@ -25,7 +28,7 @@ export function parseColorPickerValue(
     return;
   }
 
-  if (typeof color === 'string') {
+  if (isString(color)) {
     return color;
   }
 

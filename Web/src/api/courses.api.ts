@@ -5,7 +5,7 @@ import { Course, CourseListItem } from '../models/course.interface';
 
 interface CreateCourseRequest {
   title: string;
-  description: string;
+  description?: string;
 }
 
 export const coursesApi = createApi({

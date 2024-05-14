@@ -1,12 +1,14 @@
 import { Rule } from 'antd/es/form';
 import { useTranslation } from 'react-i18next';
 
+import { isString } from '../utils/helpers';
+
 export default function useValidationRules() {
   const { t } = useTranslation();
 
   const trimWhitespace: Rule = {
     validator: (_, value) => {
-      if (typeof value !== 'string') {
+      if (!isString(value)) {
         return Promise.resolve();
       }
 
