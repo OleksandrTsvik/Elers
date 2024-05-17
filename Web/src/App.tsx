@@ -7,7 +7,7 @@ import I18nProvider from './i18n/i18n.provider';
 import { router } from './router/router';
 import { store } from './store';
 import AntdProvider from './utils/antd/antd.provider';
-import CkeditorProvider from './utils/ckeditor/ckeditor.provider';
+import './utils/ckeditor/ckeditor.provider';
 
 export default function App() {
   return (
@@ -17,7 +17,6 @@ export default function App() {
           <I18nProvider>
             <AuthMiddleware>
               <RouterProvider router={router} />
-              <CkeditorProvider />
             </AuthMiddleware>
           </I18nProvider>
         </AntdProvider>
