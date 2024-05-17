@@ -2,8 +2,6 @@ import { Breadcrumb } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
-import styles from './course-edit.module.scss';
-
 interface Props {
   courseId: string;
   title: string;
@@ -14,7 +12,7 @@ export default function CourseEditBreadcrumb({ courseId, title }: Props) {
 
   return (
     <Breadcrumb
-      className={styles.breadcrumb}
+      className="mb-breadcrumb"
       items={[
         {
           title: <Link to="/courses">{t('my_courses_page.head_title')}</Link>,

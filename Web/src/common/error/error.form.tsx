@@ -6,8 +6,6 @@ import ErrorDetails, { ErrorDetailsProps } from './error.details';
 import useParseError from '../../hooks/use-parse-error';
 import { ValidationErrors, getUniqueArrayItems } from '../../utils/helpers';
 
-import styles from './error.module.scss';
-
 interface Props extends ErrorDetailsProps {
   error: unknown;
   form: FormInstance;
@@ -32,7 +30,7 @@ function ErrorFormContent({ error, form, ...props }: Props) {
 
   return (
     <ErrorDetails
-      className={styles.form}
+      className="mb-field"
       message={message}
       description={getDescriptionFormError(form, validation, description)}
       {...props}
