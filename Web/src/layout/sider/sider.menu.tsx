@@ -1,9 +1,14 @@
 import { Menu } from 'antd';
+import { SelectEventHandler } from 'rc-menu/es/interface';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import useSiderItems from './use-sider.items';
 
-export default function SiderMenu() {
+interface Props {
+  onSelect?: SelectEventHandler;
+}
+
+export default function SiderMenu({ onSelect }: Props) {
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -16,7 +21,10 @@ export default function SiderMenu() {
       defaultSelectedKeys={[location.pathname]}
       selectedKeys={[location.pathname]}
       style={{ borderRight: 0 }}
-      onSelect={({ key }) => navigate(key)}
+      onSelect={(info) => {
+        navigate(info.key);
+        onSelect && onSelect(info);
+      }}
     />
   );
 }

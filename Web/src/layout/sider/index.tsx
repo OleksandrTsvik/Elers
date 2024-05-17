@@ -49,7 +49,7 @@ export default function Sider({ collapsed, setCollapsed }: Props) {
             styles={{ body: { padding: 0 } }}
             onClose={() => setCollapsed(true)}
           >
-            <SiderMenu />
+            <SiderMenu onSelect={() => setCollapsed(true)} />
           </Drawer>
         ),
       })}
