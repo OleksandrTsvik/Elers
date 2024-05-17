@@ -12,9 +12,11 @@
   },
   "dependencies": {
     "@ant-design/icons": "^5.3.0",
+    "@ckeditor/ckeditor5-react": "^6.3.0",
     "@reduxjs/toolkit": "^2.2.1",
     "antd": "^5.17.0",
     "async-mutex": "^0.4.1",
+    "ckeditor5-custom-build": "file:ckeditor5",
     "i18next": "^23.9.0",
     "i18next-http-backend": "^2.5.0",
     "react": "^18.2.0",

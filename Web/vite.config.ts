@@ -7,5 +7,13 @@ export default defineConfig({
   server: {
     port: 3000,
   },
+  optimizeDeps: {
+    include: ['ckeditor5-custom-build'],
+  },
+  build: {
+    commonjsOptions: {
+      include: [/ckeditor5-custom-build/, /node_modules/],
+    },
+  },
   base: '/',
 });

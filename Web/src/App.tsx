@@ -1,3 +1,4 @@
+import 'ckeditor5-custom-build/build/translations/en';
 import { HelmetProvider } from 'react-helmet-async';
 import { Provider } from 'react-redux';
 import { RouterProvider } from 'react-router-dom';

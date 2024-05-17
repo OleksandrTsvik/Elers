@@ -1,5 +1,5 @@
 import { Grid, Layout } from 'antd';
-import { useLayoutEffect, useState } from 'react';
+import { useEffect, useLayoutEffect, useState } from 'react';
 import { ScrollRestoration } from 'react-router-dom';
 
 import Footer from './footer';
@@ -7,15 +7,24 @@ import Header from './header';
 import Main from './main';
 import Sider from './sider';
 import useAuth from '../auth/use-auth';
+import useColorMode from '../hooks/use-color-mode';
 import { COLLAPSED_SIDER } from '../utils/constants/local-storage.constants';
+import { changeDocumentBodyColorMode } from '../utils/helpers';
 
+import './ck-editor.scss';
 import './layout.scss';
 
 export default function LayoutPage() {
   const breakpoints = Grid.useBreakpoint();
 
   const { isAuth } = useAuth();
+  const { colorMode } = useColorMode();
+
   const [collapsed, setCollapsed] = useState(false);
+
+  useEffect(() => {
+    changeDocumentBodyColorMode(colorMode);
+  }, [colorMode]);
 
   useLayoutEffect(() => {
     const collapsedSider = localStorage.getItem(COLLAPSED_SIDER);
