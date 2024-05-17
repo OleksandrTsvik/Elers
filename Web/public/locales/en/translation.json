@@ -29,6 +29,13 @@
   },
   "course": {
     "description": "Description",
+    "material": {
+      "assignment": "Assignment",
+      "content": "Content",
+      "file": "File",
+      "link": "Link",
+      "test": "Test"
+    },
     "materials_count": "Number of materials",
     "rules": {
       "description_len": "Maximum description length {{max}} characters",
@@ -105,6 +112,10 @@
     "submit": "Login",
     "title": "Authentication"
   },
+  "material_text_creation_page": {
+    "head_title": "Adding content",
+    "title": "Adding content"
+  },
   "my_courses_page": {
     "create_course": "Create a course",
     "creation_title": "Create a course",
@@ -112,6 +123,7 @@
     "title": "My courses"
   },
   "not_found_page": {
+    "go_back": "Go back",
     "head_title": "Page not found",
     "home_link": "Go to the home page",
     "sub_title": "The address is incorrect or the page does not exist on the site.",

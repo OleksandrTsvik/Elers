@@ -2,6 +2,7 @@ import CourseEditPage from './course-edit-page/course-edit.page';
 import CoursePage from './course-page/course.page';
 import HomePage from './home-page/home.page';
 import LoginPage from './login-page/login.page';
+import MaterialContentCreationPage from './material-content-creation-page/material-content-creation.page';
 import MyCoursesPage from './my-courses-page/my-courses.page';
 import NotFoundPage from './not-found-page/not-found.page';
 import PermissionsPage from './permissions-page/permissions.page';
@@ -17,6 +18,7 @@ export {
   CoursePage,
   HomePage,
   LoginPage,
+  MaterialContentCreationPage,
   MyCoursesPage,
   PermissionsPage,
   NotFoundPage,

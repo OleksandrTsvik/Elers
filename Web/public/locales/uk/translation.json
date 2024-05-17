@@ -29,6 +29,13 @@
   },
   "course": {
     "description": "Опис",
+    "material": {
+      "assignment": "Завдання",
+      "content": "Контент",
+      "file": "Файл",
+      "link": "Посилання",
+      "test": "Тест"
+    },
     "materials_count": "Кількість матеріалів",
     "rules": {
       "description_len": "Максимальна довжина опису {{max}} символів",
@@ -105,6 +112,10 @@
     "submit": "Увійти",
     "title": "Аутентифікація"
   },
+  "material_text_creation_page": {
+    "head_title": "Додавання контенту",
+    "title": "Додавання контенту"
+  },
   "my_courses_page": {
     "create_course": "Створити курс",
     "creation_title": "Створення курсу",
@@ -112,6 +123,7 @@
     "title": "Мої курси"
   },
   "not_found_page": {
+    "go_back": "Повернутися назад",
     "head_title": "Сторінку не знайдено",
     "home_link": "Перейти на головну сторінку",
     "sub_title": "Неправильно набрано адресу або такої сторінки на сайті не існує.",

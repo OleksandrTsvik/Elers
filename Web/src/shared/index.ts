@@ -6,3 +6,4 @@ export { RoleForm, UserForm };
 export type { RoleFormValues, UserFormValues };
 
 export * from './courses';
+export * from './materials';

@@ -1,9 +1,11 @@
+import { courseMaterialsRoutes } from './course-materials.routes';
 import { coursesRoutes } from './courses.routes';
 import { permissionsRoutes } from './permissions.routes';
 import { rolesRoutes } from './roles.routes';
 import { usersRoutes } from './users.routes';
 
 const arrayRoutes = [
+  courseMaterialsRoutes,
   coursesRoutes,
   permissionsRoutes,
   rolesRoutes,
