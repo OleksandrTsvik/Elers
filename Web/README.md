@@ -1,6 +1,6 @@
 # Elers/Web
 
-This project is a user interface for the Elers project, developed using `React` + `TypeScript` + `Vite` + `RTK` + `Antd` + `i18next`.
+This project is a user interface for the Elers project, developed using `React` + `TypeScript` + `Vite` + `RTK` + `Antd` + `i18next` + `ckeditor5`.
 
 ## Running Locally
 
@@ -44,3 +44,38 @@ Its settings for VS Code can be placed in the root of the entire project at the 
   "i18n-ally.sortKeys": true
 }
 ```
+
+## Setting up CKEditor 5
+
+[CKEditor 5](https://ckeditor.com/docs/ckeditor5/latest/index.html) is a convenient and multifunctional text editor.
+
+[Connection/update instructions](https://ckeditor.com/docs/ckeditor5/latest/installation/integrations/react/react.html#customizing-the-builds):
+
+0. If ckeditor5 is already installed in the project, uninstall it with the command:
+
+```sh
+rm -rf ckeditor5 && npm uninstall --save @ckeditor/ckeditor5-react ckeditor5-custom-build
+```
+
+1. Go to the CKEditor 5 [online builder](https://ckeditor.com/ckeditor-5/online-builder/).
+2. Step 2: Make sure the **Watchdog** plugin is not selected.
+3. Step 4: Choose **Ukrainian** as the default editor language.
+4. Download the generated build *(.zip)* and unpack it in the root of the project and name the directory as `ckeditor5`.
+5. Install ckeditor5 for React:
+
+```sh
+npm install --save @ckeditor/ckeditor5-react
+```
+
+6. Add the package located in the `ckeditor5` directory as a dependency of your project:
+
+```sh
+npm add file:./ckeditor5
+```
+
+### Useful information:
+
+- [CKEditor 5 supports multiple UI languages.](https://ckeditor.com/docs/ckeditor5/latest/installation/integrations/react/react.html#localization)
+- [Using css properties, you can customize the color mode of the editor.](https://ckeditor.com/docs/ckeditor5/latest/examples/framework/theme-customization.html)
+- [Add the `ck-content` class to your content container to make ckeditor5 styles work.](https://ckeditor.com/docs/ckeditor5/latest/installation/advanced/content-styles.html#the-full-list-of-content-styles)
+- [Configure image upload to your own api.](https://ckeditor.com/docs/ckeditor5/latest/features/images/image-upload/simple-upload-adapter.html)
