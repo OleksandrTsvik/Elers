@@ -1,4 +1,4 @@
-@use './layout.scss' as layout;
+@use '../../layout/layout.scss' as layout;
 
 .ck {
   .ck-editor__top {
@@ -15,6 +15,10 @@
   .ck-editor__main .ck-content.ck-editor__editable.ck-editor__editable_inline {
     min-height: 200px;
     border-top-width: 0;
+  }
+
+  .ck-balloon-panel.ck-powered-by-balloon {
+    z-index: 1 !important;
   }
 
   .ck-dialog.ck-accessibility-help-dialog {

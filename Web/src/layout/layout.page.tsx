@@ -11,7 +11,6 @@ import useColorMode from '../hooks/use-color-mode';
 import { COLLAPSED_SIDER } from '../utils/constants/local-storage.constants';
 import { changeDocumentBodyColorMode } from '../utils/helpers';
 
-import './ck-editor.scss';
 import './layout.scss';
 
 export default function LayoutPage() {
