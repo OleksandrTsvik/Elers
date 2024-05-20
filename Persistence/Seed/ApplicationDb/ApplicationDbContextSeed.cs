@@ -4,7 +4,7 @@ using Domain.Entities;
 using Domain.Enums;
 using Microsoft.EntityFrameworkCore;
 
-namespace Persistence.Seed;
+namespace Persistence.Seed.ApplicationDb;
 
 public class ApplicationDbContextSeed
 {

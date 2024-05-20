@@ -1,8 +1,8 @@
+# Development configuration
+API/appsettings.Development.json
+
 # EF Migrations
 Persistence/Migrations
-
-# draw.io
-/db-schema/.$*
 
 # VS Code
 .vscode

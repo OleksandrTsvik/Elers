@@ -30,6 +30,9 @@ msgstr "Видалення користувача. Дозволяє корист
 msgid "Remove unnecessary spaces at the beginning or end."
 msgstr "Видаліть зайві пробіли на початку чи в кінці."
 
+msgid "The link is invalid."
+msgstr "Посилання недійсне."
+
 msgid "Bad Request. Please check your data and try again."
 msgstr "Некоректний запит. Переконайтеся, що введено правильні дані."
 

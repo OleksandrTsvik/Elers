@@ -1,5 +1,7 @@
 using Application.Common.Interfaces;
 using Application.Common.Messaging;
+using Application.Common.Queries;
+using Domain.Entities;
 using Domain.Errors;
 using Domain.Shared;
 using Microsoft.EntityFrameworkCore;
@@ -9,10 +11,14 @@ namespace Application.Courses.GetCourseById;
 public class GetCourseByIdQueryHandler : IQueryHandler<GetCourseByIdQuery, GetCourseByIdResponse>
 {
     private readonly IApplicationDbContext _context;
+    private readonly ICourseMaterialQueries _courseMaterialQueries;
 
-    public GetCourseByIdQueryHandler(IApplicationDbContext context)
+    public GetCourseByIdQueryHandler(
+        IApplicationDbContext context,
+        ICourseMaterialQueries courseMaterialQueries)
     {
         _context = context;
+        _courseMaterialQueries = courseMaterialQueries;
     }
 
     public async Task<Result<GetCourseByIdResponse>> Handle(
@@ -47,6 +53,16 @@ public class GetCourseByIdQueryHandler : IQueryHandler<GetCourseByIdQuery, GetCo
         if (course is null)
         {
             return CourseErrors.NotFound(request.Id);
+        }
+
+        List<CourseMaterial> courseMaterials = await _courseMaterialQueries
+            .GetListCourseMaterialsAsync(cancellationToken);
+
+        foreach (CourseTabResponse tab in course.CourseTabs)
+        {
+            tab.CourseMaterials = courseMaterials
+                .Where(x => x.CourseTabId == tab.Id)
+                .ToArray();
         }
 
         return course;

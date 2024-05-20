@@ -1,6 +1,6 @@
 using Domain.Enums;
 
-namespace Persistence.Seed;
+namespace Persistence.Seed.ApplicationDb;
 
 public class UserDto
 {
