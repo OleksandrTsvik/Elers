@@ -1,3 +1,5 @@
+using Domain.Entities;
+
 namespace Application.Courses.GetCourseById;
 
 public class GetCourseByIdResponse
@@ -19,4 +21,5 @@ public class CourseTabResponse
     public int Order { get; set; }
     public string? Color { get; set; }
     public bool ShowMaterialsCount { get; set; }
+    public CourseMaterial[] CourseMaterials { get; set; } = [];
 }

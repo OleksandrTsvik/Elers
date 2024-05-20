@@ -1,0 +1,3 @@
+namespace Application.CourseMaterials.CreateCourseMaterialContent;
+
+public record CreateCourseMaterialContentRequest(string Content);

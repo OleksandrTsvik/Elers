@@ -1,7 +1,7 @@
 using API.Options;
 using API.Options.Jwt;
 using Infrastructure.Authentication;
-using Persistence.Common;
+using Persistence.Options;
 
 namespace API.Extensions;
 
@@ -11,8 +11,8 @@ public static class ApiOptionsExtensions
     {
         services.ConfigureOptions<JwtBearerOptionsSetup>();
 
-        services.AddOptionsWithFluentValidation<ConnectionStringsOptions>(
-            ConfigurationSections.ConnectionStrings);
+        services.AddOptionsWithFluentValidation<DatabaseSettingsOptions>(
+            ConfigurationSections.DatabaseSettings);
 
         services.AddOptionsWithFluentValidation<JwtOptions>(
             ConfigurationSections.Jwt);

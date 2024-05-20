@@ -3,7 +3,7 @@ using Domain.Rules;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Persistence.Configurations;
+namespace Persistence.Configurations.ApplicationDb;
 
 public class CourseTabConfiguration : IEntityTypeConfiguration<CourseTab>
 {

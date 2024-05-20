@@ -1,4 +1,5 @@
 using System.Reflection;
+using System.Text.Json.Serialization;
 using API.Constants;
 using API.Middleware;
 using FluentValidation;
@@ -21,6 +22,10 @@ public static class ApiServiceExtensions
             .ConfigureApiBehaviorOptions(options =>
             {
                 options.InvalidModelStateResponseFactory = InvalidModelStateResponseBuilder.BuildResponse;
+            })
+            .AddJsonOptions(options =>
+            {
+                options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
             });
 
         services.AddAuth();
