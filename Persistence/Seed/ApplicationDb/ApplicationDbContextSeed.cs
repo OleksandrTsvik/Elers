@@ -1,4 +1,4 @@
-using Application.Common.Interfaces;
+using Application.Common.Services;
 using Domain.Constants;
 using Domain.Entities;
 using Domain.Enums;

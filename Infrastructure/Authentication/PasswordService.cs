@@ -1,4 +1,4 @@
-using Application.Common.Interfaces;
+using Application.Common.Services;
 using BC = BCrypt.Net.BCrypt;
 
 namespace Infrastructure.Authentication;

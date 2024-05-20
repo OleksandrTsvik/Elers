@@ -1,5 +1,6 @@
 using Application.Common.Interfaces;
 using Application.Common.Messaging;
+using Application.Common.Services;
 using Domain.Entities;
 using Domain.Errors;
 using Domain.Shared;

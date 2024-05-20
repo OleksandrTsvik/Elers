@@ -1,4 +1,5 @@
 using Application.Common.Interfaces;
+using Application.Common.Services;
 using Infrastructure.Authentication;
 using Infrastructure.Localization;
 using Microsoft.AspNetCore.Authorization;
