@@ -1,4 +1,5 @@
 import { CourseTab } from './course-tab.interface';
+import { CourseTabType } from '../shared';
 
 export interface CourseListItem {
   id: string;
@@ -12,6 +13,6 @@ export interface Course {
   title: string;
   description?: string;
   photoUrl?: string;
-  tabType?: string;
+  tabType: CourseTabType;
   courseTabs: CourseTab[];
 }

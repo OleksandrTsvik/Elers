@@ -1,4 +1,5 @@
 using Domain.Entities;
+using Domain.Enums;
 
 namespace Application.Courses.GetCourseById;
 
@@ -8,7 +9,7 @@ public class GetCourseByIdResponse<TCourseTab>
     public required string Title { get; init; }
     public required string? Description { get; init; }
     public required string? PhotoUrl { get; init; }
-    public required string? TabType { get; init; }
+    public required CourseTabType TabType { get; init; }
     public required TCourseTab[] CourseTabs { get; init; }
 }
 

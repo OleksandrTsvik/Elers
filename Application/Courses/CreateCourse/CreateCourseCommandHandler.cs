@@ -22,9 +22,13 @@ public class CreateCourseCommandHandler : ICommandHandler<CreateCourseCommand>
         var course = new Course
         {
             Title = request.Title,
-            Description = request.Description,
-            TabType = request.TabType
+            Description = request.Description
         };
+
+        if (request.TabType.HasValue)
+        {
+            course.TabType = request.TabType.Value;
+        }
 
         _courseRepository.Add(course);
 

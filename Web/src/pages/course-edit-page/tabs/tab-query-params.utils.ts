@@ -22,8 +22,8 @@ export function setTab(tabId: string) {
   updateQueryParam(SEARCH_PARAM_COURSE_TAB, tabId);
 }
 
-export function setTabByType(tabType: string | undefined, tabId: string) {
-  if (!tabType || tabType === CourseTabType.Tabs.toString()) {
+export function setTabByType(tabType: CourseTabType, tabId: string) {
+  if (tabType === CourseTabType.Tabs) {
     setTab(tabId);
   }
 }

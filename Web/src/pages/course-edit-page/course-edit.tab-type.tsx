@@ -4,13 +4,13 @@ import { useTranslation } from 'react-i18next';
 import { deleteTab } from './tabs/tab-query-params.utils';
 import { useUpdateCourseTabTypeMutation } from '../../api/courses.api';
 import { ErrorAlert } from '../../common/error';
-import { CourseTabType, DEFAULT_COURSE_TAB_TYPE } from '../../shared';
+import { CourseTabType } from '../../shared';
 
 import styles from './course-edit.module.scss';
 
 interface Props {
   courseId: string;
-  currentTabType?: string;
+  currentTabType: CourseTabType;
 }
 
 export default function CourseEditTabType({ courseId, currentTabType }: Props) {
@@ -22,7 +22,7 @@ export default function CourseEditTabType({ courseId, currentTabType }: Props) {
   const handleChange = async ({ target: { value } }: RadioChangeEvent) => {
     await updateCourseTabType({
       id: courseId,
-      tabType: value as string,
+      tabType: value as CourseTabType,
     })
       .unwrap()
       .then(() => deleteTab());
@@ -39,7 +39,7 @@ export default function CourseEditTabType({ courseId, currentTabType }: Props) {
           optionType="button"
           buttonStyle="solid"
           disabled={isLoading}
-          defaultValue={currentTabType ?? DEFAULT_COURSE_TAB_TYPE}
+          defaultValue={currentTabType}
           options={[
             { label: t('course.tab_types.tabs'), value: CourseTabType.Tabs },
             {

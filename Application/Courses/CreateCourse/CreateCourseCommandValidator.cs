@@ -18,5 +18,7 @@ public class CreateCourseCommandValidator : AbstractValidator<CreateCourseComman
             .MaximumLength(CourseRules.MaxDescriptionLength)
                 .When(x => !string.IsNullOrEmpty(x.Description))
             .TrimWhitespace(translator);
+
+        RuleFor(x => x.TabType).IsInEnum();
     }
 }

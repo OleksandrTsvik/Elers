@@ -1,4 +1,4 @@
 export enum CourseTabType {
-  Tabs = 'TABS',
-  Sections = 'SECTIONS',
+  Tabs = 'Tabs',
+  Sections = 'Sections',
 }

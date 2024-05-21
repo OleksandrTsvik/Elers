@@ -1,7 +1,9 @@
 using Domain.Entities;
+using Domain.Enums;
 using Domain.Rules;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Persistence.Configurations.ApplicationDb;
 
@@ -28,7 +30,8 @@ public class CourseConfiguration : IEntityTypeConfiguration<Course>
 
         builder
             .Property(course => course.TabType)
-            .IsRequired(false)
+            .IsRequired()
+            .HasConversion(new EnumToStringConverter<CourseTabType>())
             .HasMaxLength(CourseRules.MaxTabTypeLength);
     }
 }

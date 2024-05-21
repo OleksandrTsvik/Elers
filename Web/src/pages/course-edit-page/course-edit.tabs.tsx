@@ -5,7 +5,7 @@ import { CourseTab } from '../../models/course-tab.interface';
 import { CourseTabType } from '../../shared';
 
 interface Props {
-  tabType?: string;
+  tabType?: CourseTabType;
   courseTabs: CourseTab[];
 }
 
