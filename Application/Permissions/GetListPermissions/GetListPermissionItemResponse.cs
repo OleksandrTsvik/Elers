@@ -1,3 +1,5 @@
+using Domain.Enums;
+
 namespace Application.Permissions.GetListPermissions;
 
 public class GetListPermissionItemResponse : GetListPermissionItemResponseDto
@@ -8,5 +10,5 @@ public class GetListPermissionItemResponse : GetListPermissionItemResponseDto
 public class GetListPermissionItemResponseDto
 {
     public required Guid Id { get; init; }
-    public required string Name { get; init; }
+    public required PermissionType Name { get; init; }
 }

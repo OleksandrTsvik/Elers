@@ -8,12 +8,12 @@ namespace Persistence.Seed.ApplicationDb;
 
 public class ApplicationDbContextSeed
 {
-    private readonly ApplicationDbContext _context;
+    private readonly ApplicationDbContext _dbContext;
     private readonly IPasswordService _passwordService;
 
-    public ApplicationDbContextSeed(ApplicationDbContext context, IPasswordService passwordService)
+    public ApplicationDbContextSeed(ApplicationDbContext dbContext, IPasswordService passwordService)
     {
-        _context = context;
+        _dbContext = dbContext;
         _passwordService = passwordService;
     }
 
@@ -24,19 +24,19 @@ public class ApplicationDbContextSeed
 
         await SeedUsersAsync(allRoles);
 
-        await _context.SaveChangesAsync();
+        await _dbContext.SaveChangesAsync();
     }
 
     private async Task<List<Permission>> GetAndSeedPermissionsAsync()
     {
-        List<Permission> existingPermissionsInDb = await _context.Permissions.ToListAsync();
+        List<Permission> existingPermissionsInDb = await _dbContext.Permissions.ToListAsync();
 
         var removePermissionsFromDb = new List<Permission>();
         var existingPermissions = new List<Permission>();
 
         foreach (Permission permission in existingPermissionsInDb)
         {
-            if (PermissionsSetup.AllPermissions.ContainsPermission(permission.Name))
+            if (PermissionsSetup.AllPermissions.Contains(permission.Name))
             {
                 existingPermissions.Add(permission);
             }
@@ -50,23 +50,21 @@ public class ApplicationDbContextSeed
 
         foreach (PermissionType permissionType in PermissionsSetup.AllPermissions)
         {
-            string permissionName = permissionType.ToString();
-
-            if (!existingPermissions.Any(x => x.Name == permissionName))
+            if (!existingPermissions.Any(x => x.Name == permissionType))
             {
-                newPermissions.Add(new Permission { Name = permissionName });
+                newPermissions.Add(new Permission { Name = permissionType });
             }
         }
 
-        _context.Permissions.RemoveRange(removePermissionsFromDb);
-        await _context.Permissions.AddRangeAsync(newPermissions);
+        _dbContext.Permissions.RemoveRange(removePermissionsFromDb);
+        await _dbContext.Permissions.AddRangeAsync(newPermissions);
 
         return existingPermissions.Concat(newPermissions).ToList();
     }
 
     private async Task<List<Role>> GetAndSeedRolesAsync(List<Permission> allPermissions)
     {
-        List<Role> existingRoles = await _context.Roles
+        List<Role> existingRoles = await _dbContext.Roles
             .Include(x => x.Permissions)
             .ToListAsync();
 
@@ -77,8 +75,7 @@ public class ApplicationDbContextSeed
             Role? currentRole = existingRoles.Find(x => x.Name == role.ToString());
 
             var rolePermissions = allPermissions
-                .Where(x => PermissionsSetup.DefaultRolePermissions[role]
-                    .ContainsPermission(x.Name))
+                .Where(x => PermissionsSetup.DefaultRolePermissions[role].Contains(x.Name))
                 .ToList();
 
             if (currentRole is null)
@@ -97,7 +94,7 @@ public class ApplicationDbContextSeed
             }
         }
 
-        await _context.Roles.AddRangeAsync(newRoles);
+        await _dbContext.Roles.AddRangeAsync(newRoles);
 
         return existingRoles.Concat(newRoles).ToList();
     }
@@ -107,7 +104,7 @@ public class ApplicationDbContextSeed
         List<UserDto> seedUsers = GetUsersSeedData();
         var seedEmails = seedUsers.Select(x => x.Email).ToList();
 
-        List<string> existingEmails = await _context.Users
+        List<string> existingEmails = await _dbContext.Users
             .Where(x => seedEmails.Contains(x.Email))
             .Select(x => x.Email)
             .ToListAsync();
@@ -137,7 +134,7 @@ public class ApplicationDbContextSeed
             }
         }
 
-        await _context.Users.AddRangeAsync(newUsers);
+        await _dbContext.Users.AddRangeAsync(newUsers);
     }
 
     private static List<UserDto> GetUsersSeedData() =>

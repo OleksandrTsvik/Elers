@@ -31,7 +31,7 @@ public class GetListPermissionsQueryHandler
             {
                 Id = x.Id,
                 Name = x.Name,
-                Description = _translator.GetString(x.Name)
+                Description = _translator.GetString(x.Name.ToString())
             })
             .ToArray();
 

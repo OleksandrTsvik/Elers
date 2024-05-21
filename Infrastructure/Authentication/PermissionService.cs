@@ -1,3 +1,4 @@
+using Domain.Enums;
 using Domain.Repositories;
 
 namespace Infrastructure.Authentication;
@@ -11,8 +12,10 @@ public class PermissionService : IPermissionService
         _userRepository = userRepository;
     }
 
-    public Task<List<string>> GetPermissionsAsync(Guid userId)
+    public async Task<List<string>> GetPermissionsAsync(Guid userId)
     {
-        return _userRepository.GetPermissionsAsync(userId);
+        List<PermissionType> permissions = await _userRepository.GetPermissionsAsync(userId);
+
+        return permissions.ConvertAll(x => x.ToString());
     }
 }

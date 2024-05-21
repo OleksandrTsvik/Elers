@@ -1,4 +1,5 @@
 using Domain.Entities;
+using Domain.Enums;
 
 namespace Domain.Repositories;
 
@@ -18,7 +19,7 @@ public interface IUserRepository
         string email,
         CancellationToken cancellationToken = default);
 
-    Task<List<string>> GetPermissionsAsync(
+    Task<List<PermissionType>> GetPermissionsAsync(
         Guid id,
         CancellationToken cancellationToken = default);
 

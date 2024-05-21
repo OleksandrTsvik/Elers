@@ -1,4 +1,5 @@
 using Domain.Entities;
+using Domain.Enums;
 using Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
 
@@ -38,7 +39,9 @@ internal class UserRepository : ApplicationDbRepository<User>, IUserRepository
             .FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
     }
 
-    public Task<List<string>> GetPermissionsAsync(Guid id, CancellationToken cancellationToken = default)
+    public Task<List<PermissionType>> GetPermissionsAsync(
+        Guid id,
+        CancellationToken cancellationToken = default)
     {
         return DbContext.Users
             .Include(user => user.Roles)

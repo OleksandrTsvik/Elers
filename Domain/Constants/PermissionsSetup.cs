@@ -18,7 +18,4 @@ public static class PermissionsSetup
         { DefaultRole.Teacher, DefaultTeacherPermissions },
         { DefaultRole.Student, DefaultStudentPermissions }
     };
-
-    public static bool ContainsPermission(this PermissionType[] permissions, string permission)
-        => permissions.Any(x => x.ToString() == permission);
 }

@@ -44,16 +44,16 @@ public class GetRoleByIdQueryHandler : IQueryHandler<GetRoleByIdQuery, GetRoleBy
         };
     }
 
-    private PermissionResponse[] GetPermissionsResponse(
+    private GetRoleByIdPermissionResponse[] GetPermissionsResponse(
         Role role,
         List<Permission> permissions)
     {
         return permissions
-            .Select(permission => new PermissionResponse
+            .Select(permission => new GetRoleByIdPermissionResponse
             {
                 Id = permission.Id,
                 Name = permission.Name,
-                Description = _translator.GetString(permission.Name),
+                Description = _translator.GetString(permission.Name.ToString()),
                 IsSelected = role.Permissions.Any(x => x.Name == permission.Name)
             })
             .ToArray();
