@@ -1,39 +1,22 @@
-using Application.Common.Interfaces;
 using Application.Common.Messaging;
+using Application.Common.Queries;
 using Domain.Shared;
-using Microsoft.EntityFrameworkCore;
 
 namespace Application.Users.GetListUsers;
 
 public class GetListUsersQueryHandler : IQueryHandler<GetListUsersQuery, GetListUserItemResponse[]>
 {
-    private readonly IApplicationDbContext _context;
+    private readonly IUserQueries _userQueries;
 
-    public GetListUsersQueryHandler(IApplicationDbContext context)
+    public GetListUsersQueryHandler(IUserQueries userQueries)
     {
-        _context = context;
+        _userQueries = userQueries;
     }
 
     public async Task<Result<GetListUserItemResponse[]>> Handle(
         GetListUsersQuery request,
         CancellationToken cancellationToken)
     {
-        GetListUserItemResponse[] users = await _context.Users
-            .Select(x => new GetListUserItemResponse
-            {
-                Id = x.Id,
-                FirstName = x.FirstName,
-                LastName = x.LastName,
-                Patronymic = x.Patronymic,
-                Email = x.Email,
-                Roles = x.Roles.Select(role => role.Name).ToArray()
-            })
-            .OrderBy(x => x.FirstName)
-                .ThenBy(x => x.LastName)
-                .ThenBy(x => x.Patronymic)
-                .ThenBy(x => x.Email)
-            .ToArrayAsync(cancellationToken);
-
-        return users;
+        return await _userQueries.GetListUsers(cancellationToken);
     }
 }

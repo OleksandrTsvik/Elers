@@ -2,24 +2,25 @@ using Application.Common.Interfaces;
 using Application.Common.Messaging;
 using Domain.Entities;
 using Domain.Errors;
+using Domain.Repositories;
 using Domain.Shared;
-using Microsoft.EntityFrameworkCore;
 
 namespace Application.Courses.UpdateCourseTitle;
 
 public class UpdateCourseTitleCommandHandler : ICommandHandler<UpdateCourseTitleCommand>
 {
-    private readonly IApplicationDbContext _context;
+    private readonly IUnitOfWork _unitOfWork;
+    private readonly ICourseRepository _courseRepository;
 
-    public UpdateCourseTitleCommandHandler(IApplicationDbContext context)
+    public UpdateCourseTitleCommandHandler(IUnitOfWork unitOfWork, ICourseRepository courseRepository)
     {
-        _context = context;
+        _unitOfWork = unitOfWork;
+        _courseRepository = courseRepository;
     }
 
     public async Task<Result> Handle(UpdateCourseTitleCommand request, CancellationToken cancellationToken)
     {
-        Course? course = await _context.Courses
-            .FirstOrDefaultAsync(x => x.Id == request.CourseId, cancellationToken);
+        Course? course = await _courseRepository.GetByIdAsync(request.CourseId, cancellationToken);
 
         if (course is null)
         {
@@ -28,7 +29,9 @@ public class UpdateCourseTitleCommandHandler : ICommandHandler<UpdateCourseTitle
 
         course.Title = request.Title;
 
-        await _context.SaveChangesAsync(cancellationToken);
+        _courseRepository.Update(course);
+
+        await _unitOfWork.SaveChangesAsync(cancellationToken);
 
         return Result.Success();
     }

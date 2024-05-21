@@ -1,8 +1,12 @@
 namespace Application.Permissions.GetListPermissions;
 
-public class GetListPermissionItemResponse
+public class GetListPermissionItemResponse : GetListPermissionItemResponseDto
 {
-    public Guid Id { get; init; }
-    public string Name { get; init; } = string.Empty;
-    public string Description { get; init; } = string.Empty;
+    public required string Description { get; init; }
+}
+
+public class GetListPermissionItemResponseDto
+{
+    public required Guid Id { get; init; }
+    public required string Name { get; init; }
 }

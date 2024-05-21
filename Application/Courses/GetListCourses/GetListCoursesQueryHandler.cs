@@ -1,34 +1,22 @@
-using Application.Common.Interfaces;
 using Application.Common.Messaging;
+using Application.Common.Queries;
 using Domain.Shared;
-using Microsoft.EntityFrameworkCore;
 
 namespace Application.Courses.GetListCourses;
 
 public class GetListCoursesQueryHandler : IQueryHandler<GetListCoursesQuery, GetListCourseItemResponse[]>
 {
-    private readonly IApplicationDbContext _context;
+    private readonly ICourseQueries _courseQueries;
 
-    public GetListCoursesQueryHandler(IApplicationDbContext context)
+    public GetListCoursesQueryHandler(ICourseQueries courseQueries)
     {
-        _context = context;
+        _courseQueries = courseQueries;
     }
 
     public async Task<Result<GetListCourseItemResponse[]>> Handle(
         GetListCoursesQuery request,
         CancellationToken cancellationToken)
     {
-        GetListCourseItemResponse[] courses = await _context.Courses
-            .Select(x => new GetListCourseItemResponse
-            {
-                Id = x.Id,
-                Title = x.Title,
-                Description = x.Description,
-                PhotoUrl = x.PhotoUrl
-            })
-            .OrderBy(x => x.Title)
-            .ToArrayAsync(cancellationToken);
-
-        return courses;
+        return await _courseQueries.GetListCourses(cancellationToken);
     }
 }

@@ -1,32 +1,18 @@
-using Application.Common.Interfaces;
-using Domain.Entities;
-using Microsoft.EntityFrameworkCore;
+using Domain.Repositories;
 
 namespace Infrastructure.Authentication;
 
 public class PermissionService : IPermissionService
 {
-    private readonly IApplicationDbContext _context;
+    private readonly IUserRepository _userRepository;
 
-    public PermissionService(IApplicationDbContext context)
+    public PermissionService(IUserRepository userRepository)
     {
-        _context = context;
+        _userRepository = userRepository;
     }
 
-    public async Task<List<string>> GetPermissionsAsync(Guid userId)
+    public Task<List<string>> GetPermissionsAsync(Guid userId)
     {
-        List<List<Role>> roles = await _context.Users
-            .Include(x => x.Roles)
-                .ThenInclude(x => x.Permissions)
-            .Where(x => x.Id == userId)
-            .Select(x => x.Roles)
-            .ToListAsync();
-
-        return roles
-            .SelectMany(x => x)
-            .SelectMany(x => x.Permissions)
-            .Select(x => x.Name)
-            .Distinct()
-            .ToList();
+        return _userRepository.GetPermissionsAsync(userId);
     }
 }

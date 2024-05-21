@@ -2,40 +2,40 @@ using Application.Common.Interfaces;
 using Application.Common.Messaging;
 using Domain.Entities;
 using Domain.Errors;
+using Domain.Repositories;
 using Domain.Shared;
-using Microsoft.EntityFrameworkCore;
 
 namespace Application.Auth.Logout;
 
 public class LogoutCommandHandler : ICommandHandler<LogoutCommand>
 {
-    private readonly IApplicationDbContext _context;
+    private readonly IUnitOfWork _unitOfWork;
+    private readonly IRefreshTokenRepository _refreshTokenRepository;
     private readonly IUserContext _userContext;
 
     public LogoutCommandHandler(
-        IApplicationDbContext context,
+        IUnitOfWork unitOfWork,
+        IRefreshTokenRepository refreshTokenRepository,
         IUserContext userContext)
     {
-        _context = context;
+        _unitOfWork = unitOfWork;
+        _refreshTokenRepository = refreshTokenRepository;
         _userContext = userContext;
     }
 
     public async Task<Result> Handle(LogoutCommand request, CancellationToken cancellationToken)
     {
-        RefreshToken? refreshToken = await _context.RefreshTokens
-            .FirstOrDefaultAsync(
-                x => x.Token == request.RefreshToken &&
-                    x.UserId == _userContext.UserId,
-                cancellationToken);
+        RefreshToken? refreshToken = await _refreshTokenRepository.GetByTokenAndUserIdAsync(
+            request.RefreshToken, _userContext.UserId, cancellationToken);
 
         if (refreshToken is null)
         {
             return RefreshTokenErrors.InvalidToken();
         }
 
-        _context.RefreshTokens.Remove(refreshToken);
+        _refreshTokenRepository.Remove(refreshToken);
 
-        await _context.SaveChangesAsync(cancellationToken);
+        await _unitOfWork.SaveChangesAsync(cancellationToken);
 
         return Result.Success();
     }

@@ -1,40 +1,46 @@
-using Application.Common.Interfaces;
 using Application.Common.Messaging;
 using Application.Common.Queries;
 using Domain.Entities;
 using Domain.Errors;
 using Domain.Shared;
-using Microsoft.EntityFrameworkCore;
 
 namespace Application.Courses.GetCourseById;
 
-public class GetCourseByIdQueryHandler : IQueryHandler<GetCourseByIdQuery, GetCourseByIdResponse>
+public class GetCourseByIdQueryHandler
+    : IQueryHandler<GetCourseByIdQuery, GetCourseByIdResponse<CourseTabResponse>>
 {
-    private readonly IApplicationDbContext _context;
+    private readonly ICourseQueries _courseQueries;
     private readonly ICourseMaterialQueries _courseMaterialQueries;
 
     public GetCourseByIdQueryHandler(
-        IApplicationDbContext context,
+        ICourseQueries courseQueries,
         ICourseMaterialQueries courseMaterialQueries)
     {
-        _context = context;
+        _courseQueries = courseQueries;
         _courseMaterialQueries = courseMaterialQueries;
     }
 
-    public async Task<Result<GetCourseByIdResponse>> Handle(
+    public async Task<Result<GetCourseByIdResponse<CourseTabResponse>>> Handle(
         GetCourseByIdQuery request,
         CancellationToken cancellationToken)
     {
-        GetCourseByIdResponse? course = await _context.Courses
-            .Include(x => x.CourseTabs)
-            .Select(x => new GetCourseByIdResponse
-            {
-                Id = x.Id,
-                Title = x.Title,
-                Description = x.Description,
-                PhotoUrl = x.PhotoUrl,
-                TabType = x.TabType,
-                CourseTabs = x.CourseTabs.Select(courseTab => new CourseTabResponse
+        GetCourseByIdResponseDto? courseDto = await _courseQueries
+            .GetCourseById(request.Id, cancellationToken);
+
+        if (courseDto is null)
+        {
+            return CourseErrors.NotFound(request.Id);
+        }
+
+        var course = new GetCourseByIdResponse<CourseTabResponse>
+        {
+            Id = courseDto.Id,
+            Title = courseDto.Title,
+            Description = courseDto.Description,
+            PhotoUrl = courseDto.PhotoUrl,
+            TabType = courseDto.TabType,
+            CourseTabs = courseDto.CourseTabs
+                .Select(courseTab => new CourseTabResponse
                 {
                     Id = courseTab.Id,
                     CourseId = courseTab.CourseId,
@@ -44,16 +50,8 @@ public class GetCourseByIdQueryHandler : IQueryHandler<GetCourseByIdQuery, GetCo
                     Color = courseTab.Color,
                     ShowMaterialsCount = courseTab.ShowMaterialsCount,
                 })
-                .OrderBy(courseTab => courseTab.Order)
-                    .ThenBy(courseTab => courseTab.Name)
                 .ToArray()
-            })
-            .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
-
-        if (course is null)
-        {
-            return CourseErrors.NotFound(request.Id);
-        }
+        };
 
         List<CourseMaterial> courseMaterials = await _courseMaterialQueries
             .GetListCourseMaterialsAsync(cancellationToken);

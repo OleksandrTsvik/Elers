@@ -2,24 +2,32 @@ using Domain.Entities;
 
 namespace Application.Courses.GetCourseById;
 
-public class GetCourseByIdResponse
+public class GetCourseByIdResponse<TCourseTab>
 {
-    public Guid Id { get; init; }
-    public string Title { get; init; } = string.Empty;
-    public string? Description { get; init; }
-    public string? PhotoUrl { get; init; }
-    public string? TabType { get; init; }
-    public CourseTabResponse[] CourseTabs { get; set; } = [];
+    public required Guid Id { get; init; }
+    public required string Title { get; init; }
+    public required string? Description { get; init; }
+    public required string? PhotoUrl { get; init; }
+    public required string? TabType { get; init; }
+    public required TCourseTab[] CourseTabs { get; init; }
 }
 
-public class CourseTabResponse
+public class CourseTabResponse : CourseTabResponseDto
 {
-    public Guid Id { get; set; }
-    public Guid CourseId { get; set; }
-    public string Name { get; set; } = string.Empty;
-    public bool IsActive { get; set; }
-    public int Order { get; set; }
-    public string? Color { get; set; }
-    public bool ShowMaterialsCount { get; set; }
     public CourseMaterial[] CourseMaterials { get; set; } = [];
+}
+
+public class GetCourseByIdResponseDto : GetCourseByIdResponse<CourseTabResponseDto>
+{
+}
+
+public class CourseTabResponseDto
+{
+    public required Guid Id { get; init; }
+    public required Guid CourseId { get; init; }
+    public required string Name { get; init; }
+    public required bool IsActive { get; init; }
+    public required int Order { get; init; }
+    public required string? Color { get; init; }
+    public required bool ShowMaterialsCount { get; init; }
 }

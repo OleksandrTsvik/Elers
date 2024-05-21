@@ -2,33 +2,34 @@ using Application.Common.Interfaces;
 using Application.Common.Messaging;
 using Domain.Entities;
 using Domain.Errors;
+using Domain.Repositories;
 using Domain.Shared;
-using Microsoft.EntityFrameworkCore;
 
 namespace Application.Roles.DeleteRole;
 
 public class DeleteRoleCommandHandler : ICommandHandler<DeleteRoleCommand>
 {
-    private readonly IApplicationDbContext _context;
+    private readonly IUnitOfWork _unitOfWork;
+    private readonly IRoleRepository _roleRepository;
 
-    public DeleteRoleCommandHandler(IApplicationDbContext context)
+    public DeleteRoleCommandHandler(IUnitOfWork unitOfWork, IRoleRepository roleRepository)
     {
-        _context = context;
+        _unitOfWork = unitOfWork;
+        _roleRepository = roleRepository;
     }
 
     public async Task<Result> Handle(DeleteRoleCommand request, CancellationToken cancellationToken)
     {
-        Role? role = await _context.Roles
-            .FirstOrDefaultAsync(x => x.Id == request.RoleId, cancellationToken);
+        Role? role = await _roleRepository.GetByIdAsync(request.RoleId, cancellationToken);
 
         if (role is null)
         {
             return RoleErrors.NotFound(request.RoleId);
         }
 
-        _context.Roles.Remove(role);
+        _roleRepository.Remove(role);
 
-        await _context.SaveChangesAsync(cancellationToken);
+        await _unitOfWork.SaveChangesAsync(cancellationToken);
 
         return Result.Success();
     }

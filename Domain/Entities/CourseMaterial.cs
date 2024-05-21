@@ -1,14 +1,14 @@
 using System.Text.Json.Serialization;
 using Domain.Enums;
+using Domain.Primitives;
 
 namespace Domain.Entities;
 
 [JsonDerivedType(typeof(CourseMaterialContent))]
 [JsonDerivedType(typeof(CourseMaterialLink))]
 [JsonDerivedType(typeof(CourseMaterialFile))]
-public abstract class CourseMaterial
+public abstract class CourseMaterial : Entity
 {
-    public Guid Id { get; set; }
     public Guid CourseTabId { get; set; }
     public CourseMaterialType Type { get; set; }
     public bool IsActive { get; set; }

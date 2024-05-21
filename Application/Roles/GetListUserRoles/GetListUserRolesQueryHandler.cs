@@ -1,33 +1,23 @@
-using Application.Common.Interfaces;
 using Application.Common.Messaging;
+using Application.Common.Queries;
 using Domain.Shared;
-using Microsoft.EntityFrameworkCore;
 
 namespace Application.Roles.GetListUserRoles;
 
 public class GetListUserRolesQueryHandler
     : IQueryHandler<GetListUserRolesQuery, GetListUserRoleItemResponse[]>
 {
-    private readonly IApplicationDbContext _context;
+    private readonly IRoleQueries _roleQueries;
 
-    public GetListUserRolesQueryHandler(IApplicationDbContext context)
+    public GetListUserRolesQueryHandler(IRoleQueries roleQueries)
     {
-        _context = context;
+        _roleQueries = roleQueries;
     }
 
     public async Task<Result<GetListUserRoleItemResponse[]>> Handle(
         GetListUserRolesQuery request,
         CancellationToken cancellationToken)
     {
-        GetListUserRoleItemResponse[] roles = await _context.Roles
-            .Select(x => new GetListUserRoleItemResponse
-            {
-                Id = x.Id,
-                Name = x.Name
-            })
-            .OrderBy(x => x.Name)
-            .ToArrayAsync(cancellationToken);
-
-        return roles;
+        return await _roleQueries.GetListUserRoles(cancellationToken);
     }
 }

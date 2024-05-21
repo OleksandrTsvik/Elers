@@ -3,37 +3,38 @@ using Application.Common.Messaging;
 using Application.Common.Services;
 using Domain.Entities;
 using Domain.Errors;
+using Domain.Repositories;
 using Domain.Shared;
-using Microsoft.EntityFrameworkCore;
 
 namespace Application.Users.CreateUser;
 
 public class CreateUserCommandHandler : ICommandHandler<CreateUserCommand>
 {
-    private readonly IApplicationDbContext _context;
+    private readonly IUnitOfWork _unitOfWork;
+    private readonly IUserRepository _userRepository;
+    private readonly IRoleRepository _roleRepository;
     private readonly IPasswordService _passwordService;
 
     public CreateUserCommandHandler(
-        IApplicationDbContext context,
+        IUnitOfWork unitOfWork,
+        IUserRepository userRepository,
+        IRoleRepository roleRepository,
         IPasswordService passwordService)
     {
-        _context = context;
+        _unitOfWork = unitOfWork;
+        _userRepository = userRepository;
+        _roleRepository = roleRepository;
         _passwordService = passwordService;
     }
 
     public async Task<Result> Handle(CreateUserCommand request, CancellationToken cancellationToken)
     {
-        bool userByEmail = await _context.Users
-            .AnyAsync(x => x.Email == request.Email, cancellationToken);
-
-        if (userByEmail)
+        if (!await _userRepository.IsEmailUniqueAsync(request.Email, cancellationToken))
         {
             return UserErrors.EmailNotUnique();
         }
 
-        List<Role> userRoles = await _context.Roles
-            .Where(x => request.RoleIds.Contains(x.Id))
-            .ToListAsync(cancellationToken);
+        List<Role> userRoles = await _roleRepository.GetListAsync(request.RoleIds, cancellationToken);
 
         var user = new User
         {
@@ -45,9 +46,9 @@ public class CreateUserCommandHandler : ICommandHandler<CreateUserCommand>
             Roles = userRoles
         };
 
-        _context.Users.Add(user);
+        _userRepository.Add(user);
 
-        await _context.SaveChangesAsync(cancellationToken);
+        await _unitOfWork.SaveChangesAsync(cancellationToken);
 
         return Result.Success();
     }

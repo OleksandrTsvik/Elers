@@ -1,11 +1,10 @@
 using System.Reflection;
-using Application.Common.Interfaces;
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace Persistence;
 
-public class ApplicationDbContext : DbContext, IApplicationDbContext
+public class ApplicationDbContext : DbContext
 {
     public DbSet<Course> Courses { get; set; }
     public DbSet<CourseTab> CourseTabs { get; set; }

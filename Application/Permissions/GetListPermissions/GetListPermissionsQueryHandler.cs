@@ -1,21 +1,21 @@
 using Application.Common.Interfaces;
 using Application.Common.Messaging;
+using Application.Common.Queries;
 using Domain.Shared;
-using Microsoft.EntityFrameworkCore;
 
 namespace Application.Permissions.GetListPermissions;
 
 public class GetListPermissionsQueryHandler
     : IQueryHandler<GetListPermissionsQuery, GetListPermissionItemResponse[]>
 {
-    private readonly IApplicationDbContext _context;
+    private readonly IPermissionQueries _permissionQueries;
     private readonly ITranslator _translator;
 
     public GetListPermissionsQueryHandler(
-        IApplicationDbContext context,
+        IPermissionQueries permissionQueries,
         ITranslator translator)
     {
-        _context = context;
+        _permissionQueries = permissionQueries;
         _translator = translator;
     }
 
@@ -23,15 +23,17 @@ public class GetListPermissionsQueryHandler
         GetListPermissionsQuery request,
         CancellationToken cancellationToken)
     {
-        GetListPermissionItemResponse[] permissions = await _context.Permissions
+        GetListPermissionItemResponseDto[] permissionDtos = await _permissionQueries
+            .GetListPermissions(cancellationToken);
+
+        GetListPermissionItemResponse[] permissions = permissionDtos
             .Select(x => new GetListPermissionItemResponse
             {
                 Id = x.Id,
                 Name = x.Name,
                 Description = _translator.GetString(x.Name)
             })
-            .OrderBy(x => x.Name)
-            .ToArrayAsync(cancellationToken);
+            .ToArray();
 
         return permissions;
     }

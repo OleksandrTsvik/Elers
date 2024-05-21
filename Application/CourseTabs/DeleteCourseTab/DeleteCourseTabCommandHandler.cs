@@ -2,33 +2,34 @@ using Application.Common.Interfaces;
 using Application.Common.Messaging;
 using Domain.Entities;
 using Domain.Errors;
+using Domain.Repositories;
 using Domain.Shared;
-using Microsoft.EntityFrameworkCore;
 
 namespace Application.CourseTabs.DeleteCourseTab;
 
 public class DeleteCourseTabCommandHandler : ICommandHandler<DeleteCourseTabCommand>
 {
-    private readonly IApplicationDbContext _context;
+    private readonly IUnitOfWork _unitOfWork;
+    private readonly ICourseTabRepository _courseTabRepository;
 
-    public DeleteCourseTabCommandHandler(IApplicationDbContext context)
+    public DeleteCourseTabCommandHandler(IUnitOfWork unitOfWork, ICourseTabRepository courseTabRepository)
     {
-        _context = context;
+        _unitOfWork = unitOfWork;
+        _courseTabRepository = courseTabRepository;
     }
 
     public async Task<Result> Handle(DeleteCourseTabCommand request, CancellationToken cancellationToken)
     {
-        CourseTab? courseTab = await _context.CourseTabs
-            .FirstOrDefaultAsync(x => x.Id == request.CourseTabId, cancellationToken);
+        CourseTab? courseTab = await _courseTabRepository.GetByIdAsync(request.TabId, cancellationToken);
 
         if (courseTab is null)
         {
-            return CourseTabErrors.NotFound(request.CourseTabId);
+            return CourseTabErrors.NotFound(request.TabId);
         }
 
-        _context.CourseTabs.Remove(courseTab);
+        _courseTabRepository.Remove(courseTab);
 
-        await _context.SaveChangesAsync(cancellationToken);
+        await _unitOfWork.SaveChangesAsync(cancellationToken);
 
         return Result.Success();
     }

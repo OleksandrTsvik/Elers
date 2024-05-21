@@ -2,26 +2,30 @@ using Application.Common.Interfaces;
 using Application.Common.Messaging;
 using Domain.Entities;
 using Domain.Errors;
+using Domain.Repositories;
 using Domain.Shared;
-using Microsoft.EntityFrameworkCore;
 
 namespace Application.CourseTabs.CreateCourseTab;
 
 public class CreateCourseTabCommandHandler : ICommandHandler<CreateCourseTabCommand, Guid>
 {
-    private readonly IApplicationDbContext _context;
+    private readonly IUnitOfWork _unitOfWork;
+    private readonly ICourseRepository _courseRepository;
+    private readonly ICourseTabRepository _courseTabRepository;
 
-    public CreateCourseTabCommandHandler(IApplicationDbContext context)
+    public CreateCourseTabCommandHandler(
+        IUnitOfWork unitOfWork,
+        ICourseRepository courseRepository,
+        ICourseTabRepository courseTabRepository)
     {
-        _context = context;
+        _unitOfWork = unitOfWork;
+        _courseRepository = courseRepository;
+        _courseTabRepository = courseTabRepository;
     }
 
     public async Task<Result<Guid>> Handle(CreateCourseTabCommand request, CancellationToken cancellationToken)
     {
-        bool courseById = await _context.Courses
-            .AnyAsync(x => x.Id == request.CourseId, cancellationToken);
-
-        if (!courseById)
+        if (!await _courseRepository.ExistsByIdAsync(request.CourseId, cancellationToken))
         {
             return CourseErrors.NotFound(request.CourseId);
         }
@@ -32,9 +36,9 @@ public class CreateCourseTabCommandHandler : ICommandHandler<CreateCourseTabComm
             Name = request.Name,
         };
 
-        _context.CourseTabs.Add(courseTab);
+        _courseTabRepository.Add(courseTab);
 
-        await _context.SaveChangesAsync(cancellationToken);
+        await _unitOfWork.SaveChangesAsync(cancellationToken);
 
         return courseTab.Id;
     }

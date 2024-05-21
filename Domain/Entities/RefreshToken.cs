@@ -1,8 +1,9 @@
+using Domain.Primitives;
+
 namespace Domain.Entities;
 
-public class RefreshToken
+public class RefreshToken : Entity
 {
-    public Guid Id { get; set; }
     public Guid UserId { get; set; }
     public string Token { get; set; } = string.Empty;
     public DateTime ExpiryDate { get; set; }

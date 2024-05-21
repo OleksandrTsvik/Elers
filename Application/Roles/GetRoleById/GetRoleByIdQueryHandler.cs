@@ -1,22 +1,25 @@
 using Application.Common.Interfaces;
 using Application.Common.Messaging;
+using Application.Common.Queries;
 using Domain.Entities;
 using Domain.Errors;
 using Domain.Shared;
-using Microsoft.EntityFrameworkCore;
 
 namespace Application.Roles.GetRoleById;
 
 public class GetRoleByIdQueryHandler : IQueryHandler<GetRoleByIdQuery, GetRoleByIdResponse>
 {
-    private readonly IApplicationDbContext _context;
+    private readonly IRoleQueries _roleQueries;
+    private readonly IPermissionQueries _permissionQueries;
     private readonly ITranslator _translator;
 
     public GetRoleByIdQueryHandler(
-        IApplicationDbContext context,
+        IRoleQueries roleQueries,
+        IPermissionQueries permissionQueries,
         ITranslator translator)
     {
-        _context = context;
+        _roleQueries = roleQueries;
+        _permissionQueries = permissionQueries;
         _translator = translator;
     }
 
@@ -24,19 +27,14 @@ public class GetRoleByIdQueryHandler : IQueryHandler<GetRoleByIdQuery, GetRoleBy
         GetRoleByIdQuery request,
         CancellationToken cancellationToken)
     {
-        Role? role = await _context.Roles
-            .Include(x => x.Permissions)
-            .Where(x => x.Id == request.RoleId)
-            .FirstOrDefaultAsync(cancellationToken);
+        Role? role = await _roleQueries.GetByIdWithPermissions(request.RoleId, cancellationToken);
 
         if (role is null)
         {
             return RoleErrors.NotFound(request.RoleId);
         }
 
-        List<Permission> permissions = await _context.Permissions
-            .OrderBy(x => x.Name)
-            .ToListAsync(cancellationToken);
+        List<Permission> permissions = await _permissionQueries.GetList(cancellationToken);
 
         return new GetRoleByIdResponse
         {
@@ -50,12 +48,14 @@ public class GetRoleByIdQueryHandler : IQueryHandler<GetRoleByIdQuery, GetRoleBy
         Role role,
         List<Permission> permissions)
     {
-        return permissions.Select(permission => new PermissionResponse
-        {
-            Id = permission.Id,
-            Name = permission.Name,
-            Description = _translator.GetString(permission.Name),
-            IsSelected = role.Permissions.Contains(permission)
-        }).ToArray();
+        return permissions
+            .Select(permission => new PermissionResponse
+            {
+                Id = permission.Id,
+                Name = permission.Name,
+                Description = _translator.GetString(permission.Name),
+                IsSelected = role.Permissions.Any(x => x.Name == permission.Name)
+            })
+            .ToArray();
     }
 }

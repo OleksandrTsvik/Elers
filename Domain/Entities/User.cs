@@ -1,8 +1,9 @@
+using Domain.Primitives;
+
 namespace Domain.Entities;
 
-public class User
+public class User : Entity
 {
-    public Guid Id { get; set; }
     public string Email { get; set; } = string.Empty;
     public string PasswordHash { get; set; } = string.Empty;
     public DateTime RegistrationDate { get; set; }

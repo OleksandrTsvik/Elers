@@ -2,25 +2,30 @@ using Application.Common.Interfaces;
 using Application.Common.Messaging;
 using Domain.Entities;
 using Domain.Errors;
+using Domain.Repositories;
 using Domain.Shared;
-using Microsoft.EntityFrameworkCore;
 
 namespace Application.Roles.UpdateRole;
 
 public class UpdateRoleCommandHandler : ICommandHandler<UpdateRoleCommand>
 {
-    private readonly IApplicationDbContext _context;
+    private readonly IUnitOfWork _unitOfWork;
+    private readonly IRoleRepository _roleRepository;
+    private readonly IPermissionRepository _permissionRepository;
 
-    public UpdateRoleCommandHandler(IApplicationDbContext context)
+    public UpdateRoleCommandHandler(
+        IUnitOfWork unitOfWork,
+        IRoleRepository roleRepository,
+        IPermissionRepository permissionRepository)
     {
-        _context = context;
+        _unitOfWork = unitOfWork;
+        _roleRepository = roleRepository;
+        _permissionRepository = permissionRepository;
     }
 
     public async Task<Result> Handle(UpdateRoleCommand request, CancellationToken cancellationToken)
     {
-        Role? role = await _context.Roles
-            .Include(x => x.Permissions)
-            .FirstOrDefaultAsync(x => x.Id == request.RoleId, cancellationToken);
+        Role? role = await _roleRepository.GetByIdWithPermissionsAsync(request.RoleId, cancellationToken);
 
         if (role is null)
         {
@@ -40,14 +45,13 @@ public class UpdateRoleCommandHandler : ICommandHandler<UpdateRoleCommand>
         }
         else
         {
-            List<Permission> newRolePermissions = await _context.Permissions
-                .Where(x => request.PermissionIds.Contains(x.Id))
-                .ToListAsync(cancellationToken);
-
-            role.Permissions = newRolePermissions;
+            role.Permissions = await _permissionRepository.GetListAsync(
+                request.PermissionIds, cancellationToken);
         }
 
-        await _context.SaveChangesAsync(cancellationToken);
+        _roleRepository.Update(role);
+
+        await _unitOfWork.SaveChangesAsync(cancellationToken);
 
         return Result.Success();
     }
@@ -58,6 +62,6 @@ public class UpdateRoleCommandHandler : ICommandHandler<UpdateRoleCommand>
         CancellationToken cancellationToken)
     {
         return currentName != newName
-            && await _context.Roles.AnyAsync(x => x.Name == newName, cancellationToken);
+            && await _roleRepository.ExistsByNameAsync(newName, cancellationToken);
     }
 }

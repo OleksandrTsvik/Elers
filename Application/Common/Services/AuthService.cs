@@ -1,17 +1,17 @@
 using Application.Auth.DTOs;
-using Application.Common.Interfaces;
 using Domain.Entities;
+using Domain.Repositories;
 
 namespace Application.Common.Services;
 
 public class AuthService : IAuthService
 {
-    private readonly IApplicationDbContext _context;
+    private readonly IRefreshTokenRepository _refreshTokenRepository;
     private readonly ITokenService _tokenService;
 
-    public AuthService(IApplicationDbContext context, ITokenService tokenService)
+    public AuthService(IRefreshTokenRepository refreshTokenRepository, ITokenService tokenService)
     {
-        _context = context;
+        _refreshTokenRepository = refreshTokenRepository;
         _tokenService = tokenService;
     }
 
@@ -46,6 +46,6 @@ public class AuthService : IAuthService
             ExpiryDate = refreshToken.ExpiresDate
         };
 
-        _context.RefreshTokens.Add(refreshTokenEntity);
+        _refreshTokenRepository.Add(refreshTokenEntity);
     }
 }

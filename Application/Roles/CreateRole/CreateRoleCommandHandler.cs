@@ -2,33 +2,36 @@ using Application.Common.Interfaces;
 using Application.Common.Messaging;
 using Domain.Entities;
 using Domain.Errors;
+using Domain.Repositories;
 using Domain.Shared;
-using Microsoft.EntityFrameworkCore;
 
 namespace Application.Roles.CreateRole;
 
 public class CreateRoleCommandHandler : ICommandHandler<CreateRoleCommand>
 {
-    private readonly IApplicationDbContext _context;
+    private readonly IUnitOfWork _unitOfWork;
+    private readonly IRoleRepository _roleRepository;
+    private readonly IPermissionRepository _permissionRepository;
 
-    public CreateRoleCommandHandler(IApplicationDbContext context)
+    public CreateRoleCommandHandler(
+        IUnitOfWork unitOfWork,
+        IRoleRepository roleRepository,
+        IPermissionRepository permissionRepository)
     {
-        _context = context;
+        _unitOfWork = unitOfWork;
+        _roleRepository = roleRepository;
+        _permissionRepository = permissionRepository;
     }
 
     public async Task<Result> Handle(CreateRoleCommand request, CancellationToken cancellationToken)
     {
-        bool roleByName = await _context.Roles
-            .AnyAsync(x => x.Name == request.Name, cancellationToken);
-
-        if (roleByName)
+        if (await _roleRepository.ExistsByNameAsync(request.Name, cancellationToken))
         {
             return RoleErrors.NameNotUnique(request.Name);
         }
 
-        List<Permission> rolePermissions = await _context.Permissions
-            .Where(x => request.PermissionIds.Contains(x.Id))
-            .ToListAsync(cancellationToken);
+        List<Permission> rolePermissions = await _permissionRepository.GetListAsync(
+            request.PermissionIds, cancellationToken);
 
         var role = new Role
         {
@@ -36,9 +39,9 @@ public class CreateRoleCommandHandler : ICommandHandler<CreateRoleCommand>
             Permissions = rolePermissions
         };
 
-        _context.Roles.Add(role);
+        _roleRepository.Add(role);
 
-        await _context.SaveChangesAsync(cancellationToken);
+        await _unitOfWork.SaveChangesAsync(cancellationToken);
 
         return Result.Success();
     }

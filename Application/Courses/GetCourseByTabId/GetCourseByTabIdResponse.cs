@@ -2,7 +2,7 @@ namespace Application.Courses.GetCourseByTabId;
 
 public class GetCourseByTabIdResponse
 {
-    public Guid TabId { get; set; }
-    public Guid? CourseId { get; set; }
-    public string? Title { get; set; }
+    public required Guid TabId { get; init; }
+    public required Guid? CourseId { get; init; }
+    public required string? Title { get; init; }
 }

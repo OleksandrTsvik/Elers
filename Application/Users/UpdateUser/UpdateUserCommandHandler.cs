@@ -3,29 +3,33 @@ using Application.Common.Messaging;
 using Application.Common.Services;
 using Domain.Entities;
 using Domain.Errors;
+using Domain.Repositories;
 using Domain.Shared;
-using Microsoft.EntityFrameworkCore;
 
 namespace Application.Users.UpdateUser;
 
 public class UpdateUserCommandHandler : ICommandHandler<UpdateUserCommand>
 {
-    private readonly IApplicationDbContext _context;
+    private readonly IUnitOfWork _unitOfWork;
+    private readonly IUserRepository _userRepository;
+    private readonly IRoleRepository _roleRepository;
     private readonly IPasswordService _passwordService;
 
     public UpdateUserCommandHandler(
-        IApplicationDbContext context,
+        IUnitOfWork unitOfWork,
+        IUserRepository userRepository,
+        IRoleRepository roleRepository,
         IPasswordService passwordService)
     {
-        _context = context;
+        _unitOfWork = unitOfWork;
+        _userRepository = userRepository;
+        _roleRepository = roleRepository;
         _passwordService = passwordService;
     }
 
     public async Task<Result> Handle(UpdateUserCommand request, CancellationToken cancellationToken)
     {
-        User? user = await _context.Users
-            .Include(x => x.Roles)
-            .FirstOrDefaultAsync(x => x.Id == request.UserId, cancellationToken);
+        User? user = await _userRepository.GetByIdWithRolesAsync(request.UserId, cancellationToken);
 
         if (user is null)
         {
@@ -53,14 +57,12 @@ public class UpdateUserCommandHandler : ICommandHandler<UpdateUserCommand>
         }
         else
         {
-            List<Role> newUserRoles = await _context.Roles
-                .Where(x => request.RoleIds.Contains(x.Id))
-                .ToListAsync(cancellationToken);
-
-            user.Roles = newUserRoles;
+            user.Roles = await _roleRepository.GetListAsync(request.RoleIds, cancellationToken);
         }
 
-        await _context.SaveChangesAsync(cancellationToken);
+        _userRepository.Update(user);
+
+        await _unitOfWork.SaveChangesAsync(cancellationToken);
 
         return Result.Success();
     }
@@ -71,6 +73,6 @@ public class UpdateUserCommandHandler : ICommandHandler<UpdateUserCommand>
         CancellationToken cancellationToken)
     {
         return currentEmail != newEmail
-            && await _context.Users.AnyAsync(x => x.Email == newEmail, cancellationToken);
+            && !await _userRepository.IsEmailUniqueAsync(newEmail, cancellationToken);
     }
 }

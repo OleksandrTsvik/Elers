@@ -23,6 +23,7 @@ public static class DependencyInjection
         services
             .AddApplicationDb()
             .AddMongoDb()
+            .AddRepositories()
             .AddQueries();
 
         services.AddScoped<IUnitOfWork, UnitOfWork>();
@@ -32,7 +33,7 @@ public static class DependencyInjection
 
     private static IServiceCollection AddApplicationDb(this IServiceCollection services)
     {
-        services.AddDbContext<IApplicationDbContext, ApplicationDbContext>((sp, options) =>
+        services.AddDbContext<ApplicationDbContext>((sp, options) =>
         {
             ApplicationDbSettings applicationDbSettings = sp.GetRequiredService<
                 IOptions<DatabaseSettingsOptions>>().Value.ApplicationDb;
@@ -69,15 +70,6 @@ public static class DependencyInjection
             return mongoClient.GetDatabase(mongoDbSettings.DatabaseName);
         });
 
-        services.AddMongoDbRepositories();
-
-        return services;
-    }
-
-    private static IServiceCollection AddMongoDbRepositories(this IServiceCollection services)
-    {
-        services.AddScoped<ICourseMaterialRepository, CourseMaterialRepository>();
-
         return services;
     }
 
@@ -88,9 +80,26 @@ public static class DependencyInjection
         CourseMaterialClassMap.RegisterClassMaps();
     }
 
+    private static IServiceCollection AddRepositories(this IServiceCollection services)
+    {
+        services.AddScoped<ICourseMaterialRepository, CourseMaterialRepository>();
+        services.AddScoped<ICourseRepository, CourseRepository>();
+        services.AddScoped<ICourseTabRepository, CourseTabRepository>();
+        services.AddScoped<IPermissionRepository, PermissionRepository>();
+        services.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
+        services.AddScoped<IRoleRepository, RoleRepository>();
+        services.AddScoped<IUserRepository, UserRepository>();
+
+        return services;
+    }
+
     private static IServiceCollection AddQueries(this IServiceCollection services)
     {
         services.AddScoped<ICourseMaterialQueries, CourseMaterialQueries>();
+        services.AddScoped<ICourseQueries, CourseQueries>();
+        services.AddScoped<IPermissionQueries, PermissionQueries>();
+        services.AddScoped<IRoleQueries, RoleQueries>();
+        services.AddScoped<IUserQueries, UserQueries>();
 
         return services;
     }
