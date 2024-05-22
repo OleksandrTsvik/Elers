@@ -116,9 +116,13 @@
     "submit": "Увійти",
     "title": "Аутентифікація"
   },
-  "material_text_creation_page": {
+  "material_content_creation_page": {
     "head_title": "Додавання контенту",
     "title": "Додавання контенту"
+  },
+  "material_content_edit_page": {
+    "head_title": "Редагування контенту",
+    "title": "Редагування контенту"
   },
   "my_courses_page": {
     "create_course": "Створити курс",

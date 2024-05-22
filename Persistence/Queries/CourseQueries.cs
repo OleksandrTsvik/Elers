@@ -52,8 +52,8 @@ internal class CourseQueries : ICourseQueries
             .Select(x => new GetCourseByTabIdResponse
             {
                 TabId = x.Id,
-                CourseId = x.Course == null ? null : x.Course.Id,
-                Title = x.Course == null ? null : x.Course.Title
+                CourseId = x.Course != null ? x.Course.Id : null,
+                Title = x.Course != null ? x.Course.Title : null
             })
             .FirstOrDefaultAsync(x => x.TabId == id, cancellationToken);
     }

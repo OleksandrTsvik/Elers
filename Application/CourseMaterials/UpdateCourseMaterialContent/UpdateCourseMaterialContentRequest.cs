@@ -1,0 +1,3 @@
+namespace Application.CourseMaterials.UpdateCourseMaterialContent;
+
+public record UpdateCourseMaterialContentRequest(string Content);

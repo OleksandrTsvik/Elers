@@ -1,9 +1,11 @@
 using Application.CourseMaterials.CreateCourseMaterialContent;
 using Application.CourseMaterials.CreateCourseMaterialLink;
 using Application.CourseMaterials.DeleteCourseMaterial;
+using Application.CourseMaterials.GetCourseMaterialContent;
 using Application.CourseMaterials.GetListCourseMaterials;
 using Application.CourseMaterials.GetListCourseMaterialsByTabId;
 using Application.CourseMaterials.UpdateCourseMaterialActive;
+using Application.CourseMaterials.UpdateCourseMaterialContent;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers;
@@ -28,6 +30,17 @@ public class CourseMaterialsController : ApiControllerBase
         return HandleResult(await Sender.Send(query, cancellationToken));
     }
 
+    [HttpGet("{tabId:guid}/content/{id:guid}")]
+    public async Task<IActionResult> GetCourseMaterialContent(
+        Guid tabId,
+        Guid id,
+        CancellationToken cancellationToken)
+    {
+        var query = new GetCourseMaterialContentQuery(tabId, id);
+
+        return HandleResult(await Sender.Send(query, cancellationToken));
+    }
+
     [HttpPost("content/{tabId:guid}")]
     public async Task<IActionResult> CreateCourseMaterialContent(
         Guid tabId,
@@ -35,6 +48,17 @@ public class CourseMaterialsController : ApiControllerBase
         CancellationToken cancellationToken)
     {
         var command = new CreateCourseMaterialContentCommand(tabId, request.Content);
+
+        return HandleResult(await Sender.Send(command, cancellationToken));
+    }
+
+    [HttpPut("content/{id:guid}")]
+    public async Task<IActionResult> UpdateCourseMaterialContent(
+        Guid id,
+        [FromBody] UpdateCourseMaterialContentRequest request,
+        CancellationToken cancellationToken)
+    {
+        var command = new UpdateCourseMaterialContentCommand(id, request.Content);
 
         return HandleResult(await Sender.Send(command, cancellationToken));
     }

@@ -7,7 +7,7 @@ interface Props {
   title: string;
 }
 
-export default function MaterialContentCreationBreadcrumb({
+export default function MaterialContentEditBreadcrumb({
   courseId,
   title,
 }: Props) {
@@ -31,7 +31,7 @@ export default function MaterialContentCreationBreadcrumb({
           ),
         },
         {
-          title: t('material_content_creation_page.title'),
+          title: t('material_content_edit_page.title'),
         },
       ]}
     />

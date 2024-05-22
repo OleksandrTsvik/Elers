@@ -116,9 +116,13 @@
     "submit": "Login",
     "title": "Authentication"
   },
-  "material_text_creation_page": {
+  "material_content_creation_page": {
     "head_title": "Adding content",
     "title": "Adding content"
+  },
+  "material_content_edit_page": {
+    "head_title": "Content editing",
+    "title": "Content editing"
   },
   "my_courses_page": {
     "create_course": "Create a course",

@@ -1,5 +1,8 @@
 import { RoutesType } from './routes-type.interface';
-import { MaterialContentCreationPage } from '../../pages';
+import {
+  MaterialContentCreationPage,
+  MaterialContentEditPage,
+} from '../../pages';
 
 export const courseMaterialsRoutes: RoutesType = {
   private: {
@@ -13,7 +16,9 @@ export const courseMaterialsRoutes: RoutesType = {
       },
       {
         path: 'edit',
-        children: [],
+        children: [
+          { path: ':tabId/content/:id', element: <MaterialContentEditPage /> },
+        ],
       },
     ],
   },

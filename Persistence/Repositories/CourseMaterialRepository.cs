@@ -12,6 +12,18 @@ internal class CourseMaterialRepository : MongoDbRepository<CourseMaterial>, ICo
     {
     }
 
+    public async Task<TEntity?> GetByIdAsync<TEntity>(
+        Guid id,
+        CancellationToken cancellationToken = default)
+        where TEntity : CourseMaterial
+    {
+        return await Collection
+            .Aggregate()
+            .Match(x => x is TEntity)
+            .As<TEntity>()
+            .FirstOrDefaultAsync(cancellationToken);
+    }
+
     public async Task RemoveRangeByCourseTabIdAsync(Guid tabId, CancellationToken cancellationToken = default)
     {
         await Collection.DeleteManyAsync(x => x.CourseTabId == tabId, cancellationToken);

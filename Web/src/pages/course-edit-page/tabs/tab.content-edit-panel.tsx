@@ -1,6 +1,8 @@
 import { Space, Tooltip, Button, Popconfirm } from 'antd';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 
+import { getCourseMaterialEditPagePath } from './tab.utils';
 import {
   useDeleteCourseMaterialMutation,
   useUpdateCourseMaterialActiveMutation,
@@ -15,6 +17,8 @@ interface Props {
 
 export default function TabContentEditPanel({ material }: Props) {
   const { t } = useTranslation();
+  const navigate = useNavigate();
+
   const { getMaterialLabel } = useMaterialLabels();
 
   const [updateCourseMaterialActive, { isLoading: isUpdateActiveLoading }] =
@@ -31,6 +35,16 @@ export default function TabContentEditPanel({ material }: Props) {
 
   const handleDeleteCourseMaterial = async () => {
     await deleteCourseMaterial({ id: material.id }).unwrap();
+  };
+
+  const handleClinkEdit = () => {
+    navigate(
+      getCourseMaterialEditPagePath(
+        material.type,
+        material.courseTabId,
+        material.id,
+      ),
+    );
   };
 
   return (
@@ -52,7 +66,7 @@ export default function TabContentEditPanel({ material }: Props) {
         />
       </Tooltip>
       <Tooltip title={t('actions.edit')}>
-        <Button icon={<EditIcon />} />
+        <Button icon={<EditIcon />} onClick={handleClinkEdit} />
       </Tooltip>
       <Tooltip title={t('actions.delete')}>
         <Popconfirm

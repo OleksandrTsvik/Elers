@@ -1,3 +1,4 @@
+using Application.CourseMaterials.DTOs;
 using Application.Courses.GetCourseById;
 using Domain.Entities;
 
@@ -15,5 +16,9 @@ public interface ICourseMaterialQueries
 
     Task<List<MaterialCountResponseDto>> GetListMaterialCountByCourseTabIdsAsync(
         IEnumerable<Guid> tabIds,
+        CancellationToken cancellationToken = default);
+
+    Task<CourseMaterialTabResponseDto?> GetCourseMaterialTabResponseDtoAsync(
+        Guid tabId,
         CancellationToken cancellationToken = default);
 }
