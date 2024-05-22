@@ -22,7 +22,7 @@ public class DeleteCourseMaterialCommandHandler : ICommandHandler<DeleteCourseMa
     {
         await _courseMaterialRepository.RemoveAsync(request.Id, cancellationToken);
 
-        await _unitOfWork.SaveChangesAsync();
+        await _unitOfWork.SaveChangesAsync(cancellationToken);
 
         return Result.Success();
     }

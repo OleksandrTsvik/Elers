@@ -29,6 +29,17 @@ export const courseMaterialsApi = coursesApi.injectEndpoints({
       }),
       invalidatesTags: ['Course', 'CourseMaterialList'],
     }),
+    updateCourseMaterialActive: builder.mutation<
+      void,
+      { id: string; isActive: boolean }
+    >({
+      query: ({ id, ...data }) => ({
+        url: `/courseMaterials/active/${id}`,
+        method: 'PATCH',
+        body: data,
+      }),
+      invalidatesTags: ['Course', 'CourseMaterialList'],
+    }),
     deleteCourseMaterial: builder.mutation<void, { id: string }>({
       query: ({ id }) => ({
         url: `/courseMaterials/${id}`,
@@ -42,5 +53,6 @@ export const courseMaterialsApi = coursesApi.injectEndpoints({
 export const {
   useGetListCourseMaterialsByTabIdQuery,
   useCreateCourseMaterialContentMutation,
+  useUpdateCourseMaterialActiveMutation,
   useDeleteCourseMaterialMutation,
 } = courseMaterialsApi;

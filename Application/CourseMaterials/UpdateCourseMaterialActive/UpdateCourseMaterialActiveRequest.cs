@@ -1,0 +1,3 @@
+namespace Application.CourseMaterials.UpdateCourseMaterialActive;
+
+public record UpdateCourseMaterialActiveRequest(bool IsActive);

@@ -1,7 +1,10 @@
 import { Space, Tooltip, Button, Popconfirm } from 'antd';
 import { useTranslation } from 'react-i18next';
 
-import { useDeleteCourseMaterialMutation } from '../../../api/course-materials.api';
+import {
+  useDeleteCourseMaterialMutation,
+  useUpdateCourseMaterialActiveMutation,
+} from '../../../api/course-materials.api';
 import { DeleteIcon, EditIcon, VisibilityIcon } from '../../../components';
 import { CourseMaterial } from '../../../models/course-material.type';
 import { CourseMaterialIcon, useMaterialLabels } from '../../../shared';
@@ -14,7 +17,17 @@ export default function TabContentEditPanel({ material }: Props) {
   const { t } = useTranslation();
   const { getMaterialLabel } = useMaterialLabels();
 
+  const [updateCourseMaterialActive, { isLoading: isUpdateActiveLoading }] =
+    useUpdateCourseMaterialActiveMutation();
+
   const [deleteCourseMaterial] = useDeleteCourseMaterialMutation();
+
+  const handleUpdateCourseMaterialActive = async () => {
+    await updateCourseMaterialActive({
+      id: material.id,
+      isActive: !material.isActive,
+    }).unwrap();
+  };
 
   const handleDeleteCourseMaterial = async () => {
     await deleteCourseMaterial({ id: material.id }).unwrap();
@@ -32,7 +45,11 @@ export default function TabContentEditPanel({ material }: Props) {
             : t('course_edit_page.invisible_material')
         }
       >
-        <Button icon={<VisibilityIcon visibility={material.isActive} />} />
+        <Button
+          loading={isUpdateActiveLoading}
+          icon={<VisibilityIcon visibility={material.isActive} />}
+          onClick={handleUpdateCourseMaterialActive}
+        />
       </Tooltip>
       <Tooltip title={t('actions.edit')}>
         <Button icon={<EditIcon />} />

@@ -46,6 +46,9 @@ msgstr "Надано результат null."
 msgid "Courses.NotFound"
 msgstr "Курс з Id = '{0}' не знайдено."
 
+msgid "CourseMaterials.NotFound"
+msgstr "Матеріал курсу з Id = '{0}' не знайдено."
+
 msgid "CourseTabs.NotFound"
 msgstr "Вкладка курсу з Id = '{0}' не знайдено."
 

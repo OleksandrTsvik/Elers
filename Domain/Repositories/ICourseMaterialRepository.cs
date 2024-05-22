@@ -4,7 +4,11 @@ namespace Domain.Repositories;
 
 public interface ICourseMaterialRepository
 {
+    Task<CourseMaterial?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default);
+
     Task AddAsync(CourseMaterial courseMaterial, CancellationToken cancellationToken = default);
+
+    Task UpdateAsync(CourseMaterial courseMaterial, CancellationToken cancellationToken = default);
 
     Task RemoveAsync(Guid id, CancellationToken cancellationToken = default);
 

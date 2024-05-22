@@ -13,6 +13,11 @@ public static class ErrorCodes
         public const string NotFound = "Courses.NotFound";
     }
 
+    public static class CourseMaterials
+    {
+        public const string NotFound = "CourseMaterials.NotFound";
+    }
+
     public static class CourseTabs
     {
         public const string NotFound = "CourseTabs.NotFound";
