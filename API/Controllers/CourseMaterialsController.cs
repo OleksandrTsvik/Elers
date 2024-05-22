@@ -1,6 +1,7 @@
 using Application.CourseMaterials.CreateCourseMaterialContent;
 using Application.CourseMaterials.CreateCourseMaterialLink;
 using Application.CourseMaterials.GetListCourseMaterials;
+using Application.CourseMaterials.GetListCourseMaterialsByTabId;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers;
@@ -11,6 +12,16 @@ public class CourseMaterialsController : ApiControllerBase
     public async Task<IActionResult> GetListCourseMaterials(CancellationToken cancellationToken)
     {
         var query = new GetListCourseMaterialsQuery();
+
+        return HandleResult(await Sender.Send(query, cancellationToken));
+    }
+
+    [HttpGet("tabs/{tabId:guid}")]
+    public async Task<IActionResult> GetListCourseMaterialsByTabId(
+        Guid tabId,
+        CancellationToken cancellationToken)
+    {
+        var query = new GetListCourseMaterialsByTabIdQuery(tabId);
 
         return HandleResult(await Sender.Send(query, cancellationToken));
     }

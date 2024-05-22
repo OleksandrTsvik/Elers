@@ -15,6 +15,7 @@ public class GetCourseByIdResponse<TCourseTab>
 
 public class CourseTabResponse : CourseTabResponseDto
 {
+    public int MaterialCount { get; set; }
     public CourseMaterial[] CourseMaterials { get; set; } = [];
 }
 
@@ -31,4 +32,10 @@ public class CourseTabResponseDto
     public required int Order { get; init; }
     public required string? Color { get; init; }
     public required bool ShowMaterialsCount { get; init; }
+}
+
+public class MaterialCountResponseDto
+{
+    public required Guid TabId { get; init; }
+    public required int MaterialCount { get; init; }
 }

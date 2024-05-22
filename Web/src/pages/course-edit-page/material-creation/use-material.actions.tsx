@@ -1,20 +1,17 @@
-import Icon, {
-  ExperimentOutlined,
-  FileOutlined,
-  LinkOutlined,
-  SolutionOutlined,
-} from '@ant-design/icons';
 import { ItemType } from 'antd/es/menu/hooks/useItems';
 import { MenuInfo } from 'rc-menu/es/interface';
-import { useTranslation } from 'react-i18next';
-import { IoTextSharp } from 'react-icons/io5';
 
 import useNavigateFrom from '../../../hooks/use-navigate-from';
+import {
+  CourseMaterialType,
+  CourseMaterialIcon,
+  useMaterialLabels,
+} from '../../../shared';
 
 const basePath = '/courses/material/add';
 
 export default function useMaterialActions(tabId: string): ItemType[] {
-  const { t } = useTranslation();
+  const { getMaterialLabel } = useMaterialLabels();
 
   const navigateFrom = useNavigateFrom();
 
@@ -24,32 +21,32 @@ export default function useMaterialActions(tabId: string): ItemType[] {
   return [
     {
       key: 'content',
-      icon: <Icon component={IoTextSharp} />,
-      label: t('course.material.content'),
+      icon: <CourseMaterialIcon type={CourseMaterialType.Content} />,
+      label: getMaterialLabel(CourseMaterialType.Content),
       onClick: handleClick,
     },
     {
       key: 'assignment',
-      icon: <SolutionOutlined />,
-      label: t('course.material.assignment'),
+      icon: <CourseMaterialIcon type={CourseMaterialType.Assignment} />,
+      label: getMaterialLabel(CourseMaterialType.Assignment),
       onClick: handleClick,
     },
     {
       key: 'file',
-      icon: <FileOutlined />,
-      label: t('course.material.file'),
+      icon: <CourseMaterialIcon type={CourseMaterialType.File} />,
+      label: getMaterialLabel(CourseMaterialType.File),
       onClick: handleClick,
     },
     {
       key: 'test',
-      icon: <ExperimentOutlined />,
-      label: t('course.material.test'),
+      icon: <CourseMaterialIcon type={CourseMaterialType.Test} />,
+      label: getMaterialLabel(CourseMaterialType.Test),
       onClick: handleClick,
     },
     {
       key: 'link',
-      icon: <LinkOutlined />,
-      label: t('course.material.link'),
+      icon: <CourseMaterialIcon type={CourseMaterialType.Link} />,
+      label: getMaterialLabel(CourseMaterialType.Link),
       onClick: handleClick,
     },
   ];

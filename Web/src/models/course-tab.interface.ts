@@ -1,3 +1,5 @@
+import { CourseMaterial } from './course-material.type';
+
 export interface CourseTab {
   id: string;
   courseId: string;
@@ -6,4 +8,6 @@ export interface CourseTab {
   order: number;
   color?: string;
   showMaterialsCount: boolean;
+  materialCount: number;
+  courseMaterials: CourseMaterial[];
 }

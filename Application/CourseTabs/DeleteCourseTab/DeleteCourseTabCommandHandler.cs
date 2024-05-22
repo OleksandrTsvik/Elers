@@ -11,11 +11,16 @@ public class DeleteCourseTabCommandHandler : ICommandHandler<DeleteCourseTabComm
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly ICourseTabRepository _courseTabRepository;
+    private readonly ICourseMaterialRepository _courseMaterialRepository;
 
-    public DeleteCourseTabCommandHandler(IUnitOfWork unitOfWork, ICourseTabRepository courseTabRepository)
+    public DeleteCourseTabCommandHandler(
+        IUnitOfWork unitOfWork,
+        ICourseTabRepository courseTabRepository,
+        ICourseMaterialRepository courseMaterialRepository)
     {
         _unitOfWork = unitOfWork;
         _courseTabRepository = courseTabRepository;
+        _courseMaterialRepository = courseMaterialRepository;
     }
 
     public async Task<Result> Handle(DeleteCourseTabCommand request, CancellationToken cancellationToken)
@@ -28,6 +33,8 @@ public class DeleteCourseTabCommandHandler : ICommandHandler<DeleteCourseTabComm
         }
 
         _courseTabRepository.Remove(courseTab);
+
+        await _courseMaterialRepository.RemoveRangeByCourseTabIdAsync(request.TabId, cancellationToken);
 
         await _unitOfWork.SaveChangesAsync(cancellationToken);
 

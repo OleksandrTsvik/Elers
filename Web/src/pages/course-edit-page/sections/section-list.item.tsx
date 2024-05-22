@@ -30,7 +30,7 @@ export default function SectionListItem({ section }: Props) {
         <HidableBadge
           color="lime"
           show={section.showMaterialsCount}
-          count={23}
+          count={section.materialCount}
           title={t('course.materials_count')}
         >
           <Typography.Title
@@ -43,7 +43,7 @@ export default function SectionListItem({ section }: Props) {
         </HidableBadge>
         <TabSettingsDropdown courseTab={section} />
       </Space>
-      <TabContent tab={section} />
+      <TabContent tabId={section.id} materials={section.courseMaterials} />
     </>
   );
 }

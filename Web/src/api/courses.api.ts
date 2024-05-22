@@ -18,7 +18,7 @@ interface CreateCourseRequest {
 export const coursesApi = createApi({
   reducerPath: 'coursesApi',
   baseQuery: baseQueryWithReauth,
-  tagTypes: ['Course', 'CourseList'],
+  tagTypes: ['Course', 'CourseList', 'CourseMaterialList'],
   endpoints: (builder) => ({
     getCourseById: builder.query<Course, { id?: string }>({
       query: ({ id }) => ({

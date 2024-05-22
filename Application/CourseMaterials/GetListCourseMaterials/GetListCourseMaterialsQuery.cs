@@ -3,4 +3,4 @@ using Domain.Entities;
 
 namespace Application.CourseMaterials.GetListCourseMaterials;
 
-public class GetListCourseMaterialsQuery() : IQuery<List<CourseMaterial>>;
+public record GetListCourseMaterialsQuery() : IQuery<List<CourseMaterial>>;

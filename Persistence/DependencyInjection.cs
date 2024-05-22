@@ -77,6 +77,10 @@ public static class DependencyInjection
     {
         BsonSerializer.RegisterSerializer(new GuidSerializer(GuidRepresentation.Standard));
 
+#pragma warning disable
+        BsonDefaults.GuidRepresentation = GuidRepresentation.Standard;
+#pragma warning restore
+
         CourseMaterialClassMap.RegisterClassMaps();
     }
 

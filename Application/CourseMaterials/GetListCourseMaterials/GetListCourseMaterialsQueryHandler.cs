@@ -19,6 +19,6 @@ public class GetListCourseMaterialsQueryHandler
         GetListCourseMaterialsQuery request,
         CancellationToken cancellationToken)
     {
-        return await _courseMaterialQueries.GetListCourseMaterialsAsync(cancellationToken);
+        return await _courseMaterialQueries.GetListCourseMaterials(cancellationToken);
     }
 }

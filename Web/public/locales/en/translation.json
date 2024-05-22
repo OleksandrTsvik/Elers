@@ -32,6 +32,7 @@
     "material": {
       "assignment": "Assignment",
       "content": "Content",
+      "default": "Material",
       "file": "File",
       "link": "Link",
       "test": "Test"
@@ -62,12 +63,14 @@
     "confirm_delete_section": "Are you sure you want to delete the '{{section}}' section?",
     "delete_section": "Delete section",
     "head_title": "Course: {{title}}",
+    "invisible_material": "This material is not displayed on the course page",
     "invisible_section": "This section is not displayed on the course page",
     "new_section": "New section",
     "no_sections": "No sections",
     "not_show_materials_count": "Do not show the number of materials",
     "show_materials_count": "Show the number of materials",
     "title": "Editing",
+    "visible_material": "This material is displayed on the course page",
     "visible_section": "This section is displayed on the course page"
   },
   "course_page": {

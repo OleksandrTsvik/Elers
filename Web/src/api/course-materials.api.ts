@@ -1,22 +1,38 @@
 import { coursesApi } from './courses.api';
+import { CourseMaterial } from '../models/course-material.type';
 
-interface SaveCourseMaterialRequest {
+interface CreateCourseMaterialContentRequest {
   tabId: string;
-  text: string;
+  content: string;
 }
 
 export const courseMaterialsApi = coursesApi.injectEndpoints({
   overrideExisting: false,
   endpoints: (builder) => ({
-    createCourseMaterial: builder.mutation<string, SaveCourseMaterialRequest>({
+    getListCourseMaterialsByTabId: builder.query<
+      CourseMaterial[],
+      { id: string }
+    >({
+      query: ({ id }) => ({
+        url: `/courseMaterials/tabs/${id}`,
+      }),
+      providesTags: ['CourseMaterialList'],
+    }),
+    createCourseMaterialContent: builder.mutation<
+      string,
+      CreateCourseMaterialContentRequest
+    >({
       query: ({ tabId, ...data }) => ({
-        url: `/courseMaterials/${tabId}`,
+        url: `/courseMaterials/content/${tabId}`,
         method: 'POST',
         body: data,
       }),
-      invalidatesTags: ['Course'],
+      invalidatesTags: ['Course', 'CourseMaterialList'],
     }),
   }),
 });
 
-export const { useCreateCourseMaterialMutation } = courseMaterialsApi;
+export const {
+  useGetListCourseMaterialsByTabIdQuery,
+  useCreateCourseMaterialContentMutation,
+} = courseMaterialsApi;

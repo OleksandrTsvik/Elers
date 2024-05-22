@@ -32,6 +32,7 @@
     "material": {
       "assignment": "Завдання",
       "content": "Контент",
+      "default": "Матеріал",
       "file": "Файл",
       "link": "Посилання",
       "test": "Тест"
@@ -62,13 +63,15 @@
     "confirm_delete_section": "Ви дійсно бажаєте видалити секцію '{{section}}'?",
     "delete_section": "Видалити секцію",
     "head_title": "Курс: {{title}}",
-    "invisible_section": "Ця секція не відображається на сторінці курса",
+    "invisible_material": "Цей матеріал не відображається на сторінці курсу",
+    "invisible_section": "Ця секція не відображається на сторінці курсу",
     "new_section": "Нова секція",
     "no_sections": "Секції відсутні",
     "not_show_materials_count": "Не показувати кількість матеріалів",
     "show_materials_count": "Показувати кількість матеріалів",
     "title": "Редагування",
-    "visible_section": "Ця секція відображається на сторінці курса"
+    "visible_material": "Цей матеріал відображається на сторінці курсу",
+    "visible_section": "Ця секція відображається на сторінці курсу"
   },
   "course_page": {
     "head_title": "Курс: {{title}}"

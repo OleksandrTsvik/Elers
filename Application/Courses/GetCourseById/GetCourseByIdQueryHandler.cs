@@ -1,6 +1,7 @@
 using Application.Common.Messaging;
 using Application.Common.Queries;
 using Domain.Entities;
+using Domain.Enums;
 using Domain.Errors;
 using Domain.Shared;
 
@@ -53,8 +54,37 @@ public class GetCourseByIdQueryHandler
                 .ToArray()
         };
 
+        List<MaterialCountResponseDto> materialCounts = await _courseMaterialQueries
+            .GetListMaterialCountByCourseTabIdsAsync(
+                course.CourseTabs.Select(x => x.Id).ToArray(),
+                cancellationToken);
+
+        foreach (CourseTabResponse tab in course.CourseTabs)
+        {
+            tab.MaterialCount = materialCounts
+                .Where(x => x.TabId == tab.Id)
+                .Select(x => x.MaterialCount)
+                .FirstOrDefault();
+        }
+
+        switch (course.TabType)
+        {
+            case CourseTabType.Sections:
+                await SetCourseMaterialsForSectionsType(course, cancellationToken);
+                break;
+        }
+
+        return course;
+    }
+
+    private async Task SetCourseMaterialsForSectionsType(
+        GetCourseByIdResponse<CourseTabResponse> course,
+        CancellationToken cancellationToken)
+    {
+        Guid[] tabIds = course.CourseTabs.Select(x => x.Id).ToArray();
+
         List<CourseMaterial> courseMaterials = await _courseMaterialQueries
-            .GetListCourseMaterialsAsync(cancellationToken);
+            .GetListByTabIds(tabIds, cancellationToken);
 
         foreach (CourseTabResponse tab in course.CourseTabs)
         {
@@ -62,7 +92,5 @@ public class GetCourseByIdQueryHandler
                 .Where(x => x.CourseTabId == tab.Id)
                 .ToArray();
         }
-
-        return course;
     }
 }

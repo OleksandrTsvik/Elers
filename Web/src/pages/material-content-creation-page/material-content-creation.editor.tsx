@@ -1,20 +1,28 @@
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 
-import { useCreateCourseMaterialMutation } from '../../api/course-materials.api';
+import { useCreateCourseMaterialContentMutation } from '../../api/course-materials.api';
 import { MaterialContentEditor } from '../../shared';
 
 interface Props {
+  courseId: string;
   tabId: string;
 }
 
-export default function MaterialContentCreationEditor({ tabId }: Props) {
+export default function MaterialContentCreationEditor({
+  courseId,
+  tabId,
+}: Props) {
   const { t } = useTranslation();
+  const navigate = useNavigate();
 
   const [createCourseMaterial, { isLoading, error }] =
-    useCreateCourseMaterialMutation();
+    useCreateCourseMaterialContentMutation();
 
-  const handleSubmit = async (text: string) => {
-    await createCourseMaterial({ tabId, text }).unwrap();
+  const handleSubmit = async (content: string) => {
+    await createCourseMaterial({ tabId, content })
+      .unwrap()
+      .then(() => navigate(`/courses/edit/${courseId}`));
   };
 
   return (
