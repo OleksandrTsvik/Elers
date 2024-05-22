@@ -1,6 +1,7 @@
-import { Space, Tooltip, Button } from 'antd';
+import { Space, Tooltip, Button, Popconfirm } from 'antd';
 import { useTranslation } from 'react-i18next';
 
+import { useDeleteCourseMaterialMutation } from '../../../api/course-materials.api';
 import { DeleteIcon, EditIcon, VisibilityIcon } from '../../../components';
 import { CourseMaterial } from '../../../models/course-material.type';
 import { CourseMaterialIcon, useMaterialLabels } from '../../../shared';
@@ -12,6 +13,12 @@ interface Props {
 export default function TabContentEditPanel({ material }: Props) {
   const { t } = useTranslation();
   const { getMaterialLabel } = useMaterialLabels();
+
+  const [deleteCourseMaterial] = useDeleteCourseMaterialMutation();
+
+  const handleDeleteCourseMaterial = async () => {
+    await deleteCourseMaterial({ id: material.id }).unwrap();
+  };
 
   return (
     <Space.Compact block size="small">
@@ -31,7 +38,12 @@ export default function TabContentEditPanel({ material }: Props) {
         <Button icon={<EditIcon />} />
       </Tooltip>
       <Tooltip title={t('actions.delete')}>
-        <Button icon={<DeleteIcon />} />
+        <Popconfirm
+          title={t('actions.confirm_deletion')}
+          onConfirm={handleDeleteCourseMaterial}
+        >
+          <Button icon={<DeleteIcon />} />
+        </Popconfirm>
       </Tooltip>
     </Space.Compact>
   );

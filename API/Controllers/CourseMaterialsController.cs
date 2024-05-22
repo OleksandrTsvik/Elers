@@ -1,5 +1,6 @@
 using Application.CourseMaterials.CreateCourseMaterialContent;
 using Application.CourseMaterials.CreateCourseMaterialLink;
+using Application.CourseMaterials.DeleteCourseMaterial;
 using Application.CourseMaterials.GetListCourseMaterials;
 using Application.CourseMaterials.GetListCourseMaterialsByTabId;
 using Microsoft.AspNetCore.Mvc;
@@ -44,6 +45,16 @@ public class CourseMaterialsController : ApiControllerBase
         CancellationToken cancellationToken)
     {
         var command = new CreateCourseMaterialLinkCommand(tabId, request.Title, request.Link);
+
+        return HandleResult(await Sender.Send(command, cancellationToken));
+    }
+
+    [HttpDelete("{id:guid}")]
+    public async Task<IActionResult> DeleteCourseMaterial(
+        Guid id,
+        CancellationToken cancellationToken)
+    {
+        var command = new DeleteCourseMaterialCommand(id);
 
         return HandleResult(await Sender.Send(command, cancellationToken));
     }

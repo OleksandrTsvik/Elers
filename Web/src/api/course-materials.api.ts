@@ -29,10 +29,18 @@ export const courseMaterialsApi = coursesApi.injectEndpoints({
       }),
       invalidatesTags: ['Course', 'CourseMaterialList'],
     }),
+    deleteCourseMaterial: builder.mutation<void, { id: string }>({
+      query: ({ id }) => ({
+        url: `/courseMaterials/${id}`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: ['Course', 'CourseMaterialList'],
+    }),
   }),
 });
 
 export const {
   useGetListCourseMaterialsByTabIdQuery,
   useCreateCourseMaterialContentMutation,
+  useDeleteCourseMaterialMutation,
 } = courseMaterialsApi;
