@@ -30,6 +30,8 @@ export default function MaterialLinkEditPage() {
       <MaterialLinkEditForm
         courseId={data.courseId}
         courseMaterialId={data.id}
+        tabId={data.tabId}
+        courseTabType={data.courseTabType}
         title={data.title}
         link={data.link}
       />

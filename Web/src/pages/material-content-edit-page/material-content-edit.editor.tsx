@@ -2,17 +2,25 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
 import { useUpdateCourseMaterialContentMutation } from '../../api/course-materials.api';
-import { MaterialContentEditor } from '../../shared';
+import {
+  CourseTabType,
+  MaterialContentEditor,
+  getCourseEditPagePath,
+} from '../../shared';
 
 interface Props {
   courseId: string;
   courseMaterialId: string;
+  tabId: string;
+  courseTabType: CourseTabType;
   content: string;
 }
 
 export default function MaterialContentEditEditor({
   courseId,
   courseMaterialId,
+  tabId,
+  courseTabType,
   content,
 }: Props) {
   const { t } = useTranslation();
@@ -24,7 +32,9 @@ export default function MaterialContentEditEditor({
   const handleSubmit = async (content: string) => {
     await updateCourseMaterial({ id: courseMaterialId, content })
       .unwrap()
-      .then(() => navigate(`/courses/edit/${courseId}`));
+      .then(() =>
+        navigate(getCourseEditPagePath(courseId, tabId, courseTabType)),
+      );
   };
 
   return (

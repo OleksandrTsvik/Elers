@@ -29,6 +29,7 @@ export default function MaterialContentCreationPage() {
       <MaterialContentCreationEditor
         courseId={data.courseId}
         tabId={data.tabId}
+        courseTabType={data.courseTabType}
       />
     </>
   );

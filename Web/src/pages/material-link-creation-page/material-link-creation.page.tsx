@@ -26,7 +26,11 @@ export default function MaterialLinkCreationPage() {
         courseId={data.courseId}
         title={data.title}
       />
-      <MaterialLinkCreationForm courseId={data.courseId} tabId={data.tabId} />
+      <MaterialLinkCreationForm
+        courseId={data.courseId}
+        tabId={data.tabId}
+        courseTabType={data.courseTabType}
+      />
     </>
   );
 }

@@ -30,6 +30,8 @@ export default function MaterialContentEditPage() {
       <MaterialContentEditEditor
         courseId={data.courseId}
         courseMaterialId={data.id}
+        tabId={data.tabId}
+        courseTabType={data.courseTabType}
         content={data.content}
       />
     </>

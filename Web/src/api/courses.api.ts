@@ -8,6 +8,7 @@ interface GetCourseByTabIdResponse {
   tabId: string;
   courseId: string;
   title: string;
+  courseTabType: CourseTabType;
 }
 
 interface CreateCourseRequest {

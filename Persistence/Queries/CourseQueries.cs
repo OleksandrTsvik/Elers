@@ -2,6 +2,7 @@ using Application.Common.Queries;
 using Application.Courses.GetCourseById;
 using Application.Courses.GetCourseByTabId;
 using Application.Courses.GetListCourses;
+using Domain.Enums;
 using Microsoft.EntityFrameworkCore;
 
 namespace Persistence.Queries;
@@ -15,7 +16,9 @@ internal class CourseQueries : ICourseQueries
         _dbContext = dbContext;
     }
 
-    public Task<GetCourseByIdResponseDto?> GetCourseById(Guid id, CancellationToken cancellationToken = default)
+    public Task<GetCourseByIdResponseDto?> GetCourseById(
+        Guid id,
+        CancellationToken cancellationToken = default)
     {
         return _dbContext.Courses
             .Include(x => x.CourseTabs)
@@ -53,7 +56,8 @@ internal class CourseQueries : ICourseQueries
             {
                 TabId = x.Id,
                 CourseId = x.Course != null ? x.Course.Id : default,
-                Title = x.Course != null ? x.Course.Title : ""
+                Title = x.Course != null ? x.Course.Title : "",
+                CourseTabType = x.Course != null ? x.Course.TabType : CourseTabType.Tabs
             })
             .FirstOrDefaultAsync(x => x.TabId == id, cancellationToken);
     }

@@ -2,11 +2,18 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
 import { useUpdateCourseMaterialLinkMutation } from '../../api/course-materials.api';
-import { MaterialLinkForm, MaterialLinkFormValues } from '../../shared';
+import {
+  CourseTabType,
+  MaterialLinkForm,
+  MaterialLinkFormValues,
+  getCourseEditPagePath,
+} from '../../shared';
 
 interface Props {
   courseId: string;
   courseMaterialId: string;
+  tabId: string;
+  courseTabType: CourseTabType;
   title: string;
   link: string;
 }
@@ -14,6 +21,8 @@ interface Props {
 export default function MaterialLinkEditForm({
   courseId,
   courseMaterialId,
+  tabId,
+  courseTabType,
   title,
   link,
 }: Props) {
@@ -26,7 +35,9 @@ export default function MaterialLinkEditForm({
   const handleSubmit = async (values: MaterialLinkFormValues) => {
     await updateCourseMaterial({ id: courseMaterialId, ...values })
       .unwrap()
-      .then(() => navigate(`/courses/edit/${courseId}`));
+      .then(() =>
+        navigate(getCourseEditPagePath(courseId, tabId, courseTabType)),
+      );
   };
 
   return (
