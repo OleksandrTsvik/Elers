@@ -24,6 +24,12 @@ interface UpdateCourseMaterialContentRequest {
   content: string;
 }
 
+interface CreateCourseMaterialLinkRequest {
+  tabId: string;
+  title: string;
+  link: string;
+}
+
 export const courseMaterialsApi = coursesApi.injectEndpoints({
   overrideExisting: false,
   endpoints: (builder) => ({
@@ -67,6 +73,17 @@ export const courseMaterialsApi = coursesApi.injectEndpoints({
       }),
       invalidatesTags: ['Course', 'CourseMaterialList'],
     }),
+    createCourseMaterialLink: builder.mutation<
+      string,
+      CreateCourseMaterialLinkRequest
+    >({
+      query: ({ tabId, ...data }) => ({
+        url: `/courseMaterials/link/${tabId}`,
+        method: 'POST',
+        body: data,
+      }),
+      invalidatesTags: ['Course', 'CourseMaterialList'],
+    }),
     updateCourseMaterialActive: builder.mutation<
       void,
       { id: string; isActive: boolean }
@@ -93,6 +110,7 @@ export const {
   useGetListCourseMaterialsByTabIdQuery,
   useCreateCourseMaterialContentMutation,
   useUpdateCourseMaterialContentMutation,
+  useCreateCourseMaterialLinkMutation,
   useUpdateCourseMaterialActiveMutation,
   useDeleteCourseMaterialMutation,
 } = courseMaterialsApi;

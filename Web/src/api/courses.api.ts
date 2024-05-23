@@ -6,8 +6,8 @@ import { CourseTabType } from '../shared';
 
 interface GetCourseByTabIdResponse {
   tabId: string;
-  courseId?: string;
-  title?: string;
+  courseId: string;
+  title: string;
 }
 
 interface CreateCourseRequest {

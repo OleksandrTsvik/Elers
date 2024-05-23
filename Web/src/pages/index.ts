@@ -4,6 +4,7 @@ import HomePage from './home-page/home.page';
 import LoginPage from './login-page/login.page';
 import MaterialContentCreationPage from './material-content-creation-page/material-content-creation.page';
 import MaterialContentEditPage from './material-content-edit-page/material-content-edit.page';
+import MaterialLinkCreationPage from './material-link-creation-page/material-link-creation.page';
 import MyCoursesPage from './my-courses-page/my-courses.page';
 import NotFoundPage from './not-found-page/not-found.page';
 import PermissionsPage from './permissions-page/permissions.page';
@@ -21,6 +22,7 @@ export {
   LoginPage,
   MaterialContentCreationPage,
   MaterialContentEditPage,
+  MaterialLinkCreationPage,
   MyCoursesPage,
   PermissionsPage,
   NotFoundPage,

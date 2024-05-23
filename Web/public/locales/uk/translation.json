@@ -74,6 +74,10 @@
     "visible_material": "Цей матеріал відображається на сторінці курсу",
     "visible_section": "Ця секція відображається на сторінці курсу"
   },
+  "course_material": {
+    "link": "Посилання",
+    "title": "Заголовок"
+  },
   "course_page": {
     "head_title": "Курс: {{title}}"
   },
@@ -123,6 +127,10 @@
   "material_content_edit_page": {
     "head_title": "Редагування контенту",
     "title": "Редагування контенту"
+  },
+  "material_link_creation_page": {
+    "head_title": "Додавання посилання",
+    "title": "Додавання посилання"
   },
   "my_courses_page": {
     "create_course": "Створити курс",
@@ -205,6 +213,7 @@
     "title": "Користувачі"
   },
   "validation_rule": {
+    "link": "Посилання недійсне",
     "trim_whitespace": "Видаліть зайві пробіли на початку чи в кінці"
   }
 }

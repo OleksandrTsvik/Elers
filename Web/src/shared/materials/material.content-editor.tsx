@@ -13,7 +13,7 @@ interface Props {
   onSubmit: (text: string) => Promise<void> | void;
 }
 
-export default function MaterialContentEditor({
+export function MaterialContentEditor({
   initialText = '',
   textOnSubmitButton,
   isLoading,

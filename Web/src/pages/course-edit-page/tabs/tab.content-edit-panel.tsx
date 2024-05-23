@@ -1,6 +1,5 @@
 import { Space, Tooltip, Button, Popconfirm } from 'antd';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
 
 import { getCourseMaterialEditPagePath } from './tab.utils';
 import {
@@ -8,6 +7,7 @@ import {
   useUpdateCourseMaterialActiveMutation,
 } from '../../../api/course-materials.api';
 import { DeleteIcon, EditIcon, VisibilityIcon } from '../../../components';
+import useNavigateFrom from '../../../hooks/use-navigate-from';
 import { CourseMaterial } from '../../../models/course-material.type';
 import { CourseMaterialIcon, useMaterialLabels } from '../../../shared';
 
@@ -17,7 +17,7 @@ interface Props {
 
 export default function TabContentEditPanel({ material }: Props) {
   const { t } = useTranslation();
-  const navigate = useNavigate();
+  const navigateFrom = useNavigateFrom();
 
   const { getMaterialLabel } = useMaterialLabels();
 
@@ -38,7 +38,7 @@ export default function TabContentEditPanel({ material }: Props) {
   };
 
   const handleClinkEdit = () => {
-    navigate(
+    navigateFrom(
       getCourseMaterialEditPagePath(
         material.type,
         material.courseTabId,

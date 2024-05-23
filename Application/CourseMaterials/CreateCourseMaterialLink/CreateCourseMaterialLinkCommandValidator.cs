@@ -13,10 +13,12 @@ public class CreateCourseMaterialLinkCommandValidator : AbstractValidator<Create
 
         RuleFor(x => x.Title)
             .NotEmpty()
+            .MinimumLength(CourseMaterialRules.MinTitleLinkLength)
             .MaximumLength(CourseMaterialRules.MaxTitleLinkLength);
 
         RuleFor(x => x.Link)
             .NotEmpty()
+            .MaximumLength(CourseMaterialRules.MaxLinkLength)
             .IsUrl(translator)
             .TrimWhitespace(translator);
     }

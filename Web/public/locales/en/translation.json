@@ -74,6 +74,10 @@
     "visible_material": "This material is displayed on the course page",
     "visible_section": "This section is displayed on the course page"
   },
+  "course_material": {
+    "link": "Link",
+    "title": "Title"
+  },
   "course_page": {
     "head_title": "Course: {{title}}"
   },
@@ -123,6 +127,10 @@
   "material_content_edit_page": {
     "head_title": "Content editing",
     "title": "Content editing"
+  },
+  "material_link_creation_page": {
+    "head_title": "Adding a link",
+    "title": "Adding a link"
   },
   "my_courses_page": {
     "create_course": "Create a course",
@@ -205,6 +213,7 @@
     "title": "Users"
   },
   "validation_rule": {
+    "link": "The link is invalid",
     "trim_whitespace": "Remove unnecessary spaces at the beginning or end"
   }
 }

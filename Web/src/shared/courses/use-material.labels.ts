@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 
-import { CourseMaterialType } from './course-material.enum';
+import { CourseMaterialType } from '../materials';
 
 export function useMaterialLabels() {
   const { t } = useTranslation();
