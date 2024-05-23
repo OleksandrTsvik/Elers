@@ -132,6 +132,10 @@
     "head_title": "Додавання посилання",
     "title": "Додавання посилання"
   },
+  "material_link_edit_page": {
+    "head_title": "Редагування посилання",
+    "title": "Редагування посилання"
+  },
   "my_courses_page": {
     "create_course": "Створити курс",
     "creation_title": "Створення курсу",

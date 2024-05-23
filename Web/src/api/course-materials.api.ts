@@ -14,6 +14,11 @@ interface GetCourseMaterialContentResponse extends GetCourseMaterialResponse {
   content: string;
 }
 
+interface GetCourseMaterialLinkResponse extends GetCourseMaterialResponse {
+  title: string;
+  link: string;
+}
+
 interface CreateCourseMaterialContentRequest {
   tabId: string;
   content: string;
@@ -30,6 +35,12 @@ interface CreateCourseMaterialLinkRequest {
   link: string;
 }
 
+interface UpdateCourseMaterialLinkRequest {
+  id: string;
+  title: string;
+  link: string;
+}
+
 export const courseMaterialsApi = coursesApi.injectEndpoints({
   overrideExisting: false,
   endpoints: (builder) => ({
@@ -39,6 +50,15 @@ export const courseMaterialsApi = coursesApi.injectEndpoints({
     >({
       query: ({ tabId, id }) => ({
         url: `/courseMaterials/${tabId}/content/${id}`,
+      }),
+      providesTags: ['CourseMaterialList'],
+    }),
+    getCourseMaterialLink: builder.query<
+      GetCourseMaterialLinkResponse,
+      { tabId?: string; id?: string }
+    >({
+      query: ({ tabId, id }) => ({
+        url: `/courseMaterials/${tabId}/link/${id}`,
       }),
       providesTags: ['CourseMaterialList'],
     }),
@@ -84,6 +104,17 @@ export const courseMaterialsApi = coursesApi.injectEndpoints({
       }),
       invalidatesTags: ['Course', 'CourseMaterialList'],
     }),
+    updateCourseMaterialLink: builder.mutation<
+      string,
+      UpdateCourseMaterialLinkRequest
+    >({
+      query: ({ id, ...data }) => ({
+        url: `/courseMaterials/link/${id}`,
+        method: 'PUT',
+        body: data,
+      }),
+      invalidatesTags: ['Course', 'CourseMaterialList'],
+    }),
     updateCourseMaterialActive: builder.mutation<
       void,
       { id: string; isActive: boolean }
@@ -107,10 +138,12 @@ export const courseMaterialsApi = coursesApi.injectEndpoints({
 
 export const {
   useGetCourseMaterialContentQuery,
+  useGetCourseMaterialLinkQuery,
   useGetListCourseMaterialsByTabIdQuery,
   useCreateCourseMaterialContentMutation,
   useUpdateCourseMaterialContentMutation,
   useCreateCourseMaterialLinkMutation,
+  useUpdateCourseMaterialLinkMutation,
   useUpdateCourseMaterialActiveMutation,
   useDeleteCourseMaterialMutation,
 } = courseMaterialsApi;

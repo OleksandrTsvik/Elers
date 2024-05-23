@@ -10,8 +10,3 @@ public class GetCourseMaterialResponseDto
     public required string CourseTitle { get; init; }
     public required CourseTabType CourseTabType { get; init; }
 }
-
-public class GetCourseMaterialContentResponseDto : GetCourseMaterialResponseDto
-{
-    public required string Content { get; init; }
-}

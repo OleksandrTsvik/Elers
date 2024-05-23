@@ -132,6 +132,10 @@
     "head_title": "Adding a link",
     "title": "Adding a link"
   },
+  "material_link_edit_page": {
+    "head_title": "Editing a link",
+    "title": "Editing a link"
+  },
   "my_courses_page": {
     "create_course": "Create a course",
     "creation_title": "Create a course",

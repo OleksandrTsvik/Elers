@@ -2,10 +2,12 @@ using Application.CourseMaterials.CreateCourseMaterialContent;
 using Application.CourseMaterials.CreateCourseMaterialLink;
 using Application.CourseMaterials.DeleteCourseMaterial;
 using Application.CourseMaterials.GetCourseMaterialContent;
+using Application.CourseMaterials.GetCourseMaterialLink;
 using Application.CourseMaterials.GetListCourseMaterials;
 using Application.CourseMaterials.GetListCourseMaterialsByTabId;
 using Application.CourseMaterials.UpdateCourseMaterialActive;
 using Application.CourseMaterials.UpdateCourseMaterialContent;
+using Application.CourseMaterials.UpdateCourseMaterialLink;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers;
@@ -41,6 +43,17 @@ public class CourseMaterialsController : ApiControllerBase
         return HandleResult(await Sender.Send(query, cancellationToken));
     }
 
+    [HttpGet("{tabId:guid}/link/{id:guid}")]
+    public async Task<IActionResult> GetCourseMaterialLink(
+        Guid tabId,
+        Guid id,
+        CancellationToken cancellationToken)
+    {
+        var query = new GetCourseMaterialLinkQuery(tabId, id);
+
+        return HandleResult(await Sender.Send(query, cancellationToken));
+    }
+
     [HttpPost("content/{tabId:guid}")]
     public async Task<IActionResult> CreateCourseMaterialContent(
         Guid tabId,
@@ -70,6 +83,17 @@ public class CourseMaterialsController : ApiControllerBase
         CancellationToken cancellationToken)
     {
         var command = new CreateCourseMaterialLinkCommand(tabId, request.Title, request.Link);
+
+        return HandleResult(await Sender.Send(command, cancellationToken));
+    }
+
+    [HttpPut("link/{tabId:guid}")]
+    public async Task<IActionResult> UpdateCourseMaterialLink(
+        Guid tabId,
+        [FromBody] UpdateCourseMaterialLinkRequest request,
+        CancellationToken cancellationToken)
+    {
+        var command = new UpdateCourseMaterialLinkCommand(tabId, request.Title, request.Link);
 
         return HandleResult(await Sender.Send(command, cancellationToken));
     }

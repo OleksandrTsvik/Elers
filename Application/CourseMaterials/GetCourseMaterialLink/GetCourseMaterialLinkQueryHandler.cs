@@ -6,15 +6,15 @@ using Domain.Errors;
 using Domain.Repositories;
 using Domain.Shared;
 
-namespace Application.CourseMaterials.GetCourseMaterialContent;
+namespace Application.CourseMaterials.GetCourseMaterialLink;
 
-public class GetCourseMaterialContentQueryHandler
-    : IQueryHandler<GetCourseMaterialContentQuery, GetCourseMaterialContentResponse>
+public class GetCourseMaterialLinkQueryHandler
+    : IQueryHandler<GetCourseMaterialLinkQuery, GetCourseMaterialLinkResponse>
 {
     private readonly ICourseMaterialQueries _courseMaterialQueries;
     private readonly ICourseMaterialRepository _courseMaterialRepository;
 
-    public GetCourseMaterialContentQueryHandler(
+    public GetCourseMaterialLinkQueryHandler(
         ICourseMaterialQueries courseMaterialQueries,
         ICourseMaterialRepository courseMaterialRepository)
     {
@@ -22,8 +22,8 @@ public class GetCourseMaterialContentQueryHandler
         _courseMaterialRepository = courseMaterialRepository;
     }
 
-    public async Task<Result<GetCourseMaterialContentResponse>> Handle(
-        GetCourseMaterialContentQuery request,
+    public async Task<Result<GetCourseMaterialLinkResponse>> Handle(
+        GetCourseMaterialLinkQuery request,
         CancellationToken cancellationToken)
     {
         CourseMaterialTabResponseDto? courseMaterialTab = await _courseMaterialQueries
@@ -34,22 +34,23 @@ public class GetCourseMaterialContentQueryHandler
             return CourseTabErrors.NotFound(request.TabId);
         }
 
-        CourseMaterialContent? courseMaterial = await _courseMaterialRepository
-            .GetByIdAsync<CourseMaterialContent>(request.Id, cancellationToken);
+        CourseMaterialLink? courseMaterial = await _courseMaterialRepository
+            .GetByIdAsync<CourseMaterialLink>(request.Id, cancellationToken);
 
         if (courseMaterial is null)
         {
             return CourseMaterialErrors.NotFound(request.Id);
         }
 
-        return new GetCourseMaterialContentResponse
+        return new GetCourseMaterialLinkResponse
         {
             Id = courseMaterial.Id,
             CourseId = courseMaterialTab.CourseId,
             TabId = courseMaterialTab.TabId,
             CourseTitle = courseMaterialTab.CourseTitle,
             CourseTabType = courseMaterialTab.CourseTabType,
-            Content = courseMaterial.Content
+            Title = courseMaterial.Title,
+            Link = courseMaterial.Link
         };
     }
 }
