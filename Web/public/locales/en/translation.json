@@ -75,7 +75,12 @@
     "visible_section": "This section is displayed on the course page"
   },
   "course_material": {
+    "file": "File",
+    "file_upload_area": "Click or drag file to this area to upload",
     "link": "Link",
+    "rules": {
+      "file_required": "Upload a file"
+    },
     "title": "Title"
   },
   "course_page": {
@@ -127,6 +132,10 @@
   "material_content_edit_page": {
     "head_title": "Content editing",
     "title": "Content editing"
+  },
+  "material_file_creation_page": {
+    "head_title": "Adding a file",
+    "title": "Adding a file"
   },
   "material_link_creation_page": {
     "head_title": "Adding a link",

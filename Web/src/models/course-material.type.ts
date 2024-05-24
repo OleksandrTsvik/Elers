@@ -10,4 +10,9 @@ export type CourseMaterial = {
 export type ConditionalCourseMaterial =
   | { type: CourseMaterialType.Content; content: string }
   | { type: CourseMaterialType.Link; title: string; link: string }
-  | { type: CourseMaterialType.File; title: string; link: string };
+  | {
+      type: CourseMaterialType.File;
+      title: string;
+      fileName: string;
+      uniqueFileName: string;
+    };

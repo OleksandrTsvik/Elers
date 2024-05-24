@@ -1,6 +1,8 @@
 using API.Options;
 using API.Options.Jwt;
 using Infrastructure.Authentication;
+using Infrastructure.Files;
+using Infrastructure.SupabaseSetup;
 using Persistence.Options;
 
 namespace API.Extensions;
@@ -16,6 +18,12 @@ public static class ApiOptionsExtensions
 
         services.AddOptionsWithFluentValidation<JwtOptions>(
             ConfigurationSections.Jwt);
+
+        services.AddOptionsWithFluentValidation<SupabaseSettingsOptions>(
+            ConfigurationSections.Supabase);
+
+        services.AddOptionsWithFluentValidation<FileSettingsOptions>(
+            ConfigurationSections.FileSettings);
 
         return services;
     }

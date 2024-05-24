@@ -1,9 +1,13 @@
 using Application.Common.Interfaces;
 using Application.Common.Services;
 using Infrastructure.Authentication;
+using Infrastructure.Files;
 using Infrastructure.Localization;
+using Infrastructure.SupabaseSetup;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
+using Supabase;
 
 namespace Infrastructure;
 
@@ -13,7 +17,9 @@ public static class DependencyInjection
     {
         services
             .AddLocalization()
-            .AddAuth();
+            .AddAuth()
+            .AddSupabase()
+            .AddFiles();
 
         return services;
     }
@@ -54,6 +60,38 @@ public static class DependencyInjection
 
         services.AddHttpContextAccessor();
         services.AddScoped<IUserContext, UserContext>();
+
+        return services;
+    }
+
+    private static IServiceCollection AddSupabase(this IServiceCollection services)
+    {
+        services.AddScoped<Supabase.Client>(sp =>
+        {
+            SupabaseSettingsOptions supabaseSettings = sp.GetRequiredService<
+                IOptions<SupabaseSettingsOptions>>().Value;
+
+            return new Supabase.Client(
+                supabaseSettings.Url,
+                supabaseSettings.Key,
+                new SupabaseOptions
+                {
+                    AutoConnectRealtime = true
+                });
+        });
+
+        return services;
+    }
+
+    private static IServiceCollection AddFiles(this IServiceCollection services)
+    {
+        services.AddScoped<IFileValidator, FileValidator>();
+
+        // Local storage of files on the server
+        // services.AddScoped<IFolderService, FolderService>();
+        // services.AddScoped<IFileService, FileService>();
+
+        services.AddScoped<IFileService, SupabaseFileService>();
 
         return services;
     }

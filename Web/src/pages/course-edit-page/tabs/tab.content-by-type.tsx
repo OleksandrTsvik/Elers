@@ -25,7 +25,9 @@ export default function TabContentByType({ material }: Props) {
         <Button
           className="p-0"
           type="link"
-          onClick={() => handleDownloadFile(material.link, material.title)}
+          onClick={() =>
+            handleDownloadFile(material.uniqueFileName, material.title)
+          }
         >
           Click to download
           {material.title}

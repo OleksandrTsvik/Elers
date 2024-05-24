@@ -1,4 +1,6 @@
+using API.Contracts;
 using Application.CourseMaterials.CreateCourseMaterialContent;
+using Application.CourseMaterials.CreateCourseMaterialFile;
 using Application.CourseMaterials.CreateCourseMaterialLink;
 using Application.CourseMaterials.DeleteCourseMaterial;
 using Application.CourseMaterials.GetCourseMaterialContent;
@@ -8,6 +10,7 @@ using Application.CourseMaterials.GetListCourseMaterialsByTabId;
 using Application.CourseMaterials.UpdateCourseMaterialActive;
 using Application.CourseMaterials.UpdateCourseMaterialContent;
 using Application.CourseMaterials.UpdateCourseMaterialLink;
+using Infrastructure.Files;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers;
@@ -94,6 +97,20 @@ public class CourseMaterialsController : ApiControllerBase
         CancellationToken cancellationToken)
     {
         var command = new UpdateCourseMaterialLinkCommand(tabId, request.Title, request.Link);
+
+        return HandleResult(await Sender.Send(command, cancellationToken));
+    }
+
+    [HttpPost("file/{tabId:guid}")]
+    public async Task<IActionResult> CreateCourseMaterialFile(
+        Guid tabId,
+        [FromForm] CreateCourseMaterialFileRequest request,
+        CancellationToken cancellationToken)
+    {
+        var command = new CreateCourseMaterialFileCommand(
+            tabId,
+            request.Title,
+            new FormFileProxy(request.File));
 
         return HandleResult(await Sender.Send(command, cancellationToken));
     }

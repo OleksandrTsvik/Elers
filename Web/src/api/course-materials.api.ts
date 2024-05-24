@@ -1,3 +1,5 @@
+import { UploadFile } from 'antd';
+
 import { coursesApi } from './courses.api';
 import { CourseMaterial } from '../models/course-material.type';
 import { CourseTabType } from '../shared';
@@ -39,6 +41,12 @@ interface UpdateCourseMaterialLinkRequest {
   id: string;
   title: string;
   link: string;
+}
+
+interface CreateCourseMaterialFileRequest {
+  tabId: string;
+  title: string;
+  file: UploadFile;
 }
 
 export const courseMaterialsApi = coursesApi.injectEndpoints({
@@ -115,6 +123,23 @@ export const courseMaterialsApi = coursesApi.injectEndpoints({
       }),
       invalidatesTags: ['Course', 'CourseMaterialList'],
     }),
+    createCourseMaterialFile: builder.mutation<
+      string,
+      CreateCourseMaterialFileRequest
+    >({
+      query: ({ tabId, ...data }) => {
+        const formData = new FormData();
+        formData.append('title', data.title);
+        formData.append('file', data.file.originFileObj as Blob);
+
+        return {
+          url: `/courseMaterials/file/${tabId}`,
+          method: 'POST',
+          body: formData,
+        };
+      },
+      invalidatesTags: ['Course', 'CourseMaterialList'],
+    }),
     updateCourseMaterialActive: builder.mutation<
       void,
       { id: string; isActive: boolean }
@@ -144,6 +169,7 @@ export const {
   useUpdateCourseMaterialContentMutation,
   useCreateCourseMaterialLinkMutation,
   useUpdateCourseMaterialLinkMutation,
+  useCreateCourseMaterialFileMutation,
   useUpdateCourseMaterialActiveMutation,
   useDeleteCourseMaterialMutation,
 } = courseMaterialsApi;

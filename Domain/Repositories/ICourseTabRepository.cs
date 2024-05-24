@@ -11,4 +11,6 @@ public interface ICourseTabRepository
     void Update(CourseTab courseTab);
 
     void Remove(CourseTab courseTab);
+
+    Task<bool> ExistsByIdAsync(Guid id, CancellationToken cancellationToken = default);
 }

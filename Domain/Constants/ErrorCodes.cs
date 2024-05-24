@@ -23,6 +23,12 @@ public static class ErrorCodes
         public const string NotFound = "CourseTabs.NotFound";
     }
 
+    public static class Files
+    {
+        public const string Empty = "Files.Empty";
+        public const string SizeLimit = "Files.SizeLimit";
+    }
+
     public static class RefreshTokens
     {
         public const string InvalidToken = "RefreshTokens.InvalidToken";

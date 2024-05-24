@@ -2,6 +2,7 @@ import { RoutesType } from './routes-type.interface';
 import {
   MaterialContentCreationPage,
   MaterialContentEditPage,
+  MaterialFileCreationPage,
   MaterialLinkCreationPage,
   MaterialLinkEditPage,
 } from '../../pages';
@@ -15,6 +16,7 @@ export const courseMaterialsRoutes: RoutesType = {
         children: [
           { path: 'content/:tabId', element: <MaterialContentCreationPage /> },
           { path: 'link/:tabId', element: <MaterialLinkCreationPage /> },
+          { path: 'file/:tabId', element: <MaterialFileCreationPage /> },
         ],
       },
       {

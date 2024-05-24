@@ -52,6 +52,12 @@ msgstr "Матеріал курсу з Id = '{0}' не знайдено."
 msgid "CourseTabs.NotFound"
 msgstr "Вкладка курсу з Id = '{0}' не знайдено."
 
+msgid "Files.Empty"
+msgstr "Файл із назвою = '{0}' порожній."
+
+msgid "Files.SizeLimit"
+msgstr "Файл із назвою = '{0}' перевищує максимально допустимий розмір."
+
 msgid "RefreshTokens.InvalidToken"
 msgstr "Недійсний токен оновлення."
 

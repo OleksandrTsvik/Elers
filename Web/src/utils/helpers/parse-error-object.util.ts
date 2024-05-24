@@ -20,7 +20,6 @@ interface ErrorObject {
 interface PossibleError {
   data?: string | PossibleErrorData;
   message?: string;
-  error?: string;
   status?: number | string;
 }
 
@@ -68,8 +67,6 @@ function getMessageError(error: PossibleError): MessageError {
     return error.data.details;
   } else if (error.message) {
     return error.message;
-  } else if (error.error) {
-    return error.error;
   }
 
   return undefined;
@@ -78,8 +75,6 @@ function getMessageError(error: PossibleError): MessageError {
 function getDescriptionError(error: PossibleError): DescriptionError {
   if (isString(error.data) && error.message) {
     return error.message;
-  } else if (isString(error.data) && error.error) {
-    return error.error;
   } else if (
     !isString(error.data) &&
     error.data?.message &&

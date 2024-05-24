@@ -45,7 +45,8 @@ public class CourseMaterialLink : CourseMaterial
 public class CourseMaterialFile : CourseMaterial
 {
     public string Title { get; set; } = string.Empty;
-    public string Link { get; set; } = string.Empty;
+    public string FileName { get; set; } = string.Empty;
+    public string UniqueFileName { get; set; } = string.Empty;
 
     public CourseMaterialFile() : base()
     {

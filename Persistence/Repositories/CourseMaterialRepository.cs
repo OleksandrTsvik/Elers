@@ -48,7 +48,8 @@ internal class CourseMaterialRepository : MongoDbRepository<CourseMaterial>, ICo
             case CourseMaterialFile file:
                 update = update
                     .Set(nameof(CourseMaterialFile.Title), file.Title)
-                    .Set(nameof(CourseMaterialFile.Link), file.Link);
+                    .Set(nameof(CourseMaterialFile.FileName), file.FileName)
+                    .Set(nameof(CourseMaterialFile.UniqueFileName), file.UniqueFileName);
                 break;
         }
 

@@ -14,7 +14,8 @@ public class CreateCourseMaterialLinkCommandValidator : AbstractValidator<Create
         RuleFor(x => x.Title)
             .NotEmpty()
             .MinimumLength(CourseMaterialRules.MinTitleLinkLength)
-            .MaximumLength(CourseMaterialRules.MaxTitleLinkLength);
+            .MaximumLength(CourseMaterialRules.MaxTitleLinkLength)
+            .TrimWhitespace(translator);
 
         RuleFor(x => x.Link)
             .NotEmpty()

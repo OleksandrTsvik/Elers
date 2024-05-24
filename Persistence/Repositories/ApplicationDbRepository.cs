@@ -37,4 +37,9 @@ internal abstract class ApplicationDbRepository<TEntity>
     {
         DbContext.Set<TEntity>().RemoveRange(entities);
     }
+
+    public Task<bool> ExistsByIdAsync(Guid id, CancellationToken cancellationToken = default)
+    {
+        return DbContext.Set<TEntity>().AnyAsync(x => x.Id == id, cancellationToken);
+    }
 }

@@ -75,7 +75,12 @@
     "visible_section": "Ця секція відображається на сторінці курсу"
   },
   "course_material": {
+    "file": "Файл",
+    "file_upload_area": "Клацніть або перетягніть файл у цю область, щоб завантажити його",
     "link": "Посилання",
+    "rules": {
+      "file_required": "Завантажте файл"
+    },
     "title": "Заголовок"
   },
   "course_page": {
@@ -127,6 +132,10 @@
   "material_content_edit_page": {
     "head_title": "Редагування контенту",
     "title": "Редагування контенту"
+  },
+  "material_file_creation_page": {
+    "head_title": "Додавання файлу",
+    "title": "Додавання файлу"
   },
   "material_link_creation_page": {
     "head_title": "Додавання посилання",
