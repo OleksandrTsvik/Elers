@@ -55,7 +55,7 @@ public class GetCourseByIdQueryHandler
         };
 
         List<MaterialCountResponseDto> materialCounts = await _courseMaterialQueries
-            .GetListMaterialCountByCourseTabIdsAsync(
+            .GetListMaterialCountByCourseTabIds(
                 course.CourseTabs.Select(x => x.Id).ToArray(),
                 cancellationToken);
 

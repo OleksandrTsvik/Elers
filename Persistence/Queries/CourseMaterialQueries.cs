@@ -49,7 +49,7 @@ public class CourseMaterialQueries : ICourseMaterialQueries
             .ToListAsync(cancellationToken);
     }
 
-    public Task<List<MaterialCountResponseDto>> GetListMaterialCountByCourseTabIdsAsync(
+    public Task<List<MaterialCountResponseDto>> GetListMaterialCountByCourseTabIds(
         IEnumerable<Guid> tabIds,
         CancellationToken cancellationToken = default)
     {
@@ -65,7 +65,7 @@ public class CourseMaterialQueries : ICourseMaterialQueries
             .ToListAsync(cancellationToken);
     }
 
-    public Task<CourseMaterialTabResponseDto?> GetCourseMaterialTabResponseDtoAsync(
+    public Task<CourseMaterialTabResponseDto?> GetCourseMaterialTabResponseDto(
         Guid tabId,
         CancellationToken cancellationToken = default)
     {

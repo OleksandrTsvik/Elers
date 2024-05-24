@@ -27,7 +27,7 @@ public class GetCourseMaterialContentQueryHandler
         CancellationToken cancellationToken)
     {
         CourseMaterialTabResponseDto? courseMaterialTab = await _courseMaterialQueries
-            .GetCourseMaterialTabResponseDtoAsync(request.TabId, cancellationToken);
+            .GetCourseMaterialTabResponseDto(request.TabId, cancellationToken);
 
         if (courseMaterialTab is null)
         {

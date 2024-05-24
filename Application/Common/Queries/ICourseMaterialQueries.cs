@@ -15,11 +15,11 @@ public interface ICourseMaterialQueries
         IEnumerable<Guid> tabIds,
         CancellationToken cancellationToken = default);
 
-    Task<List<MaterialCountResponseDto>> GetListMaterialCountByCourseTabIdsAsync(
+    Task<List<MaterialCountResponseDto>> GetListMaterialCountByCourseTabIds(
         IEnumerable<Guid> tabIds,
         CancellationToken cancellationToken = default);
 
-    Task<CourseMaterialTabResponseDto?> GetCourseMaterialTabResponseDtoAsync(
+    Task<CourseMaterialTabResponseDto?> GetCourseMaterialTabResponseDto(
         Guid tabId,
         CancellationToken cancellationToken = default);
 
