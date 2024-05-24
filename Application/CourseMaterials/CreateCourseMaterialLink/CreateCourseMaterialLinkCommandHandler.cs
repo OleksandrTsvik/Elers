@@ -1,6 +1,7 @@
 using Application.Common.Interfaces;
 using Application.Common.Messaging;
 using Domain.Entities;
+using Domain.Errors;
 using Domain.Repositories;
 using Domain.Shared;
 
@@ -11,27 +12,35 @@ public class CreateCourseMaterialLinkCommandHandler
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly ICourseMaterialRepository _courseMaterialRepository;
+    private readonly ICourseTabRepository _courseTabRepository;
 
     public CreateCourseMaterialLinkCommandHandler(
         IUnitOfWork unitOfWork,
-        ICourseMaterialRepository courseMaterialRepository)
+        ICourseMaterialRepository courseMaterialRepository,
+        ICourseTabRepository courseTabRepository)
     {
         _unitOfWork = unitOfWork;
         _courseMaterialRepository = courseMaterialRepository;
+        _courseTabRepository = courseTabRepository;
     }
 
     public async Task<Result> Handle(
         CreateCourseMaterialLinkCommand request,
         CancellationToken cancellationToken)
     {
-        var course = new CourseMaterialLink
+        if (!await _courseTabRepository.ExistsByIdAsync(request.TabId, cancellationToken))
+        {
+            return CourseTabErrors.NotFound(request.TabId);
+        }
+
+        var courseMaterial = new CourseMaterialLink
         {
             CourseTabId = request.TabId,
             Title = request.Title,
             Link = request.Link
         };
 
-        await _courseMaterialRepository.AddAsync(course, cancellationToken);
+        await _courseMaterialRepository.AddAsync(courseMaterial, cancellationToken);
 
         await _unitOfWork.SaveChangesAsync(cancellationToken);
 
