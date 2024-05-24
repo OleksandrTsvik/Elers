@@ -23,7 +23,16 @@ public class SupabaseFileService : IFileService
         _fileValidator = fileValidator;
     }
 
-    public async Task<Result<FileUploadResult>> AddAsync(IFile file)
+    public Task<byte[]> DownloadAsync(string fileName, CancellationToken cancellationToken = default)
+    {
+        return _client.Storage
+            .From(_bucketName)
+            .Download(fileName, null);
+    }
+
+    public async Task<Result<FileUploadResult>> AddAsync(
+        IFile file,
+        CancellationToken cancellationToken = default)
     {
         Result validationResult = _fileValidator.Validate(file);
 
@@ -37,7 +46,7 @@ public class SupabaseFileService : IFileService
         string uniqueFileName = Guid.NewGuid().ToString() + fileExtension;
 
         using var memoryStream = new MemoryStream();
-        await file.CopyToAsync(memoryStream);
+        await file.CopyToAsync(memoryStream, cancellationToken);
 
         await _client.Storage
             .From(_bucketName)
@@ -50,17 +59,19 @@ public class SupabaseFileService : IFileService
         };
     }
 
-    public async Task RemoveAsync(string uniqueFileName)
+    public async Task RemoveAsync(string fileName, CancellationToken cancellationToken = default)
     {
         await _client.Storage
             .From(_bucketName)
-            .Remove(uniqueFileName);
+            .Remove(fileName);
     }
 
-    public async Task RemoveRangeAsync(IEnumerable<string> uniqueFileNames)
+    public async Task RemoveRangeAsync(
+        IEnumerable<string> fileNames,
+        CancellationToken cancellationToken = default)
     {
         await _client.Storage
             .From(_bucketName)
-            .Remove(uniqueFileNames.ToList());
+            .Remove(fileNames.ToList());
     }
 }

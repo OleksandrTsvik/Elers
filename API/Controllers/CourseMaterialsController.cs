@@ -3,6 +3,7 @@ using Application.CourseMaterials.CreateCourseMaterialContent;
 using Application.CourseMaterials.CreateCourseMaterialFile;
 using Application.CourseMaterials.CreateCourseMaterialLink;
 using Application.CourseMaterials.DeleteCourseMaterial;
+using Application.CourseMaterials.DownloadCourseMaterialFile;
 using Application.CourseMaterials.GetCourseMaterialContent;
 using Application.CourseMaterials.GetCourseMaterialLink;
 using Application.CourseMaterials.GetListCourseMaterials;
@@ -99,6 +100,16 @@ public class CourseMaterialsController : ApiControllerBase
         var command = new UpdateCourseMaterialLinkCommand(tabId, request.Title, request.Link);
 
         return HandleResult(await Sender.Send(command, cancellationToken));
+    }
+
+    [HttpGet("file/download/{fileName}")]
+    public async Task<IActionResult> DownloadCourseMaterialFile(
+        string fileName,
+        CancellationToken cancellationToken)
+    {
+        var query = new DownloadCourseMaterialFileQuery(fileName);
+
+        return HandleResult(await Sender.Send(query, cancellationToken));
     }
 
     [HttpPost("file/{tabId:guid}")]

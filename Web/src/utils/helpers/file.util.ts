@@ -13,6 +13,20 @@ export function handleDownloadFile(link: string, fileName: string) {
   document.body.removeChild(a);
 }
 
+export function handleDownloadBlob(file: Blob, fileName: string) {
+  const url = URL.createObjectURL(file);
+
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = fileName;
+
+  document.body.appendChild(a);
+  a.click();
+
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
 export function getFileListFromEvent(event: EventArgs): UploadFile[] {
   if (!isObject(event) || !('fileList' in event)) {
     return [];

@@ -1,7 +1,9 @@
 using Application.Common.Interfaces;
+using Application.Common.Models;
 using Domain.Shared;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.StaticFiles;
 
 namespace API.Controllers;
 
@@ -43,7 +45,7 @@ public class ApiControllerBase : ControllerBase
 
         if (result.IsSuccess && result.Value is not null)
         {
-            return Ok(result.Value);
+            return GetValueResult(result.Value);
         }
 
         if (result.IsSuccess && result.Value is null)
@@ -79,4 +81,25 @@ public class ApiControllerBase : ControllerBase
             ErrorType.Conflict => StatusCodes.Status409Conflict,
             _ => StatusCodes.Status500InternalServerError
         };
+
+    [NonAction]
+    private ActionResult GetValueResult<T>(T value)
+    {
+        switch (value)
+        {
+            case byte[] bytes:
+                return File(bytes, "application/octet-stream");
+            case FileDownloadResult fileDownloadResult:
+                var fileProvider = new FileExtensionContentTypeProvider();
+
+                if (!fileProvider.TryGetContentType(fileDownloadResult.FileName, out string? contentType))
+                {
+                    contentType = "application/octet-stream";
+                }
+
+                return File(fileDownloadResult.FileContents, contentType, fileDownloadResult.FileName);
+            default:
+                return Ok(value);
+        }
+    }
 }

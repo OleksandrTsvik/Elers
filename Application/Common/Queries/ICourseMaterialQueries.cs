@@ -1,3 +1,4 @@
+using Application.CourseMaterials.DownloadCourseMaterialFile;
 using Application.CourseMaterials.DTOs;
 using Application.Courses.GetCourseById;
 using Domain.Entities;
@@ -20,5 +21,9 @@ public interface ICourseMaterialQueries
 
     Task<CourseMaterialTabResponseDto?> GetCourseMaterialTabResponseDtoAsync(
         Guid tabId,
+        CancellationToken cancellationToken = default);
+
+    Task<GetCourseMaterialFileInfoDto?> GetCourseMaterialFileInfo(
+        string uniqueFileName,
         CancellationToken cancellationToken = default);
 }

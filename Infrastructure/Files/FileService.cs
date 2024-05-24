@@ -17,7 +17,14 @@ public class FileService : IFileService
         _folderService = folderService;
     }
 
-    public async Task<Result<FileUploadResult>> AddAsync(IFile file)
+    public Task<byte[]> DownloadAsync(string fileName, CancellationToken cancellationToken = default)
+    {
+        return File.ReadAllBytesAsync(GetFilePath(fileName), cancellationToken);
+    }
+
+    public async Task<Result<FileUploadResult>> AddAsync(
+        IFile file,
+        CancellationToken cancellationToken = default)
     {
         Result validationResult = _fileValidator.Validate(file);
 
@@ -33,7 +40,7 @@ public class FileService : IFileService
         string filePath = GetFilePath(uniqueFileName);
 
         using FileStream stream = File.Create(filePath);
-        await file.CopyToAsync(stream);
+        await file.CopyToAsync(stream, cancellationToken);
 
         return new FileUploadResult
         {
@@ -42,18 +49,20 @@ public class FileService : IFileService
         };
     }
 
-    public Task RemoveAsync(string uniqueFileName)
+    public Task RemoveAsync(string fileName, CancellationToken cancellationToken = default)
     {
-        DeleteFile(uniqueFileName);
+        DeleteFile(fileName);
 
         return Task.CompletedTask;
     }
 
-    public Task RemoveRangeAsync(IEnumerable<string> uniqueFileNames)
+    public Task RemoveRangeAsync(
+        IEnumerable<string> fileNames,
+        CancellationToken cancellationToken = default)
     {
-        foreach (string uniqueFileName in uniqueFileNames)
+        foreach (string fileName in fileNames)
         {
-            DeleteFile(uniqueFileName);
+            DeleteFile(fileName);
         }
 
         return Task.CompletedTask;

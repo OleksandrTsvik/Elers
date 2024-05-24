@@ -16,6 +16,7 @@ public static class ErrorCodes
     public static class CourseMaterials
     {
         public const string NotFound = "CourseMaterials.NotFound";
+        public const string FileNotFound = "CourseMaterials.FileNotFound";
     }
 
     public static class CourseTabs

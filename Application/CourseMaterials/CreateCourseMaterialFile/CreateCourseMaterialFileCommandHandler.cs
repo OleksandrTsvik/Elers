@@ -37,7 +37,7 @@ public class CreateCourseMaterialFileCommandHandler : ICommandHandler<CreateCour
             return CourseTabErrors.NotFound(request.TabId);
         }
 
-        Result<FileUploadResult> addFileResult = await _fileService.AddAsync(request.File);
+        Result<FileUploadResult> addFileResult = await _fileService.AddAsync(request.File, cancellationToken);
 
         if (addFileResult.IsFailure || addFileResult.Value is null)
         {

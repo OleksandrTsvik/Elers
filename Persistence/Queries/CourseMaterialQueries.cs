@@ -1,4 +1,5 @@
 using Application.Common.Queries;
+using Application.CourseMaterials.DownloadCourseMaterialFile;
 using Application.CourseMaterials.DTOs;
 using Application.Courses.GetCourseById;
 using Domain.Entities;
@@ -76,6 +77,23 @@ public class CourseMaterialQueries : ICourseMaterialQueries
                 CourseId = x.CourseId,
                 CourseTabType = x.Course != null ? x.Course.TabType : CourseTabType.Tabs,
                 CourseTitle = x.Course != null ? x.Course.Title : ""
+            })
+            .FirstOrDefaultAsync(cancellationToken);
+    }
+
+    public async Task<GetCourseMaterialFileInfoDto?> GetCourseMaterialFileInfo(
+        string uniqueFileName,
+        CancellationToken cancellationToken = default)
+    {
+        return await _courseMaterialCollection
+            .Aggregate()
+            .Match(x => x is CourseMaterialFile)
+            .As<CourseMaterialFile>()
+            .Match(x => x.UniqueFileName == uniqueFileName)
+            .Project(x => new GetCourseMaterialFileInfoDto
+            {
+                FileName = x.FileName,
+                UniqueFileName = x.UniqueFileName
             })
             .FirstOrDefaultAsync(cancellationToken);
     }

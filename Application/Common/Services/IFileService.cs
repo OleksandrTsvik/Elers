@@ -6,9 +6,11 @@ namespace Application.Common.Services;
 
 public interface IFileService
 {
-    Task<Result<FileUploadResult>> AddAsync(IFile file);
+    Task<byte[]> DownloadAsync(string fileName, CancellationToken cancellationToken = default);
 
-    Task RemoveAsync(string uniqueFileName);
+    Task<Result<FileUploadResult>> AddAsync(IFile file, CancellationToken cancellationToken = default);
 
-    Task RemoveRangeAsync(IEnumerable<string> uniqueFileNames);
+    Task RemoveAsync(string fileName, CancellationToken cancellationToken = default);
+
+    Task RemoveRangeAsync(IEnumerable<string> fileNames, CancellationToken cancellationToken = default);
 }
