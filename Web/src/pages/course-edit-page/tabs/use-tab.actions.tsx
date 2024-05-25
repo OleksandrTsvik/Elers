@@ -2,7 +2,6 @@ import { App } from 'antd';
 import { ItemType } from 'antd/es/menu/hooks/useItems';
 import { useTranslation } from 'react-i18next';
 
-import { deleteTab } from './tab-query-params.utils';
 import {
   useDeleteCourseTabMutation,
   useUpdateCourseTabMutation,
@@ -17,6 +16,7 @@ import {
 import { useAppDispatch } from '../../../hooks/redux-hooks';
 import useDisplayError from '../../../hooks/use-display-error';
 import { CourseTab } from '../../../models/course-tab.interface';
+import { deleteCourseTabFromQueryParam } from '../../../shared';
 import { setActiveCourseTab, setModalMode } from '../course-edit.slice';
 import { CourseTabModalMode } from '../modals/tab-modal-mode.enum';
 
@@ -60,7 +60,7 @@ export default function useTabActions(tab: CourseTab) {
       onOk: () =>
         deleteCourseTab({ id: tab.id })
           .unwrap()
-          .then(() => deleteTab())
+          .then(() => deleteCourseTabFromQueryParam())
           .catch((error) => displayError(error)),
     });
   };

@@ -1,10 +1,13 @@
 import { Tabs } from 'antd';
 import { useEffect, useState } from 'react';
 
-import { getTabFromQueryOrFirst, setTab } from './tab-query-params.utils';
 import { getTabsItems } from './tab.utils';
 import { useAppDispatch } from '../../../hooks/redux-hooks';
 import { CourseTab } from '../../../models/course-tab.interface';
+import {
+  getCourseTabFromQueryParamOrFirst,
+  setCourseTabToQueryParam,
+} from '../../../shared';
 import { setModalMode } from '../course-edit.slice';
 import { CourseTabModalMode } from '../modals/tab-modal-mode.enum';
 
@@ -24,7 +27,7 @@ export default function TabListContent({ tabs }: Props) {
 
   const handleChange = (activeKey: string) => {
     setActiveTab(activeKey);
-    setTab(activeKey);
+    setCourseTabToQueryParam(activeKey);
   };
 
   const handleEdit = (action: 'add' | 'remove') => {
@@ -37,7 +40,7 @@ export default function TabListContent({ tabs }: Props) {
     <Tabs
       destroyInactiveTabPane
       type="editable-card"
-      activeKey={activeTab ?? getTabFromQueryOrFirst(tabs)}
+      activeKey={activeTab ?? getCourseTabFromQueryParamOrFirst(tabs)}
       items={items}
       onChange={handleChange}
       onEdit={(_, action) => handleEdit(action)}

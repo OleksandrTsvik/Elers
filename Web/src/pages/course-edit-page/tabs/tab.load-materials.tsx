@@ -1,14 +1,14 @@
 import { Skeleton } from 'antd';
 
 import TabContent from './tab.content';
-import { useGetListCourseMaterialsByTabIdQuery } from '../../../api/course-materials.api';
+import { useGetListCourseMaterialsByTabIdToEditQuery } from '../../../api/course-materials.api';
 
 interface Props {
   tabId: string;
 }
 
 export default function TabLoadMaterials({ tabId }: Props) {
-  const { data, isFetching } = useGetListCourseMaterialsByTabIdQuery({
+  const { data, isFetching } = useGetListCourseMaterialsByTabIdToEditQuery({
     id: tabId,
   });
 

@@ -1,7 +1,7 @@
 using Application.Common.Queries;
 using Application.CourseMaterials.DownloadCourseMaterialFile;
 using Application.CourseMaterials.DTOs;
-using Application.Courses.GetCourseById;
+using Application.Courses.DTOs;
 using Domain.Entities;
 using Domain.Enums;
 using Microsoft.EntityFrameworkCore;
@@ -23,15 +23,16 @@ public class CourseMaterialQueries : ICourseMaterialQueries
             CollectionNames.CourseMaterials);
     }
 
-    public Task<List<CourseMaterial>> GetListCourseMaterials(
+    public Task<List<CourseMaterial>> GetListByTabId(
+        Guid tabId,
         CancellationToken cancellationToken = default)
     {
         return _courseMaterialCollection
-            .Find(_ => true)
+            .Find(x => x.IsActive && x.CourseTabId == tabId)
             .ToListAsync(cancellationToken);
     }
 
-    public Task<List<CourseMaterial>> GetListByTabId(
+    public Task<List<CourseMaterial>> GetListByTabIdToEdit(
         Guid tabId,
         CancellationToken cancellationToken = default)
     {
@@ -45,7 +46,7 @@ public class CourseMaterialQueries : ICourseMaterialQueries
         CancellationToken cancellationToken = default)
     {
         return _courseMaterialCollection
-            .Find(x => tabIds.Contains(x.CourseTabId))
+            .Find(x => x.IsActive && tabIds.Contains(x.CourseTabId))
             .ToListAsync(cancellationToken);
     }
 
@@ -60,7 +61,8 @@ public class CourseMaterialQueries : ICourseMaterialQueries
                 x => new MaterialCountResponseDto
                 {
                     TabId = x.Key,
-                    MaterialCount = x.Count(courseMaterial => tabIds.Contains(courseMaterial.CourseTabId))
+                    MaterialCount = x.Count(courseMaterial =>
+                        courseMaterial.IsActive && tabIds.Contains(courseMaterial.CourseTabId))
                 })
             .ToListAsync(cancellationToken);
     }
@@ -94,5 +96,30 @@ public class CourseMaterialQueries : ICourseMaterialQueries
                 UniqueFileName = x.UniqueFileName
             })
             .FirstOrDefaultAsync(cancellationToken);
+    }
+
+    public Task<List<CourseMaterial>> GetListByTabIdsToEdit(
+        IEnumerable<Guid> tabIds,
+        CancellationToken cancellationToken = default)
+    {
+        return _courseMaterialCollection
+            .Find(x => tabIds.Contains(x.CourseTabId))
+            .ToListAsync(cancellationToken);
+    }
+
+    public Task<List<MaterialCountResponseDto>> GetListMaterialCountByCourseTabIdsToEdit(
+        IEnumerable<Guid> tabIds,
+        CancellationToken cancellationToken = default)
+    {
+        return _courseMaterialCollection
+            .Aggregate()
+            .Group(
+                courseMaterial => courseMaterial.CourseTabId,
+                x => new MaterialCountResponseDto
+                {
+                    TabId = x.Key,
+                    MaterialCount = x.Count(courseMaterial => tabIds.Contains(courseMaterial.CourseTabId))
+                })
+            .ToListAsync(cancellationToken);
     }
 }

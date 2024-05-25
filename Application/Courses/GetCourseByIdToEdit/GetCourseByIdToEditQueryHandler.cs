@@ -6,15 +6,15 @@ using Domain.Enums;
 using Domain.Errors;
 using Domain.Shared;
 
-namespace Application.Courses.GetCourseById;
+namespace Application.Courses.GetCourseByIdToEdit;
 
-public class GetCourseByIdQueryHandler
-    : IQueryHandler<GetCourseByIdQuery, GetCourseByIdResponse<CourseTabResponse>>
+public class GetCourseByIdToEditQueryHandler
+    : IQueryHandler<GetCourseByIdToEditQuery, GetCourseByIdToEditResponse<CourseTabToEditResponse>>
 {
     private readonly ICourseQueries _courseQueries;
     private readonly ICourseMaterialQueries _courseMaterialQueries;
 
-    public GetCourseByIdQueryHandler(
+    public GetCourseByIdToEditQueryHandler(
         ICourseQueries courseQueries,
         ICourseMaterialQueries courseMaterialQueries)
     {
@@ -22,19 +22,19 @@ public class GetCourseByIdQueryHandler
         _courseMaterialQueries = courseMaterialQueries;
     }
 
-    public async Task<Result<GetCourseByIdResponse<CourseTabResponse>>> Handle(
-        GetCourseByIdQuery request,
+    public async Task<Result<GetCourseByIdToEditResponse<CourseTabToEditResponse>>> Handle(
+        GetCourseByIdToEditQuery request,
         CancellationToken cancellationToken)
     {
-        GetCourseByIdResponseDto? courseDto = await _courseQueries
-            .GetCourseById(request.Id, cancellationToken);
+        GetCourseByIdToEditResponseDto? courseDto = await _courseQueries
+            .GetCourseByIdToEdit(request.Id, cancellationToken);
 
         if (courseDto is null)
         {
             return CourseErrors.NotFound(request.Id);
         }
 
-        var course = new GetCourseByIdResponse<CourseTabResponse>
+        var course = new GetCourseByIdToEditResponse<CourseTabToEditResponse>
         {
             Id = courseDto.Id,
             Title = courseDto.Title,
@@ -42,11 +42,12 @@ public class GetCourseByIdQueryHandler
             PhotoUrl = courseDto.PhotoUrl,
             TabType = courseDto.TabType,
             CourseTabs = courseDto.CourseTabs
-                .Select(courseTab => new CourseTabResponse
+                .Select(courseTab => new CourseTabToEditResponse
                 {
                     Id = courseTab.Id,
                     CourseId = courseTab.CourseId,
                     Name = courseTab.Name,
+                    IsActive = courseTab.IsActive,
                     Order = courseTab.Order,
                     Color = courseTab.Color,
                     ShowMaterialsCount = courseTab.ShowMaterialsCount,
@@ -55,11 +56,11 @@ public class GetCourseByIdQueryHandler
         };
 
         List<MaterialCountResponseDto> materialCounts = await _courseMaterialQueries
-            .GetListMaterialCountByCourseTabIds(
+            .GetListMaterialCountByCourseTabIdsToEdit(
                 course.CourseTabs.Where(x => x.ShowMaterialsCount).Select(x => x.Id).ToArray(),
                 cancellationToken);
 
-        foreach (CourseTabResponse tab in course.CourseTabs)
+        foreach (CourseTabToEditResponse tab in course.CourseTabs)
         {
             tab.MaterialCount = materialCounts
                 .Where(x => x.TabId == tab.Id)
@@ -78,15 +79,15 @@ public class GetCourseByIdQueryHandler
     }
 
     private async Task SetCourseMaterialsForSectionsType(
-        GetCourseByIdResponse<CourseTabResponse> course,
+        GetCourseByIdToEditResponse<CourseTabToEditResponse> course,
         CancellationToken cancellationToken)
     {
         Guid[] tabIds = course.CourseTabs.Select(x => x.Id).ToArray();
 
         List<CourseMaterial> courseMaterials = await _courseMaterialQueries
-            .GetListByTabIds(tabIds, cancellationToken);
+            .GetListByTabIdsToEdit(tabIds, cancellationToken);
 
-        foreach (CourseTabResponse tab in course.CourseTabs)
+        foreach (CourseTabToEditResponse tab in course.CourseTabs)
         {
             tab.CourseMaterials = courseMaterials
                 .Where(x => x.CourseTabId == tab.Id)

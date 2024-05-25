@@ -3,9 +3,8 @@ import { useTranslation } from 'react-i18next';
 import { CourseTabModalMode } from './tab-modal-mode.enum';
 import TabNameModal from './tab-name.modal';
 import { useCreateCourseTabMutation } from '../../../api/course-tabs.api';
-import { CourseTabType } from '../../../shared';
+import { CourseTabType, setCourseTabToQueryParamByType } from '../../../shared';
 import { TabNameFormValues } from '../forms/tab-name.form';
-import { setTabByType } from '../tabs/tab-query-params.utils';
 import useCourseEditState from '../use-course-edit.state';
 
 interface Props {
@@ -22,7 +21,7 @@ export default function TabNameCreateModal({ courseId, tabType }: Props) {
   const handleSubmit = async ({ tabName }: TabNameFormValues) => {
     await createCourseTab({ courseId, name: tabName })
       .unwrap()
-      .then((tabId) => setTabByType(tabType, tabId));
+      .then((tabId) => setCourseTabToQueryParamByType(tabType, tabId));
   };
 
   return (

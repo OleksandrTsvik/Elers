@@ -27,6 +27,12 @@ export const coursesApi = createApi({
       }),
       providesTags: ['Course'],
     }),
+    getCourseByIdToEdit: builder.query<Course, { id?: string }>({
+      query: ({ id }) => ({
+        url: `/courses/edit/${id}`,
+      }),
+      providesTags: ['Course'],
+    }),
     getCourseByTabId: builder.query<GetCourseByTabIdResponse, { id?: string }>({
       query: ({ id }) => ({
         url: `/courses/tab/${id}`,
@@ -82,6 +88,7 @@ export const coursesApi = createApi({
 
 export const {
   useGetCourseByIdQuery,
+  useGetCourseByIdToEditQuery,
   useGetCourseByTabIdQuery,
   useGetListCoursesQuery,
   useCreateCourseMutation,

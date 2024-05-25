@@ -1,9 +1,9 @@
 using Domain.Entities;
 using Domain.Enums;
 
-namespace Application.Courses.GetCourseById;
+namespace Application.Courses.GetCourseByIdToEdit;
 
-public class GetCourseByIdResponse<TCourseTab>
+public class GetCourseByIdToEditResponse<TCourseTab>
 {
     public required Guid Id { get; init; }
     public required string Title { get; init; }
@@ -13,21 +13,22 @@ public class GetCourseByIdResponse<TCourseTab>
     public required TCourseTab[] CourseTabs { get; init; }
 }
 
-public class CourseTabResponse : CourseTabResponseDto
+public class CourseTabToEditResponse : CourseTabToEditResponseDto
 {
     public int MaterialCount { get; set; }
     public CourseMaterial[] CourseMaterials { get; set; } = [];
 }
 
-public class GetCourseByIdResponseDto : GetCourseByIdResponse<CourseTabResponseDto>
+public class GetCourseByIdToEditResponseDto : GetCourseByIdToEditResponse<CourseTabToEditResponseDto>
 {
 }
 
-public class CourseTabResponseDto
+public class CourseTabToEditResponseDto
 {
     public required Guid Id { get; init; }
     public required Guid CourseId { get; init; }
     public required string Name { get; init; }
+    public required bool IsActive { get; init; }
     public required int Order { get; init; }
     public required string? Color { get; init; }
     public required bool ShowMaterialsCount { get; init; }

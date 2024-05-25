@@ -79,6 +79,15 @@ export const courseMaterialsApi = coursesApi.injectEndpoints({
       }),
       providesTags: ['CourseMaterialList'],
     }),
+    getListCourseMaterialsByTabIdToEdit: builder.query<
+      CourseMaterial[],
+      { id: string }
+    >({
+      query: ({ id }) => ({
+        url: `/courseMaterials/tabs/edit/${id}`,
+      }),
+      providesTags: ['CourseMaterialList'],
+    }),
     createCourseMaterialContent: builder.mutation<
       string,
       CreateCourseMaterialContentRequest
@@ -165,6 +174,7 @@ export const {
   useGetCourseMaterialContentQuery,
   useGetCourseMaterialLinkQuery,
   useGetListCourseMaterialsByTabIdQuery,
+  useGetListCourseMaterialsByTabIdToEditQuery,
   useCreateCourseMaterialContentMutation,
   useUpdateCourseMaterialContentMutation,
   useCreateCourseMaterialLinkMutation,

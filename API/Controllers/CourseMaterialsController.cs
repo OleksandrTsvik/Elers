@@ -6,8 +6,8 @@ using Application.CourseMaterials.DeleteCourseMaterial;
 using Application.CourseMaterials.DownloadCourseMaterialFile;
 using Application.CourseMaterials.GetCourseMaterialContent;
 using Application.CourseMaterials.GetCourseMaterialLink;
-using Application.CourseMaterials.GetListCourseMaterials;
 using Application.CourseMaterials.GetListCourseMaterialsByTabId;
+using Application.CourseMaterials.GetListCourseMaterialsByTabIdToEdit;
 using Application.CourseMaterials.UpdateCourseMaterialActive;
 using Application.CourseMaterials.UpdateCourseMaterialContent;
 using Application.CourseMaterials.UpdateCourseMaterialLink;
@@ -18,20 +18,22 @@ namespace API.Controllers;
 
 public class CourseMaterialsController : ApiControllerBase
 {
-    [HttpGet]
-    public async Task<IActionResult> GetListCourseMaterials(CancellationToken cancellationToken)
-    {
-        var query = new GetListCourseMaterialsQuery();
-
-        return HandleResult(await Sender.Send(query, cancellationToken));
-    }
-
     [HttpGet("tabs/{tabId:guid}")]
     public async Task<IActionResult> GetListCourseMaterialsByTabId(
         Guid tabId,
         CancellationToken cancellationToken)
     {
         var query = new GetListCourseMaterialsByTabIdQuery(tabId);
+
+        return HandleResult(await Sender.Send(query, cancellationToken));
+    }
+
+    [HttpGet("tabs/edit/{tabId:guid}")]
+    public async Task<IActionResult> GetListCourseMaterialsByTabIdToEdit(
+        Guid tabId,
+        CancellationToken cancellationToken)
+    {
+        var query = new GetListCourseMaterialsByTabIdToEditQuery(tabId);
 
         return HandleResult(await Sender.Send(query, cancellationToken));
     }

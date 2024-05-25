@@ -1,6 +1,6 @@
 import { Path } from 'react-router-dom';
 
-import { CourseTabType } from './course-tab.enum';
+import { CourseTabType } from '../course-tabs/course-tab.enum';
 
 export function getCourseEditPagePath(
   courseId: string,

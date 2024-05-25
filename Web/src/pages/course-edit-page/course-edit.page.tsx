@@ -3,19 +3,19 @@ import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 
 import CourseEditPageContent from './course-edit.page-content';
-import { useGetCourseByIdQuery } from '../../api/courses.api';
+import { useGetCourseByIdToEditQuery } from '../../api/courses.api';
 import { NavigateToNotFound } from '../../common/navigate';
 
 export default function CourseEditPage() {
   const { courseId } = useParams();
   const { t } = useTranslation();
 
-  const { data, isLoading, isFetching } = useGetCourseByIdQuery({
+  const { data, isLoading, isFetching } = useGetCourseByIdToEditQuery({
     id: courseId,
   });
 
   if (isLoading) {
-    return <Skeleton />;
+    return <Skeleton active />;
   }
 
   if (!data) {

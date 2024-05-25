@@ -67,6 +67,7 @@
     "invisible_material": "This material is not displayed on the course page",
     "invisible_section": "This section is not displayed on the course page",
     "new_section": "New section",
+    "no_materials": "There are no materials",
     "no_sections": "No sections",
     "not_show_materials_count": "Do not show the number of materials",
     "show_materials_count": "Show the number of materials",

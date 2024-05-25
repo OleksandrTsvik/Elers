@@ -1,6 +1,5 @@
 import Icon, {
   LinkOutlined,
-  FileOutlined,
   SolutionOutlined,
   ExperimentOutlined,
 } from '@ant-design/icons';
@@ -8,6 +7,7 @@ import { GetProps } from 'antd';
 import { FaBox } from 'react-icons/fa';
 import { IoTextSharp } from 'react-icons/io5';
 
+import { CourseMaterialFileIcon } from './course-material-file.icon';
 import { CourseMaterialType } from './course-material.enum';
 
 type IconProps = Omit<GetProps<typeof Icon>, 'component'>;
@@ -23,7 +23,7 @@ export function CourseMaterialIcon({ type, ...props }: Props) {
     case CourseMaterialType.Assignment:
       return <SolutionOutlined {...props} />;
     case CourseMaterialType.File:
-      return <FileOutlined {...props} />;
+      return <CourseMaterialFileIcon {...props} />;
     case CourseMaterialType.Test:
       return <ExperimentOutlined {...props} />;
     case CourseMaterialType.Link:

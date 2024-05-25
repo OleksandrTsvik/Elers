@@ -1,10 +1,9 @@
 import { Flex, Radio, RadioChangeEvent, Spin, Typography } from 'antd';
 import { useTranslation } from 'react-i18next';
 
-import { deleteTab } from './tabs/tab-query-params.utils';
 import { useUpdateCourseTabTypeMutation } from '../../api/courses.api';
 import { ErrorAlert } from '../../common/error';
-import { CourseTabType } from '../../shared';
+import { CourseTabType, deleteCourseTabFromQueryParam } from '../../shared';
 
 import styles from './course-edit.module.scss';
 
@@ -25,7 +24,7 @@ export default function CourseEditTabType({ courseId, currentTabType }: Props) {
       tabType: value as CourseTabType,
     })
       .unwrap()
-      .then(() => deleteTab());
+      .then(() => deleteCourseTabFromQueryParam());
   };
 
   return (

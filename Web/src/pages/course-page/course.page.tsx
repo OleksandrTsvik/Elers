@@ -1,6 +1,7 @@
 import { Skeleton } from 'antd';
 import { useParams } from 'react-router-dom';
 
+import CourseContent from './course.content';
 import CourseHead from './course.head';
 import CourseHeader from './course.header';
 import { useGetCourseByIdQuery } from '../../api/courses.api';
@@ -11,7 +12,7 @@ export default function CoursePage() {
   const { data, isFetching } = useGetCourseByIdQuery({ id: courseId });
 
   if (isFetching) {
-    return <Skeleton />;
+    return <Skeleton active />;
   }
 
   if (!data) {
@@ -26,6 +27,7 @@ export default function CoursePage() {
         title={data.title}
         description={data.description}
       />
+      <CourseContent course={data} />
     </>
   );
 }

@@ -1,5 +1,6 @@
 using Application.Courses.CreateCourse;
 using Application.Courses.GetCourseById;
+using Application.Courses.GetCourseByIdToEdit;
 using Application.Courses.GetCourseByTabId;
 using Application.Courses.GetListCourses;
 using Application.Courses.UpdateCourseDescription;
@@ -19,6 +20,16 @@ public class CoursesController : ApiControllerBase
         CancellationToken cancellationToken)
     {
         var query = new GetCourseByIdQuery(id);
+
+        return HandleResult(await Sender.Send(query, cancellationToken));
+    }
+
+    [HttpGet("edit/{id:guid}")]
+    public async Task<IActionResult> GetCourseByIdToEdit(
+        Guid id,
+        CancellationToken cancellationToken)
+    {
+        var query = new GetCourseByIdToEditQuery(id);
 
         return HandleResult(await Sender.Send(query, cancellationToken));
     }
