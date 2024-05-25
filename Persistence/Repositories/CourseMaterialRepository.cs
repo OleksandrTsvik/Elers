@@ -18,9 +18,8 @@ internal class CourseMaterialRepository : MongoDbRepository<CourseMaterial>, ICo
         where TEntity : CourseMaterial
     {
         return await Collection
-            .Aggregate()
-            .Match(x => x is TEntity)
-            .As<TEntity>()
+            .OfType<TEntity>()
+            .Find(x => x.Id == id)
             .FirstOrDefaultAsync(cancellationToken);
     }
 

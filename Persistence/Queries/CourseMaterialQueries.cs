@@ -86,10 +86,8 @@ public class CourseMaterialQueries : ICourseMaterialQueries
         CancellationToken cancellationToken = default)
     {
         return await _courseMaterialCollection
-            .Aggregate()
-            .Match(x => x is CourseMaterialFile)
-            .As<CourseMaterialFile>()
-            .Match(x => x.UniqueFileName == uniqueFileName)
+            .OfType<CourseMaterialFile>()
+            .Find(x => x.UniqueFileName == uniqueFileName)
             .Project(x => new GetCourseMaterialFileInfoDto
             {
                 FileName = x.FileName,
