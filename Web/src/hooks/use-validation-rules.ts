@@ -1,7 +1,8 @@
 import { Rule } from 'antd/es/form';
 import { useTranslation } from 'react-i18next';
 
-import { isString } from '../utils/helpers';
+import { FILE_SIZE_LIMIT } from '../utils/constants/app.constants';
+import { isArrayOf, isObjectWithFileSize, isString } from '../utils/helpers';
 
 export default function useValidationRules() {
   const { t } = useTranslation();
@@ -18,5 +19,21 @@ export default function useValidationRules() {
     },
   };
 
-  return { trimWhitespace };
+  const fileSizeLimit = (sizeLimit: number = FILE_SIZE_LIMIT): Rule => ({
+    validator: (_, value) => {
+      if (
+        !Array.isArray(value) ||
+        !value.length ||
+        !isArrayOf<{ size: number }>(value, isObjectWithFileSize)
+      ) {
+        return Promise.resolve();
+      }
+
+      return value.every((item) => item.size < sizeLimit)
+        ? Promise.resolve()
+        : Promise.reject(new Error(t('validation_rule.file_size_limit')));
+    },
+  });
+
+  return { trimWhitespace, fileSizeLimit };
 }

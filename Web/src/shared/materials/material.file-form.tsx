@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import useMaterialFileRules from './use-material-file.rules';
 import { ErrorForm } from '../../common/error';
 import { COURSE_MATERIAL_RULES } from '../../common/rules';
+import { FILE_SIZE_LIMIT_MB } from '../../utils/constants/app.constants';
 import { getFileListFromEvent } from '../../utils/helpers';
 
 export interface MaterialFileFormValues {
@@ -78,7 +79,9 @@ export function MaterialFileForm({
           <p className="ant-upload-text">
             {t('course_material.file_upload_area')}
           </p>
-          <p className="ant-upload-hint">Максимальний розмір файлу 50 MB.</p>
+          <p className="ant-upload-hint">
+            Максимальний розмір файлу {FILE_SIZE_LIMIT_MB} MB.
+          </p>
         </Upload.Dragger>
       </Form.Item>
 

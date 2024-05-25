@@ -226,6 +226,7 @@
     "title": "Users"
   },
   "validation_rule": {
+    "file_size_limit": "File size limit exceeded",
     "link": "The link is invalid",
     "trim_whitespace": "Remove unnecessary spaces at the beginning or end"
   }

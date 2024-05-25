@@ -11,7 +11,7 @@ interface Rules {
 
 export default function useMaterialFileRules(): Rules {
   const { t } = useTranslation();
-  const { trimWhitespace } = useValidationRules();
+  const { trimWhitespace, fileSizeLimit } = useValidationRules();
 
   return {
     title: [
@@ -29,6 +29,7 @@ export default function useMaterialFileRules(): Rules {
         required: true,
         message: t('course_material.rules.file_required'),
       },
+      fileSizeLimit(),
     ],
   };
 }
