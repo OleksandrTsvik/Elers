@@ -9,6 +9,10 @@ public interface ICourseMaterialRepository
     Task<TEntity?> GetByIdAsync<TEntity>(Guid id, CancellationToken cancellationToken = default)
         where TEntity : CourseMaterial;
 
+    Task<List<string>> GetUniqueFileNamesByCourseTabIdAsync(
+        Guid tabId,
+        CancellationToken cancellationToken = default);
+
     Task AddAsync(CourseMaterial courseMaterial, CancellationToken cancellationToken = default);
 
     Task UpdateAsync(CourseMaterial courseMaterial, CancellationToken cancellationToken = default);

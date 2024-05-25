@@ -1,5 +1,6 @@
 using Application.Common.Interfaces;
 using Application.Common.Messaging;
+using Application.Common.Services;
 using Domain.Entities;
 using Domain.Errors;
 using Domain.Repositories;
@@ -12,15 +13,18 @@ public class DeleteCourseTabCommandHandler : ICommandHandler<DeleteCourseTabComm
     private readonly IUnitOfWork _unitOfWork;
     private readonly ICourseTabRepository _courseTabRepository;
     private readonly ICourseMaterialRepository _courseMaterialRepository;
+    private readonly IFileService _fileService;
 
     public DeleteCourseTabCommandHandler(
         IUnitOfWork unitOfWork,
         ICourseTabRepository courseTabRepository,
-        ICourseMaterialRepository courseMaterialRepository)
+        ICourseMaterialRepository courseMaterialRepository,
+        IFileService fileService)
     {
         _unitOfWork = unitOfWork;
         _courseTabRepository = courseTabRepository;
         _courseMaterialRepository = courseMaterialRepository;
+        _fileService = fileService;
     }
 
     public async Task<Result> Handle(DeleteCourseTabCommand request, CancellationToken cancellationToken)
@@ -32,9 +36,17 @@ public class DeleteCourseTabCommandHandler : ICommandHandler<DeleteCourseTabComm
             return CourseTabErrors.NotFound(request.TabId);
         }
 
-        _courseTabRepository.Remove(courseTab);
+        List<string> uniqueFileNames = await _courseMaterialRepository
+            .GetUniqueFileNamesByCourseTabIdAsync(courseTab.Id, cancellationToken);
 
-        await _courseMaterialRepository.RemoveRangeByCourseTabIdAsync(request.TabId, cancellationToken);
+        if (uniqueFileNames.Count != 0)
+        {
+            await _fileService.RemoveRangeAsync(uniqueFileNames, cancellationToken);
+        }
+
+        await _courseMaterialRepository.RemoveRangeByCourseTabIdAsync(courseTab.Id, cancellationToken);
+
+        _courseTabRepository.Remove(courseTab);
 
         await _unitOfWork.SaveChangesAsync(cancellationToken);
 
