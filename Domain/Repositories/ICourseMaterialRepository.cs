@@ -13,6 +13,10 @@ public interface ICourseMaterialRepository
         Guid tabId,
         CancellationToken cancellationToken = default);
 
+    Task<List<string>> GetUniqueFileNamesByCourseTabIdsAsync(
+        IEnumerable<Guid> tabIds,
+        CancellationToken cancellationToken = default);
+
     Task AddAsync(CourseMaterial courseMaterial, CancellationToken cancellationToken = default);
 
     Task UpdateAsync(CourseMaterial courseMaterial, CancellationToken cancellationToken = default);
@@ -21,5 +25,7 @@ public interface ICourseMaterialRepository
 
     Task RemoveRangeByCourseTabIdAsync(Guid tabId, CancellationToken cancellationToken = default);
 
-    Task RemoveRangeByCourseTabIdsAsync(List<Guid> tabIds, CancellationToken cancellationToken = default);
+    Task RemoveRangeByCourseTabIdsAsync(
+        IEnumerable<Guid> tabIds,
+        CancellationToken cancellationToken = default);
 }

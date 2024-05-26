@@ -85,6 +85,7 @@
     "title": "Заголовок"
   },
   "course_page": {
+    "confirm_delete": "Ви дійсно бажаєте видалити курс '{{title}}'?",
     "head_title": "Курс: {{title}}"
   },
   "error": {

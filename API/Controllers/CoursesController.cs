@@ -1,4 +1,5 @@
 using Application.Courses.CreateCourse;
+using Application.Courses.DeleteCourse;
 using Application.Courses.GetCourseById;
 using Application.Courses.GetCourseByIdToEdit;
 using Application.Courses.GetCourseByTabId;
@@ -95,6 +96,16 @@ public class CoursesController : ApiControllerBase
         CancellationToken cancellationToken)
     {
         var command = new UpdateCourseTabTypeCommand(id, request.TabType);
+
+        return HandleResult(await Sender.Send(command, cancellationToken));
+    }
+
+    [HttpDelete("{id:guid}")]
+    public async Task<IActionResult> DeleteCourse(
+        Guid id,
+        CancellationToken cancellationToken)
+    {
+        var command = new DeleteCourseCommand(id);
 
         return HandleResult(await Sender.Send(command, cancellationToken));
     }

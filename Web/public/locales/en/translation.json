@@ -85,6 +85,7 @@
     "title": "Title"
   },
   "course_page": {
+    "confirm_delete": "Are you sure you want to delete the course '{{title}}'?",
     "head_title": "Course: {{title}}"
   },
   "error": {

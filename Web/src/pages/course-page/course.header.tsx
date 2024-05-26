@@ -13,13 +13,13 @@ interface Props {
 }
 
 export default function CourseHeader({ courseId, title, description }: Props) {
-  const { getActionItems } = useCourseActions();
+  const courseActions = useCourseActions(courseId, title);
 
   return (
     <>
       <Flex justify="space-between" gap="small">
         <ResponsiveTitle className={styles.title}>{title}</ResponsiveTitle>
-        <SettingsDropdown items={getActionItems(courseId)} />
+        <SettingsDropdown items={courseActions} />
       </Flex>
       {description && (
         <Typography.Paragraph className={styles.description} type="secondary">

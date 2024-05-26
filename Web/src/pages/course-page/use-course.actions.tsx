@@ -1,18 +1,49 @@
+import { App } from 'antd';
 import { ItemType } from 'antd/es/menu/hooks/useItems';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
-export default function useCourseActions() {
+import { useDeleteCourseMutation } from '../../api/courses.api';
+import { DeleteIcon, EditIcon } from '../../components';
+import useDisplayError from '../../hooks/use-display-error';
+
+export default function useCourseActions(
+  courseId: string,
+  title: string,
+): ItemType[] {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
-  const getActionItems = (courseId: string): ItemType[] => [
+  const { modal } = App.useApp();
+  const { displayError } = useDisplayError();
+
+  const [deleteCourse] = useDeleteCourseMutation();
+
+  const handleDeleteClick = async () => {
+    await modal.confirm({
+      title: t('course_page.confirm_delete', { title }),
+      content: t('actions.confirm_delete'),
+      okButtonProps: { danger: true },
+      onOk: () =>
+        deleteCourse({ id: courseId })
+          .unwrap()
+          .then(() => navigate('/courses'))
+          .catch((error) => displayError(error)),
+    });
+  };
+
+  return [
     {
-      key: '1',
+      key: 'edit',
+      icon: <EditIcon />,
       label: t('actions.edit'),
       onClick: () => navigate(`/courses/edit/${courseId}`),
     },
+    {
+      key: 'delete',
+      icon: <DeleteIcon />,
+      label: t('actions.delete'),
+      onClick: handleDeleteClick,
+    },
   ];
-
-  return { getActionItems };
 }
