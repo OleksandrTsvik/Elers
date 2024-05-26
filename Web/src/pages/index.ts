@@ -9,6 +9,7 @@ import MaterialLinkCreationPage from './material-link-creation-page/material-lin
 import MaterialLinkEditPage from './material-link-edit-page/material-link-edit.page';
 import MyCoursesPage from './my-courses-page/my-courses.page';
 import NotFoundPage from './not-found-page/not-found.page';
+import PdfPage from './pdf-page/pdf.page';
 import PermissionsPage from './permissions-page/permissions.page';
 import RoleCreationPage from './role-creation-page/role-creation.page';
 import RoleEditPage from './role-edit-page/role-edit.page';
@@ -28,6 +29,7 @@ export {
   MaterialLinkCreationPage,
   MaterialLinkEditPage,
   MyCoursesPage,
+  PdfPage,
   PermissionsPage,
   NotFoundPage,
   RoleCreationPage,

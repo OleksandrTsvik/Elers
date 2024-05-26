@@ -6,8 +6,10 @@ import PrivateOutlet from './outlets/private.outlet';
 import { privateRoutes } from './private.routes';
 import { publicRoutes } from './public.routes';
 import LayoutPage from '../layout/layout.page';
+import { PdfPage } from '../pages';
 
 const routes: RouteObject[] = [
+  { path: '/pdf/*', element: <PdfPage /> },
   {
     path: '/',
     element: <LayoutPage />,

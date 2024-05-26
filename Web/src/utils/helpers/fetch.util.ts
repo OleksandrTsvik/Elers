@@ -1,7 +1,5 @@
 import { REACT_APP_API_URL } from '../constants/node-env.constants';
 
-export type FetchInput = string | Request | URL;
-
 export type AsyncStatusOk<T> = {
   status: 'ok';
   data: T;
@@ -15,10 +13,10 @@ export type AsyncStatusFailed = {
 export type AsyncStatus<T> = AsyncStatusOk<T> | AsyncStatusFailed;
 
 export async function baseFetch(
-  input: FetchInput,
+  input: string,
   init?: RequestInit,
 ): Promise<Response> {
-  const response = await fetch(input, {
+  const response = await fetch(REACT_APP_API_URL + input, {
     credentials: 'include',
     ...init,
   });
@@ -27,20 +25,17 @@ export async function baseFetch(
 }
 
 export async function fetchWithReauth(
-  input: FetchInput,
+  input: string,
   init?: RequestInit,
 ): Promise<Response> {
   let response = await baseFetch(input, init);
 
   if (response.status === 401) {
-    const refreshResponse = await baseFetch(
-      REACT_APP_API_URL + '/auth/refresh',
-      {
-        headers: { 'Content-Type': 'application/json' },
-        method: 'PUT',
-        body: JSON.stringify({}),
-      },
-    );
+    const refreshResponse = await baseFetch('/auth/refresh', {
+      headers: { 'Content-Type': 'application/json' },
+      method: 'PUT',
+      body: JSON.stringify({}),
+    });
 
     if (refreshResponse.ok) {
       response = await baseFetch(input, init);
@@ -51,11 +46,14 @@ export async function fetchWithReauth(
 }
 
 export async function fetchBlob(
-  input: FetchInput,
+  input: string,
   init?: RequestInit,
 ): Promise<AsyncStatus<Blob>> {
+  let statusCode: number = 500;
+
   try {
     const response = await fetchWithReauth(input, init);
+    statusCode = response.status;
 
     if (!response.ok) {
       return { status: 'failed', error: await response.json() };
@@ -63,6 +61,6 @@ export async function fetchBlob(
 
     return { status: 'ok', data: await response.blob() };
   } catch (error) {
-    return { status: 'failed', error: undefined };
+    return { status: 'failed', error: { status: statusCode } };
   }
 }

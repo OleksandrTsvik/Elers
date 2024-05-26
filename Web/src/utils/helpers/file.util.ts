@@ -3,7 +3,7 @@ import { EventArgs } from 'rc-field-form/es/interface';
 
 import { isObject } from './type-guards.util';
 
-export function handleDownloadFile(link: string, fileName: string) {
+export function downloadFileByLink(link: string, fileName: string) {
   const a = document.createElement('a');
   a.href = link;
   a.download = fileName;
@@ -13,7 +13,7 @@ export function handleDownloadFile(link: string, fileName: string) {
   document.body.removeChild(a);
 }
 
-export function handleDownloadBlob(file: Blob, fileName: string) {
+export function downloadFileByBlob(file: Blob, fileName: string) {
   const url = URL.createObjectURL(file);
 
   const a = document.createElement('a');
@@ -25,6 +25,16 @@ export function handleDownloadBlob(file: Blob, fileName: string) {
 
   document.body.removeChild(a);
   URL.revokeObjectURL(url);
+}
+
+export function openFilePdfByLink(link: string) {
+  const a = document.createElement('a');
+  a.href = link;
+  a.target = '_blank';
+
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
 }
 
 export function getFileListFromEvent(event: EventArgs): UploadFile[] {
