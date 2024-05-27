@@ -31,6 +31,7 @@ export function MaterialContentEditor({
       <Button
         className={classnames('right-btn', 'mt-field')}
         type="primary"
+        disabled={!text}
         loading={isLoading}
         onClick={handleSubmit}
       >
