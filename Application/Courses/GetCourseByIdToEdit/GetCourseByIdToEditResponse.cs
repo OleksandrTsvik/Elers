@@ -8,7 +8,7 @@ public class GetCourseByIdToEditResponse<TCourseTab>
     public required Guid Id { get; init; }
     public required string Title { get; init; }
     public required string? Description { get; init; }
-    public required string? PhotoUrl { get; init; }
+    public required string? ImageUrl { get; init; }
     public required CourseTabType TabType { get; init; }
     public required TCourseTab[] CourseTabs { get; init; }
 }

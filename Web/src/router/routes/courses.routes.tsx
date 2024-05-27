@@ -1,5 +1,10 @@
 import { RoutesType } from './routes-type.interface';
-import { CourseEditPage, CoursePage, MyCoursesPage } from '../../pages';
+import {
+  CourseChangeImagePage,
+  CourseEditPage,
+  CoursePage,
+  MyCoursesPage,
+} from '../../pages';
 
 export const coursesRoutes: RoutesType = {
   private: {
@@ -7,6 +12,7 @@ export const coursesRoutes: RoutesType = {
     children: [
       { index: true, element: <MyCoursesPage /> },
       { path: 'edit/:courseId', element: <CourseEditPage /> },
+      { path: 'change-image/:courseId', element: <CourseChangeImagePage /> },
     ],
   },
   public: {

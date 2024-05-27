@@ -34,13 +34,25 @@ Fill in the `appsettings.json` file with the following required fields:
     "Key": "",
     "BucketName": ""
   },
+  "Cloudinary": {
+    "CloudName": "",
+    "ApiKey": "",
+    "ApiSecret": ""
+  },
   "FileSettings": {
-    "SizeLimit": 0
+    "SizeLimit": 0,
+    "ImageSizeLimit": 0
   }
 }
 ```
 
-> **NOTE:** You must have a [Supabase](https://supabase.com/) account.
+> **NOTES:**
+>
+> For MongoDB, you can use [MongoDB Atlas](https://www.mongodb.com/docs/atlas).
+>
+> You must have a [Supabase](https://supabase.com/) account.
+>
+> You must have a [Cloudinary](https://cloudinary.com/) account.
 
 Then, create EF Migrations and database:
 

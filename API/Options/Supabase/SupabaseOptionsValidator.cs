@@ -3,9 +3,9 @@ using Infrastructure.SupabaseSetup;
 
 namespace API.Options.Supabase;
 
-public class SupabaseOptionsValidator : AbstractValidator<SupabaseSettingsOptions>
+public class SupabaseSettingsValidator : AbstractValidator<SupabaseSettings>
 {
-    public SupabaseOptionsValidator()
+    public SupabaseSettingsValidator()
     {
         RuleFor(x => x.Url).NotEmpty();
 

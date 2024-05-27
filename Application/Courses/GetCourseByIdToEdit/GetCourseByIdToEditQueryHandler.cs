@@ -39,7 +39,7 @@ public class GetCourseByIdToEditQueryHandler
             Id = courseDto.Id,
             Title = courseDto.Title,
             Description = courseDto.Description,
-            PhotoUrl = courseDto.PhotoUrl,
+            ImageUrl = courseDto.ImageUrl,
             TabType = courseDto.TabType,
             CourseTabs = courseDto.CourseTabs
                 .Select(courseTab => new CourseTabToEditResponse

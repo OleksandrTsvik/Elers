@@ -1,6 +1,7 @@
 using API.Options;
 using API.Options.Jwt;
 using Infrastructure.Authentication;
+using Infrastructure.CloudinarySetup;
 using Infrastructure.Files;
 using Infrastructure.SupabaseSetup;
 using Persistence.Options;
@@ -13,16 +14,19 @@ public static class ApiOptionsExtensions
     {
         services.ConfigureOptions<JwtBearerOptionsSetup>();
 
-        services.AddOptionsWithFluentValidation<DatabaseSettingsOptions>(
+        services.AddOptionsWithFluentValidation<DatabaseSettings>(
             ConfigurationSections.DatabaseSettings);
 
         services.AddOptionsWithFluentValidation<JwtOptions>(
             ConfigurationSections.Jwt);
 
-        services.AddOptionsWithFluentValidation<SupabaseSettingsOptions>(
+        services.AddOptionsWithFluentValidation<SupabaseSettings>(
             ConfigurationSections.Supabase);
 
-        services.AddOptionsWithFluentValidation<FileSettingsOptions>(
+        services.AddOptionsWithFluentValidation<CloudinarySettings>(
+            ConfigurationSections.Cloudinary);
+
+        services.AddOptionsWithFluentValidation<FileSettings>(
             ConfigurationSections.FileSettings);
 
         return services;

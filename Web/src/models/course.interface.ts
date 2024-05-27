@@ -5,14 +5,14 @@ export interface CourseListItem {
   id: string;
   title: string;
   description?: string;
-  photoUrl?: string;
+  imageUrl?: string;
 }
 
 export interface Course {
   id: string;
   title: string;
   description?: string;
-  photoUrl?: string;
+  imageUrl?: string;
   tabType: CourseTabType;
   courseTabs: CourseTab[];
 }

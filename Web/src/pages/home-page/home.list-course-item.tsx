@@ -27,7 +27,7 @@ export default function HomeListCourseItem({ courseItem }: Props) {
       extra={
         <Image
           width={248}
-          src={courseItem.photoUrl || courseImage}
+          src={courseItem.imageUrl || courseImage}
           alt={courseItem.title}
         />
       }

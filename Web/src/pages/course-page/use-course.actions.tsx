@@ -1,3 +1,4 @@
+import { PictureOutlined } from '@ant-design/icons';
 import { App } from 'antd';
 import { ItemType } from 'antd/es/menu/hooks/useItems';
 import { useTranslation } from 'react-i18next';
@@ -38,6 +39,12 @@ export default function useCourseActions(
       icon: <EditIcon />,
       label: t('actions.edit'),
       onClick: () => navigate(`/courses/edit/${courseId}`),
+    },
+    {
+      key: 'change-image',
+      icon: <PictureOutlined />,
+      label: t('actions.change_image'),
+      onClick: () => navigate(`/courses/change-image/${courseId}`),
     },
     {
       key: 'delete',

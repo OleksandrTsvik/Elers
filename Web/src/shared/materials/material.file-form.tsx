@@ -1,9 +1,9 @@
-import { InboxOutlined } from '@ant-design/icons';
-import { Button, Form, Input, Upload, UploadFile } from 'antd';
+import { Button, Form, Input, UploadFile } from 'antd';
 import { useTranslation } from 'react-i18next';
 
 import useMaterialFileRules from './use-material-file.rules';
 import { ErrorForm } from '../../common/error';
+import { FileDropzone } from '../../common/file-upload';
 import { COURSE_MATERIAL_RULES } from '../../common/rules';
 import { FILE_SIZE_LIMIT_MB } from '../../utils/constants/app.constants';
 import { getFileListFromEvent } from '../../utils/helpers';
@@ -72,17 +72,7 @@ export function MaterialFileForm({
         rules={rules.file}
         getValueFromEvent={getFileListFromEvent}
       >
-        <Upload.Dragger maxCount={1} listType="text" beforeUpload={() => false}>
-          <p className="ant-upload-drag-icon">
-            <InboxOutlined />
-          </p>
-          <p className="ant-upload-text">
-            {t('course_material.file_upload_area')}
-          </p>
-          <p className="ant-upload-hint">
-            Максимальний розмір файлу {FILE_SIZE_LIMIT_MB} MB.
-          </p>
-        </Upload.Dragger>
+        <FileDropzone fileSizeLimitMb={FILE_SIZE_LIMIT_MB} />
       </Form.Item>
 
       <Form.Item className="text-right">

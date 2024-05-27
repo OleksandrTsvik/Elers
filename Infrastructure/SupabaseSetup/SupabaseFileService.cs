@@ -15,11 +15,11 @@ public class SupabaseFileService : IFileService
 
     public SupabaseFileService(
         Supabase.Client client,
-        IOptions<SupabaseSettingsOptions> supabaseSettingsOptions,
+        IOptions<SupabaseSettings> supabaseSettings,
         IFileValidator fileValidator)
     {
         _client = client;
-        _bucketName = supabaseSettingsOptions.Value.BucketName;
+        _bucketName = supabaseSettings.Value.BucketName;
         _fileValidator = fileValidator;
     }
 

@@ -28,6 +28,7 @@ public static class ErrorCodes
     {
         public const string Empty = "Files.Empty";
         public const string SizeLimit = "Files.SizeLimit";
+        public const string InvalidImage = "Files.InvalidImage";
     }
 
     public static class RefreshTokens

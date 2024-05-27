@@ -29,7 +29,7 @@ internal class CourseQueries : ICourseQueries
                 Id = x.Id,
                 Title = x.Title,
                 Description = x.Description,
-                PhotoUrl = x.PhotoUrl,
+                ImageUrl = x.ImageUrl,
                 TabType = x.TabType,
                 CourseTabs = x.CourseTabs
                     .Where(courseTab => courseTab.IsActive)
@@ -61,7 +61,7 @@ internal class CourseQueries : ICourseQueries
                 Id = x.Id,
                 Title = x.Title,
                 Description = x.Description,
-                PhotoUrl = x.PhotoUrl,
+                ImageUrl = x.ImageUrl,
                 TabType = x.TabType,
                 CourseTabs = x.CourseTabs
                     .Select(courseTab => new CourseTabToEditResponseDto
@@ -105,7 +105,7 @@ internal class CourseQueries : ICourseQueries
                 Id = x.Id,
                 Title = x.Title,
                 Description = x.Description,
-                PhotoUrl = x.PhotoUrl
+                ImageUrl = x.ImageUrl
             })
             .OrderBy(x => x.Title)
             .ToArrayAsync(cancellationToken);

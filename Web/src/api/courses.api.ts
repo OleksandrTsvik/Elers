@@ -83,6 +83,22 @@ export const coursesApi = createApi({
       }),
       invalidatesTags: ['Course'],
     }),
+    changeCourseImage: builder.mutation<
+      void,
+      { id: string; image: Blob; filename?: string }
+    >({
+      query: ({ id, image, filename }) => {
+        const formData = new FormData();
+        formData.append('image', image, filename);
+
+        return {
+          url: `/courses/image/${id}`,
+          method: 'PATCH',
+          body: formData,
+        };
+      },
+      invalidatesTags: ['CourseList'],
+    }),
     deleteCourse: builder.mutation<void, { id: string }>({
       query: ({ id }) => ({
         url: `/courses/${id}`,
@@ -102,5 +118,6 @@ export const {
   useUpdateCourseTitleMutation,
   useUpdateCourseDescriptionMutation,
   useUpdateCourseTabTypeMutation,
+  useChangeCourseImageMutation,
   useDeleteCourseMutation,
 } = coursesApi;

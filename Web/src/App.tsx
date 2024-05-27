@@ -9,6 +9,8 @@ import { store } from './store';
 import AntdProvider from './utils/antd/antd.provider';
 import './utils/ckeditor/ckeditor.provider';
 
+import 'cropperjs/dist/cropper.css';
+
 export default function App() {
   return (
     <Provider store={store}>

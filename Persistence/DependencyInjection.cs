@@ -36,7 +36,7 @@ public static class DependencyInjection
         services.AddDbContext<ApplicationDbContext>((sp, options) =>
         {
             ApplicationDbSettings applicationDbSettings = sp.GetRequiredService<
-                IOptions<DatabaseSettingsOptions>>().Value.ApplicationDb;
+                IOptions<DatabaseSettings>>().Value.ApplicationDb;
 
             options.UseNpgsql(
                 applicationDbSettings.ConnectionString,
@@ -55,7 +55,7 @@ public static class DependencyInjection
         services.AddSingleton<IMongoClient, MongoClient>(sp =>
         {
             MongoDbSettings mongoDbSettings = sp.GetRequiredService<
-                IOptions<DatabaseSettingsOptions>>().Value.MongoDb;
+                IOptions<DatabaseSettings>>().Value.MongoDb;
 
             return new MongoClient(mongoDbSettings.ConnectionString);
         });
@@ -63,7 +63,7 @@ public static class DependencyInjection
         services.AddSingleton<IMongoDatabase>(sp =>
         {
             MongoDbSettings mongoDbSettings = sp.GetRequiredService<
-                IOptions<DatabaseSettingsOptions>>().Value.MongoDb;
+                IOptions<DatabaseSettings>>().Value.MongoDb;
 
             IMongoClient mongoClient = sp.GetRequiredService<IMongoClient>();
 

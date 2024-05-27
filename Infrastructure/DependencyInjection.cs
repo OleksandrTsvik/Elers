@@ -1,6 +1,7 @@
 using Application.Common.Interfaces;
 using Application.Common.Services;
 using Infrastructure.Authentication;
+using Infrastructure.CloudinarySetup;
 using Infrastructure.Files;
 using Infrastructure.Localization;
 using Infrastructure.SupabaseSetup;
@@ -68,8 +69,7 @@ public static class DependencyInjection
     {
         services.AddScoped<Supabase.Client>(sp =>
         {
-            SupabaseSettingsOptions supabaseSettings = sp.GetRequiredService<
-                IOptions<SupabaseSettingsOptions>>().Value;
+            SupabaseSettings supabaseSettings = sp.GetRequiredService<IOptions<SupabaseSettings>>().Value;
 
             return new Supabase.Client(
                 supabaseSettings.Url,
@@ -87,11 +87,14 @@ public static class DependencyInjection
     {
         services.AddScoped<IFileValidator, FileValidator>();
 
-        // Local storage of files on the server
+        // Local storage of files and images on the server
         // services.AddScoped<IFolderService, FolderService>();
         // services.AddScoped<IFileService, FileService>();
+        // services.AddScoped<IImageService, ImageService>();
 
         services.AddScoped<IFileService, SupabaseFileService>();
+
+        services.AddScoped<IImageService, CloudinaryImageService>();
 
         return services;
     }

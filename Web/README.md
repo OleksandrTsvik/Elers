@@ -1,6 +1,6 @@
 # Elers/Web
 
-This project is a user interface for the Elers project, developed using `React` + `TypeScript` + `Vite` + `RTK` + `Antd` + `i18next` + `ckeditor5`.
+This project is a user interface for the Elers project, developed using `React` + `TypeScript` + `Vite` + `RTK` + `Antd` + `i18next` + `ckeditor5` + `react-cropper`.
 
 ## Running Locally
 
@@ -60,7 +60,7 @@ rm -rf ckeditor5 && npm uninstall --save @ckeditor/ckeditor5-react ckeditor5-cus
 1. Go to the CKEditor 5 [online builder](https://ckeditor.com/ckeditor-5/online-builder/).
 2. Step 2: Make sure the **Watchdog** plugin is not selected.
 3. Step 4: Choose **Ukrainian** as the default editor language.
-4. Download the generated build *(.zip)* and unpack it in the root of the project and name the directory as `ckeditor5`.
+4. Download the generated build _(.zip)_ and unpack it in the root of the project and name the directory as `ckeditor5`.
 5. Install ckeditor5 for React:
 
 ```sh
@@ -79,3 +79,9 @@ npm add file:./ckeditor5
 - [Using css properties, you can customize the color mode of the editor.](https://ckeditor.com/docs/ckeditor5/latest/examples/framework/theme-customization.html)
 - [Add the `ck-content` class to your content container to make ckeditor5 styles work.](https://ckeditor.com/docs/ckeditor5/latest/installation/advanced/content-styles.html#the-full-list-of-content-styles)
 - [Configure image upload to your own api.](https://ckeditor.com/docs/ckeditor5/latest/features/images/image-upload/simple-upload-adapter.html)
+
+## react-cropper
+
+### Useful information:
+
+- [Cropper.js options.](https://github.com/fengyuanchen/cropperjs?tab=readme-ov-file#options)

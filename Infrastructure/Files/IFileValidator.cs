@@ -6,4 +6,6 @@ namespace Infrastructure.Files;
 public interface IFileValidator
 {
     Result Validate(IFile file);
+
+    Result ValidateImage(IFile image);
 }

@@ -1,11 +1,11 @@
 using FluentValidation;
 using Persistence.Options;
 
-namespace API.Options.DatabaseSettings;
+namespace API.Options.Database;
 
-public class DatabaseSettingsOptionsValidator : AbstractValidator<DatabaseSettingsOptions>
+public class DatabaseSettingsValidator : AbstractValidator<DatabaseSettings>
 {
-    public DatabaseSettingsOptionsValidator()
+    public DatabaseSettingsValidator()
     {
         RuleFor(x => x.ApplicationDb).NotEmpty();
 

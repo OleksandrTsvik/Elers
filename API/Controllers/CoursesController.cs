@@ -1,3 +1,5 @@
+using API.Contracts;
+using Application.Courses.ChangeCourseImage;
 using Application.Courses.CreateCourse;
 using Application.Courses.DeleteCourse;
 using Application.Courses.GetCourseById;
@@ -7,6 +9,7 @@ using Application.Courses.GetListCourses;
 using Application.Courses.UpdateCourseDescription;
 using Application.Courses.UpdateCourseTabType;
 using Application.Courses.UpdateCourseTitle;
+using Infrastructure.Files;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -96,6 +99,19 @@ public class CoursesController : ApiControllerBase
         CancellationToken cancellationToken)
     {
         var command = new UpdateCourseTabTypeCommand(id, request.TabType);
+
+        return HandleResult(await Sender.Send(command, cancellationToken));
+    }
+
+    [HttpPatch("image/{id:guid}")]
+    public async Task<IActionResult> ChangeCourseImage(
+        Guid id,
+        [FromForm] ChangeCourseImageRequest request,
+        CancellationToken cancellationToken)
+    {
+        var command = new ChangeCourseImageCommand(
+            id,
+            new FormFileProxy(request.Image));
 
         return HandleResult(await Sender.Send(command, cancellationToken));
     }
