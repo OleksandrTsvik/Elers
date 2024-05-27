@@ -56,6 +56,8 @@
     "title": "Title"
   },
   "course_change_image_page": {
+    "confirm_delete": "Are you sure you want to delete the course image?",
+    "delete_image": "Delete image",
     "head_title": "Change the image",
     "title": "Change the image"
   },

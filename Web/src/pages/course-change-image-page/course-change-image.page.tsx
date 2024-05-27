@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import CourseChangeImageBreadcrumb from './course-change-image.breadcrumb';
 import CourseChangeImageHead from './course-change-image.head';
 import CourseChangeImageWidget from './course-change-image.widget';
+import CourseDeleteImageButton from './course-delete-image.button';
 import { useGetCourseByIdQuery } from '../../api/courses.api';
 import { NavigateToNotFound } from '../../common/navigate';
 
@@ -23,6 +24,7 @@ export default function CourseChangeImagePage() {
     <>
       <CourseChangeImageHead />
       <CourseChangeImageBreadcrumb courseId={data.id} title={data.title} />
+      <CourseDeleteImageButton courseId={data.id} disabled={!data.imageUrl} />
       <CourseChangeImageWidget courseId={data.id} />
     </>
   );

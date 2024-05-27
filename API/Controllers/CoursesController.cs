@@ -2,6 +2,7 @@ using API.Contracts;
 using Application.Courses.ChangeCourseImage;
 using Application.Courses.CreateCourse;
 using Application.Courses.DeleteCourse;
+using Application.Courses.DeleteCourseImage;
 using Application.Courses.GetCourseById;
 using Application.Courses.GetCourseByIdToEdit;
 using Application.Courses.GetCourseByTabId;
@@ -112,6 +113,16 @@ public class CoursesController : ApiControllerBase
         var command = new ChangeCourseImageCommand(
             id,
             new FormFileProxy(request.Image));
+
+        return HandleResult(await Sender.Send(command, cancellationToken));
+    }
+
+    [HttpDelete("image/{id:guid}")]
+    public async Task<IActionResult> DeleteCourseImage(
+        Guid id,
+        CancellationToken cancellationToken)
+    {
+        var command = new DeleteCourseImageCommand(id);
 
         return HandleResult(await Sender.Send(command, cancellationToken));
     }
