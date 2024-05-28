@@ -3,6 +3,7 @@ import {
   MaterialContentCreationPage,
   MaterialContentEditPage,
   MaterialFileCreationPage,
+  MaterialFileEditPage,
   MaterialLinkCreationPage,
   MaterialLinkEditPage,
 } from '../../pages';
@@ -24,6 +25,7 @@ export const courseMaterialsRoutes: RoutesType = {
         children: [
           { path: ':tabId/content/:id', element: <MaterialContentEditPage /> },
           { path: ':tabId/link/:id', element: <MaterialLinkEditPage /> },
+          { path: ':tabId/file/:id', element: <MaterialFileEditPage /> },
         ],
       },
     ],

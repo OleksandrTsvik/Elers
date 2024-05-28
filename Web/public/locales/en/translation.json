@@ -149,6 +149,10 @@
     "head_title": "Adding a file",
     "title": "Adding a file"
   },
+  "material_file_edit_page": {
+    "head_title": "Editing a file",
+    "title": "Editing a file"
+  },
   "material_link_creation_page": {
     "head_title": "Adding a link",
     "title": "Adding a link"

@@ -149,6 +149,10 @@
     "head_title": "Додавання файлу",
     "title": "Додавання файлу"
   },
+  "material_file_edit_page": {
+    "head_title": "Редагування файлу",
+    "title": "Редагування файлу"
+  },
   "material_link_creation_page": {
     "head_title": "Додавання посилання",
     "title": "Додавання посилання"

@@ -5,6 +5,7 @@ import useMaterialFileRules from './use-material-file.rules';
 import { ErrorForm } from '../../common/error';
 import { FileDropzone } from '../../common/file-upload';
 import { COURSE_MATERIAL_RULES } from '../../common/rules';
+import { FormMode } from '../../common/types';
 import { FILE_SIZE_LIMIT_MB } from '../../utils/constants/app.constants';
 import { getFileListFromEvent } from '../../utils/helpers';
 
@@ -19,6 +20,7 @@ export interface MaterialFileSubmitValues {
 }
 
 interface Props {
+  mode: FormMode;
   initialValues: MaterialFileFormValues;
   textOnSubmitButton: string;
   isLoading: boolean;
@@ -27,6 +29,7 @@ interface Props {
 }
 
 export function MaterialFileForm({
+  mode,
   initialValues,
   textOnSubmitButton,
   isLoading,
@@ -36,14 +39,21 @@ export function MaterialFileForm({
   const { t } = useTranslation();
 
   const [form] = Form.useForm<MaterialFileFormValues>();
-  const rules = useMaterialFileRules();
+  const rules = useMaterialFileRules(mode);
 
   const handleFinish = async ({ title, files }: MaterialFileFormValues) => {
-    if (!files.length) {
-      return;
-    }
+    switch (mode) {
+      case FormMode.Edit:
+        await onSubmit({ title, file: files[0] }); // files[0] - can be undefined
+        break;
+      case FormMode.Creation:
+        if (!files.length) {
+          return;
+        }
 
-    await onSubmit({ title, file: files[0] });
+        await onSubmit({ title, file: files[0] });
+        break;
+    }
   };
 
   return (

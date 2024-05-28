@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
-import { useCreateCourseMaterialFileMutation } from '../../api/course-materials.api';
+import { useUpdateCourseMaterialFileMutation } from '../../api/course-materials.api';
 import { FormMode } from '../../common/types';
 import {
   CourseTabType,
@@ -12,23 +12,27 @@ import {
 
 interface Props {
   courseId: string;
+  courseMaterialId: string;
   tabId: string;
   courseTabType: CourseTabType;
+  fileTitle: string;
 }
 
-export default function MaterialFileCreationForm({
+export default function MaterialFileEditForm({
   courseId,
+  courseMaterialId,
   tabId,
   courseTabType,
+  fileTitle,
 }: Props) {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
-  const [createCourseMaterial, { isLoading, error }] =
-    useCreateCourseMaterialFileMutation();
+  const [updateCourseMaterial, { isLoading, error }] =
+    useUpdateCourseMaterialFileMutation();
 
   const handleSubmit = async (values: MaterialFileSubmitValues) => {
-    await createCourseMaterial({ tabId, ...values })
+    await updateCourseMaterial({ id: courseMaterialId, ...values })
       .unwrap()
       .then(() =>
         navigate(getCourseEditPagePath(courseId, tabId, courseTabType)),
@@ -37,9 +41,9 @@ export default function MaterialFileCreationForm({
 
   return (
     <MaterialFileForm
-      mode={FormMode.Creation}
-      initialValues={{ title: '', files: [] }}
-      textOnSubmitButton={t('actions.add')}
+      mode={FormMode.Edit}
+      initialValues={{ title: fileTitle, files: [] }}
+      textOnSubmitButton={t('actions.save_changes')}
       isLoading={isLoading}
       error={error}
       onSubmit={handleSubmit}

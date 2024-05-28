@@ -6,6 +6,7 @@ import LoginPage from './login-page/login.page';
 import MaterialContentCreationPage from './material-content-creation-page/material-content-creation.page';
 import MaterialContentEditPage from './material-content-edit-page/material-content-edit.page';
 import MaterialFileCreationPage from './material-file-creation-page/material-file-creation.page';
+import MaterialFileEditPage from './material-file-edit-page/material-file-edit.page';
 import MaterialLinkCreationPage from './material-link-creation-page/material-link-creation.page';
 import MaterialLinkEditPage from './material-link-edit-page/material-link-edit.page';
 import MyCoursesPage from './my-courses-page/my-courses.page';
@@ -28,6 +29,7 @@ export {
   MaterialContentCreationPage,
   MaterialContentEditPage,
   MaterialFileCreationPage,
+  MaterialFileEditPage,
   MaterialLinkCreationPage,
   MaterialLinkEditPage,
   MyCoursesPage,

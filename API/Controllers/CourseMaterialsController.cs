@@ -5,11 +5,13 @@ using Application.CourseMaterials.CreateCourseMaterialLink;
 using Application.CourseMaterials.DeleteCourseMaterial;
 using Application.CourseMaterials.DownloadCourseMaterialFile;
 using Application.CourseMaterials.GetCourseMaterialContent;
+using Application.CourseMaterials.GetCourseMaterialFile;
 using Application.CourseMaterials.GetCourseMaterialLink;
 using Application.CourseMaterials.GetListCourseMaterialsByTabId;
 using Application.CourseMaterials.GetListCourseMaterialsByTabIdToEdit;
 using Application.CourseMaterials.UpdateCourseMaterialActive;
 using Application.CourseMaterials.UpdateCourseMaterialContent;
+using Application.CourseMaterials.UpdateCourseMaterialFile;
 using Application.CourseMaterials.UpdateCourseMaterialLink;
 using Infrastructure.Files;
 using Microsoft.AspNetCore.Mvc;
@@ -60,6 +62,17 @@ public class CourseMaterialsController : ApiControllerBase
         return HandleResult(await Sender.Send(query, cancellationToken));
     }
 
+    [HttpGet("{tabId:guid}/file/{id:guid}")]
+    public async Task<IActionResult> GetCourseMaterialFile(
+        Guid tabId,
+        Guid id,
+        CancellationToken cancellationToken)
+    {
+        var query = new GetCourseMaterialFileQuery(tabId, id);
+
+        return HandleResult(await Sender.Send(query, cancellationToken));
+    }
+
     [HttpPost("content/{tabId:guid}")]
     public async Task<IActionResult> CreateCourseMaterialContent(
         Guid tabId,
@@ -93,13 +106,13 @@ public class CourseMaterialsController : ApiControllerBase
         return HandleResult(await Sender.Send(command, cancellationToken));
     }
 
-    [HttpPut("link/{tabId:guid}")]
+    [HttpPut("link/{id:guid}")]
     public async Task<IActionResult> UpdateCourseMaterialLink(
-        Guid tabId,
+        Guid id,
         [FromBody] UpdateCourseMaterialLinkRequest request,
         CancellationToken cancellationToken)
     {
-        var command = new UpdateCourseMaterialLinkCommand(tabId, request.Title, request.Link);
+        var command = new UpdateCourseMaterialLinkCommand(id, request.Title, request.Link);
 
         return HandleResult(await Sender.Send(command, cancellationToken));
     }
@@ -124,6 +137,20 @@ public class CourseMaterialsController : ApiControllerBase
             tabId,
             request.Title,
             new FormFileProxy(request.File));
+
+        return HandleResult(await Sender.Send(command, cancellationToken));
+    }
+
+    [HttpPut("file/{id:guid}")]
+    public async Task<IActionResult> UpdateCourseMaterialFile(
+        Guid id,
+        [FromForm] UpdateCourseMaterialFileRequest request,
+        CancellationToken cancellationToken)
+    {
+        var command = new UpdateCourseMaterialFileCommand(
+            id,
+            request.Title,
+            request.File is not null ? new FormFileProxy(request.File) : null);
 
         return HandleResult(await Sender.Send(command, cancellationToken));
     }

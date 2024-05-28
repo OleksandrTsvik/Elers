@@ -21,6 +21,10 @@ interface GetCourseMaterialLinkResponse extends GetCourseMaterialResponse {
   link: string;
 }
 
+interface GetCourseMaterialFileResponse extends GetCourseMaterialResponse {
+  fileTitle: string;
+}
+
 interface CreateCourseMaterialContentRequest {
   tabId: string;
   content: string;
@@ -49,6 +53,12 @@ interface CreateCourseMaterialFileRequest {
   file: UploadFile;
 }
 
+interface UpdateCourseMaterialFileRequest {
+  id: string;
+  title: string;
+  file?: UploadFile;
+}
+
 export const courseMaterialsApi = coursesApi.injectEndpoints({
   overrideExisting: false,
   endpoints: (builder) => ({
@@ -67,6 +77,15 @@ export const courseMaterialsApi = coursesApi.injectEndpoints({
     >({
       query: ({ tabId, id }) => ({
         url: `/courseMaterials/${tabId}/link/${id}`,
+      }),
+      providesTags: ['CourseMaterialList'],
+    }),
+    getCourseMaterialFile: builder.query<
+      GetCourseMaterialFileResponse,
+      { tabId?: string; id?: string }
+    >({
+      query: ({ tabId, id }) => ({
+        url: `/courseMaterials/${tabId}/file/${id}`,
       }),
       providesTags: ['CourseMaterialList'],
     }),
@@ -149,6 +168,26 @@ export const courseMaterialsApi = coursesApi.injectEndpoints({
       },
       invalidatesTags: ['Course', 'CourseMaterialList'],
     }),
+    updateCourseMaterialFile: builder.mutation<
+      string,
+      UpdateCourseMaterialFileRequest
+    >({
+      query: ({ id, ...data }) => {
+        const formData = new FormData();
+        formData.append('title', data.title);
+
+        if (data.file) {
+          formData.append('file', data.file.originFileObj as Blob);
+        }
+
+        return {
+          url: `/courseMaterials/file/${id}`,
+          method: 'PUT',
+          body: formData,
+        };
+      },
+      invalidatesTags: ['Course', 'CourseMaterialList'],
+    }),
     updateCourseMaterialActive: builder.mutation<
       void,
       { id: string; isActive: boolean }
@@ -173,6 +212,7 @@ export const courseMaterialsApi = coursesApi.injectEndpoints({
 export const {
   useGetCourseMaterialContentQuery,
   useGetCourseMaterialLinkQuery,
+  useGetCourseMaterialFileQuery,
   useGetListCourseMaterialsByTabIdQuery,
   useGetListCourseMaterialsByTabIdToEditQuery,
   useCreateCourseMaterialContentMutation,
@@ -180,6 +220,7 @@ export const {
   useCreateCourseMaterialLinkMutation,
   useUpdateCourseMaterialLinkMutation,
   useCreateCourseMaterialFileMutation,
+  useUpdateCourseMaterialFileMutation,
   useUpdateCourseMaterialActiveMutation,
   useDeleteCourseMaterialMutation,
 } = courseMaterialsApi;

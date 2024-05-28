@@ -2,6 +2,7 @@ import { Rule } from 'antd/es/form';
 import { useTranslation } from 'react-i18next';
 
 import { COURSE_MATERIAL_RULES } from '../../common/rules';
+import { FormMode } from '../../common/types';
 import useValidationRules from '../../hooks/use-validation-rules';
 
 interface Rules {
@@ -9,11 +10,11 @@ interface Rules {
   file: Rule[];
 }
 
-export default function useMaterialFileRules(): Rules {
+export default function useMaterialFileRules(mode: FormMode): Rules {
   const { t } = useTranslation();
   const { trimWhitespace, fileSizeLimit } = useValidationRules();
 
-  return {
+  const rules: Rules = {
     title: [
       {
         required: true,
@@ -24,12 +25,17 @@ export default function useMaterialFileRules(): Rules {
       },
       trimWhitespace,
     ],
-    file: [
-      {
+    file: [fileSizeLimit()],
+  };
+
+  switch (mode) {
+    case FormMode.Creation:
+      rules.file.push({
         required: true,
         message: t('course_material.rules.file_required'),
-      },
-      fileSizeLimit(),
-    ],
-  };
+      });
+      break;
+  }
+
+  return rules;
 }
