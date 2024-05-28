@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import MaterialLinkEditBreadcrumb from './material-link-edit.breadcrumb';
 import MaterialLinkEditForm from './material-link-edit.form';
 import MaterialLinkEditHead from './material-link-edit.head';
-import { useGetCourseMaterialLinkQuery } from '../../api/course-materials.api';
+import { useGetCourseMaterialLinkQuery } from '../../api/course-materials.queries.api';
 import { NavigateToNotFound } from '../../common/navigate';
 
 export default function MaterialLinkEditPage() {

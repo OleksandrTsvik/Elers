@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
-import { useCreateCourseMaterialContentMutation } from '../../api/course-materials.api';
+import { useCreateCourseMaterialContentMutation } from '../../api/course-materials.mutations.api';
 import {
   CourseTabType,
   MaterialContentEditor,

@@ -1,29 +1,7 @@
 import { UploadFile } from 'antd';
 
+import { courseMaterialsQueriesApi } from './course-materials.queries.api';
 import { coursesApi } from './courses.api';
-import { CourseMaterial } from '../models/course-material.type';
-import { CourseTabType } from '../shared';
-
-interface GetCourseMaterialResponse {
-  id: string;
-  courseId: string;
-  tabId: string;
-  courseTitle: string;
-  courseTabType: CourseTabType;
-}
-
-interface GetCourseMaterialContentResponse extends GetCourseMaterialResponse {
-  content: string;
-}
-
-interface GetCourseMaterialLinkResponse extends GetCourseMaterialResponse {
-  title: string;
-  link: string;
-}
-
-interface GetCourseMaterialFileResponse extends GetCourseMaterialResponse {
-  fileTitle: string;
-}
 
 interface CreateCourseMaterialContentRequest {
   tabId: string;
@@ -31,6 +9,7 @@ interface CreateCourseMaterialContentRequest {
 }
 
 interface UpdateCourseMaterialContentRequest {
+  tabId: string;
   id: string;
   content: string;
 }
@@ -42,6 +21,7 @@ interface CreateCourseMaterialLinkRequest {
 }
 
 interface UpdateCourseMaterialLinkRequest {
+  tabId: string;
   id: string;
   title: string;
   link: string;
@@ -54,59 +34,15 @@ interface CreateCourseMaterialFileRequest {
 }
 
 interface UpdateCourseMaterialFileRequest {
+  tabId: string;
   id: string;
   title: string;
   file?: UploadFile;
 }
 
-export const courseMaterialsApi = coursesApi.injectEndpoints({
+export const courseMaterialsMutationsApi = coursesApi.injectEndpoints({
   overrideExisting: false,
   endpoints: (builder) => ({
-    getCourseMaterialContent: builder.query<
-      GetCourseMaterialContentResponse,
-      { tabId?: string; id?: string }
-    >({
-      query: ({ tabId, id }) => ({
-        url: `/courseMaterials/${tabId}/content/${id}`,
-      }),
-      providesTags: ['CourseMaterialList'],
-    }),
-    getCourseMaterialLink: builder.query<
-      GetCourseMaterialLinkResponse,
-      { tabId?: string; id?: string }
-    >({
-      query: ({ tabId, id }) => ({
-        url: `/courseMaterials/${tabId}/link/${id}`,
-      }),
-      providesTags: ['CourseMaterialList'],
-    }),
-    getCourseMaterialFile: builder.query<
-      GetCourseMaterialFileResponse,
-      { tabId?: string; id?: string }
-    >({
-      query: ({ tabId, id }) => ({
-        url: `/courseMaterials/${tabId}/file/${id}`,
-      }),
-      providesTags: ['CourseMaterialList'],
-    }),
-    getListCourseMaterialsByTabId: builder.query<
-      CourseMaterial[],
-      { id: string }
-    >({
-      query: ({ id }) => ({
-        url: `/courseMaterials/tabs/${id}`,
-      }),
-      providesTags: ['CourseMaterialList'],
-    }),
-    getListCourseMaterialsByTabIdToEdit: builder.query<
-      CourseMaterial[],
-      { id: string }
-    >({
-      query: ({ id }) => ({
-        url: `/courseMaterials/tabs/edit/${id}`,
-      }),
-      providesTags: ['CourseMaterialList'],
-    }),
     createCourseMaterialContent: builder.mutation<
       string,
       CreateCourseMaterialContentRequest
@@ -122,12 +58,32 @@ export const courseMaterialsApi = coursesApi.injectEndpoints({
       string,
       UpdateCourseMaterialContentRequest
     >({
-      query: ({ id, ...data }) => ({
+      query: ({ id, content }) => ({
         url: `/courseMaterials/content/${id}`,
         method: 'PUT',
-        body: data,
+        body: { content },
       }),
       invalidatesTags: ['Course', 'CourseMaterialList'],
+      async onQueryStarted(
+        { tabId, id, ...patch },
+        { dispatch, queryFulfilled },
+      ) {
+        try {
+          await queryFulfilled;
+
+          dispatch(
+            courseMaterialsQueriesApi.util.updateQueryData(
+              'getCourseMaterialContent',
+              { tabId, id },
+              (draft) => {
+                Object.assign(draft, patch);
+              },
+            ),
+          );
+        } catch {
+          /* empty */
+        }
+      },
     }),
     createCourseMaterialLink: builder.mutation<
       string,
@@ -144,21 +100,41 @@ export const courseMaterialsApi = coursesApi.injectEndpoints({
       string,
       UpdateCourseMaterialLinkRequest
     >({
-      query: ({ id, ...data }) => ({
+      query: ({ id, title, link }) => ({
         url: `/courseMaterials/link/${id}`,
         method: 'PUT',
-        body: data,
+        body: { title, link },
       }),
       invalidatesTags: ['Course', 'CourseMaterialList'],
+      async onQueryStarted(
+        { tabId, id, ...patch },
+        { dispatch, queryFulfilled },
+      ) {
+        try {
+          await queryFulfilled;
+
+          dispatch(
+            courseMaterialsQueriesApi.util.updateQueryData(
+              'getCourseMaterialLink',
+              { tabId, id },
+              (draft) => {
+                Object.assign(draft, patch);
+              },
+            ),
+          );
+        } catch {
+          /* empty */
+        }
+      },
     }),
     createCourseMaterialFile: builder.mutation<
       string,
       CreateCourseMaterialFileRequest
     >({
-      query: ({ tabId, ...data }) => {
+      query: ({ tabId, title, file }) => {
         const formData = new FormData();
-        formData.append('title', data.title);
-        formData.append('file', data.file.originFileObj as Blob);
+        formData.append('title', title);
+        formData.append('file', file.originFileObj as Blob);
 
         return {
           url: `/courseMaterials/file/${tabId}`,
@@ -172,12 +148,12 @@ export const courseMaterialsApi = coursesApi.injectEndpoints({
       string,
       UpdateCourseMaterialFileRequest
     >({
-      query: ({ id, ...data }) => {
+      query: ({ id, title, file }) => {
         const formData = new FormData();
-        formData.append('title', data.title);
+        formData.append('title', title);
 
-        if (data.file) {
-          formData.append('file', data.file.originFileObj as Blob);
+        if (file) {
+          formData.append('file', file.originFileObj as Blob);
         }
 
         return {
@@ -187,6 +163,26 @@ export const courseMaterialsApi = coursesApi.injectEndpoints({
         };
       },
       invalidatesTags: ['Course', 'CourseMaterialList'],
+      async onQueryStarted(
+        { tabId, id, ...patch },
+        { dispatch, queryFulfilled },
+      ) {
+        try {
+          await queryFulfilled;
+
+          dispatch(
+            courseMaterialsQueriesApi.util.updateQueryData(
+              'getCourseMaterialFile',
+              { tabId, id },
+              (draft) => {
+                Object.assign(draft, { fileTitle: patch.title });
+              },
+            ),
+          );
+        } catch {
+          /* empty */
+        }
+      },
     }),
     updateCourseMaterialActive: builder.mutation<
       void,
@@ -210,11 +206,6 @@ export const courseMaterialsApi = coursesApi.injectEndpoints({
 });
 
 export const {
-  useGetCourseMaterialContentQuery,
-  useGetCourseMaterialLinkQuery,
-  useGetCourseMaterialFileQuery,
-  useGetListCourseMaterialsByTabIdQuery,
-  useGetListCourseMaterialsByTabIdToEditQuery,
   useCreateCourseMaterialContentMutation,
   useUpdateCourseMaterialContentMutation,
   useCreateCourseMaterialLinkMutation,
@@ -223,4 +214,4 @@ export const {
   useUpdateCourseMaterialFileMutation,
   useUpdateCourseMaterialActiveMutation,
   useDeleteCourseMaterialMutation,
-} = courseMaterialsApi;
+} = courseMaterialsMutationsApi;

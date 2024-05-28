@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
-import { useUpdateCourseMaterialLinkMutation } from '../../api/course-materials.api';
+import { useUpdateCourseMaterialLinkMutation } from '../../api/course-materials.mutations.api';
 import {
   CourseTabType,
   MaterialLinkForm,
@@ -33,7 +33,7 @@ export default function MaterialLinkEditForm({
     useUpdateCourseMaterialLinkMutation();
 
   const handleSubmit = async (values: MaterialLinkFormValues) => {
-    await updateCourseMaterial({ id: courseMaterialId, ...values })
+    await updateCourseMaterial({ tabId, id: courseMaterialId, ...values })
       .unwrap()
       .then(() =>
         navigate(getCourseEditPagePath(courseId, tabId, courseTabType)),

@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import MaterialFileEditBreadcrumb from './material-file-edit.breadcrumb';
 import MaterialFileEditForm from './material-file-edit.form';
 import MaterialFileEditHead from './material-file-edit.head';
-import { useGetCourseMaterialFileQuery } from '../../api/course-materials.api';
+import { useGetCourseMaterialFileQuery } from '../../api/course-materials.queries.api';
 import { NavigateToNotFound } from '../../common/navigate';
 
 export default function MaterialFileEditPage() {

@@ -1,7 +1,7 @@
 import { Skeleton } from 'antd';
 
 import CourseTabContent from './course.tab-content';
-import { useGetListCourseMaterialsByTabIdQuery } from '../../../api/course-materials.api';
+import { useGetListCourseMaterialsByTabIdQuery } from '../../../api/course-materials.queries.api';
 
 interface Props {
   tabId: string;

@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import MaterialContentEditBreadcrumb from './material-content-edit.breadcrumb';
 import MaterialContentEditEditor from './material-content-edit.editor';
 import MaterialContentEditHead from './material-content-edit.head';
-import { useGetCourseMaterialContentQuery } from '../../api/course-materials.api';
+import { useGetCourseMaterialContentQuery } from '../../api/course-materials.queries.api';
 import { NavigateToNotFound } from '../../common/navigate';
 
 export default function MaterialContentEditPage() {

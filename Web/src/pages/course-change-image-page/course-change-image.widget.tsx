@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import { useChangeCourseImageMutation } from '../../api/courses.api';
 import { ErrorAlert } from '../../common/error';
 import { FileDropzone } from '../../common/file-upload';
+import useDisplayError from '../../hooks/use-display-error';
 import {
   IMAGE_SIZE_LIMIT,
   IMAGE_SIZE_LIMIT_MB,
@@ -23,14 +24,15 @@ export default function CourseChangeImageWidget({ courseId }: Props) {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
+  const { displayError } = useDisplayError();
+
   const [cropper, setCropper] = useState<Cropper>();
   const [previewImg, setPreviewImg] = useState<string>();
 
   const [errorMessage, setErrorMessage] = useState<string>();
   const [filename, setFilename] = useState<string>();
 
-  const [changeCourseImage, { isLoading, error }] =
-    useChangeCourseImageMutation();
+  const [changeCourseImage, { isLoading }] = useChangeCourseImageMutation();
 
   useEffect(() => {
     return () => {
@@ -75,13 +77,14 @@ export default function CourseChangeImageWidget({ courseId }: Props) {
         filename,
       })
         .unwrap()
-        .then(() => navigate('/courses'));
+        .then(() => navigate('/courses'))
+        .catch((error) => displayError(error, { displayType: 'notification' }));
     });
   };
 
   return (
     <>
-      <ErrorAlert className={styles.errorAlert} error={errorMessage || error} />
+      <ErrorAlert className={styles.errorAlert} error={errorMessage} />
       <FileDropzone
         showUploadList={false}
         accept="image/*"

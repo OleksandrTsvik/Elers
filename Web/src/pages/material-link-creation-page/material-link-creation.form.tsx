@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
-import { useCreateCourseMaterialLinkMutation } from '../../api/course-materials.api';
+import { useCreateCourseMaterialLinkMutation } from '../../api/course-materials.mutations.api';
 import {
   CourseTabType,
   MaterialLinkForm,

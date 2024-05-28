@@ -5,8 +5,9 @@ import { getCourseMaterialEditPagePath } from './tab.utils';
 import {
   useDeleteCourseMaterialMutation,
   useUpdateCourseMaterialActiveMutation,
-} from '../../../api/course-materials.api';
+} from '../../../api/course-materials.mutations.api';
 import { DeleteIcon, EditIcon, VisibilityIcon } from '../../../components';
+import useDisplayError from '../../../hooks/use-display-error';
 import useNavigateFrom from '../../../hooks/use-navigate-from';
 import { CourseMaterial } from '../../../models/course-material.type';
 import { CourseMaterialIcon, useMaterialLabels } from '../../../shared';
@@ -19,6 +20,7 @@ export default function TabContentEditPanel({ material }: Props) {
   const { t } = useTranslation();
   const navigateFrom = useNavigateFrom();
 
+  const { displayError } = useDisplayError();
   const { getMaterialLabel } = useMaterialLabels();
 
   const [updateCourseMaterialActive, { isLoading: isUpdateActiveLoading }] =
@@ -30,11 +32,15 @@ export default function TabContentEditPanel({ material }: Props) {
     await updateCourseMaterialActive({
       id: material.id,
       isActive: !material.isActive,
-    }).unwrap();
+    })
+      .unwrap()
+      .catch((error) => displayError(error));
   };
 
   const handleDeleteCourseMaterial = async () => {
-    await deleteCourseMaterial({ id: material.id }).unwrap();
+    await deleteCourseMaterial({ id: material.id })
+      .unwrap()
+      .catch((error) => displayError(error));
   };
 
   const handleClinkEdit = () => {

@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
-import { useUpdateCourseMaterialFileMutation } from '../../api/course-materials.api';
+import { useUpdateCourseMaterialFileMutation } from '../../api/course-materials.mutations.api';
 import { FormMode } from '../../common/types';
 import {
   CourseTabType,
@@ -32,7 +32,7 @@ export default function MaterialFileEditForm({
     useUpdateCourseMaterialFileMutation();
 
   const handleSubmit = async (values: MaterialFileSubmitValues) => {
-    await updateCourseMaterial({ id: courseMaterialId, ...values })
+    await updateCourseMaterial({ tabId, id: courseMaterialId, ...values })
       .unwrap()
       .then(() =>
         navigate(getCourseEditPagePath(courseId, tabId, courseTabType)),

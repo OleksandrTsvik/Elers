@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
-import { useUpdateCourseMaterialContentMutation } from '../../api/course-materials.api';
+import { useUpdateCourseMaterialContentMutation } from '../../api/course-materials.mutations.api';
 import {
   CourseTabType,
   MaterialContentEditor,
@@ -30,7 +30,7 @@ export default function MaterialContentEditEditor({
     useUpdateCourseMaterialContentMutation();
 
   const handleSubmit = async (content: string) => {
-    await updateCourseMaterial({ id: courseMaterialId, content })
+    await updateCourseMaterial({ tabId, id: courseMaterialId, content })
       .unwrap()
       .then(() =>
         navigate(getCourseEditPagePath(courseId, tabId, courseTabType)),
