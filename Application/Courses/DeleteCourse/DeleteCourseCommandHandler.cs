@@ -14,17 +14,20 @@ public class DeleteCourseCommandHandler : ICommandHandler<DeleteCourseCommand>
     private readonly ICourseRepository _courseRepository;
     private readonly ICourseMaterialRepository _courseMaterialRepository;
     private readonly IFileService _fileService;
+    private readonly IImageService _imageService;
 
     public DeleteCourseCommandHandler(
         IUnitOfWork unitOfWork,
         ICourseRepository courseRepository,
         ICourseMaterialRepository courseMaterialRepository,
-        IFileService fileService)
+        IFileService fileService,
+        IImageService imageService)
     {
         _unitOfWork = unitOfWork;
         _courseRepository = courseRepository;
         _courseMaterialRepository = courseMaterialRepository;
         _fileService = fileService;
+        _imageService = imageService;
     }
 
     public async Task<Result> Handle(DeleteCourseCommand request, CancellationToken cancellationToken)
@@ -47,6 +50,11 @@ public class DeleteCourseCommandHandler : ICommandHandler<DeleteCourseCommand>
         }
 
         await _courseMaterialRepository.RemoveRangeByCourseTabIdsAsync(courseTabIds, cancellationToken);
+
+        if (course.ImageName is not null)
+        {
+            await _imageService.RemoveAsync(course.ImageName, cancellationToken);
+        }
 
         _courseRepository.Remove(course);
 
