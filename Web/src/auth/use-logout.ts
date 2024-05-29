@@ -7,7 +7,7 @@ import { useLogoutMutation } from '../api/account.api';
 import { useAppDispatch } from '../hooks/redux-hooks';
 import useDisplayError from '../hooks/use-display-error';
 
-export default function useLogout() {
+export function useLogout() {
   const { t } = useTranslation();
   const appDispatch = useAppDispatch();
 

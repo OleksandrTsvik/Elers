@@ -1,6 +1,6 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
 
-import { baseQueryWithReauth } from '../auth/base-query-with-reauth';
+import { baseQueryWithReauth } from '../auth';
 import { RoleListItem, Role, UserRole } from '../models/role.interface';
 
 interface UpdateRoleRequest {

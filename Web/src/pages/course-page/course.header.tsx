@@ -1,6 +1,7 @@
 import { Flex, Typography } from 'antd';
 
 import useCourseActions from './use-course.actions';
+import { AuthGuard } from '../../auth';
 import { ResponsiveTitle } from '../../common/typography';
 import { SettingsDropdown } from '../../components';
 
@@ -13,13 +14,15 @@ interface Props {
 }
 
 export default function CourseHeader({ courseId, title, description }: Props) {
-  const courseActions = useCourseActions(courseId, title);
+  const courseActions = useCourseActions(courseId, title, []);
 
   return (
     <>
       <Flex justify="space-between" gap="small">
         <ResponsiveTitle className={styles.title}>{title}</ResponsiveTitle>
-        <SettingsDropdown items={courseActions} />
+        <AuthGuard>
+          <SettingsDropdown items={courseActions} />
+        </AuthGuard>
       </Flex>
       {description && (
         <Typography.Paragraph className={styles.description} type="secondary">

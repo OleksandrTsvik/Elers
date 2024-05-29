@@ -1,4 +1,4 @@
-import { PermissionType } from '../auth/permission-type.enum';
+import { PermissionType } from '../auth';
 
 export interface AuthUser {
   email: string;

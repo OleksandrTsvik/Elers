@@ -2,6 +2,8 @@ import { Button, Flex, Typography } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
+import { PermissionType, PermissionsGuard } from '../../auth';
+
 export default function RolesTitle() {
   const { t } = useTranslation();
 
@@ -16,9 +18,11 @@ export default function RolesTitle() {
       <Typography.Title style={{ margin: 0 }}>
         {t('roles_page.title')}
       </Typography.Title>
-      <Link to="/roles/add">
-        <Button type="primary">{t('roles_page.create_role')}</Button>
-      </Link>
+      <PermissionsGuard permissions={PermissionType.CreateRole}>
+        <Link to="/roles/add">
+          <Button type="primary">{t('roles_page.create_role')}</Button>
+        </Link>
+      </PermissionsGuard>
     </Flex>
   );
 }

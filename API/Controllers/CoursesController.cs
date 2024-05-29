@@ -42,7 +42,16 @@ public class CoursesController : ApiControllerBase
     }
 
     [HasCourseMemberPermission(
-        [CoursePermissionType.UpdateCourse, CoursePermissionType.DeleteCourse],
+        [
+            CoursePermissionType.CreateCourseMaterial,
+            CoursePermissionType.CreateCourseTab,
+            CoursePermissionType.DeleteCourseMaterial,
+            CoursePermissionType.DeleteCourseTab,
+            CoursePermissionType.UpdateCourse,
+            CoursePermissionType.UpdateCourseMaterial,
+            CoursePermissionType.UpdateCourseTab,
+            CoursePermissionType.UpdateCourseImage
+        ],
         [PermissionType.ManageCourse])]
     [HttpGet("edit/{courseId:guid}")]
     public async Task<IActionResult> GetCourseByIdToEdit(

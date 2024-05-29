@@ -3,7 +3,7 @@ import { setCredentials } from './auth.slice';
 import { useAppDispatch } from '../hooks/redux-hooks';
 import useDisplayError from '../hooks/use-display-error';
 
-export default function useLogin() {
+export function useLogin() {
   const appDispatch = useAppDispatch();
   const { displayError } = useDisplayError();
 

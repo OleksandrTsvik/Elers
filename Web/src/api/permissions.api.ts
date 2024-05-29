@@ -1,6 +1,6 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
 
-import { baseQueryWithReauth } from '../auth/base-query-with-reauth';
+import { baseQueryWithReauth } from '../auth';
 import { Permission } from '../models/permission.interface';
 
 export const permissionsApi = createApi({

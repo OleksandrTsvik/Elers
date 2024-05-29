@@ -2,8 +2,7 @@ import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Navigate, Outlet } from 'react-router-dom';
 
-import { PermissionType } from '../../auth/permission-type.enum';
-import useAuth from '../../auth/use-auth';
+import { PermissionType, useAuth } from '../../auth';
 import { NavigateFrom } from '../../common/navigate';
 import useDisplayError from '../../hooks/use-display-error';
 import useLocationFrom from '../../hooks/use-location-from';

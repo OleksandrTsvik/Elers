@@ -1,16 +1,16 @@
 import { App } from 'antd';
 import { ItemType } from 'antd/es/menu/hooks/useItems';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
 
 import { useDeleteRoleMutation } from '../../api/roles.api';
 import { EditIcon, DeleteIcon } from '../../components';
 import useDisplayError from '../../hooks/use-display-error';
+import useNavigateFrom from '../../hooks/use-navigate-from';
 import { RoleListItem } from '../../models/role.interface';
 
 export default function useRolesActions() {
   const { t } = useTranslation();
-  const navigate = useNavigate();
+  const navigateFrom = useNavigateFrom();
 
   const { modal } = App.useApp();
   const { displayError } = useDisplayError();
@@ -22,7 +22,7 @@ export default function useRolesActions() {
       key: '1',
       icon: <EditIcon />,
       label: t('actions.edit'),
-      onClick: () => navigate(`/roles/edit/${record.id}`),
+      onClick: () => navigateFrom(`/roles/edit/${record.id}`),
     },
     {
       key: '2',

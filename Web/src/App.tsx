@@ -2,7 +2,7 @@ import { HelmetProvider } from 'react-helmet-async';
 import { Provider } from 'react-redux';
 import { RouterProvider } from 'react-router-dom';
 
-import AuthMiddleware from './auth/auth.middleware';
+import { AuthMiddleware } from './auth';
 import I18nProvider from './i18n/i18n.provider';
 import { router } from './router/router';
 import { store } from './store';

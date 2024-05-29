@@ -1,6 +1,6 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
 
-import { baseQueryWithReauth } from '../auth/base-query-with-reauth';
+import { baseQueryWithReauth } from '../auth';
 import { Course, CourseListItem } from '../models/course.interface';
 import { CourseTabType } from '../shared';
 

@@ -31,6 +31,7 @@
   },
   "course": {
     "description": "Description",
+    "enroll": "Enroll in the course",
     "material": {
       "assignment": "Assignment",
       "content": "Content",
@@ -53,7 +54,8 @@
       "sections": "Sections",
       "tabs": "Tabs"
     },
-    "title": "Title"
+    "title": "Title",
+    "unenroll": "Unenroll from the course"
   },
   "course_change_image_page": {
     "confirm_delete": "Are you sure you want to delete the course image?",

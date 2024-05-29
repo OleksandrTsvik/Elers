@@ -1,5 +1,5 @@
 import { RoutesType } from './routes-type.interface';
-import { PermissionType } from '../../auth/permission-type.enum';
+import { PermissionType } from '../../auth';
 import { RoleCreationPage, RoleEditPage, RolesPage } from '../../pages';
 import PermissionsOutlet from '../outlets/permissions.outlet';
 

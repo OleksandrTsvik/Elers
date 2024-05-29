@@ -3,7 +3,7 @@ import { Button, Form, Input } from 'antd';
 import { useTranslation } from 'react-i18next';
 
 import useLoginRules from './use-login.rules';
-import useLogin from '../../auth/use-login';
+import { useLogin } from '../../auth';
 import { ErrorForm } from '../../common/error';
 
 interface FormValues {

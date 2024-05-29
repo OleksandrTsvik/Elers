@@ -1,6 +1,6 @@
 import { PermissionType } from './permission-type.enum';
 
-export default function hasPermission(
+export function hasPermission(
   userPermissions: PermissionType[],
   permissions: PermissionType | PermissionType[],
 ): boolean {

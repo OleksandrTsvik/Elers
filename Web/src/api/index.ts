@@ -3,7 +3,7 @@ import { coursesApi } from './courses.api';
 import { permissionsApi } from './permissions.api';
 import { rolesApi } from './roles.api';
 import { usersApi } from './users.api';
-import { authApi } from '../auth/auth.api';
+import { authApi } from '../auth';
 
 export const apiReducers = [
   authApi,

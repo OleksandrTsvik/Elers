@@ -1,16 +1,16 @@
 import { App } from 'antd';
 import { ItemType } from 'antd/es/menu/hooks/useItems';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
 
 import { useDeleteUserMutation } from '../../api/users.api';
 import { EditIcon, DeleteIcon } from '../../components';
 import useDisplayError from '../../hooks/use-display-error';
+import useNavigateFrom from '../../hooks/use-navigate-from';
 import { User } from '../../models/user.interface';
 
 export default function useUsersActions() {
   const { t } = useTranslation();
-  const navigate = useNavigate();
+  const navigateFrom = useNavigateFrom();
 
   const { modal } = App.useApp();
   const { displayError } = useDisplayError();
@@ -22,7 +22,7 @@ export default function useUsersActions() {
       key: '1',
       icon: <EditIcon />,
       label: t('actions.edit'),
-      onClick: () => navigate(`/users/edit/${record.id}`),
+      onClick: () => navigateFrom(`/users/edit/${record.id}`),
     },
     {
       key: '2',

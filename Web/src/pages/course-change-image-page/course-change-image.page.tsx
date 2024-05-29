@@ -5,12 +5,15 @@ import CourseChangeImageBreadcrumb from './course-change-image.breadcrumb';
 import CourseChangeImageHead from './course-change-image.head';
 import CourseChangeImageWidget from './course-change-image.widget';
 import CourseDeleteImageButton from './course-delete-image.button';
-import { useGetCourseByIdQuery } from '../../api/courses.api';
+import { useGetCourseByIdToEditQuery } from '../../api/courses.api';
 import { NavigateToError, NavigateToNotFound } from '../../common/navigate';
 
 export default function CourseChangeImagePage() {
   const { courseId } = useParams();
-  const { data, isFetching, error } = useGetCourseByIdQuery({ id: courseId });
+
+  const { data, isFetching, error } = useGetCourseByIdToEditQuery({
+    id: courseId,
+  });
 
   if (isFetching) {
     return <Skeleton active />;

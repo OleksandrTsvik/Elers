@@ -5,8 +5,7 @@ import { coursesApi } from '../api/courses.api';
 import { permissionsApi } from '../api/permissions.api';
 import { rolesApi } from '../api/roles.api';
 import { usersApi } from '../api/users.api';
-import { authApi } from '../auth/auth.api';
-import { authSlice } from '../auth/auth.slice';
+import { authApi, authSlice } from '../auth';
 import { courseEditSlice } from '../pages/course-edit-page/course-edit.slice';
 
 const rootReducer = {

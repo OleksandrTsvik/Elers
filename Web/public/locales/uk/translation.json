@@ -31,6 +31,7 @@
   },
   "course": {
     "description": "Опис",
+    "enroll": "Зареєструватися на курс",
     "material": {
       "assignment": "Завдання",
       "content": "Контент",
@@ -53,7 +54,8 @@
       "sections": "Секції",
       "tabs": "Вкладки"
     },
-    "title": "Заголовок"
+    "title": "Заголовок",
+    "unenroll": "Відписатися від курсу"
   },
   "course_change_image_page": {
     "confirm_delete": "Ви дійсно бажаєте видалити зображення курсу?",
