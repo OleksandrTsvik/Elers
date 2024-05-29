@@ -5,15 +5,22 @@ import MaterialContentEditBreadcrumb from './material-content-edit.breadcrumb';
 import MaterialContentEditEditor from './material-content-edit.editor';
 import MaterialContentEditHead from './material-content-edit.head';
 import { useGetCourseMaterialContentQuery } from '../../api/course-materials.queries.api';
-import { NavigateToNotFound } from '../../common/navigate';
+import { NavigateToError, NavigateToNotFound } from '../../common/navigate';
 
 export default function MaterialContentEditPage() {
   const { tabId, id } = useParams();
 
-  const { data, isFetching } = useGetCourseMaterialContentQuery({ tabId, id });
+  const { data, isFetching, error } = useGetCourseMaterialContentQuery({
+    tabId,
+    id,
+  });
 
   if (isFetching) {
     return <Skeleton active />;
+  }
+
+  if (error) {
+    return <NavigateToError error={error} />;
   }
 
   if (!data) {

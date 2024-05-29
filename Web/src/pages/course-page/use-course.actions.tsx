@@ -28,7 +28,7 @@ export default function useCourseActions(
       onOk: () =>
         deleteCourse({ id: courseId })
           .unwrap()
-          .then(() => navigate('/courses'))
+          .then(() => navigate('/'))
           .catch((error) => displayError(error)),
     });
   };

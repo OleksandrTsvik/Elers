@@ -5,14 +5,18 @@ import MaterialFileCreationBreadcrumb from './material-file-creation.breadcrumb'
 import MaterialFileCreationForm from './material-file-creation.form';
 import MaterialFileCreationHead from './material-file-creation.head';
 import { useGetCourseByTabIdQuery } from '../../api/courses.api';
-import { NavigateToNotFound } from '../../common/navigate';
+import { NavigateToError, NavigateToNotFound } from '../../common/navigate';
 
 export default function MaterialFileCreationPage() {
   const { tabId } = useParams();
-  const { data, isLoading } = useGetCourseByTabIdQuery({ id: tabId });
+  const { data, isLoading, error } = useGetCourseByTabIdQuery({ id: tabId });
 
   if (isLoading) {
     return <Skeleton active />;
+  }
+
+  if (error) {
+    return <NavigateToError error={error} />;
   }
 
   if (!data) {

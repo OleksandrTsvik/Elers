@@ -77,7 +77,7 @@ export default function CourseChangeImageWidget({ courseId }: Props) {
         filename,
       })
         .unwrap()
-        .then(() => navigate('/courses'))
+        .then(() => navigate('/'))
         .catch((error) => displayError(error, { displayType: 'notification' }));
     });
   };

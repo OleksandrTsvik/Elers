@@ -5,14 +5,18 @@ import MaterialContentCreationBreadcrumb from './material-content-creation.bread
 import MaterialContentCreationEditor from './material-content-creation.editor';
 import MaterialContentCreationHead from './material-content-creation.head';
 import { useGetCourseByTabIdQuery } from '../../api/courses.api';
-import { NavigateToNotFound } from '../../common/navigate';
+import { NavigateToError, NavigateToNotFound } from '../../common/navigate';
 
 export default function MaterialContentCreationPage() {
   const { tabId } = useParams();
-  const { data, isLoading } = useGetCourseByTabIdQuery({ id: tabId });
+  const { data, isFetching, error } = useGetCourseByTabIdQuery({ id: tabId });
 
-  if (isLoading) {
+  if (isFetching) {
     return <Skeleton active />;
+  }
+
+  if (error) {
+    return <NavigateToError error={error} />;
   }
 
   if (!data) {

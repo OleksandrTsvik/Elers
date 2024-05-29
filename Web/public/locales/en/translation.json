@@ -106,6 +106,9 @@
     "unauthorized": "Unauthorized access. Please log in!",
     "unsupported_media_type": "Unsupported Media Type"
   },
+  "error_page": {
+    "home_link": "Go to the home page"
+  },
   "file_upload": {
     "upload_hint": "The maximum file size is {{limit}} MB.",
     "upload_text": "Click or drag file to this area to upload"

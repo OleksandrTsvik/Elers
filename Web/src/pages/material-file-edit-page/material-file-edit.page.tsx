@@ -5,14 +5,21 @@ import MaterialFileEditBreadcrumb from './material-file-edit.breadcrumb';
 import MaterialFileEditForm from './material-file-edit.form';
 import MaterialFileEditHead from './material-file-edit.head';
 import { useGetCourseMaterialFileQuery } from '../../api/course-materials.queries.api';
-import { NavigateToNotFound } from '../../common/navigate';
+import { NavigateToError, NavigateToNotFound } from '../../common/navigate';
 
 export default function MaterialFileEditPage() {
   const { tabId, id } = useParams();
-  const { data, isFetching } = useGetCourseMaterialFileQuery({ tabId, id });
+  const { data, isFetching, error } = useGetCourseMaterialFileQuery({
+    tabId,
+    id,
+  });
 
   if (isFetching) {
     return <Skeleton active />;
+  }
+
+  if (error) {
+    return <NavigateToError error={error} />;
   }
 
   if (!data) {
