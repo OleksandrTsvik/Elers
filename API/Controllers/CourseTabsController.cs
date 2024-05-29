@@ -2,12 +2,17 @@ using Application.CourseTabs.CreateCourseTab;
 using Application.CourseTabs.DeleteCourseTab;
 using Application.CourseTabs.UpdateCourseTab;
 using Application.CourseTabs.UpdateCourseTabColor;
+using Domain.Enums;
+using Infrastructure.CourseMemberPermissions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers;
 
 public class CourseTabsController : ApiControllerBase
 {
+    [HasCourseMemberPermission(
+        [CoursePermissionType.CreateCourseTab],
+        [PermissionType.ManageCourse])]
     [HttpPost("{courseId:guid}")]
     public async Task<IActionResult> CreateCourseTab(
         Guid courseId,
@@ -19,14 +24,17 @@ public class CourseTabsController : ApiControllerBase
         return HandleResult(await Sender.Send(command, cancellationToken));
     }
 
-    [HttpPut("{id:guid}")]
+    [HasCourseMemberPermission(
+        [CoursePermissionType.UpdateCourseTab],
+        [PermissionType.ManageCourse])]
+    [HttpPut("{tabId:guid}")]
     public async Task<IActionResult> UpdateCourseTab(
-        Guid id,
+        Guid tabId,
         [FromBody] UpdateCourseTabRequest request,
         CancellationToken cancellationToken)
     {
         var command = new UpdateCourseTabCommand(
-            id,
+            tabId,
             request.Name,
             request.IsActive,
             request.ShowMaterialsCount);
@@ -34,23 +42,29 @@ public class CourseTabsController : ApiControllerBase
         return HandleResult(await Sender.Send(command, cancellationToken));
     }
 
-    [HttpPatch("color/{id:guid}")]
+    [HasCourseMemberPermission(
+        [CoursePermissionType.UpdateCourseTab],
+        [PermissionType.ManageCourse])]
+    [HttpPatch("color/{tabId:guid}")]
     public async Task<IActionResult> UpdateCourseTabColor(
-        Guid id,
+        Guid tabId,
         [FromBody] UpdateCourseTabColorRequest request,
         CancellationToken cancellationToken)
     {
-        var command = new UpdateCourseTabColorCommand(id, request.Color);
+        var command = new UpdateCourseTabColorCommand(tabId, request.Color);
 
         return HandleResult(await Sender.Send(command, cancellationToken));
     }
 
-    [HttpDelete("{id:guid}")]
+    [HasCourseMemberPermission(
+        [CoursePermissionType.DeleteCourseTab],
+        [PermissionType.ManageCourse])]
+    [HttpDelete("{tabId:guid}")]
     public async Task<IActionResult> DeleteCourseTab(
-        Guid id,
+        Guid tabId,
         CancellationToken cancellationToken)
     {
-        var command = new DeleteCourseTabCommand(id);
+        var command = new DeleteCourseTabCommand(tabId);
 
         return HandleResult(await Sender.Send(command, cancellationToken));
     }

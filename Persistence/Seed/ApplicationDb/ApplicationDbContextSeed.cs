@@ -24,6 +24,8 @@ public class ApplicationDbContextSeed
 
         await SeedUsersAsync(allRoles);
 
+        await SeedCoursePermissionsAsync();
+
         await _dbContext.SaveChangesAsync();
     }
 
@@ -135,6 +137,42 @@ public class ApplicationDbContextSeed
         }
 
         await _dbContext.Users.AddRangeAsync(newUsers);
+    }
+
+    private async Task SeedCoursePermissionsAsync()
+    {
+        CoursePermissionType[] allPermissions = Enum.GetValues<CoursePermissionType>();
+
+        List<CourseRolePermission> existingPermissionsInDb = await _dbContext.CourseRolePermissions
+            .ToListAsync();
+
+        var removePermissionsFromDb = new List<CourseRolePermission>();
+        var existingPermissions = new List<CourseRolePermission>();
+
+        foreach (CourseRolePermission permission in existingPermissionsInDb)
+        {
+            if (allPermissions.Contains(permission.Name))
+            {
+                existingPermissions.Add(permission);
+            }
+            else
+            {
+                removePermissionsFromDb.Add(permission);
+            }
+        }
+
+        var newPermissions = new List<CourseRolePermission>();
+
+        foreach (CoursePermissionType permissionType in allPermissions)
+        {
+            if (!existingPermissions.Any(x => x.Name == permissionType))
+            {
+                newPermissions.Add(new CourseRolePermission { Name = permissionType });
+            }
+        }
+
+        _dbContext.CourseRolePermissions.RemoveRange(removePermissionsFromDb);
+        await _dbContext.CourseRolePermissions.AddRangeAsync(newPermissions);
     }
 
     private static List<UserDto> GetUsersSeedData() =>

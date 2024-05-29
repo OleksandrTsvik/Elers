@@ -8,7 +8,7 @@ public static class PermissionsSetup
 
     private static readonly PermissionType[] DefaultAdminPermissions = AllPermissions;
 
-    private static readonly PermissionType[] DefaultTeacherPermissions = [];
+    private static readonly PermissionType[] DefaultTeacherPermissions = [PermissionType.CreateCourse];
 
     private static readonly PermissionType[] DefaultStudentPermissions = [];
 

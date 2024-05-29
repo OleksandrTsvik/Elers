@@ -2,6 +2,7 @@ using Application.Common.Interfaces;
 using Application.Common.Services;
 using Infrastructure.Authentication;
 using Infrastructure.CloudinarySetup;
+using Infrastructure.CourseMemberPermissions;
 using Infrastructure.Files;
 using Infrastructure.Localization;
 using Infrastructure.SupabaseSetup;
@@ -52,8 +53,10 @@ public static class DependencyInjection
 
     private static IServiceCollection AddAuth(this IServiceCollection services)
     {
-        services.AddSingleton<IAuthorizationHandler, PermissionAuthorizationHandler>();
         services.AddSingleton<IAuthorizationPolicyProvider, PermissionAuthorizationPolicyProvider>();
+
+        services.AddSingleton<IAuthorizationHandler, PermissionAuthorizationHandler>();
+        services.AddSingleton<IAuthorizationHandler, CourseMemberPermissionAuthorizationHandler>();
 
         services.AddScoped<IPermissionService, PermissionService>();
         services.AddScoped<ITokenService, TokenService>();

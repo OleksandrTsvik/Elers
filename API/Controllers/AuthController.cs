@@ -15,14 +15,6 @@ public class AuthController : ApiControllerBase
 {
     private const bool useCookiesByDefault = true;
 
-    [HttpGet("info")]
-    public async Task<IActionResult> Info(CancellationToken cancellationToken)
-    {
-        var query = new GetInfoQuery();
-
-        return HandleResult(await Sender.Send(query, cancellationToken));
-    }
-
     [AllowAnonymous]
     [HttpPost("login")]
     public async Task<IActionResult> Login(
@@ -33,6 +25,35 @@ public class AuthController : ApiControllerBase
         var command = new LoginCommand(request.Email, request.Password);
 
         return HandleAuthResult(useCookies, await Sender.Send(command, cancellationToken));
+    }
+
+    [AllowAnonymous]
+    [HttpPut("refresh")]
+    public async Task<IActionResult> Refresh(
+        [FromBody] UpdateTokenRequest request,
+        CancellationToken cancellationToken,
+        [FromQuery] bool useCookies = useCookiesByDefault)
+    {
+        string? refreshToken = useCookies
+            ? GetRefreshTokenFromCookie()
+            : request.RefreshToken;
+
+        if (string.IsNullOrWhiteSpace(refreshToken))
+        {
+            return GetErrorResult(UserErrors.Unauthorized());
+        }
+
+        var command = new UpdateTokenCommand(refreshToken);
+
+        return HandleAuthResult(useCookies, await Sender.Send(command, cancellationToken));
+    }
+
+    [HttpGet("info")]
+    public async Task<IActionResult> Info(CancellationToken cancellationToken)
+    {
+        var query = new GetInfoQuery();
+
+        return HandleResult(await Sender.Send(query, cancellationToken));
     }
 
     [HttpPost("logout")]
@@ -57,27 +78,6 @@ public class AuthController : ApiControllerBase
         var command = new LogoutCommand(refreshToken);
 
         return HandleResult(await Sender.Send(command, cancellationToken));
-    }
-
-    [AllowAnonymous]
-    [HttpPut("refresh")]
-    public async Task<IActionResult> Refresh(
-        [FromBody] UpdateTokenRequest request,
-        CancellationToken cancellationToken,
-        [FromQuery] bool useCookies = useCookiesByDefault)
-    {
-        string? refreshToken = useCookies
-            ? GetRefreshTokenFromCookie()
-            : request.RefreshToken;
-
-        if (string.IsNullOrWhiteSpace(refreshToken))
-        {
-            return GetErrorResult(UserErrors.Unauthorized());
-        }
-
-        var command = new UpdateTokenCommand(refreshToken);
-
-        return HandleAuthResult(useCookies, await Sender.Send(command, cancellationToken));
     }
 
     [NonAction]

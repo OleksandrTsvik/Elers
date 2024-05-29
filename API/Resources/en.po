@@ -26,6 +26,12 @@ msgstr "Allows the user to change the information of system users."
 msgid "DeleteUser"
 msgstr "Allows the user to delete existing users from the system."
 
+msgid "CreateCourse"
+msgstr "Allows the user to create new courses."
+
+msgid "ManageCourse"
+msgstr "Allows the user to change course data even if they are not a member of the course."
+
 # Validation errors
 msgid ""
 msgstr ""

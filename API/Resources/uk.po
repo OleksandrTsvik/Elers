@@ -26,6 +26,12 @@ msgstr "Оновлення користувача. Дозволяє корист
 msgid "DeleteUser"
 msgstr "Видалення користувача. Дозволяє користувачу видаляти існуючих користувачів з системи."
 
+msgid "CreateCourse"
+msgstr "Створення курсу. Дозволяє користувачу створювати нові курси."
+
+msgid "ManageCourse"
+msgstr "Керування курсами. Дозволяє користувачу змінювати дані курсу, навіть якщо він не є його учасником."
+
 # Validation errors
 msgid "Remove unnecessary spaces at the beginning or end."
 msgstr "Видаліть зайві пробіли на початку чи в кінці."

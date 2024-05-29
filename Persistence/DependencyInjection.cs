@@ -1,5 +1,6 @@
 using Application.Common.Interfaces;
 using Application.Common.Queries;
+using Application.Common.Services;
 using Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -13,6 +14,7 @@ using Persistence.Options;
 using Persistence.Queries;
 using Persistence.Repositories;
 using Persistence.Seed.ApplicationDb;
+using Persistence.Services;
 
 namespace Persistence;
 
@@ -24,7 +26,8 @@ public static class DependencyInjection
             .AddApplicationDb()
             .AddMongoDb()
             .AddRepositories()
-            .AddQueries();
+            .AddQueries()
+            .AddServices();
 
         services.AddScoped<IUnitOfWork, UnitOfWork>();
 
@@ -104,6 +107,13 @@ public static class DependencyInjection
         services.AddScoped<IPermissionQueries, PermissionQueries>();
         services.AddScoped<IRoleQueries, RoleQueries>();
         services.AddScoped<IUserQueries, UserQueries>();
+
+        return services;
+    }
+
+    private static IServiceCollection AddServices(this IServiceCollection services)
+    {
+        services.AddScoped<ICourseMemberPermissionService, CourseMemberPermissionService>();
 
         return services;
     }
