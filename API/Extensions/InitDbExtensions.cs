@@ -8,6 +8,8 @@ public static class InitDbExtensions
 {
     public static async Task InitDbAsync(this WebApplication app)
     {
+        bool isDevelopment = app.Environment.IsDevelopment();
+
         await using AsyncServiceScope scope = app.Services.CreateAsyncScope();
         IServiceProvider serviceProvider = scope.ServiceProvider;
 
@@ -17,7 +19,7 @@ public static class InitDbExtensions
             ApplicationDbContextSeed dbSeed = serviceProvider.GetRequiredService<ApplicationDbContextSeed>();
 
             await dbContext.Database.MigrateAsync();
-            await dbSeed.SeedDataAsync();
+            await dbSeed.SeedDataAsync(isDevelopment);
         }
         catch (Exception ex)
         {

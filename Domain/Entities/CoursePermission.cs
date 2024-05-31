@@ -3,7 +3,7 @@ using Domain.Primitives;
 
 namespace Domain.Entities;
 
-public class CourseRolePermission : Entity
+public class CoursePermission : Entity
 {
     public CoursePermissionType Name { get; set; }
 

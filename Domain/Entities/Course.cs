@@ -14,6 +14,7 @@ public class Course : Entity
 
     public User? Creator { get; set; }
     public List<CourseTab> CourseTabs { get; set; } = [];
+    public List<CourseMember> CourseMembers { get; set; } = [];
     public List<CourseRole> CourseRoles { get; set; } = [];
 
     public Course()

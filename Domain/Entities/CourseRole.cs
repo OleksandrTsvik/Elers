@@ -8,5 +8,5 @@ public class CourseRole : Entity
     public string Name { get; set; } = string.Empty;
 
     public List<CourseMember> CourseMembers { get; set; } = [];
-    public List<CourseRolePermission> CourseRolePermissions { get; set; } = [];
+    public List<CoursePermission> CoursePermissions { get; set; } = [];
 }

@@ -9,5 +9,6 @@ export * from './has-permission.util';
 export * from './permission-type.enum';
 export * from './permissions.guard';
 export * from './use-auth';
+export * from './use-course-permission';
 export * from './use-login';
 export * from './use-logout';

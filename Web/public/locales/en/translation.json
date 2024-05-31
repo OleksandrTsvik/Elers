@@ -96,6 +96,17 @@
     "confirm_delete": "Are you sure you want to delete the course '{{title}}'?",
     "head_title": "Course: {{title}}"
   },
+  "course_roles_page": {
+    "confirm_delete_title": "Are you sure you want to delete the '{{role}}' role?",
+    "create": "Create a role",
+    "create_role": "Create a role",
+    "head_title": "Course roles",
+    "number_permissions": "Number of permissions",
+    "permissions": "Permissions",
+    "role": "Role",
+    "title": "Course roles",
+    "update": "Edit a role"
+  },
   "error": {
     "bad_request": "Bad Request. Please check your data and try again.",
     "conflict": "Conflict. Try again with different data.",

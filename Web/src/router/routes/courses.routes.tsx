@@ -3,6 +3,7 @@ import {
   CourseChangeImagePage,
   CourseEditPage,
   CoursePage,
+  CourseRolesPage,
   MyCoursesPage,
 } from '../../pages';
 
@@ -13,6 +14,7 @@ export const coursesRoutes: RoutesType = {
       { index: true, element: <MyCoursesPage /> },
       { path: 'edit/:courseId', element: <CourseEditPage /> },
       { path: 'change-image/:courseId', element: <CourseChangeImagePage /> },
+      { path: 'roles/:courseId', element: <CourseRolesPage /> },
     ],
   },
   public: {

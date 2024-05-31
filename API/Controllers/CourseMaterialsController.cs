@@ -46,7 +46,11 @@ public class CourseMaterialsController : ApiControllerBase
     }
 
     [HasCourseMemberPermission(
-        [CoursePermissionType.UpdateCourseMaterial, CoursePermissionType.DeleteCourseMaterial],
+        [
+            CoursePermissionType.UpdateCourseMaterial,
+            CoursePermissionType.CreateCourseMaterial,
+            CoursePermissionType.DeleteCourseMaterial
+        ],
         [PermissionType.ManageCourse])]
     [HttpGet("tabs/edit/{tabId:guid}")]
     public async Task<IActionResult> GetListCourseMaterialsByTabIdToEdit(

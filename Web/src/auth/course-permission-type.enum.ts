@@ -8,4 +8,7 @@ export enum CoursePermissionType {
   CreateCourseMaterial = 'CreateCourseMaterial',
   UpdateCourseMaterial = 'UpdateCourseMaterial',
   DeleteCourseMaterial = 'DeleteCourseMaterial',
+  CreateCourseRole = 'CreateCourseRole',
+  UpdateCourseRole = 'UpdateCourseRole',
+  DeleteCourseRole = 'DeleteCourseRole',
 }

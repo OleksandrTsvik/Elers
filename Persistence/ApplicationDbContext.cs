@@ -10,7 +10,7 @@ public class ApplicationDbContext : DbContext
     public DbSet<CourseTab> CourseTabs { get; set; }
     public DbSet<CourseMember> CourseMembers { get; set; }
     public DbSet<CourseRole> CourseRoles { get; set; }
-    public DbSet<CourseRolePermission> CourseRolePermissions { get; set; }
+    public DbSet<CoursePermission> CoursePermissions { get; set; }
     public DbSet<User> Users { get; set; }
     public DbSet<Role> Roles { get; set; }
     public DbSet<Permission> Permissions { get; set; }

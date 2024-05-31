@@ -14,6 +14,7 @@ public class CourseMemberPermissionAuthorizationHandler
     private const string RouteCourseId = "courseId";
     private const string RouteCourseTabId = "tabId";
     private const string RouteCourseMaterialId = "materialId";
+    private const string RouteCourseRoleId = "roleId";
 
     private readonly IServiceScopeFactory _serviceScopeFactory;
 
@@ -120,6 +121,10 @@ public class CourseMemberPermissionAuthorizationHandler
                 isCreator = await courseMemberPermissionService.IsCreatorByCourseMaterialIdAsync(
                     userId, parsedRouteId);
                 break;
+            case RouteCourseRoleId:
+                isCreator = await courseMemberPermissionService.IsCreatorByCourseRoleIdAsync(
+                    userId, parsedRouteId);
+                break;
         };
 
         if (isCreator)
@@ -142,6 +147,10 @@ public class CourseMemberPermissionAuthorizationHandler
             case RouteCourseMaterialId:
                 memberPermissions = await courseMemberPermissionService
                     .GetCourseMemberPermissionsByCourseMaterialIdAsync(userId, parsedRouteId);
+                break;
+            case RouteCourseRoleId:
+                memberPermissions = await courseMemberPermissionService
+                    .GetCourseMemberPermissionsByCourseRoleIdAsync(userId, parsedRouteId);
                 break;
         };
 

@@ -32,6 +32,43 @@ msgstr "Створення курсу. Дозволяє користувачу �
 msgid "ManageCourse"
 msgstr "Керування курсами. Дозволяє користувачу змінювати дані курсу, навіть якщо він не є його учасником."
 
+# Description of course permissions
+msgid "UpdateCourse"
+msgstr "Оновлення інформації про курс"
+
+msgid "UpdateCourseImage"
+msgstr "Зміна зображення курсу"
+
+msgid "DeleteCourse"
+msgstr "Видалення курсу"
+
+msgid "CreateCourseTab"
+msgstr "Створення нових вкладок"
+
+msgid "UpdateCourseTab"
+msgstr "Оновлення вкладок"
+
+msgid "DeleteCourseTab"
+msgstr "Видалення вкладок"
+
+msgid "CreateCourseMaterial"
+msgstr "Додавання матеріалу"
+
+msgid "UpdateCourseMaterial"
+msgstr "Оновлення матеріалу"
+
+msgid "DeleteCourseMaterial"
+msgstr "Видалення матеріалу"
+
+msgid "CreateCourseRole"
+msgstr "Створення нових ролей для учасників курсу"
+
+msgid "UpdateCourseRole"
+msgstr "Оновлення ролей"
+
+msgid "DeleteCourseRole"
+msgstr "Видалення ролей"
+
 # Validation errors
 msgid "Remove unnecessary spaces at the beginning or end."
 msgstr "Видаліть зайві пробіли на початку чи в кінці."
@@ -57,6 +94,12 @@ msgstr "Матеріал курсу з Id = '{0}' не знайдено."
 
 msgid "CourseMaterials.FileNotFound"
 msgstr "Файл не знайдено."
+
+msgid "CourseRoles.NotFound"
+msgstr "Роль курсу з Id = '{0}' не знайдено."
+
+msgid "CourseRoles.NameNotUnique"
+msgstr "Роль курсу із назвою = '{0}' уже існує."
 
 msgid "CourseTabs.NotFound"
 msgstr "Вкладка курсу з Id = '{0}' не знайдено."

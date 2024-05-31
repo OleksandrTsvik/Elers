@@ -8,7 +8,7 @@ namespace Infrastructure.CourseMemberPermissions;
 /// </summary>
 /// <remarks>
 /// This attribute should be used on controller methods that have one of the following parameters
-/// in the reference: <c>courseId</c>, <c>tabId</c>, or <c>materialId</c>.
+/// in the reference: <c>courseId</c>, <c>tabId</c>, <c>materialId</c> or <c>roleId</c>.
 /// </remarks>
 public class HasCourseMemberPermissionAttribute : AuthorizeAttribute
 {

@@ -11,4 +11,7 @@ public enum CoursePermissionType
     CreateCourseMaterial,
     UpdateCourseMaterial,
     DeleteCourseMaterial,
+    CreateCourseRole,
+    UpdateCourseRole,
+    DeleteCourseRole,
 }

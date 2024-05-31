@@ -1,7 +1,11 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
 
 import { baseQueryWithReauth } from '../auth';
-import { Course, CourseListItem } from '../models/course.interface';
+import {
+  Course,
+  CourseListItem,
+  CourseToEdit,
+} from '../models/course.interface';
 import { CourseTabType } from '../shared';
 
 interface GetCourseByTabIdResponse {
@@ -27,7 +31,7 @@ export const coursesApi = createApi({
       }),
       providesTags: ['Course'],
     }),
-    getCourseByIdToEdit: builder.query<Course, { id?: string }>({
+    getCourseByIdToEdit: builder.query<CourseToEdit, { id?: string }>({
       query: ({ id }) => ({
         url: `/courses/edit/${id}`,
       }),

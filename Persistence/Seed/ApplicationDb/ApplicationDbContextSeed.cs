@@ -17,10 +17,10 @@ public class ApplicationDbContextSeed
         _passwordService = passwordService;
     }
 
-    public async Task SeedDataAsync()
+    public async Task SeedDataAsync(bool isDevelopment)
     {
         List<Permission> allPermissions = await GetAndSeedPermissionsAsync();
-        List<Role> allRoles = await GetAndSeedRolesAsync(allPermissions);
+        List<Role> allRoles = await GetAndSeedRolesAsync(isDevelopment, allPermissions);
 
         await SeedUsersAsync(allRoles);
 
@@ -64,7 +64,7 @@ public class ApplicationDbContextSeed
         return existingPermissions.Concat(newPermissions).ToList();
     }
 
-    private async Task<List<Role>> GetAndSeedRolesAsync(List<Permission> allPermissions)
+    private async Task<List<Role>> GetAndSeedRolesAsync(bool isDevelopment, List<Permission> allPermissions)
     {
         List<Role> existingRoles = await _dbContext.Roles
             .Include(x => x.Permissions)
@@ -90,7 +90,7 @@ public class ApplicationDbContextSeed
 
                 newRoles.Add(newRole);
             }
-            else
+            else if (isDevelopment)
             {
                 currentRole.Permissions = rolePermissions;
             }
@@ -143,13 +143,13 @@ public class ApplicationDbContextSeed
     {
         CoursePermissionType[] allPermissions = Enum.GetValues<CoursePermissionType>();
 
-        List<CourseRolePermission> existingPermissionsInDb = await _dbContext.CourseRolePermissions
+        List<CoursePermission> existingPermissionsInDb = await _dbContext.CoursePermissions
             .ToListAsync();
 
-        var removePermissionsFromDb = new List<CourseRolePermission>();
-        var existingPermissions = new List<CourseRolePermission>();
+        var removePermissionsFromDb = new List<CoursePermission>();
+        var existingPermissions = new List<CoursePermission>();
 
-        foreach (CourseRolePermission permission in existingPermissionsInDb)
+        foreach (CoursePermission permission in existingPermissionsInDb)
         {
             if (allPermissions.Contains(permission.Name))
             {
@@ -161,18 +161,18 @@ public class ApplicationDbContextSeed
             }
         }
 
-        var newPermissions = new List<CourseRolePermission>();
+        var newPermissions = new List<CoursePermission>();
 
         foreach (CoursePermissionType permissionType in allPermissions)
         {
             if (!existingPermissions.Any(x => x.Name == permissionType))
             {
-                newPermissions.Add(new CourseRolePermission { Name = permissionType });
+                newPermissions.Add(new CoursePermission { Name = permissionType });
             }
         }
 
-        _dbContext.CourseRolePermissions.RemoveRange(removePermissionsFromDb);
-        await _dbContext.CourseRolePermissions.AddRangeAsync(newPermissions);
+        _dbContext.CoursePermissions.RemoveRange(removePermissionsFromDb);
+        await _dbContext.CoursePermissions.AddRangeAsync(newPermissions);
     }
 
     private static List<UserDto> GetUsersSeedData() =>

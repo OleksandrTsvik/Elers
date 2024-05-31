@@ -90,8 +90,11 @@ public static class DependencyInjection
     private static IServiceCollection AddRepositories(this IServiceCollection services)
     {
         services.AddScoped<ICourseMaterialRepository, CourseMaterialRepository>();
+        services.AddScoped<ICoursePermissionRepository, CoursePermissionRepository>();
         services.AddScoped<ICourseRepository, CourseRepository>();
+        services.AddScoped<ICourseRoleRepository, CourseRoleRepository>();
         services.AddScoped<ICourseTabRepository, CourseTabRepository>();
+
         services.AddScoped<IPermissionRepository, PermissionRepository>();
         services.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
         services.AddScoped<IRoleRepository, RoleRepository>();
@@ -103,7 +106,10 @@ public static class DependencyInjection
     private static IServiceCollection AddQueries(this IServiceCollection services)
     {
         services.AddScoped<ICourseMaterialQueries, CourseMaterialQueries>();
+        services.AddScoped<ICoursePermissionQueries, CoursePermissionQueries>();
         services.AddScoped<ICourseQueries, CourseQueries>();
+        services.AddScoped<ICourseRoleQueries, CourseRoleQueries>();
+
         services.AddScoped<IPermissionQueries, PermissionQueries>();
         services.AddScoped<IRoleQueries, RoleQueries>();
         services.AddScoped<IUserQueries, UserQueries>();

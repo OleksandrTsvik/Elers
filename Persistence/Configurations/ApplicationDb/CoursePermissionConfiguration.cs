@@ -7,9 +7,9 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Persistence.Configurations.ApplicationDb;
 
-public class CourseRolePermissionConfiguration : IEntityTypeConfiguration<CourseRolePermission>
+public class CoursePermissionConfiguration : IEntityTypeConfiguration<CoursePermission>
 {
-    public void Configure(EntityTypeBuilder<CourseRolePermission> builder)
+    public void Configure(EntityTypeBuilder<CoursePermission> builder)
     {
         builder.HasKey(courseRolePermission => courseRolePermission.Id);
 
@@ -17,7 +17,7 @@ public class CourseRolePermissionConfiguration : IEntityTypeConfiguration<Course
             .Property(courseRolePermission => courseRolePermission.Name)
             .IsRequired()
             .HasConversion(new EnumToStringConverter<CoursePermissionType>())
-            .HasMaxLength(CourseRolePermissionRules.MaxNameLength);
+            .HasMaxLength(CoursePermissionRules.MaxNameLength);
 
         builder
             .HasIndex(courseRolePermission => courseRolePermission.Name)
@@ -25,6 +25,6 @@ public class CourseRolePermissionConfiguration : IEntityTypeConfiguration<Course
 
         builder
             .HasMany(courseRolePermission => courseRolePermission.CourseRoles)
-            .WithMany(courseRole => courseRole.CourseRolePermissions);
+            .WithMany(courseRole => courseRole.CoursePermissions);
     }
 }
