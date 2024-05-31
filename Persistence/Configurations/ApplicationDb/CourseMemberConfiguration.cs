@@ -11,6 +11,10 @@ public class CourseMemberConfiguration : IEntityTypeConfiguration<CourseMember>
         builder.HasKey(courseMember => courseMember.Id);
 
         builder
+            .Property(courseMember => courseMember.EnrollmentDate)
+            .IsRequired();
+
+        builder
             .HasOne(courseMember => courseMember.User)
             .WithMany()
             .HasForeignKey(courseMember => courseMember.UserId)

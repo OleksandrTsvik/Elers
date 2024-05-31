@@ -19,6 +19,12 @@ public static class ErrorCodes
         public const string FileNotFound = "CourseMaterials.FileNotFound";
     }
 
+    public static class CourseMembers
+    {
+        public const string AlreadyEnrolled = "CourseMembers.AlreadyEnrolled";
+        public const string NotEnrolled = "CourseMembers.NotEnrolled";
+    }
+
     public static class CourseRoles
     {
         public const string NotFound = "CourseRoles.NotFound";

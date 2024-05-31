@@ -95,6 +95,12 @@ msgstr "Матеріал курсу з Id = '{0}' не знайдено."
 msgid "CourseMaterials.FileNotFound"
 msgstr "Файл не знайдено."
 
+msgid "CourseMembers.AlreadyEnrolled"
+msgstr "Ви вже записані на курс."
+
+msgid "CourseMembers.NotEnrolled"
+msgstr "Ви не можете відписатися від курсу, на який не були записані."
+
 msgid "CourseRoles.NotFound"
 msgstr "Роль курсу з Id = '{0}' не знайдено."
 

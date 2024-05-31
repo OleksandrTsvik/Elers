@@ -90,6 +90,7 @@ public static class DependencyInjection
     private static IServiceCollection AddRepositories(this IServiceCollection services)
     {
         services.AddScoped<ICourseMaterialRepository, CourseMaterialRepository>();
+        services.AddScoped<ICourseMemberRepository, CourseMemberRepository>();
         services.AddScoped<ICoursePermissionRepository, CoursePermissionRepository>();
         services.AddScoped<ICourseRepository, CourseRepository>();
         services.AddScoped<ICourseRoleRepository, CourseRoleRepository>();

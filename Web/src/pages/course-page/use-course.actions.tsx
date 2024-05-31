@@ -10,6 +10,10 @@ import { ItemType } from 'antd/es/menu/hooks/useItems';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
+import {
+  useEnrollToCourseMutation,
+  useUnenrollFromCourseMutation,
+} from '../../api/course-members.mutations.api';
 import { useDeleteCourseMutation } from '../../api/courses.api';
 import {
   CoursePermissionType,
@@ -28,17 +32,39 @@ type CourseAction = ItemType & {
 export default function useCourseActions(
   courseId: string,
   title: string,
-): ItemType[] {
+): { courseActions: ItemType[]; isLoading: boolean } {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
-  const { isCreator, isMember, checkCoursePermission } =
-    useCoursePermission(courseId);
+  const {
+    isCreator,
+    isMember,
+    checkCoursePermission,
+    isLoading: isLoadingCoursePermission,
+  } = useCoursePermission(courseId);
 
   const { modal } = App.useApp();
   const { displayError } = useDisplayError();
 
+  const [enrollToCourse, { isLoading: isLoadingEnroll }] =
+    useEnrollToCourseMutation();
+
+  const [unenrollFromCourse, { isLoading: isLoadingUnenroll }] =
+    useUnenrollFromCourseMutation();
+
   const [deleteCourse] = useDeleteCourseMutation();
+
+  const handleEnrollClick = async () => {
+    await enrollToCourse({ courseId })
+      .unwrap()
+      .catch((error) => displayError(error));
+  };
+
+  const handleUnenrollClick = async () => {
+    await unenrollFromCourse({ courseId })
+      .unwrap()
+      .catch((error) => displayError(error));
+  };
 
   const handleDeleteClick = async () => {
     await modal.confirm({
@@ -58,7 +84,7 @@ export default function useCourseActions(
       key: 'enroll',
       icon: <UserAddOutlined />,
       label: t('course.enroll'),
-      onClick: () => console.log('enroll'),
+      onClick: handleEnrollClick,
       show: () => !isCreator && !isMember,
       coursePermissions: [],
       userPermissions: [],
@@ -67,7 +93,7 @@ export default function useCourseActions(
       key: 'unenroll',
       icon: <UserDeleteOutlined />,
       label: t('course.unenroll'),
-      onClick: () => console.log('unenroll'),
+      onClick: handleUnenrollClick,
       show: () => !isCreator && isMember,
       coursePermissions: [],
       userPermissions: [],
@@ -127,19 +153,16 @@ export default function useCourseActions(
     },
   ];
 
-  return (
-    courseActions
-      .filter((item) => {
-        if (item.show) {
-          return item.show();
-        }
-
-        return checkCoursePermission(
-          item.coursePermissions,
-          item.userPermissions,
-        );
-      })
+  return {
+    courseActions: courseActions
+      .filter(
+        (item) =>
+          item.show?.() ??
+          checkCoursePermission(item.coursePermissions, item.userPermissions),
+      )
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      .map(({ coursePermissions, userPermissions, show, ...item }) => item)
-  );
+      .map(({ coursePermissions, userPermissions, show, ...item }) => item),
+    isLoading:
+      isLoadingCoursePermission || isLoadingEnroll || isLoadingUnenroll,
+  };
 }

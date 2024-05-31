@@ -1,4 +1,5 @@
 import { accountApi } from './account.api';
+import { courseMembersApi } from './course-members.mutations.api';
 import { coursePermissionsApi } from './course-permissions.api';
 import { courseRolesApi } from './course-roles.api';
 import { coursesApi } from './courses.api';
@@ -10,6 +11,7 @@ import { authApi } from '../auth';
 export const apiReducers = [
   authApi,
   accountApi,
+  courseMembersApi,
   coursePermissionsApi,
   courseRolesApi,
   coursesApi,
