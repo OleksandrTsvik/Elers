@@ -92,6 +92,14 @@
     },
     "title": "Заголовок"
   },
+  "course_members_page": {
+    "first_name": "Ім'я",
+    "head_title": "Учасники курсу",
+    "last_name": "Прізвище",
+    "patronymic": "По батькові",
+    "role": "Ролі",
+    "title": "Учасники курсу"
+  },
   "course_page": {
     "confirm_delete": "Ви дійсно бажаєте видалити курс '{{title}}'?",
     "head_title": "Курс: {{title}}"

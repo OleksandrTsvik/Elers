@@ -1,13 +1,12 @@
 using Application.Common.Interfaces;
 using Application.Common.Messaging;
 using Application.Common.Queries;
-using Domain.Errors;
 using Domain.Shared;
 
 namespace Application.CourseRoles.GetListCourseRoles;
 
 public class GetListCourseRolesQueryHandler
-    : IQueryHandler<GetListCourseRolesQuery, GetListCourseRolesResponse>
+    : IQueryHandler<GetListCourseRolesQuery, GetListCourseRoleItemResponse[]>
 {
     private readonly ICourseRoleQueries _courseRoleQueries;
     private readonly ITranslator _translator;
@@ -18,19 +17,14 @@ public class GetListCourseRolesQueryHandler
         _translator = translator;
     }
 
-    public async Task<Result<GetListCourseRolesResponse>> Handle(
+    public async Task<Result<GetListCourseRoleItemResponse[]>> Handle(
         GetListCourseRolesQuery request,
         CancellationToken cancellationToken)
     {
-        GetListCourseRolesResponse? courseRolesResponse = await _courseRoleQueries
+        GetListCourseRoleItemResponse[] courseRolesResponse = await _courseRoleQueries
             .GetListCourseRoles(request.CourseId, cancellationToken);
 
-        if (courseRolesResponse is null)
-        {
-            return CourseErrors.NotFound(request.CourseId);
-        }
-
-        foreach (GetListCourseRoleItemResponse courseRole in courseRolesResponse.CourseRoles)
+        foreach (GetListCourseRoleItemResponse courseRole in courseRolesResponse)
         {
             foreach (GetListCourseRolePermissionItemResponse permission in courseRole.CoursePermissions)
             {

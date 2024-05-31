@@ -128,7 +128,9 @@ public class ApplicationDbContextSeed
                 {
                     Email = user.Email,
                     PasswordHash = passwordHash,
-                    RegistrationDate = DateTime.UtcNow,
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
+                    Patronymic = user.Patronymic,
                     Roles = roles
                 };
 
@@ -181,6 +183,9 @@ public class ApplicationDbContextSeed
             {
                 Email = "ipz203_tsos@student.ztu.edu.ua",
                 Password = "123456",
+                FirstName = "Цвік",
+                LastName = "Олександр",
+                Patronymic = "Сергійович",
                 DefaultRoles = [DefaultRole.Admin]
             }
         ];

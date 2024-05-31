@@ -23,6 +23,7 @@ export const apiReducers = [
 // state of reducers will be reset after login or logout
 export const sessionApiReducers = [
   accountApi,
+  courseMembersApi,
   coursePermissionsApi,
   coursesApi,
   permissionsApi,

@@ -3,12 +3,6 @@ import { createApi } from '@reduxjs/toolkit/query/react';
 import { baseQueryWithReauth } from '../auth';
 import { CourseRoleListItem } from '../models/course-role.interface';
 
-interface GetListCourseRolesResponse {
-  courseId: string;
-  courseTitle: string;
-  courseRoles: CourseRoleListItem[];
-}
-
 interface CreateCourseRoleRequest {
   courseId: string;
   name: string;
@@ -27,7 +21,7 @@ export const courseRolesApi = createApi({
   tagTypes: ['CourseRoles'],
   endpoints: (builder) => ({
     getListCourseRoles: builder.query<
-      GetListCourseRolesResponse,
+      CourseRoleListItem[],
       { courseId?: string }
     >({
       query: ({ courseId }) => ({

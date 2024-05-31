@@ -1,3 +1,5 @@
+using Domain.Enums;
+
 namespace Application.Common.Services;
 
 public interface ICourseMemberPermissionService
@@ -17,4 +19,10 @@ public interface ICourseMemberPermissionService
     Task<bool> IsCreatorByCourseMaterialIdAsync(Guid userId, Guid courseMaterialId);
 
     Task<bool> IsCreatorByCourseRoleIdAsync(Guid userId, Guid courseRoleId);
+
+    Task<bool> CheckCoursePermissionsAsync(
+        Guid userId,
+        Guid courseId,
+        IEnumerable<CoursePermissionType> courseMemberPermissions,
+        IEnumerable<PermissionType> userPermissions);
 }

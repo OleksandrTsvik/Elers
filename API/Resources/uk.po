@@ -69,6 +69,9 @@ msgstr "Оновлення ролей"
 msgid "DeleteCourseRole"
 msgstr "Видалення ролей"
 
+msgid "ChangeCourseMemberRole"
+msgstr "Зміна ролей учасників курсу"
+
 # Validation errors
 msgid "Remove unnecessary spaces at the beginning or end."
 msgstr "Видаліть зайві пробіли на початку чи в кінці."
@@ -105,7 +108,7 @@ msgid "CourseRoles.NotFound"
 msgstr "Роль курсу з Id = '{0}' не знайдено."
 
 msgid "CourseRoles.NameNotUnique"
-msgstr "Роль курсу із назвою = '{0}' уже існує."
+msgstr "Роль курсу = '{0}' уже існує."
 
 msgid "CourseTabs.NotFound"
 msgstr "Вкладка курсу з Id = '{0}' не знайдено."
@@ -126,7 +129,7 @@ msgid "Roles.NotFound"
 msgstr "Роль з Id = '{0}' не знайдено."
 
 msgid "Roles.NameNotUnique"
-msgstr "Роль із назвою = '{0}' уже існує."
+msgstr "Роль = '{0}' уже існує."
 
 msgid "Users.NotFound"
 msgstr "Користувача з Id = '{0}' не знайдено."

@@ -40,7 +40,7 @@ export default function useCourseActions(
     isCreator,
     isMember,
     checkCoursePermission,
-    isLoading: isLoadingCoursePermission,
+    isLoadingCoursePermission,
   } = useCoursePermission(courseId);
 
   const { modal } = App.useApp();
@@ -102,7 +102,7 @@ export default function useCourseActions(
       key: 'members',
       icon: <TeamOutlined />,
       label: 'Учасники',
-      onClick: () => console.log('members'),
+      onClick: () => navigate(`/courses/members/${courseId}`),
       show: () => isCreator || isMember,
       coursePermissions: [],
       userPermissions: [],

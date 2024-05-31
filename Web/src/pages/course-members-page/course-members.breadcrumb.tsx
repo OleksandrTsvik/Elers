@@ -6,13 +6,13 @@ interface Props {
   courseId?: string;
 }
 
-export default function CourseRolesBreadcrumb({ courseId }: Props) {
+export default function CourseMembersBreadcrumb({ courseId }: Props) {
   const { t } = useTranslation();
 
   return (
     <CourseBreadcrumb
       courseId={courseId}
-      title={t('course_roles_page.title')}
+      title={t('course_members_page.title')}
     />
   );
 }

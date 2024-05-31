@@ -1,5 +1,6 @@
 import CourseChangeImagePage from './course-change-image-page/course-change-image.page';
 import CourseEditPage from './course-edit-page/course-edit.page';
+import CourseMembersPage from './course-members-page/course-members.page';
 import CoursePage from './course-page/course.page';
 import CourseRolesPage from './course-roles-page/course-roles.page';
 import ErrorPage from './error-page/error.page';
@@ -25,6 +26,7 @@ import UsersPage from './users-page/users.page';
 export {
   CourseChangeImagePage,
   CourseEditPage,
+  CourseMembersPage,
   CoursePage,
   CourseRolesPage,
   ErrorPage,

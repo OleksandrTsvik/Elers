@@ -12,7 +12,7 @@ export const coursePermissionsApi = createApi({
   endpoints: (builder) => ({
     getCourseMemberPermissions: builder.query<
       CourseMemberPermissions,
-      { courseId: string }
+      { courseId?: string }
     >({
       query: ({ courseId }) => ({
         url: `/coursePermissions/${courseId}`,

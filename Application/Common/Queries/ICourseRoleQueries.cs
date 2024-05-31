@@ -4,7 +4,7 @@ namespace Application.Common.Queries;
 
 public interface ICourseRoleQueries
 {
-    Task<GetListCourseRolesResponse?> GetListCourseRoles(
+    Task<GetListCourseRoleItemResponse[]> GetListCourseRoles(
         Guid courseId,
         CancellationToken cancellationToken = default);
 }

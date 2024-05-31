@@ -1,4 +1,5 @@
 using Application.CourseMembers.EnrollToCourse;
+using Application.CourseMembers.GetListCourseMembers;
 using Application.CourseMembers.UnenrollFromCourse;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,6 +7,16 @@ namespace API.Controllers;
 
 public class CourseMembersController : ApiControllerBase
 {
+    [HttpGet("{courseId:guid}")]
+    public async Task<IActionResult> GetListCourseMembers(
+        Guid courseId,
+        CancellationToken cancellationToken)
+    {
+        var query = new GetListCourseMembersQuery(courseId);
+
+        return HandleResult(await Sender.Send(query, cancellationToken));
+    }
+
     [HttpPost("enroll/{courseId:guid}")]
     public async Task<IActionResult> EnrollToCourse(
         Guid courseId,

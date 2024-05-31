@@ -13,33 +13,26 @@ public class CourseRoleQueries : ICourseRoleQueries
         _dbContext = dbContext;
     }
 
-    public Task<GetListCourseRolesResponse?> GetListCourseRoles(
+    public Task<GetListCourseRoleItemResponse[]> GetListCourseRoles(
         Guid courseId,
         CancellationToken cancellationToken = default)
     {
-        return _dbContext.Courses
-            .Where(x => x.Id == courseId)
-            .Select(x => new GetListCourseRolesResponse
+        return _dbContext.CourseRoles
+            .Where(x => x.CourseId == courseId)
+            .OrderBy(x => x.Name)
+            .Select(x => new GetListCourseRoleItemResponse
             {
-                CourseId = x.Id,
-                CourseTitle = x.Title,
-                CourseRoles = x.CourseRoles
-                    .Select(courseRole => new GetListCourseRoleItemResponse
+                Id = x.Id,
+                Name = x.Name,
+                CoursePermissions = x.CoursePermissions
+                    .OrderBy(x => x.Name)
+                    .Select(coursePermission => new GetListCourseRolePermissionItemResponse
                     {
-                        Id = courseRole.Id,
-                        Name = courseRole.Name,
-                        CoursePermissions = courseRole.CoursePermissions
-                            .OrderBy(x => x.Name)
-                            .Select(coursePermission => new GetListCourseRolePermissionItemResponse
-                            {
-                                Id = coursePermission.Id,
-                                Description = coursePermission.Name.ToString()
-                            })
-                            .ToArray()
+                        Id = coursePermission.Id,
+                        Description = coursePermission.Name.ToString()
                     })
-                    .OrderBy(courseRole => courseRole.Name)
                     .ToArray()
             })
-            .FirstOrDefaultAsync(cancellationToken);
+            .ToArrayAsync(cancellationToken);
     }
 }

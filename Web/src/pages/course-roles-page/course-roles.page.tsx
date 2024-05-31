@@ -19,7 +19,7 @@ export default function CourseRolesPage() {
   const [currentCourseRole, setCurrentCourseRole] =
     useState<CourseRoleListItem>();
 
-  const { data, isLoading, isFetching, error } = useGetListCourseRolesQuery({
+  const { data, isFetching, error } = useGetListCourseRolesQuery({
     courseId,
   });
 
@@ -29,11 +29,7 @@ export default function CourseRolesPage() {
     error: coursePermissionsError,
   } = useGetListCoursePermissionsQuery();
 
-  if (
-    !isFetching &&
-    !isFetchingCoursePermissions &&
-    (error || coursePermissionsError)
-  ) {
+  if (error || coursePermissionsError) {
     return <NavigateToError error={error ?? coursePermissionsError} />;
   }
 
@@ -44,23 +40,19 @@ export default function CourseRolesPage() {
   return (
     <>
       <CourseRolesHead />
-      <CourseRolesBreadcrumb
-        isLoading={isLoading}
-        courseId={data?.courseId}
-        courseTitle={data?.courseTitle}
-      />
+      <CourseRolesBreadcrumb courseId={courseId} />
       <CourseRoleCreationButton
         isLoading={isFetchingCoursePermissions}
         updateModalMode={setModalMode}
       />
       <CourseRolesTable
         isLoading={isFetching || isFetchingCoursePermissions}
-        courseRoles={data?.courseRoles}
+        courseRoles={data}
         updateModalMode={setModalMode}
         updateCurrentCourseRole={setCurrentCourseRole}
       />
       <CourseRolesModals
-        courseId={data?.courseId ?? ''}
+        courseId={courseId ?? ''}
         modalMode={modalMode}
         permissions={coursePermissions ?? []}
         currentCourseRole={currentCourseRole}

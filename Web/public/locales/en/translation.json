@@ -92,6 +92,14 @@
     },
     "title": "Title"
   },
+  "course_members_page": {
+    "first_name": "First name",
+    "head_title": "Course members",
+    "last_name": "Last name",
+    "patronymic": "Patronymic",
+    "role": "Roles",
+    "title": "Course members"
+  },
   "course_page": {
     "confirm_delete": "Are you sure you want to delete the course '{{title}}'?",
     "head_title": "Course: {{title}}"

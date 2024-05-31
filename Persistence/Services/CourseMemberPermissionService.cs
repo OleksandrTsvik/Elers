@@ -1,5 +1,6 @@
 using Application.Common.Services;
 using Domain.Entities;
+using Domain.Enums;
 using Microsoft.EntityFrameworkCore;
 using MongoDB.Driver;
 using Persistence.Constants;
@@ -112,5 +113,42 @@ public class CourseMemberPermissionService : ICourseMemberPermissionService
         return _dbContext.Courses.AnyAsync(x =>
             x.CreatorId == userId &&
             x.CourseRoles.Any(courseRole => courseRole.CourseId == x.Id && courseRole.Id == courseRoleId));
+    }
+
+    public async Task<bool> CheckCoursePermissionsAsync(
+        Guid userId,
+        Guid courseId,
+        IEnumerable<CoursePermissionType> courseMemberPermissions,
+        IEnumerable<PermissionType> userPermissions)
+    {
+        if (await IsCreatorByCourseIdAsync(userId, courseId))
+        {
+            return true;
+        }
+
+        if (!courseMemberPermissions.Any())
+        {
+            return false;
+        }
+
+        if (await _dbContext.CourseMembers.AnyAsync(x =>
+            x.CourseId == courseId &&
+            x.UserId == userId &&
+            x.CourseRole != null &&
+            x.CourseRole.CoursePermissions
+                .Any(coursePermission => courseMemberPermissions.Contains(coursePermission.Name))))
+        {
+            return true;
+        }
+
+        if (!userPermissions.Any())
+        {
+            return false;
+        }
+
+        return await _dbContext.Users
+            .AnyAsync(user => user.Id == userId && user.Roles
+                .Any(role => role.Permissions
+                    .Any(permission => userPermissions.Contains(permission.Name))));
     }
 }

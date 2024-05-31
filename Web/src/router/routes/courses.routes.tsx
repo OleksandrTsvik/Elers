@@ -2,6 +2,7 @@ import { RoutesType } from './routes-type.interface';
 import {
   CourseChangeImagePage,
   CourseEditPage,
+  CourseMembersPage,
   CoursePage,
   CourseRolesPage,
   MyCoursesPage,
@@ -15,6 +16,7 @@ export const coursesRoutes: RoutesType = {
       { path: 'edit/:courseId', element: <CourseEditPage /> },
       { path: 'change-image/:courseId', element: <CourseChangeImagePage /> },
       { path: 'roles/:courseId', element: <CourseRolesPage /> },
+      { path: 'members/:courseId', element: <CourseMembersPage /> },
     ],
   },
   public: {

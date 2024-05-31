@@ -4,7 +4,7 @@ import { PermissionType } from './permission-type.enum';
 import { useAuth } from './use-auth';
 import { useGetCourseMemberPermissionsQuery } from '../api/course-permissions.api';
 
-export function useCoursePermission(courseId: string) {
+export function useCoursePermission(courseId?: string) {
   const { checkPermission } = useAuth();
 
   const { data, isFetching, error } = useGetCourseMemberPermissionsQuery({
@@ -28,7 +28,7 @@ export function useCoursePermission(courseId: string) {
     isMember,
     memberPermissions,
     checkCoursePermission,
-    isLoading: isFetching,
+    isLoadingCoursePermission: isFetching,
     error,
   };
 }

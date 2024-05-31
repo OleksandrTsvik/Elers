@@ -21,18 +21,18 @@ public class UpdateUserCommandValidator : AbstractValidator<UpdateUserCommand>
                 .When(x => !string.IsNullOrEmpty(x.Password));
 
         RuleFor(x => x.FirstName)
-            .Length(UserRules.MinFirstNameLength, UserRules.MaxFirstNameLength)
-                .When(x => !string.IsNullOrEmpty(x.FirstName))
+            .MinimumLength(UserRules.MinFirstNameLength)
+            .MaximumLength(UserRules.MaxFirstNameLength)
             .TrimWhitespace(translator);
 
         RuleFor(x => x.LastName)
-            .Length(UserRules.MinLastNameLength, UserRules.MaxLastNameLength)
-                .When(x => !string.IsNullOrEmpty(x.LastName))
+            .MinimumLength(UserRules.MinLastNameLength)
+            .MaximumLength(UserRules.MaxLastNameLength)
             .TrimWhitespace(translator);
 
         RuleFor(x => x.Patronymic)
-            .Length(UserRules.MinPatronymicLength, UserRules.MaxPatronymicLength)
-                .When(x => !string.IsNullOrEmpty(x.Patronymic))
+            .MinimumLength(UserRules.MinPatronymicLength)
+            .MaximumLength(UserRules.MaxPatronymicLength)
             .TrimWhitespace(translator);
 
         RuleForEach(x => x.RoleIds).NotEmpty();
