@@ -1,14 +1,11 @@
-import { createApi } from '@reduxjs/toolkit/query/react';
-
-import { baseQueryWithReauth } from '../auth';
+import { api } from '.';
 import {
   CourseMemberPermissions,
   CoursePermissionListItem,
 } from '../models/course-permission.interface';
 
-export const coursePermissionsApi = createApi({
-  reducerPath: 'coursePermissionsApi',
-  baseQuery: baseQueryWithReauth,
+export const coursePermissionsApi = api.injectEndpoints({
+  overrideExisting: false,
   endpoints: (builder) => ({
     getCourseMemberPermissions: builder.query<
       CourseMemberPermissions,
@@ -17,11 +14,13 @@ export const coursePermissionsApi = createApi({
       query: ({ courseId }) => ({
         url: `/coursePermissions/${courseId}`,
       }),
+      providesTags: ['Session'],
     }),
     getListCoursePermissions: builder.query<CoursePermissionListItem[], void>({
       query: () => ({
         url: '/coursePermissions',
       }),
+      providesTags: ['Session', 'Locale'],
     }),
   }),
 });

@@ -21,12 +21,8 @@ export default function LoginForm() {
 
   const { login, isLoading, error } = useLogin();
 
-  const handleSubmit = (values: FormValues) => {
-    login(values);
-  };
-
   return (
-    <Form form={form} initialValues={initialValues} onFinish={handleSubmit}>
+    <Form form={form} initialValues={initialValues} onFinish={login}>
       <ErrorForm error={error} form={form} />
 
       <Form.Item hasFeedback name="email" rules={rules.email}>

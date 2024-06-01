@@ -14,7 +14,7 @@ const mutex = new Mutex();
 
 const baseQuery = getBaseQuery();
 
-export const baseQueryWithReauth: BaseQueryFn<
+const baseQueryWithReauth: BaseQueryFn<
   string | FetchArgs,
   unknown,
   FetchBaseQueryError
@@ -60,3 +60,5 @@ export const baseQueryWithReauth: BaseQueryFn<
 
   return result;
 };
+
+export default baseQueryWithReauth;

@@ -1,7 +1,7 @@
 import { UploadFile } from 'antd';
 
+import { api } from '.';
 import { courseMaterialsQueriesApi } from './course-materials.queries.api';
-import { coursesApi } from './courses.api';
 
 interface CreateCourseMaterialContentRequest {
   tabId: string;
@@ -40,7 +40,7 @@ interface UpdateCourseMaterialFileRequest {
   file?: UploadFile;
 }
 
-export const courseMaterialsMutationsApi = coursesApi.injectEndpoints({
+export const courseMaterialsMutationsApi = api.injectEndpoints({
   overrideExisting: false,
   endpoints: (builder) => ({
     createCourseMaterialContent: builder.mutation<

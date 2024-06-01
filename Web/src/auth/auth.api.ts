@@ -1,6 +1,4 @@
-import { createApi } from '@reduxjs/toolkit/query/react';
-
-import { getBaseQuery } from '../api/get-base-query';
+import { api } from '../api';
 import { AuthUser } from '../models/user.interface';
 
 export interface LoginRequest {
@@ -8,20 +6,20 @@ export interface LoginRequest {
   password: string;
 }
 
-export const authApi = createApi({
-  reducerPath: 'authApi',
-  baseQuery: getBaseQuery('/auth'),
+export const authApi = api.injectEndpoints({
+  overrideExisting: false,
   endpoints: (builder) => ({
     login: builder.mutation<AuthUser, LoginRequest>({
       query: (data) => ({
-        url: '/login',
+        url: '/auth/login',
         method: 'POST',
         body: data,
       }),
+      invalidatesTags: ['Session'],
     }),
     refresh: builder.mutation<AuthUser, void>({
       query: () => ({
-        url: '/refresh',
+        url: '/auth/refresh',
         method: 'PUT',
         body: {},
       }),

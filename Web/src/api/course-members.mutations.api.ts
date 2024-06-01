@@ -1,17 +1,15 @@
-import { createApi } from '@reduxjs/toolkit/query/react';
-
+import { api } from '.';
 import { coursePermissionsApi } from './course-permissions.api';
-import { baseQueryWithReauth } from '../auth';
 
-export const courseMembersApi = createApi({
-  reducerPath: 'courseMembersApi',
-  baseQuery: baseQueryWithReauth,
+export const courseMembersApi = api.injectEndpoints({
+  overrideExisting: false,
   endpoints: (builder) => ({
     enrollToCourse: builder.mutation<void, { courseId: string }>({
       query: ({ courseId }) => ({
         url: `/courseMembers/enroll/${courseId}`,
         method: 'POST',
       }),
+      invalidatesTags: ['CourseMemberList'],
       async onQueryStarted({ courseId }, { dispatch, queryFulfilled }) {
         try {
           await queryFulfilled;
@@ -35,6 +33,7 @@ export const courseMembersApi = createApi({
         url: `/courseMembers/unenroll/${courseId}`,
         method: 'POST',
       }),
+      invalidatesTags: ['CourseMemberList'],
       async onQueryStarted({ courseId }, { dispatch, queryFulfilled }) {
         try {
           await queryFulfilled;

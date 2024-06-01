@@ -21,7 +21,7 @@ public static class UserErrors
         ErrorCodes.Users.Unauthorized,
         "Please authenticate to access this resource.");
 
-    public static Error InvalidCredentials() => Error.Unauthorized(
+    public static Error InvalidCredentials() => Error.Forbidden(
         ErrorCodes.Users.InvalidCredentials,
         "Invalid email or password.");
 

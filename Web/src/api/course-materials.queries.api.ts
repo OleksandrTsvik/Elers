@@ -1,4 +1,4 @@
-import { coursesApi } from './courses.api';
+import { api } from '.';
 import { CourseMaterial } from '../models/course-material.type';
 import { CourseTabType } from '../shared';
 
@@ -23,7 +23,7 @@ interface GetCourseMaterialFileResponse extends GetCourseMaterialResponse {
   fileTitle: string;
 }
 
-export const courseMaterialsQueriesApi = coursesApi.injectEndpoints({
+export const courseMaterialsQueriesApi = api.injectEndpoints({
   overrideExisting: false,
   endpoints: (builder) => ({
     getCourseMaterialContent: builder.query<

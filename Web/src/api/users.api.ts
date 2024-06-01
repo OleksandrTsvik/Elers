@@ -1,6 +1,4 @@
-import { createApi } from '@reduxjs/toolkit/query/react';
-
-import { baseQueryWithReauth } from '../auth';
+import { api } from '.';
 import { User } from '../models/user.interface';
 
 interface CreateUserRequest {
@@ -22,22 +20,20 @@ interface UpdateUserRequest {
   roleIds: string[];
 }
 
-export const usersApi = createApi({
-  reducerPath: 'usersApi',
-  baseQuery: baseQueryWithReauth,
-  tagTypes: ['Users'],
+export const usersApi = api.injectEndpoints({
+  overrideExisting: false,
   endpoints: (builder) => ({
     getUserById: builder.query<User, { id: string }>({
       query: ({ id }) => ({
         url: `/users/${id}`,
       }),
-      providesTags: ['Users'],
+      providesTags: ['Session', 'Users'],
     }),
     getListUsers: builder.query<User[], void>({
       query: () => ({
         url: '/users',
       }),
-      providesTags: ['Users'],
+      providesTags: ['Session', 'Users'],
     }),
     createUser: builder.mutation<void, CreateUserRequest>({
       query: (data) => ({

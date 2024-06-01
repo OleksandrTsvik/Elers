@@ -1,6 +1,4 @@
-import { createApi } from '@reduxjs/toolkit/query/react';
-
-import { baseQueryWithReauth } from '../auth';
+import { api } from '.';
 import {
   Course,
   CourseListItem,
@@ -20,10 +18,8 @@ interface CreateCourseRequest {
   description?: string;
 }
 
-export const coursesApi = createApi({
-  reducerPath: 'coursesApi',
-  baseQuery: baseQueryWithReauth,
-  tagTypes: ['Course', 'CourseList', 'CourseMaterialList'],
+export const coursesApi = api.injectEndpoints({
+  overrideExisting: false,
   endpoints: (builder) => ({
     getCourseById: builder.query<Course, { id?: string }>({
       query: ({ id }) => ({
@@ -35,7 +31,7 @@ export const coursesApi = createApi({
       query: ({ id }) => ({
         url: `/courses/edit/${id}`,
       }),
-      providesTags: ['Course'],
+      providesTags: ['Session', 'Course'],
     }),
     getCourseByTabId: builder.query<GetCourseByTabIdResponse, { id?: string }>({
       query: ({ id }) => ({

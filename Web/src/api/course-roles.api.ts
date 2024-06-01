@@ -1,6 +1,4 @@
-import { createApi } from '@reduxjs/toolkit/query/react';
-
-import { baseQueryWithReauth } from '../auth';
+import { api } from '.';
 import { CourseRoleListItem } from '../models/course-role.interface';
 
 interface CreateCourseRoleRequest {
@@ -15,10 +13,8 @@ interface UpdateCourseRoleRequest {
   permissionIds: string[];
 }
 
-export const courseRolesApi = createApi({
-  reducerPath: 'courseRolesApi',
-  baseQuery: baseQueryWithReauth,
-  tagTypes: ['CourseRoles'],
+export const courseRolesApi = api.injectEndpoints({
+  overrideExisting: false,
   endpoints: (builder) => ({
     getListCourseRoles: builder.query<
       CourseRoleListItem[],
@@ -27,7 +23,7 @@ export const courseRolesApi = createApi({
       query: ({ courseId }) => ({
         url: `/courseRoles/${courseId}`,
       }),
-      providesTags: ['CourseRoles'],
+      providesTags: ['Session', 'Locale', 'CourseRoles'],
     }),
     createCourseRole: builder.mutation<void, CreateCourseRoleRequest>({
       query: ({ courseId, ...data }) => ({
