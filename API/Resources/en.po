@@ -72,6 +72,9 @@ msgstr "Delete roles"
 msgid "ChangeCourseMemberRole"
 msgstr "Change the roles of course members"
 
+msgid "RemoveCourseMember"
+msgstr "Delete course members"
+
 # Validation errors
 msgid ""
 msgstr ""

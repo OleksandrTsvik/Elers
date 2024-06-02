@@ -39,14 +39,16 @@ export const courseRolesApi = api.injectEndpoints({
         method: 'PUT',
         body: data,
       }),
-      invalidatesTags: (_, error) => (error ? [] : ['CourseRoles']),
+      invalidatesTags: (_, error) =>
+        error ? [] : ['CourseRoles', 'CourseMemberList'],
     }),
     deleteCourseRole: builder.mutation<void, { roleId: string }>({
       query: ({ roleId }) => ({
         url: `/courseRoles/${roleId}`,
         method: 'DELETE',
       }),
-      invalidatesTags: (_, error) => (error ? [] : ['CourseRoles']),
+      invalidatesTags: (_, error) =>
+        error ? [] : ['CourseRoles', 'CourseMemberList'],
     }),
   }),
 });

@@ -94,7 +94,6 @@ export default function useCourseActions(
       icon: <TeamOutlined />,
       label: 'Учасники',
       onClick: () => navigate(`/courses/members/${courseId}`),
-      show: () => isCreator || isMember,
       coursePermissions: [],
       userPermissions: [],
     },

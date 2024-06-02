@@ -3,6 +3,7 @@ import { Avatar, TableColumnsType } from 'antd';
 import { useTranslation } from 'react-i18next';
 
 import useCourseMembersActions from './use-course-members.actions';
+import { useGetListCourseRolesQuery } from '../../api/course-roles.api';
 import {
   CoursePermissionType,
   PermissionType,
@@ -20,6 +21,7 @@ export default function useCourseMembersColumns(
   const { t } = useTranslation();
   const { filterColumns } = useCoursePermission(courseId);
 
+  const { data: roles } = useGetListCourseRolesQuery({ courseId });
   const { getActionItems } = useCourseMembersActions(courseId);
 
   const columns: AuthItemColumn<CourseMember>[] = [
@@ -77,6 +79,7 @@ export default function useCourseMembersColumns(
       key: 'role',
       title: t('course_members_page.role'),
       render: (_, record) => record.courseRole?.description,
+      filters: roles?.map((item) => ({ text: item.name, value: item.id })),
       coursePermissions: [CoursePermissionType.ChangeCourseMemberRole],
       userPermissions: [PermissionType.ManageCourse],
     },

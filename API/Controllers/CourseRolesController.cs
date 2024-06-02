@@ -15,6 +15,7 @@ public class CourseRolesController : ApiControllerBase
             CoursePermissionType.CreateCourseRole,
             CoursePermissionType.UpdateCourseRole,
             CoursePermissionType.DeleteCourseRole,
+            CoursePermissionType.ChangeCourseMemberRole,
         ],
         [PermissionType.ManageCourse])]
     [HttpGet("{courseId:guid}")]

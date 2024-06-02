@@ -72,6 +72,9 @@ msgstr "Видалення ролей"
 msgid "ChangeCourseMemberRole"
 msgstr "Зміна ролей учасників курсу"
 
+msgid "RemoveCourseMember"
+msgstr "Видалення учасників курсу"
+
 # Validation errors
 msgid "Remove unnecessary spaces at the beginning or end."
 msgstr "Видаліть зайві пробіли на початку чи в кінці."
@@ -106,6 +109,9 @@ msgstr "Ви вже записані на курс."
 
 msgid "CourseMembers.NotEnrolled"
 msgstr "Ви не можете відписатися від курсу, на який не були записані."
+
+msgid "CourseMembers.RoleFromAnotherCourse"
+msgstr "Ви намагаєтесь присвоїти роль, яка належить іншому курсу."
 
 msgid "CourseRoles.NotFound"
 msgstr "Роль курсу з Id = '{0}' не знайдено."

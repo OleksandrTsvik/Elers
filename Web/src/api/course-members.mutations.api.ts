@@ -9,7 +9,7 @@ export const courseMembersApi = api.injectEndpoints({
         url: `/courseMembers/enroll/${courseId}`,
         method: 'POST',
       }),
-      invalidatesTags: ['CourseMemberList'],
+      invalidatesTags: (_, error) => (error ? [] : ['CourseMemberList']),
       async onQueryStarted({ courseId }, { dispatch, queryFulfilled }) {
         try {
           await queryFulfilled;
@@ -33,7 +33,7 @@ export const courseMembersApi = api.injectEndpoints({
         url: `/courseMembers/unenroll/${courseId}`,
         method: 'POST',
       }),
-      invalidatesTags: ['CourseMemberList'],
+      invalidatesTags: (_, error) => (error ? [] : ['CourseMemberList']),
       async onQueryStarted({ courseId }, { dispatch, queryFulfilled }) {
         try {
           await queryFulfilled;
@@ -52,12 +52,23 @@ export const courseMembersApi = api.injectEndpoints({
         }
       },
     }),
+    changeCourseMemberRole: builder.mutation<
+      void,
+      { memberId: string; courseRoleId?: string }
+    >({
+      query: ({ memberId, ...data }) => ({
+        url: `/courseMembers/roles/${memberId}`,
+        method: 'PUT',
+        body: data,
+      }),
+      invalidatesTags: (_, error) => (error ? [] : ['CourseMemberList']),
+    }),
     removeCourseMember: builder.mutation<void, { memberId: string }>({
       query: ({ memberId }) => ({
         url: `/courseMembers/${memberId}`,
         method: 'DELETE',
       }),
-      invalidatesTags: ['CourseMemberList'],
+      invalidatesTags: (_, error) => (error ? [] : ['CourseMemberList']),
     }),
   }),
 });
@@ -65,5 +76,6 @@ export const courseMembersApi = api.injectEndpoints({
 export const {
   useEnrollToCourseMutation,
   useUnenrollFromCourseMutation,
+  useChangeCourseMemberRoleMutation,
   useRemoveCourseMemberMutation,
 } = courseMembersApi;

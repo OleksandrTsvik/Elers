@@ -53,6 +53,12 @@ public class CourseMemberQueries : ICourseMemberQueries
                 .Where(x => EF.Functions.ILike(x.User!.Patronymic, $"%{queryParams.Patronymic}%"));
         }
 
+        if (queryParams.Roles is not null)
+        {
+            courseMembersQuery = courseMembersQuery
+                .Where(x => x.CourseRole != null && queryParams.Roles.Contains(x.CourseRole.Id));
+        }
+
         IQueryable<CourseMemberListItem> query;
 
         if (isGetWithRoles)

@@ -150,24 +150,20 @@ public class CourseMemberPermissionService : ICourseMemberPermissionService
             return true;
         }
 
-        if (!courseMemberPermissions.Any())
-        {
-            return false;
-        }
-
-        if (await _dbContext.CourseMembers.AnyAsync(x =>
-            x.CourseId == courseId &&
-            x.UserId == userId &&
-            x.CourseRole != null &&
-            x.CourseRole.CoursePermissions
-                .Any(coursePermission => courseMemberPermissions.Contains(coursePermission.Name))))
+        if (courseMemberPermissions.Any() &&
+            await _dbContext.CourseMembers.AnyAsync(x =>
+                x.CourseId == courseId &&
+                x.UserId == userId &&
+                x.CourseRole != null &&
+                x.CourseRole.CoursePermissions
+                    .Any(coursePermission => courseMemberPermissions.Contains(coursePermission.Name))))
         {
             return true;
         }
 
         if (!userPermissions.Any())
         {
-            return false;
+            return true;
         }
 
         return await _dbContext.Users

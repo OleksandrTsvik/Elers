@@ -19,6 +19,7 @@
     "ckeditor5-custom-build": "file:ckeditor5",
     "i18next": "^23.9.0",
     "i18next-http-backend": "^2.5.0",
+    "query-string": "^9.0.0",
     "react": "^18.2.0",
     "react-cropper": "^2.3.3",
     "react-dom": "^18.2.0",

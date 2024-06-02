@@ -1,3 +1,4 @@
+using Application.CourseMembers.ChangeCourseMemberRole;
 using Application.CourseMembers.EnrollToCourse;
 using Application.CourseMembers.GetListCourseMembers;
 using Application.CourseMembers.RemoveCourseMember;
@@ -37,6 +38,20 @@ public class CourseMembersController : ApiControllerBase
         CancellationToken cancellationToken)
     {
         var command = new UnenrollFromCourseCommand(courseId);
+
+        return HandleResult(await Sender.Send(command, cancellationToken));
+    }
+
+    [HasCourseMemberPermission(
+        [CoursePermissionType.ChangeCourseMemberRole],
+        [PermissionType.ManageCourse])]
+    [HttpPut("roles/{memberId:guid}")]
+    public async Task<IActionResult> ChangeCourseMemberRole(
+        Guid memberId,
+        [FromBody] ChangeCourseMemberRoleRequest request,
+        CancellationToken cancellationToken)
+    {
+        var command = new ChangeCourseMemberRoleCommand(memberId, request.CourseRoleId);
 
         return HandleResult(await Sender.Send(command, cancellationToken));
     }
