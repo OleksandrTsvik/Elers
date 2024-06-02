@@ -10,9 +10,10 @@ public class CourseMembersController : ApiControllerBase
     [HttpGet("{courseId:guid}")]
     public async Task<IActionResult> GetListCourseMembers(
         Guid courseId,
+        [FromQuery] GetListCourseMembersQueryParams queryParams,
         CancellationToken cancellationToken)
     {
-        var query = new GetListCourseMembersQuery(courseId);
+        var query = new GetListCourseMembersQuery(courseId, queryParams);
 
         return HandleResult(await Sender.Send(query, cancellationToken));
     }

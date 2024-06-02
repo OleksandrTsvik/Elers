@@ -1,5 +1,6 @@
 using Application.Common.Interfaces;
 using Application.Common.Messaging;
+using Application.Common.Models;
 using Application.Common.Queries;
 using Application.Common.Services;
 using Domain.Enums;
@@ -8,7 +9,7 @@ using Domain.Shared;
 namespace Application.CourseMembers.GetListCourseMembers;
 
 public class GetListCourseMembersQueryHandler
-    : IQueryHandler<GetListCourseMembersQuery, GetListCourseMemberItemResponse[]>
+    : IQueryHandler<GetListCourseMembersQuery, PagedList<CourseMemberListItem>>
 {
     private readonly ICourseMemberQueries _courseMemberQueries;
     private readonly ICourseMemberPermissionService _courseMemberPermissionService;
@@ -27,27 +28,22 @@ public class GetListCourseMembersQueryHandler
         _userContext = userContext;
     }
 
-    public async Task<Result<GetListCourseMemberItemResponse[]>> Handle(
+    public async Task<Result<PagedList<CourseMemberListItem>>> Handle(
         GetListCourseMembersQuery request,
         CancellationToken cancellationToken)
     {
-        GetListCourseMemberItemResponse[] courseMembersResponse;
         bool isGetWithRoles = await IsGetWithRoles(request.CourseId);
 
-        if (isGetWithRoles)
-        {
-            courseMembersResponse = await _courseMemberQueries
-                .GetListCourseMembersWithRoles(request.CourseId, cancellationToken);
-        }
-        else
-        {
-            courseMembersResponse = await _courseMemberQueries
-                .GetListCourseMembers(request.CourseId, cancellationToken);
-        }
+        PagedList<CourseMemberListItem> courseMembersResponse = await _courseMemberQueries
+                .GetListCourseMembers(
+                    request.CourseId,
+                    isGetWithRoles,
+                    request.QueryParams,
+                    cancellationToken);
 
         if (isGetWithRoles)
         {
-            foreach (GetListCourseMemberItemResponse courseMember in courseMembersResponse)
+            foreach (CourseMemberListItem courseMember in courseMembersResponse.Items)
             {
                 if (courseMember.CourseRole is null || courseMember.CourseRole.Description is null)
                 {

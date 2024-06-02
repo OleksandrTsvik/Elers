@@ -11,7 +11,9 @@
     "edit": "Edit",
     "make_invisible": "Make invisible",
     "make_visible": "Make visible",
-    "save_changes": "Save changes"
+    "reset": "Reset",
+    "save_changes": "Save changes",
+    "search": "Search"
   },
   "color": {
     "blue": "Blue",
@@ -197,6 +199,9 @@
     "home_link": "Go to the home page",
     "sub_title": "The address is incorrect or the page does not exist on the site.",
     "title": "404 error. Page not found"
+  },
+  "pagination": {
+    "total": "Total records: {{total}}"
   },
   "pdf_page": {
     "download_file": "Download file",

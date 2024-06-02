@@ -8,6 +8,7 @@ import {
   PermissionType,
   useCoursePermission,
 } from '../../auth';
+import { GetColumnSearchProps } from '../../hooks/use-table-search-props';
 import { CourseMember } from '../../models/course-member.interface';
 
 type CourseMemberColumns = (
@@ -19,6 +20,7 @@ type CourseMemberColumns = (
 };
 
 export default function useCourseMembersColumns(
+  getColumnSearchProps: GetColumnSearchProps<CourseMember>,
   courseId?: string,
 ): TableColumnsType<CourseMember> {
   const { t } = useTranslation();
@@ -49,6 +51,8 @@ export default function useCourseMembersColumns(
       key: 'firstName',
       dataIndex: 'firstName',
       title: t('course_members_page.first_name'),
+      sorter: true,
+      ...getColumnSearchProps('firstName', t('course_members_page.first_name')),
       coursePermissions: [],
       userPermissions: [],
     },
@@ -56,6 +60,8 @@ export default function useCourseMembersColumns(
       key: 'lastName',
       dataIndex: 'lastName',
       title: t('course_members_page.last_name'),
+      sorter: true,
+      ...getColumnSearchProps('lastName', t('course_members_page.last_name')),
       coursePermissions: [],
       userPermissions: [],
     },
@@ -63,6 +69,11 @@ export default function useCourseMembersColumns(
       key: 'patronymic',
       dataIndex: 'patronymic',
       title: t('course_members_page.patronymic'),
+      sorter: true,
+      ...getColumnSearchProps(
+        'patronymic',
+        t('course_members_page.patronymic'),
+      ),
       coursePermissions: [],
       userPermissions: [],
     },
