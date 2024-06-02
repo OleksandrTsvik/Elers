@@ -16,3 +16,12 @@ export interface Course {
   tabType: CourseTabType;
   courseTabs: CourseTab[];
 }
+
+export interface CourseToEdit {
+  id: string;
+  title: string;
+  description?: string;
+  imageUrl?: string;
+  tabType: CourseTabType;
+  courseTabs: CourseTab[];
+}

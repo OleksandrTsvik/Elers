@@ -5,14 +5,18 @@ import MaterialLinkCreationBreadcrumb from './material-link-creation.breadcrumb'
 import MaterialLinkCreationForm from './material-link-creation.form';
 import MaterialLinkCreationHead from './material-link-creation.head';
 import { useGetCourseByTabIdQuery } from '../../api/courses.api';
-import { NavigateToNotFound } from '../../common/navigate';
+import { NavigateToError, NavigateToNotFound } from '../../common/navigate';
 
 export default function MaterialLinkCreationPage() {
   const { tabId } = useParams();
-  const { data, isLoading } = useGetCourseByTabIdQuery({ id: tabId });
+  const { data, isLoading, error } = useGetCourseByTabIdQuery({ id: tabId });
 
   if (isLoading) {
     return <Skeleton active />;
+  }
+
+  if (error) {
+    return <NavigateToError error={error} />;
   }
 
   if (!data) {

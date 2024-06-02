@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 
 import { useAppDispatch, useAppSelector } from './redux-hooks';
-import { localizedApiReducers } from '../api';
+import { api } from '../api';
 import {
   LocaleCode,
   selectLocale,
@@ -22,9 +22,7 @@ export default function useLocale() {
     document.documentElement.lang = code;
     document.documentElement.dir = i18n.dir(code);
 
-    localizedApiReducers.forEach((api) =>
-      appDispatch(api.util.resetApiState()),
-    );
+    appDispatch(api.util.invalidateTags(['Locale']));
   };
 
   return { locale, setLocale };

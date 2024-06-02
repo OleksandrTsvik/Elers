@@ -54,18 +54,7 @@ public class GetCourseByIdQueryHandler
                 .ToArray()
         };
 
-        List<MaterialCountResponseDto> materialCounts = await _courseMaterialQueries
-            .GetListMaterialCountByCourseTabIds(
-                course.CourseTabs.Where(x => x.ShowMaterialsCount).Select(x => x.Id).ToArray(),
-                cancellationToken);
-
-        foreach (CourseTabResponse tab in course.CourseTabs)
-        {
-            tab.MaterialCount = materialCounts
-                .Where(x => x.TabId == tab.Id)
-                .Select(x => x.MaterialCount)
-                .FirstOrDefault();
-        }
+        await SetCourseMaterialCountsForTabs(course, cancellationToken);
 
         switch (course.TabType)
         {
@@ -77,11 +66,42 @@ public class GetCourseByIdQueryHandler
         return course;
     }
 
+    private async Task SetCourseMaterialCountsForTabs(
+        GetCourseByIdResponse<CourseTabResponse> course,
+        CancellationToken cancellationToken)
+    {
+        Guid[] tabIds = course.CourseTabs
+            .Where(x => x.ShowMaterialsCount)
+            .Select(x => x.Id)
+            .ToArray();
+
+        if (tabIds.Length == 0)
+        {
+            return;
+        }
+
+        List<MaterialCountResponseDto> materialCounts = await _courseMaterialQueries
+            .GetListMaterialCountByCourseTabIds(tabIds, cancellationToken);
+
+        foreach (CourseTabResponse tab in course.CourseTabs)
+        {
+            tab.MaterialCount = materialCounts
+                .Where(x => x.TabId == tab.Id)
+                .Select(x => x.MaterialCount)
+                .FirstOrDefault();
+        }
+    }
+
     private async Task SetCourseMaterialsForSectionsType(
         GetCourseByIdResponse<CourseTabResponse> course,
         CancellationToken cancellationToken)
     {
         Guid[] tabIds = course.CourseTabs.Select(x => x.Id).ToArray();
+
+        if (tabIds.Length == 0)
+        {
+            return;
+        }
 
         List<CourseMaterial> courseMaterials = await _courseMaterialQueries
             .GetListByTabIds(tabIds, cancellationToken);

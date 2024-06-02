@@ -1,5 +1,5 @@
 import { RolePermissionListItem } from './permission.interface';
-import { PermissionType } from '../auth/permission-type.enum';
+import { PermissionType } from '../auth';
 
 export interface Role {
   id: string;

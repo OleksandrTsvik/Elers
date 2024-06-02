@@ -11,4 +11,6 @@ public enum PermissionType
     ReadUser,
     UpdateUser,
     DeleteUser,
+    CreateCourse,
+    ManageCourse,
 }

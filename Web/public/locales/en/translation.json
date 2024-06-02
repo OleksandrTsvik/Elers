@@ -11,7 +11,9 @@
     "edit": "Edit",
     "make_invisible": "Make invisible",
     "make_visible": "Make visible",
-    "save_changes": "Save changes"
+    "reset": "Reset",
+    "save_changes": "Save changes",
+    "search": "Search"
   },
   "color": {
     "blue": "Blue",
@@ -31,6 +33,7 @@
   },
   "course": {
     "description": "Description",
+    "enroll": "Enroll in the course",
     "material": {
       "assignment": "Assignment",
       "content": "Content",
@@ -53,7 +56,8 @@
       "sections": "Sections",
       "tabs": "Tabs"
     },
-    "title": "Title"
+    "title": "Title",
+    "unenroll": "Unenroll from the course"
   },
   "course_change_image_page": {
     "confirm_delete": "Are you sure you want to delete the course image?",
@@ -90,9 +94,32 @@
     },
     "title": "Title"
   },
+  "course_members_page": {
+    "change_role": "Change role",
+    "confirm_remove_member": "Are you sure you want to remove member '{{firstName}} {{lastName}} {{patronymic}}'?",
+    "first_name": "First name",
+    "head_title": "Course members",
+    "last_name": "Last name",
+    "no_roles": "There are no course roles",
+    "patronymic": "Patronymic",
+    "remove_member": "Remove a course member",
+    "role": "Role",
+    "title": "Course members"
+  },
   "course_page": {
     "confirm_delete": "Are you sure you want to delete the course '{{title}}'?",
     "head_title": "Course: {{title}}"
+  },
+  "course_roles_page": {
+    "confirm_delete_title": "Are you sure you want to delete the '{{role}}' role?",
+    "create": "Create a role",
+    "create_role": "Create a role",
+    "head_title": "Course roles",
+    "number_permissions": "Number of permissions",
+    "permissions": "Permissions",
+    "role": "Role",
+    "title": "Course roles",
+    "update": "Edit a role"
   },
   "error": {
     "bad_request": "Bad Request. Please check your data and try again.",
@@ -105,6 +132,9 @@
     "status": "An error occurred while processing your request! Status - {{status}}.",
     "unauthorized": "Unauthorized access. Please log in!",
     "unsupported_media_type": "Unsupported Media Type"
+  },
+  "error_page": {
+    "home_link": "Go to the home page"
   },
   "file_upload": {
     "upload_hint": "The maximum file size is {{limit}} MB.",
@@ -173,6 +203,9 @@
     "home_link": "Go to the home page",
     "sub_title": "The address is incorrect or the page does not exist on the site.",
     "title": "404 error. Page not found"
+  },
+  "pagination": {
+    "total": "Total records: {{total}}"
   },
   "pdf_page": {
     "download_file": "Download file",

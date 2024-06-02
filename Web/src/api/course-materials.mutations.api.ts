@@ -1,7 +1,7 @@
 import { UploadFile } from 'antd';
 
+import { api } from '.';
 import { courseMaterialsQueriesApi } from './course-materials.queries.api';
-import { coursesApi } from './courses.api';
 
 interface CreateCourseMaterialContentRequest {
   tabId: string;
@@ -40,11 +40,11 @@ interface UpdateCourseMaterialFileRequest {
   file?: UploadFile;
 }
 
-export const courseMaterialsMutationsApi = coursesApi.injectEndpoints({
+export const courseMaterialsMutationsApi = api.injectEndpoints({
   overrideExisting: false,
   endpoints: (builder) => ({
     createCourseMaterialContent: builder.mutation<
-      string,
+      void,
       CreateCourseMaterialContentRequest
     >({
       query: ({ tabId, ...data }) => ({
@@ -55,7 +55,7 @@ export const courseMaterialsMutationsApi = coursesApi.injectEndpoints({
       invalidatesTags: ['Course', 'CourseMaterialList'],
     }),
     updateCourseMaterialContent: builder.mutation<
-      string,
+      void,
       UpdateCourseMaterialContentRequest
     >({
       query: ({ id, content }) => ({
@@ -86,7 +86,7 @@ export const courseMaterialsMutationsApi = coursesApi.injectEndpoints({
       },
     }),
     createCourseMaterialLink: builder.mutation<
-      string,
+      void,
       CreateCourseMaterialLinkRequest
     >({
       query: ({ tabId, ...data }) => ({
@@ -97,7 +97,7 @@ export const courseMaterialsMutationsApi = coursesApi.injectEndpoints({
       invalidatesTags: ['Course', 'CourseMaterialList'],
     }),
     updateCourseMaterialLink: builder.mutation<
-      string,
+      void,
       UpdateCourseMaterialLinkRequest
     >({
       query: ({ id, title, link }) => ({
@@ -128,7 +128,7 @@ export const courseMaterialsMutationsApi = coursesApi.injectEndpoints({
       },
     }),
     createCourseMaterialFile: builder.mutation<
-      string,
+      void,
       CreateCourseMaterialFileRequest
     >({
       query: ({ tabId, title, file }) => {
@@ -145,7 +145,7 @@ export const courseMaterialsMutationsApi = coursesApi.injectEndpoints({
       invalidatesTags: ['Course', 'CourseMaterialList'],
     }),
     updateCourseMaterialFile: builder.mutation<
-      string,
+      void,
       UpdateCourseMaterialFileRequest
     >({
       query: ({ id, title, file }) => {

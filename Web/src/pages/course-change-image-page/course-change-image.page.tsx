@@ -6,14 +6,21 @@ import CourseChangeImageHead from './course-change-image.head';
 import CourseChangeImageWidget from './course-change-image.widget';
 import CourseDeleteImageButton from './course-delete-image.button';
 import { useGetCourseByIdQuery } from '../../api/courses.api';
-import { NavigateToNotFound } from '../../common/navigate';
+import { NavigateToError, NavigateToNotFound } from '../../common/navigate';
 
 export default function CourseChangeImagePage() {
   const { courseId } = useParams();
-  const { data, isFetching } = useGetCourseByIdQuery({ id: courseId });
+
+  const { data, isFetching, error } = useGetCourseByIdQuery({
+    id: courseId,
+  });
 
   if (isFetching) {
     return <Skeleton active />;
+  }
+
+  if (error) {
+    return <NavigateToError error={error} />;
   }
 
   if (!data) {
@@ -23,7 +30,7 @@ export default function CourseChangeImagePage() {
   return (
     <>
       <CourseChangeImageHead />
-      <CourseChangeImageBreadcrumb courseId={data.id} title={data.title} />
+      <CourseChangeImageBreadcrumb courseId={data.id} />
       <CourseDeleteImageButton courseId={data.id} disabled={!data.imageUrl} />
       <CourseChangeImageWidget courseId={data.id} />
     </>

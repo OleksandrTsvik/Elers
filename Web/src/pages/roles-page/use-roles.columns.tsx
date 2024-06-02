@@ -1,8 +1,8 @@
-import { EllipsisOutlined } from '@ant-design/icons';
-import { Button, Dropdown, TableColumnsType } from 'antd';
+import { TableColumnsType } from 'antd';
 import { useTranslation } from 'react-i18next';
 
 import useRolesActions from './use-roles.actions';
+import { ActionsDropdown } from '../../components';
 import { RoleListItem } from '../../models/role.interface';
 
 export default function useRolesColumns() {
@@ -35,11 +35,7 @@ export default function useRolesColumns() {
     {
       key: 'action',
       width: 1,
-      render: (_, record) => (
-        <Dropdown menu={{ items: getActionItems(record) }}>
-          <Button type="text" icon={<EllipsisOutlined />} />
-        </Dropdown>
-      ),
+      render: (_, record) => <ActionsDropdown items={getActionItems(record)} />,
     },
   ];
 

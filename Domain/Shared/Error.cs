@@ -36,4 +36,7 @@ public class Error
 
     public static Error Unauthorized(string code, string message, params object[] messageArguments) =>
         new(code, message, ErrorType.Unauthorized, messageArguments);
+
+    public static Error Forbidden(string code, string message, params object[] messageArguments) =>
+        new(code, message, ErrorType.Forbidden, messageArguments);
 }

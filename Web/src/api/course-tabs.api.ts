@@ -1,4 +1,4 @@
-import { coursesApi } from './courses.api';
+import { api } from '.';
 
 interface CreateCourseTabRequest {
   courseId: string;
@@ -17,7 +17,7 @@ interface UpdateCourseTabColorRequest {
   color?: string;
 }
 
-export const courseTabsApi = coursesApi.injectEndpoints({
+export const courseTabsApi = api.injectEndpoints({
   overrideExisting: false,
   endpoints: (builder) => ({
     createCourseTab: builder.mutation<string, CreateCourseTabRequest>({

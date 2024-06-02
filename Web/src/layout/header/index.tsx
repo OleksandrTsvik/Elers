@@ -3,7 +3,7 @@ import { Flex, Layout } from 'antd';
 import HeaderRightItems from './header-right-items';
 import HeaderLogo from './header.logo';
 import SiderCollapseButton from './sider-collapse.button';
-import useAuth from '../../auth/use-auth';
+import { AuthGuard } from '../../auth';
 import useBreakpointValue from '../../hooks/use-breakpoint-value';
 import useColorModeValue from '../../hooks/use-color-mode-value';
 import {
@@ -19,8 +19,6 @@ interface Props {
 }
 
 export default function Header({ collapsed, setCollapsed }: Props) {
-  const { isAuth } = useAuth();
-
   return (
     <Layout.Header
       className={styles.header}
@@ -32,12 +30,12 @@ export default function Header({ collapsed, setCollapsed }: Props) {
         backgroundColor: useColorModeValue('#fff', '#001529'),
       }}
     >
-      {isAuth && (
+      <AuthGuard>
         <SiderCollapseButton
           collapsed={collapsed}
           setCollapsed={setCollapsed}
         />
-      )}
+      </AuthGuard>
       <Flex flex={1} justify="space-between" align="center">
         <HeaderLogo />
         <HeaderRightItems />

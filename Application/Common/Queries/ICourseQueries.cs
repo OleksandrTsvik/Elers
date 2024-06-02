@@ -7,9 +7,7 @@ namespace Application.Common.Queries;
 
 public interface ICourseQueries
 {
-    Task<GetCourseByIdResponseDto?> GetCourseById(
-        Guid id,
-        CancellationToken cancellationToken = default);
+    Task<GetCourseByIdResponseDto?> GetCourseById(Guid id, CancellationToken cancellationToken = default);
 
     Task<GetCourseByIdToEditResponseDto?> GetCourseByIdToEdit(
         Guid id,

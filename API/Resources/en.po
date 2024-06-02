@@ -26,6 +26,55 @@ msgstr "Allows the user to change the information of system users."
 msgid "DeleteUser"
 msgstr "Allows the user to delete existing users from the system."
 
+msgid "CreateCourse"
+msgstr "Allows the user to create new courses."
+
+msgid "ManageCourse"
+msgstr "Allows the user to change course data even if they are not a member of the course."
+
+# Description of course permissions
+msgid "UpdateCourse"
+msgstr "Update on the course information"
+
+msgid "UpdateCourseImage"
+msgstr "Change the course image"
+
+msgid "DeleteCourse"
+msgstr "Delete a course"
+
+msgid "CreateCourseTab"
+msgstr "Create new tabs"
+
+msgid "UpdateCourseTab"
+msgstr "Update tabs"
+
+msgid "DeleteCourseTab"
+msgstr "Delete tabs"
+
+msgid "CreateCourseMaterial"
+msgstr "Add materials"
+
+msgid "UpdateCourseMaterial"
+msgstr "Update materials"
+
+msgid "DeleteCourseMaterial"
+msgstr "Delete materials"
+
+msgid "CreateCourseRole"
+msgstr "Create new roles for course members"
+
+msgid "UpdateCourseRole"
+msgstr "Update roles"
+
+msgid "DeleteCourseRole"
+msgstr "Delete roles"
+
+msgid "ChangeCourseMemberRole"
+msgstr "Change the roles of course members"
+
+msgid "RemoveCourseMember"
+msgstr "Delete course members"
+
 # Validation errors
 msgid ""
 msgstr ""

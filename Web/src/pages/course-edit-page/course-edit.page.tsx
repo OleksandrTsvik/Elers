@@ -4,18 +4,22 @@ import { useParams } from 'react-router-dom';
 
 import CourseEditPageContent from './course-edit.page-content';
 import { useGetCourseByIdToEditQuery } from '../../api/courses.api';
-import { NavigateToNotFound } from '../../common/navigate';
+import { NavigateToError, NavigateToNotFound } from '../../common/navigate';
 
 export default function CourseEditPage() {
   const { courseId } = useParams();
   const { t } = useTranslation();
 
-  const { data, isLoading, isFetching } = useGetCourseByIdToEditQuery({
+  const { data, isLoading, isFetching, error } = useGetCourseByIdToEditQuery({
     id: courseId,
   });
 
   if (isLoading) {
     return <Skeleton active />;
+  }
+
+  if (error) {
+    return <NavigateToError error={error} />;
   }
 
   if (!data) {

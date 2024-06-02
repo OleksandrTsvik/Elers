@@ -3,7 +3,7 @@ import { Button, Form, Input } from 'antd';
 import { useTranslation } from 'react-i18next';
 
 import useLoginRules from './use-login.rules';
-import useLogin from '../../auth/use-login';
+import { useLogin } from '../../auth';
 import { ErrorForm } from '../../common/error';
 
 interface FormValues {
@@ -21,12 +21,8 @@ export default function LoginForm() {
 
   const { login, isLoading, error } = useLogin();
 
-  const handleSubmit = (values: FormValues) => {
-    login(values);
-  };
-
   return (
-    <Form form={form} initialValues={initialValues} onFinish={handleSubmit}>
+    <Form form={form} initialValues={initialValues} onFinish={login}>
       <ErrorForm error={error} form={form} />
 
       <Form.Item hasFeedback name="email" rules={rules.email}>

@@ -2,6 +2,7 @@ import { Flex, Typography } from 'antd';
 import { useTranslation } from 'react-i18next';
 
 import CourseCreationModalButton from './course-creation.modal-button';
+import { PermissionType, PermissionsGuard } from '../../auth';
 
 export default function MyCoursesTitle() {
   const { t } = useTranslation();
@@ -17,7 +18,9 @@ export default function MyCoursesTitle() {
       <Typography.Title style={{ margin: 0 }}>
         {t('my_courses_page.title')}
       </Typography.Title>
-      <CourseCreationModalButton />
+      <PermissionsGuard permissions={PermissionType.CreateCourse}>
+        <CourseCreationModalButton />
+      </PermissionsGuard>
     </Flex>
   );
 }

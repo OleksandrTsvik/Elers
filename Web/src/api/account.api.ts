@@ -1,10 +1,7 @@
-import { createApi } from '@reduxjs/toolkit/query/react';
+import { api } from '.';
 
-import { baseQueryWithReauth } from '../auth/base-query-with-reauth';
-
-export const accountApi = createApi({
-  reducerPath: 'accountApi',
-  baseQuery: baseQueryWithReauth,
+export const accountApi = api.injectEndpoints({
+  overrideExisting: false,
   endpoints: (builder) => ({
     logout: builder.mutation<void, void>({
       query: () => ({
@@ -12,6 +9,7 @@ export const accountApi = createApi({
         method: 'POST',
         body: {},
       }),
+      invalidatesTags: ['Session'],
     }),
   }),
 });

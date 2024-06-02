@@ -1,26 +1,19 @@
-import { accountApi } from './account.api';
-import { coursesApi } from './courses.api';
-import { permissionsApi } from './permissions.api';
-import { rolesApi } from './roles.api';
-import { usersApi } from './users.api';
-import { authApi } from '../auth/auth.api';
+import { createApi } from '@reduxjs/toolkit/query/react';
 
-export const apiReducers = [
-  authApi,
-  accountApi,
-  coursesApi,
-  permissionsApi,
-  rolesApi,
-  usersApi,
-];
+import baseQueryWithReauth from '../auth/base-query-with-reauth';
 
-// state of reducers will be reset after logout
-export const logoutApiReducers = [
-  accountApi,
-  permissionsApi,
-  rolesApi,
-  usersApi,
-];
-
-// state of reducers will be reset after changing the language
-export const localizedApiReducers = [permissionsApi, rolesApi];
+export const api = createApi({
+  baseQuery: baseQueryWithReauth,
+  tagTypes: [
+    'Session',
+    'Locale',
+    'Course',
+    'CourseList',
+    'CourseMaterialList',
+    'CourseMemberList',
+    'CourseRoles',
+    'Roles',
+    'Users',
+  ],
+  endpoints: () => ({}),
+});

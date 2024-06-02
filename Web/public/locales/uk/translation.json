@@ -11,7 +11,9 @@
     "edit": "Редагувати",
     "make_invisible": "Зробити невидимим",
     "make_visible": "Зробити видимим",
-    "save_changes": "Зберегти зміни"
+    "reset": "Скинути",
+    "save_changes": "Зберегти зміни",
+    "search": "Пошук"
   },
   "color": {
     "blue": "Синій",
@@ -31,6 +33,7 @@
   },
   "course": {
     "description": "Опис",
+    "enroll": "Зареєструватися на курс",
     "material": {
       "assignment": "Завдання",
       "content": "Контент",
@@ -53,7 +56,8 @@
       "sections": "Секції",
       "tabs": "Вкладки"
     },
-    "title": "Заголовок"
+    "title": "Заголовок",
+    "unenroll": "Відписатися від курсу"
   },
   "course_change_image_page": {
     "confirm_delete": "Ви дійсно бажаєте видалити зображення курсу?",
@@ -90,9 +94,32 @@
     },
     "title": "Заголовок"
   },
+  "course_members_page": {
+    "change_role": "Змінити роль",
+    "confirm_remove_member": "Ви дійсно бажаєте вилучити учасника '{{firstName}} {{lastName}} {{patronymic}}'?",
+    "first_name": "Ім'я",
+    "head_title": "Учасники курсу",
+    "last_name": "Прізвище",
+    "no_roles": "Ролі курсу відсутні",
+    "patronymic": "По батькові",
+    "remove_member": "Вилучити учасника курсу",
+    "role": "Роль",
+    "title": "Учасники курсу"
+  },
   "course_page": {
     "confirm_delete": "Ви дійсно бажаєте видалити курс '{{title}}'?",
     "head_title": "Курс: {{title}}"
+  },
+  "course_roles_page": {
+    "confirm_delete_title": "Ви дійсно бажаєте видалити роль '{{role}}'?",
+    "create": "Створення ролі",
+    "create_role": "Створити роль",
+    "head_title": "Ролі курсу",
+    "number_permissions": "Кількість дозволів",
+    "permissions": "Дозволи",
+    "role": "Роль",
+    "title": "Ролі курсу",
+    "update": "Редагування ролі"
   },
   "error": {
     "bad_request": "Невірний запит. Будь ласка, перевірте дані та повторіть спробу.",
@@ -105,6 +132,9 @@
     "status": "При виконанні вашого запиту сталася помилка! Статус - {{status}}.",
     "unauthorized": "Неавторизований доступ. Увійдіть до системи!",
     "unsupported_media_type": "Непідтримуваний формат даних."
+  },
+  "error_page": {
+    "home_link": "Перейти на головну сторінку"
   },
   "file_upload": {
     "upload_hint": "Максимальний розмір файлу {{limit}} MB.",
@@ -173,6 +203,9 @@
     "home_link": "Перейти на головну сторінку",
     "sub_title": "Неправильно набрано адресу або такої сторінки на сайті не існує.",
     "title": "Помилка 404. Сторінку не знайдено"
+  },
+  "pagination": {
+    "total": "Всього записів: {{total}}"
   },
   "pdf_page": {
     "download_file": "Завантажити файл",

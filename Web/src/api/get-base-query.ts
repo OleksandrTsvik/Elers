@@ -1,4 +1,5 @@
 import { fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import queryString from 'query-string';
 
 import { RootState } from '../store';
 import { REACT_APP_API_URL } from '../utils/constants/node-env.constants';
@@ -14,4 +15,5 @@ export const getBaseQuery = (url: string = '') =>
 
       return headers;
     },
+    paramsSerializer: queryString.stringify,
   });

@@ -2,12 +2,13 @@ import { App } from 'antd';
 import { useTranslation } from 'react-i18next';
 
 import { logout as resetAuthState } from './auth.slice';
-import { logoutApiReducers } from '../api';
 import { useLogoutMutation } from '../api/account.api';
 import { useAppDispatch } from '../hooks/redux-hooks';
 import useDisplayError from '../hooks/use-display-error';
 
-export default function useLogout() {
+const messageLoadingKey = 'logout';
+
+export function useLogout() {
   const { t } = useTranslation();
   const appDispatch = useAppDispatch();
 
@@ -16,24 +17,16 @@ export default function useLogout() {
 
   const [logoutMutation, { isLoading, error }] = useLogoutMutation();
 
-  const logout = () => {
-    const messageLoadingKey = 'logout';
-
+  const logout = async () => {
     void message.loading({
       key: messageLoadingKey,
       content: t('loading.logout'),
       duration: 0,
     });
 
-    logoutMutation()
+    await logoutMutation()
       .unwrap()
-      .then(() => {
-        appDispatch(resetAuthState());
-
-        logoutApiReducers.forEach((api) =>
-          appDispatch(api.util.resetApiState()),
-        );
-      })
+      .then(() => appDispatch(resetAuthState()))
       .catch((error) => displayError(error))
       .finally(() => message.destroy(messageLoadingKey));
   };

@@ -1,5 +1,6 @@
 using Application.Common.Interfaces;
 using Application.Common.Queries;
+using Application.Common.Services;
 using Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -13,6 +14,7 @@ using Persistence.Options;
 using Persistence.Queries;
 using Persistence.Repositories;
 using Persistence.Seed.ApplicationDb;
+using Persistence.Services;
 
 namespace Persistence;
 
@@ -24,7 +26,8 @@ public static class DependencyInjection
             .AddApplicationDb()
             .AddMongoDb()
             .AddRepositories()
-            .AddQueries();
+            .AddQueries()
+            .AddServices();
 
         services.AddScoped<IUnitOfWork, UnitOfWork>();
 
@@ -87,8 +90,12 @@ public static class DependencyInjection
     private static IServiceCollection AddRepositories(this IServiceCollection services)
     {
         services.AddScoped<ICourseMaterialRepository, CourseMaterialRepository>();
+        services.AddScoped<ICourseMemberRepository, CourseMemberRepository>();
+        services.AddScoped<ICoursePermissionRepository, CoursePermissionRepository>();
         services.AddScoped<ICourseRepository, CourseRepository>();
+        services.AddScoped<ICourseRoleRepository, CourseRoleRepository>();
         services.AddScoped<ICourseTabRepository, CourseTabRepository>();
+
         services.AddScoped<IPermissionRepository, PermissionRepository>();
         services.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
         services.AddScoped<IRoleRepository, RoleRepository>();
@@ -100,10 +107,21 @@ public static class DependencyInjection
     private static IServiceCollection AddQueries(this IServiceCollection services)
     {
         services.AddScoped<ICourseMaterialQueries, CourseMaterialQueries>();
+        services.AddScoped<ICourseMemberQueries, CourseMemberQueries>();
+        services.AddScoped<ICoursePermissionQueries, CoursePermissionQueries>();
         services.AddScoped<ICourseQueries, CourseQueries>();
+        services.AddScoped<ICourseRoleQueries, CourseRoleQueries>();
+
         services.AddScoped<IPermissionQueries, PermissionQueries>();
         services.AddScoped<IRoleQueries, RoleQueries>();
         services.AddScoped<IUserQueries, UserQueries>();
+
+        return services;
+    }
+
+    private static IServiceCollection AddServices(this IServiceCollection services)
+    {
+        services.AddScoped<ICourseMemberPermissionService, CourseMemberPermissionService>();
 
         return services;
     }

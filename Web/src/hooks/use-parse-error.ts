@@ -5,6 +5,7 @@ import { IS_DEVELOPMENT } from '../utils/constants/node-env.constants';
 import { ValidationErrors, isNumber, parseErrorObject } from '../utils/helpers';
 
 interface ErrorData {
+  status?: number;
   message: string;
   description: string[];
   validation?: ValidationErrors;
@@ -15,8 +16,13 @@ export default function useParseError(error: unknown): ErrorData {
 
   const errorObject = parseErrorObject(error);
 
+  let status: number | undefined = undefined;
   let message: string = t('error.simple');
   let description: string[] = [];
+
+  if (isNumber(errorObject.status)) {
+    status = errorObject.status;
+  }
 
   if (errorObject.message) {
     message = errorObject.message;
@@ -30,7 +36,7 @@ export default function useParseError(error: unknown): ErrorData {
       : [errorObject.description];
   }
 
-  return { message, description, validation: errorObject.validation };
+  return { status, message, description, validation: errorObject.validation };
 }
 
 function getErrorMessageByStatus(

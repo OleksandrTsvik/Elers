@@ -31,17 +31,17 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
 
         builder
             .Property(user => user.FirstName)
-            .IsRequired(false)
+            .IsRequired()
             .HasMaxLength(UserRules.MaxFirstNameLength);
 
         builder
             .Property(user => user.LastName)
-            .IsRequired(false)
+            .IsRequired()
             .HasMaxLength(UserRules.MaxLastNameLength);
 
         builder
             .Property(user => user.Patronymic)
-            .IsRequired(false)
+            .IsRequired()
             .HasMaxLength(UserRules.MaxPatronymicLength);
 
         builder

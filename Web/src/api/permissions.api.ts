@@ -1,16 +1,14 @@
-import { createApi } from '@reduxjs/toolkit/query/react';
-
-import { baseQueryWithReauth } from '../auth/base-query-with-reauth';
+import { api } from '.';
 import { Permission } from '../models/permission.interface';
 
-export const permissionsApi = createApi({
-  reducerPath: 'permissionsApi',
-  baseQuery: baseQueryWithReauth,
+export const permissionsApi = api.injectEndpoints({
+  overrideExisting: false,
   endpoints: (builder) => ({
     getListPermissions: builder.query<Permission[], void>({
       query: () => ({
         url: '/permissions',
       }),
+      providesTags: ['Session', 'Locale'],
     }),
   }),
 });

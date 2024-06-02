@@ -30,7 +30,7 @@ export default function CourseDeleteImageButton({ courseId, disabled }: Props) {
       onOk: () =>
         deleteCourseImage({ id: courseId })
           .unwrap()
-          .then(() => navigate('/courses'))
+          .then(() => navigate('/'))
           .catch((error) => displayError(error)),
     });
   };

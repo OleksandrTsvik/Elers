@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 
 import { useRefreshMutation } from './auth.api';
 import { setCredentials } from './auth.slice';
-import useAuth from './use-auth';
+import { useAuth } from './use-auth';
 import { useAppDispatch } from '../hooks/redux-hooks';
 import useDisplayError from '../hooks/use-display-error';
 
@@ -12,7 +12,7 @@ interface Props {
   children: React.ReactNode;
 }
 
-export default function AuthMiddleware({ children }: Props) {
+export function AuthMiddleware({ children }: Props) {
   const { t } = useTranslation();
   const appDispatch = useAppDispatch();
   const { displayError } = useDisplayError();

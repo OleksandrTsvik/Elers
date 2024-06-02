@@ -5,15 +5,22 @@ import MaterialLinkEditBreadcrumb from './material-link-edit.breadcrumb';
 import MaterialLinkEditForm from './material-link-edit.form';
 import MaterialLinkEditHead from './material-link-edit.head';
 import { useGetCourseMaterialLinkQuery } from '../../api/course-materials.queries.api';
-import { NavigateToNotFound } from '../../common/navigate';
+import { NavigateToError, NavigateToNotFound } from '../../common/navigate';
 
 export default function MaterialLinkEditPage() {
   const { tabId, id } = useParams();
 
-  const { data, isFetching } = useGetCourseMaterialLinkQuery({ tabId, id });
+  const { data, isFetching, error } = useGetCourseMaterialLinkQuery({
+    tabId,
+    id,
+  });
 
   if (isFetching) {
     return <Skeleton active />;
+  }
+
+  if (error) {
+    return <NavigateToError error={error} />;
   }
 
   if (!data) {

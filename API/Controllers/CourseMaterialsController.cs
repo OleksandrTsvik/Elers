@@ -13,13 +13,17 @@ using Application.CourseMaterials.UpdateCourseMaterialActive;
 using Application.CourseMaterials.UpdateCourseMaterialContent;
 using Application.CourseMaterials.UpdateCourseMaterialFile;
 using Application.CourseMaterials.UpdateCourseMaterialLink;
+using Domain.Enums;
+using Infrastructure.CourseMemberPermissions;
 using Infrastructure.Files;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers;
 
 public class CourseMaterialsController : ApiControllerBase
 {
+    [AllowAnonymous]
     [HttpGet("tabs/{tabId:guid}")]
     public async Task<IActionResult> GetListCourseMaterialsByTabId(
         Guid tabId,
@@ -30,6 +34,24 @@ public class CourseMaterialsController : ApiControllerBase
         return HandleResult(await Sender.Send(query, cancellationToken));
     }
 
+    [AllowAnonymous]
+    [HttpGet("file/download/{fileName}")]
+    public async Task<IActionResult> DownloadCourseMaterialFile(
+        string fileName,
+        CancellationToken cancellationToken)
+    {
+        var query = new DownloadCourseMaterialFileQuery(fileName);
+
+        return HandleResult(await Sender.Send(query, cancellationToken));
+    }
+
+    [HasCourseMemberPermission(
+        [
+            CoursePermissionType.UpdateCourseMaterial,
+            CoursePermissionType.CreateCourseMaterial,
+            CoursePermissionType.DeleteCourseMaterial
+        ],
+        [PermissionType.ManageCourse])]
     [HttpGet("tabs/edit/{tabId:guid}")]
     public async Task<IActionResult> GetListCourseMaterialsByTabIdToEdit(
         Guid tabId,
@@ -40,6 +62,9 @@ public class CourseMaterialsController : ApiControllerBase
         return HandleResult(await Sender.Send(query, cancellationToken));
     }
 
+    [HasCourseMemberPermission(
+        [CoursePermissionType.UpdateCourseMaterial],
+        [PermissionType.ManageCourse])]
     [HttpGet("{tabId:guid}/content/{id:guid}")]
     public async Task<IActionResult> GetCourseMaterialContent(
         Guid tabId,
@@ -51,6 +76,9 @@ public class CourseMaterialsController : ApiControllerBase
         return HandleResult(await Sender.Send(query, cancellationToken));
     }
 
+    [HasCourseMemberPermission(
+        [CoursePermissionType.UpdateCourseMaterial],
+        [PermissionType.ManageCourse])]
     [HttpGet("{tabId:guid}/link/{id:guid}")]
     public async Task<IActionResult> GetCourseMaterialLink(
         Guid tabId,
@@ -62,6 +90,9 @@ public class CourseMaterialsController : ApiControllerBase
         return HandleResult(await Sender.Send(query, cancellationToken));
     }
 
+    [HasCourseMemberPermission(
+        [CoursePermissionType.UpdateCourseMaterial],
+        [PermissionType.ManageCourse])]
     [HttpGet("{tabId:guid}/file/{id:guid}")]
     public async Task<IActionResult> GetCourseMaterialFile(
         Guid tabId,
@@ -73,6 +104,9 @@ public class CourseMaterialsController : ApiControllerBase
         return HandleResult(await Sender.Send(query, cancellationToken));
     }
 
+    [HasCourseMemberPermission(
+        [CoursePermissionType.CreateCourseMaterial],
+        [PermissionType.ManageCourse])]
     [HttpPost("content/{tabId:guid}")]
     public async Task<IActionResult> CreateCourseMaterialContent(
         Guid tabId,
@@ -84,17 +118,23 @@ public class CourseMaterialsController : ApiControllerBase
         return HandleResult(await Sender.Send(command, cancellationToken));
     }
 
-    [HttpPut("content/{id:guid}")]
+    [HasCourseMemberPermission(
+        [CoursePermissionType.UpdateCourseMaterial],
+        [PermissionType.ManageCourse])]
+    [HttpPut("content/{materialId:guid}")]
     public async Task<IActionResult> UpdateCourseMaterialContent(
-        Guid id,
+        Guid materialId,
         [FromBody] UpdateCourseMaterialContentRequest request,
         CancellationToken cancellationToken)
     {
-        var command = new UpdateCourseMaterialContentCommand(id, request.Content);
+        var command = new UpdateCourseMaterialContentCommand(materialId, request.Content);
 
         return HandleResult(await Sender.Send(command, cancellationToken));
     }
 
+    [HasCourseMemberPermission(
+        [CoursePermissionType.CreateCourseMaterial],
+        [PermissionType.ManageCourse])]
     [HttpPost("link/{tabId:guid}")]
     public async Task<IActionResult> CreateCourseMaterialLink(
         Guid tabId,
@@ -106,27 +146,23 @@ public class CourseMaterialsController : ApiControllerBase
         return HandleResult(await Sender.Send(command, cancellationToken));
     }
 
-    [HttpPut("link/{id:guid}")]
+    [HasCourseMemberPermission(
+        [CoursePermissionType.UpdateCourseMaterial],
+        [PermissionType.ManageCourse])]
+    [HttpPut("link/{materialId:guid}")]
     public async Task<IActionResult> UpdateCourseMaterialLink(
-        Guid id,
+        Guid materialId,
         [FromBody] UpdateCourseMaterialLinkRequest request,
         CancellationToken cancellationToken)
     {
-        var command = new UpdateCourseMaterialLinkCommand(id, request.Title, request.Link);
+        var command = new UpdateCourseMaterialLinkCommand(materialId, request.Title, request.Link);
 
         return HandleResult(await Sender.Send(command, cancellationToken));
     }
 
-    [HttpGet("file/download/{fileName}")]
-    public async Task<IActionResult> DownloadCourseMaterialFile(
-        string fileName,
-        CancellationToken cancellationToken)
-    {
-        var query = new DownloadCourseMaterialFileQuery(fileName);
-
-        return HandleResult(await Sender.Send(query, cancellationToken));
-    }
-
+    [HasCourseMemberPermission(
+        [CoursePermissionType.CreateCourseMaterial],
+        [PermissionType.ManageCourse])]
     [HttpPost("file/{tabId:guid}")]
     public async Task<IActionResult> CreateCourseMaterialFile(
         Guid tabId,
@@ -141,37 +177,46 @@ public class CourseMaterialsController : ApiControllerBase
         return HandleResult(await Sender.Send(command, cancellationToken));
     }
 
-    [HttpPut("file/{id:guid}")]
+    [HasCourseMemberPermission(
+        [CoursePermissionType.UpdateCourseMaterial],
+        [PermissionType.ManageCourse])]
+    [HttpPut("file/{materialId:guid}")]
     public async Task<IActionResult> UpdateCourseMaterialFile(
-        Guid id,
+        Guid materialId,
         [FromForm] UpdateCourseMaterialFileRequest request,
         CancellationToken cancellationToken)
     {
         var command = new UpdateCourseMaterialFileCommand(
-            id,
+            materialId,
             request.Title,
             request.File is not null ? new FormFileProxy(request.File) : null);
 
         return HandleResult(await Sender.Send(command, cancellationToken));
     }
 
-    [HttpPatch("active/{id:guid}")]
+    [HasCourseMemberPermission(
+        [CoursePermissionType.UpdateCourseMaterial],
+        [PermissionType.ManageCourse])]
+    [HttpPatch("active/{materialId:guid}")]
     public async Task<IActionResult> UpdateCourseMaterialActive(
-        Guid id,
+        Guid materialId,
         [FromBody] UpdateCourseMaterialActiveRequest request,
         CancellationToken cancellationToken)
     {
-        var command = new UpdateCourseMaterialActiveCommand(id, request.IsActive);
+        var command = new UpdateCourseMaterialActiveCommand(materialId, request.IsActive);
 
         return HandleResult(await Sender.Send(command, cancellationToken));
     }
 
-    [HttpDelete("{id:guid}")]
+    [HasCourseMemberPermission(
+        [CoursePermissionType.DeleteCourseMaterial],
+        [PermissionType.ManageCourse])]
+    [HttpDelete("{materialId:guid}")]
     public async Task<IActionResult> DeleteCourseMaterial(
-        Guid id,
+        Guid materialId,
         CancellationToken cancellationToken)
     {
-        var command = new DeleteCourseMaterialCommand(id);
+        var command = new DeleteCourseMaterialCommand(materialId);
 
         return HandleResult(await Sender.Send(command, cancellationToken));
     }

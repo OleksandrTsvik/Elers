@@ -2,7 +2,7 @@ import { LogoutOutlined, UserOutlined } from '@ant-design/icons';
 import { Avatar, Dropdown, MenuProps } from 'antd';
 import { useTranslation } from 'react-i18next';
 
-import useLogout from '../../../auth/use-logout';
+import { useLogout } from '../../../auth';
 
 export default function HeaderAvatar() {
   const { t } = useTranslation();

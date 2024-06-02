@@ -17,12 +17,14 @@ public class ApplicationDbContextSeed
         _passwordService = passwordService;
     }
 
-    public async Task SeedDataAsync()
+    public async Task SeedDataAsync(bool isDevelopment)
     {
         List<Permission> allPermissions = await GetAndSeedPermissionsAsync();
-        List<Role> allRoles = await GetAndSeedRolesAsync(allPermissions);
+        List<Role> allRoles = await GetAndSeedRolesAsync(isDevelopment, allPermissions);
 
         await SeedUsersAsync(allRoles);
+
+        await SeedCoursePermissionsAsync();
 
         await _dbContext.SaveChangesAsync();
     }
@@ -62,7 +64,7 @@ public class ApplicationDbContextSeed
         return existingPermissions.Concat(newPermissions).ToList();
     }
 
-    private async Task<List<Role>> GetAndSeedRolesAsync(List<Permission> allPermissions)
+    private async Task<List<Role>> GetAndSeedRolesAsync(bool isDevelopment, List<Permission> allPermissions)
     {
         List<Role> existingRoles = await _dbContext.Roles
             .Include(x => x.Permissions)
@@ -88,7 +90,7 @@ public class ApplicationDbContextSeed
 
                 newRoles.Add(newRole);
             }
-            else
+            else if (isDevelopment)
             {
                 currentRole.Permissions = rolePermissions;
             }
@@ -126,7 +128,9 @@ public class ApplicationDbContextSeed
                 {
                     Email = user.Email,
                     PasswordHash = passwordHash,
-                    RegistrationDate = DateTime.UtcNow,
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
+                    Patronymic = user.Patronymic,
                     Roles = roles
                 };
 
@@ -137,12 +141,51 @@ public class ApplicationDbContextSeed
         await _dbContext.Users.AddRangeAsync(newUsers);
     }
 
+    private async Task SeedCoursePermissionsAsync()
+    {
+        CoursePermissionType[] allPermissions = Enum.GetValues<CoursePermissionType>();
+
+        List<CoursePermission> existingPermissionsInDb = await _dbContext.CoursePermissions
+            .ToListAsync();
+
+        var removePermissionsFromDb = new List<CoursePermission>();
+        var existingPermissions = new List<CoursePermission>();
+
+        foreach (CoursePermission permission in existingPermissionsInDb)
+        {
+            if (allPermissions.Contains(permission.Name))
+            {
+                existingPermissions.Add(permission);
+            }
+            else
+            {
+                removePermissionsFromDb.Add(permission);
+            }
+        }
+
+        var newPermissions = new List<CoursePermission>();
+
+        foreach (CoursePermissionType permissionType in allPermissions)
+        {
+            if (!existingPermissions.Any(x => x.Name == permissionType))
+            {
+                newPermissions.Add(new CoursePermission { Name = permissionType });
+            }
+        }
+
+        _dbContext.CoursePermissions.RemoveRange(removePermissionsFromDb);
+        await _dbContext.CoursePermissions.AddRangeAsync(newPermissions);
+    }
+
     private static List<UserDto> GetUsersSeedData() =>
         [
             new UserDto
             {
                 Email = "ipz203_tsos@student.ztu.edu.ua",
                 Password = "123456",
+                FirstName = "Цвік",
+                LastName = "Олександр",
+                Patronymic = "Сергійович",
                 DefaultRoles = [DefaultRole.Admin]
             }
         ];

@@ -38,5 +38,17 @@ public class CourseConfiguration : IEntityTypeConfiguration<Course>
             .IsRequired()
             .HasConversion(new EnumToStringConverter<CourseTabType>())
             .HasMaxLength(CourseRules.MaxTabTypeLength);
+
+        builder
+            .HasOne(course => course.Creator)
+            .WithMany()
+            .HasForeignKey(course => course.CreatorId)
+            .OnDelete(DeleteBehavior.SetNull);
+
+        builder
+            .HasMany(course => course.CourseRoles)
+            .WithOne()
+            .HasForeignKey(courseRole => courseRole.CourseId)
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }

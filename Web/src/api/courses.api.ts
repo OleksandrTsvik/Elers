@@ -1,7 +1,9 @@
-import { createApi } from '@reduxjs/toolkit/query/react';
-
-import { baseQueryWithReauth } from '../auth/base-query-with-reauth';
-import { Course, CourseListItem } from '../models/course.interface';
+import { api } from '.';
+import {
+  Course,
+  CourseListItem,
+  CourseToEdit,
+} from '../models/course.interface';
 import { CourseTabType } from '../shared';
 
 interface GetCourseByTabIdResponse {
@@ -16,10 +18,8 @@ interface CreateCourseRequest {
   description?: string;
 }
 
-export const coursesApi = createApi({
-  reducerPath: 'coursesApi',
-  baseQuery: baseQueryWithReauth,
-  tagTypes: ['Course', 'CourseList', 'CourseMaterialList'],
+export const coursesApi = api.injectEndpoints({
+  overrideExisting: false,
   endpoints: (builder) => ({
     getCourseById: builder.query<Course, { id?: string }>({
       query: ({ id }) => ({
@@ -27,11 +27,11 @@ export const coursesApi = createApi({
       }),
       providesTags: ['Course'],
     }),
-    getCourseByIdToEdit: builder.query<Course, { id?: string }>({
+    getCourseByIdToEdit: builder.query<CourseToEdit, { id?: string }>({
       query: ({ id }) => ({
         url: `/courses/edit/${id}`,
       }),
-      providesTags: ['Course'],
+      providesTags: ['Session', 'Course'],
     }),
     getCourseByTabId: builder.query<GetCourseByTabIdResponse, { id?: string }>({
       query: ({ id }) => ({

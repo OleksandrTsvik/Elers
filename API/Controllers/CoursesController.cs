@@ -10,6 +10,9 @@ using Application.Courses.GetListCourses;
 using Application.Courses.UpdateCourseDescription;
 using Application.Courses.UpdateCourseTabType;
 using Application.Courses.UpdateCourseTitle;
+using Domain.Enums;
+using Infrastructure.Authentication;
+using Infrastructure.CourseMemberPermissions;
 using Infrastructure.Files;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -29,16 +32,40 @@ public class CoursesController : ApiControllerBase
         return HandleResult(await Sender.Send(query, cancellationToken));
     }
 
-    [HttpGet("edit/{id:guid}")]
-    public async Task<IActionResult> GetCourseByIdToEdit(
-        Guid id,
-        CancellationToken cancellationToken)
+    [AllowAnonymous]
+    [HttpGet]
+    public async Task<IActionResult> GetListCourses(CancellationToken cancellationToken)
     {
-        var query = new GetCourseByIdToEditQuery(id);
+        var query = new GetListCoursesQuery();
 
         return HandleResult(await Sender.Send(query, cancellationToken));
     }
 
+    [HasCourseMemberPermission(
+        [
+            CoursePermissionType.CreateCourseMaterial,
+            CoursePermissionType.CreateCourseTab,
+            CoursePermissionType.DeleteCourseMaterial,
+            CoursePermissionType.DeleteCourseTab,
+            CoursePermissionType.UpdateCourse,
+            CoursePermissionType.UpdateCourseMaterial,
+            CoursePermissionType.UpdateCourseTab,
+            CoursePermissionType.UpdateCourseImage
+        ],
+        [PermissionType.ManageCourse])]
+    [HttpGet("edit/{courseId:guid}")]
+    public async Task<IActionResult> GetCourseByIdToEdit(
+        Guid courseId,
+        CancellationToken cancellationToken)
+    {
+        var query = new GetCourseByIdToEditQuery(courseId);
+
+        return HandleResult(await Sender.Send(query, cancellationToken));
+    }
+
+    [HasCourseMemberPermission(
+        [CoursePermissionType.CreateCourseMaterial],
+        [PermissionType.ManageCourse])]
     [HttpGet("tab/{tabId:guid}")]
     public async Task<IActionResult> GetCourseByTabId(
         Guid tabId,
@@ -49,15 +76,7 @@ public class CoursesController : ApiControllerBase
         return HandleResult(await Sender.Send(query, cancellationToken));
     }
 
-    [AllowAnonymous]
-    [HttpGet]
-    public async Task<IActionResult> GetListCourses(CancellationToken cancellationToken)
-    {
-        var query = new GetListCoursesQuery();
-
-        return HandleResult(await Sender.Send(query, cancellationToken));
-    }
-
+    [HasPermission(PermissionType.CreateCourse)]
     [HttpPost]
     public async Task<IActionResult> CreateCourse(
         [FromBody] CreateCourseRequest request,
@@ -71,68 +90,86 @@ public class CoursesController : ApiControllerBase
         return HandleResult(await Sender.Send(command, cancellationToken));
     }
 
-    [HttpPatch("title/{id:guid}")]
+    [HasCourseMemberPermission(
+        [CoursePermissionType.UpdateCourse],
+        [PermissionType.ManageCourse])]
+    [HttpPatch("title/{courseId:guid}")]
     public async Task<IActionResult> UpdateCourseTitle(
-        Guid id,
+        Guid courseId,
         [FromBody] UpdateCourseTitleRequest request,
         CancellationToken cancellationToken)
     {
-        var command = new UpdateCourseTitleCommand(id, request.Title);
+        var command = new UpdateCourseTitleCommand(courseId, request.Title);
 
         return HandleResult(await Sender.Send(command, cancellationToken));
     }
 
-    [HttpPatch("description/{id:guid}")]
+    [HasCourseMemberPermission(
+        [CoursePermissionType.UpdateCourse],
+        [PermissionType.ManageCourse])]
+    [HttpPatch("description/{courseId:guid}")]
     public async Task<IActionResult> UpdateCourseDescription(
-        Guid id,
+        Guid courseId,
         [FromBody] UpdateCourseDescriptionRequest request,
         CancellationToken cancellationToken)
     {
-        var command = new UpdateCourseDescriptionCommand(id, request.Description);
+        var command = new UpdateCourseDescriptionCommand(courseId, request.Description);
 
         return HandleResult(await Sender.Send(command, cancellationToken));
     }
 
-    [HttpPatch("tab-type/{id:guid}")]
+    [HasCourseMemberPermission(
+        [CoursePermissionType.UpdateCourse],
+        [PermissionType.ManageCourse])]
+    [HttpPatch("tab-type/{courseId:guid}")]
     public async Task<IActionResult> UpdateCourseTabType(
-        Guid id,
+        Guid courseId,
         [FromBody] UpdateCourseTabTypeRequest request,
         CancellationToken cancellationToken)
     {
-        var command = new UpdateCourseTabTypeCommand(id, request.TabType);
+        var command = new UpdateCourseTabTypeCommand(courseId, request.TabType);
 
         return HandleResult(await Sender.Send(command, cancellationToken));
     }
 
-    [HttpPatch("image/{id:guid}")]
+    [HasCourseMemberPermission(
+        [CoursePermissionType.UpdateCourseImage],
+        [PermissionType.ManageCourse])]
+    [HttpPatch("image/{courseId:guid}")]
     public async Task<IActionResult> ChangeCourseImage(
-        Guid id,
+        Guid courseId,
         [FromForm] ChangeCourseImageRequest request,
         CancellationToken cancellationToken)
     {
         var command = new ChangeCourseImageCommand(
-            id,
+            courseId,
             new FormFileProxy(request.Image));
 
         return HandleResult(await Sender.Send(command, cancellationToken));
     }
 
-    [HttpDelete("image/{id:guid}")]
+    [HasCourseMemberPermission(
+        [CoursePermissionType.UpdateCourseImage],
+        [PermissionType.ManageCourse])]
+    [HttpDelete("image/{courseId:guid}")]
     public async Task<IActionResult> DeleteCourseImage(
-        Guid id,
+        Guid courseId,
         CancellationToken cancellationToken)
     {
-        var command = new DeleteCourseImageCommand(id);
+        var command = new DeleteCourseImageCommand(courseId);
 
         return HandleResult(await Sender.Send(command, cancellationToken));
     }
 
-    [HttpDelete("{id:guid}")]
+    [HasCourseMemberPermission(
+        [CoursePermissionType.DeleteCourse],
+        [PermissionType.ManageCourse])]
+    [HttpDelete("{courseId:guid}")]
     public async Task<IActionResult> DeleteCourse(
-        Guid id,
+        Guid courseId,
         CancellationToken cancellationToken)
     {
-        var command = new DeleteCourseCommand(id);
+        var command = new DeleteCourseCommand(courseId);
 
         return HandleResult(await Sender.Send(command, cancellationToken));
     }
