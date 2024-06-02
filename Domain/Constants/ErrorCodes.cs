@@ -23,6 +23,7 @@ public static class ErrorCodes
     {
         public const string AlreadyEnrolled = "CourseMembers.AlreadyEnrolled";
         public const string NotEnrolled = "CourseMembers.NotEnrolled";
+        public const string NotFound = "CourseMembers.NotFound";
     }
 
     public static class CourseRoles

@@ -15,6 +15,7 @@ public class CourseMemberPermissionAuthorizationHandler
     private const string RouteCourseTabId = "tabId";
     private const string RouteCourseMaterialId = "materialId";
     private const string RouteCourseRoleId = "roleId";
+    private const string RouteCourseMemberId = "memberId";
 
     private readonly IServiceScopeFactory _serviceScopeFactory;
 
@@ -34,7 +35,7 @@ public class CourseMemberPermissionAuthorizationHandler
             return;
         }
 
-        string[]? courseMemberPermissions = null;
+        string[] courseMemberPermissions = [];
 
         if (context.Resource is HttpContext httpContext)
         {
@@ -52,8 +53,7 @@ public class CourseMemberPermissionAuthorizationHandler
             courseMemberPermissions = memberPermissions;
         }
 
-        if (courseMemberPermissions is not null &&
-            courseMemberPermissions.Any(x => requirement.CourseMemberPermissions.Contains(x)))
+        if (courseMemberPermissions.Any(x => requirement.CourseMemberPermissions.Contains(x)))
         {
             context.Succeed(requirement);
             return;
@@ -77,7 +77,13 @@ public class CourseMemberPermissionAuthorizationHandler
 
     private static (string? typeRouteId, string? routeId) GetRouteValueId(RouteValueDictionary routeValues)
     {
-        string[] typeRouteIds = [RouteCourseId, RouteCourseTabId, RouteCourseMaterialId];
+        string[] typeRouteIds = [
+            RouteCourseId,
+            RouteCourseTabId,
+            RouteCourseMaterialId,
+            RouteCourseRoleId,
+            RouteCourseMemberId
+        ];
 
         foreach (string typeRouteId in typeRouteIds)
         {
@@ -105,26 +111,19 @@ public class CourseMemberPermissionAuthorizationHandler
         ICourseMemberPermissionService courseMemberPermissionService = scope.ServiceProvider
             .GetRequiredService<ICourseMemberPermissionService>();
 
-        bool isCreator = false;
-
-        switch (typeRouteId)
+        bool isCreator = typeRouteId switch
         {
-            case RouteCourseId:
-                isCreator = await courseMemberPermissionService.IsCreatorByCourseIdAsync(
-                    userId, parsedRouteId);
-                break;
-            case RouteCourseTabId:
-                isCreator = await courseMemberPermissionService.IsCreatorByCourseTabIdAsync(
-                    userId, parsedRouteId);
-                break;
-            case RouteCourseMaterialId:
-                isCreator = await courseMemberPermissionService.IsCreatorByCourseMaterialIdAsync(
-                    userId, parsedRouteId);
-                break;
-            case RouteCourseRoleId:
-                isCreator = await courseMemberPermissionService.IsCreatorByCourseRoleIdAsync(
-                    userId, parsedRouteId);
-                break;
+            RouteCourseId => await courseMemberPermissionService
+                .IsCreatorByCourseIdAsync(userId, parsedRouteId),
+            RouteCourseTabId => await courseMemberPermissionService
+                .IsCreatorByCourseTabIdAsync(userId, parsedRouteId),
+            RouteCourseMaterialId => await courseMemberPermissionService
+                .IsCreatorByCourseMaterialIdAsync(userId, parsedRouteId),
+            RouteCourseRoleId => await courseMemberPermissionService
+                .IsCreatorByCourseRoleIdAsync(userId, parsedRouteId),
+            RouteCourseMemberId => await courseMemberPermissionService
+                .IsCreatorByCourseMemberIdAsync(userId, parsedRouteId),
+            _ => false
         };
 
         if (isCreator)
@@ -132,26 +131,19 @@ public class CourseMemberPermissionAuthorizationHandler
             return (true, []);
         }
 
-        string[] memberPermissions = [];
-
-        switch (typeRouteId)
+        string[] memberPermissions = typeRouteId switch
         {
-            case RouteCourseId:
-                memberPermissions = await courseMemberPermissionService
-                    .GetCourseMemberPermissionsByCourseIdAsync(userId, parsedRouteId);
-                break;
-            case RouteCourseTabId:
-                memberPermissions = await courseMemberPermissionService
-                    .GetCourseMemberPermissionsByCourseTabIdAsync(userId, parsedRouteId);
-                break;
-            case RouteCourseMaterialId:
-                memberPermissions = await courseMemberPermissionService
-                    .GetCourseMemberPermissionsByCourseMaterialIdAsync(userId, parsedRouteId);
-                break;
-            case RouteCourseRoleId:
-                memberPermissions = await courseMemberPermissionService
-                    .GetCourseMemberPermissionsByCourseRoleIdAsync(userId, parsedRouteId);
-                break;
+            RouteCourseId => await courseMemberPermissionService
+                .GetCourseMemberPermissionsByCourseIdAsync(userId, parsedRouteId),
+            RouteCourseTabId => await courseMemberPermissionService
+                .GetCourseMemberPermissionsByCourseTabIdAsync(userId, parsedRouteId),
+            RouteCourseMaterialId => await courseMemberPermissionService
+                .GetCourseMemberPermissionsByCourseMaterialIdAsync(userId, parsedRouteId),
+            RouteCourseRoleId => await courseMemberPermissionService
+                .GetCourseMemberPermissionsByCourseRoleIdAsync(userId, parsedRouteId),
+            RouteCourseMemberId => await courseMemberPermissionService
+                .GetCourseMemberPermissionsByCourseMemberIdAsync(userId, parsedRouteId),
+            _ => []
         };
 
         return (isCreator, memberPermissions);

@@ -59,7 +59,8 @@ public class CourseMemberQueries : ICourseMemberQueries
         {
             query = courseMembersQuery.Select(courseMember => new CourseMemberListItem
             {
-                Id = courseMember.User!.Id,
+                Id = courseMember.Id,
+                UserId = courseMember.User!.Id,
                 FirstName = courseMember.User.FirstName,
                 LastName = courseMember.User.LastName,
                 Patronymic = courseMember.User.Patronymic,
@@ -75,7 +76,8 @@ public class CourseMemberQueries : ICourseMemberQueries
         {
             query = courseMembersQuery.Select(courseMember => new CourseMemberListItem
             {
-                Id = courseMember.User!.Id,
+                Id = courseMember.Id,
+                UserId = courseMember.User!.Id,
                 FirstName = courseMember.User.FirstName,
                 LastName = courseMember.User.LastName,
                 Patronymic = courseMember.User.Patronymic,

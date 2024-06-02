@@ -81,6 +81,23 @@ public class CourseMemberPermissionService : ICourseMemberPermissionService
         return await GetCourseMemberPermissionsByCourseIdAsync(userId, courseId);
     }
 
+    public async Task<string[]> GetCourseMemberPermissionsByCourseMemberIdAsync(
+        Guid userId,
+        Guid courseMemberId)
+    {
+        Guid courseId = await _dbContext.CourseMembers
+            .Where(x => x.Id == courseMemberId)
+            .Select(x => x.CourseId)
+            .FirstOrDefaultAsync();
+
+        if (courseId == Guid.Empty)
+        {
+            return [];
+        }
+
+        return await GetCourseMemberPermissionsByCourseIdAsync(userId, courseId);
+    }
+
     public Task<bool> IsCreatorByCourseIdAsync(Guid userId, Guid courseId)
     {
         return _dbContext.Courses.AnyAsync(x => x.CreatorId == userId && x.Id == courseId);
@@ -113,6 +130,13 @@ public class CourseMemberPermissionService : ICourseMemberPermissionService
         return _dbContext.Courses.AnyAsync(x =>
             x.CreatorId == userId &&
             x.CourseRoles.Any(courseRole => courseRole.CourseId == x.Id && courseRole.Id == courseRoleId));
+    }
+
+    public Task<bool> IsCreatorByCourseMemberIdAsync(Guid userId, Guid courseMemberId)
+    {
+        return _dbContext.Courses.AnyAsync(x =>
+            x.CreatorId == userId && x.CourseMembers.Any(courseMember =>
+                courseMember.CourseId == x.Id && courseMember.Id == courseMemberId));
     }
 
     public async Task<bool> CheckCoursePermissionsAsync(

@@ -4,6 +4,8 @@ namespace Domain.Repositories;
 
 public interface ICourseMemberRepository
 {
+    Task<CourseMember?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default);
+
     Task<CourseMember?> GetByCourseIdAndUserIdAsync(
         Guid courseId,
         Guid userId,

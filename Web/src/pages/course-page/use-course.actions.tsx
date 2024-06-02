@@ -20,14 +20,9 @@ import {
   PermissionType,
   useCoursePermission,
 } from '../../auth';
+import { AuthItemAction } from '../../common/types';
 import { DeleteIcon, EditIcon } from '../../components';
 import useDisplayError from '../../hooks/use-display-error';
-
-type CourseAction = ItemType & {
-  show?: () => boolean;
-  coursePermissions: CoursePermissionType[];
-  userPermissions: PermissionType[];
-};
 
 export default function useCourseActions(
   courseId: string,
@@ -36,12 +31,8 @@ export default function useCourseActions(
   const { t } = useTranslation();
   const navigate = useNavigate();
 
-  const {
-    isCreator,
-    isMember,
-    checkCoursePermission,
-    isLoadingCoursePermission,
-  } = useCoursePermission(courseId);
+  const { isCreator, isMember, filterActions, isLoadingCoursePermission } =
+    useCoursePermission(courseId);
 
   const { modal } = App.useApp();
   const { displayError } = useDisplayError();
@@ -79,7 +70,7 @@ export default function useCourseActions(
     });
   };
 
-  const courseActions: CourseAction[] = [
+  const courseActions: AuthItemAction[] = [
     {
       key: 'enroll',
       icon: <UserAddOutlined />,
@@ -154,14 +145,7 @@ export default function useCourseActions(
   ];
 
   return {
-    courseActions: courseActions
-      .filter(
-        (item) =>
-          item.show?.() ??
-          checkCoursePermission(item.coursePermissions, item.userPermissions),
-      )
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      .map(({ coursePermissions, userPermissions, show, ...item }) => item),
+    courseActions: filterActions(courseActions),
     isLoading:
       isLoadingCoursePermission || isLoadingEnroll || isLoadingUnenroll,
   };

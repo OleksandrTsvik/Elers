@@ -1,32 +1,28 @@
 import { UserOutlined } from '@ant-design/icons';
 import { Avatar, TableColumnsType } from 'antd';
-import { ColumnGroupType, ColumnType } from 'antd/es/table';
 import { useTranslation } from 'react-i18next';
 
+import useCourseMembersActions from './use-course-members.actions';
 import {
   CoursePermissionType,
   PermissionType,
   useCoursePermission,
 } from '../../auth';
+import { AuthItemColumn } from '../../common/types';
+import { ActionsDropdown } from '../../components';
 import { GetColumnSearchProps } from '../../hooks/use-table-search-props';
 import { CourseMember } from '../../models/course-member.interface';
-
-type CourseMemberColumns = (
-  | ColumnGroupType<CourseMember>
-  | ColumnType<CourseMember>
-) & {
-  coursePermissions: CoursePermissionType[];
-  userPermissions: PermissionType[];
-};
 
 export default function useCourseMembersColumns(
   getColumnSearchProps: GetColumnSearchProps<CourseMember>,
   courseId?: string,
 ): TableColumnsType<CourseMember> {
   const { t } = useTranslation();
-  const { checkCoursePermission } = useCoursePermission(courseId);
+  const { filterColumns } = useCoursePermission(courseId);
 
-  const columns: CourseMemberColumns[] = [
+  const { getActionItems } = useCourseMembersActions(courseId);
+
+  const columns: AuthItemColumn<CourseMember>[] = [
     {
       key: 'index',
       title: '#',
@@ -84,14 +80,17 @@ export default function useCourseMembersColumns(
       coursePermissions: [CoursePermissionType.ChangeCourseMemberRole],
       userPermissions: [PermissionType.ManageCourse],
     },
+    {
+      key: 'action',
+      width: 1,
+      render: (_, record) => <ActionsDropdown items={getActionItems(record)} />,
+      coursePermissions: [
+        CoursePermissionType.ChangeCourseMemberRole,
+        CoursePermissionType.RemoveCourseMember,
+      ],
+      userPermissions: [PermissionType.ManageCourse],
+    },
   ];
 
-  return (
-    columns
-      .filter(({ coursePermissions, userPermissions }) =>
-        checkCoursePermission(coursePermissions, userPermissions),
-      )
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      .map(({ coursePermissions, userPermissions, ...item }) => item)
-  );
+  return filterColumns(columns);
 }

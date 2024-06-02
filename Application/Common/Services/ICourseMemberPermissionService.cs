@@ -12,6 +12,8 @@ public interface ICourseMemberPermissionService
 
     Task<string[]> GetCourseMemberPermissionsByCourseRoleIdAsync(Guid userId, Guid courseRoleId);
 
+    Task<string[]> GetCourseMemberPermissionsByCourseMemberIdAsync(Guid userId, Guid courseMemberId);
+
     Task<bool> IsCreatorByCourseIdAsync(Guid userId, Guid courseId);
 
     Task<bool> IsCreatorByCourseTabIdAsync(Guid userId, Guid courseTabId);
@@ -19,6 +21,8 @@ public interface ICourseMemberPermissionService
     Task<bool> IsCreatorByCourseMaterialIdAsync(Guid userId, Guid courseMaterialId);
 
     Task<bool> IsCreatorByCourseRoleIdAsync(Guid userId, Guid courseRoleId);
+
+    Task<bool> IsCreatorByCourseMemberIdAsync(Guid userId, Guid courseMemberId);
 
     Task<bool> CheckCoursePermissionsAsync(
         Guid userId,

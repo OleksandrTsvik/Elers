@@ -95,11 +95,14 @@
     "title": "Заголовок"
   },
   "course_members_page": {
+    "change_role": "Змінити роль",
+    "confirm_remove_member": "Ви дійсно бажаєте вилучити учасника '{{firstName}} {{lastName}} {{patronymic}}'?",
     "first_name": "Ім'я",
     "head_title": "Учасники курсу",
     "last_name": "Прізвище",
     "patronymic": "По батькові",
-    "role": "Ролі",
+    "remove_member": "Вилучити учасника курсу",
+    "role": "Роль",
     "title": "Учасники курсу"
   },
   "course_page": {

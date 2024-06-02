@@ -52,8 +52,18 @@ export const courseMembersApi = api.injectEndpoints({
         }
       },
     }),
+    removeCourseMember: builder.mutation<void, { memberId: string }>({
+      query: ({ memberId }) => ({
+        url: `/courseMembers/${memberId}`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: ['CourseMemberList'],
+    }),
   }),
 });
 
-export const { useEnrollToCourseMutation, useUnenrollFromCourseMutation } =
-  courseMembersApi;
+export const {
+  useEnrollToCourseMutation,
+  useUnenrollFromCourseMutation,
+  useRemoveCourseMemberMutation,
+} = courseMembersApi;

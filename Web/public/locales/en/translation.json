@@ -95,11 +95,14 @@
     "title": "Title"
   },
   "course_members_page": {
+    "change_role": "Change role",
+    "confirm_remove_member": "Are you sure you want to remove member '{{firstName}} {{lastName}} {{patronymic}}'?",
     "first_name": "First name",
     "head_title": "Course members",
     "last_name": "Last name",
     "patronymic": "Patronymic",
-    "role": "Roles",
+    "remove_member": "Remove a course member",
+    "role": "Role",
     "title": "Course members"
   },
   "course_page": {

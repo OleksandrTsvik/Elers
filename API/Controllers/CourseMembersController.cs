@@ -1,6 +1,9 @@
 using Application.CourseMembers.EnrollToCourse;
 using Application.CourseMembers.GetListCourseMembers;
+using Application.CourseMembers.RemoveCourseMember;
 using Application.CourseMembers.UnenrollFromCourse;
+using Domain.Enums;
+using Infrastructure.CourseMemberPermissions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers;
@@ -34,6 +37,19 @@ public class CourseMembersController : ApiControllerBase
         CancellationToken cancellationToken)
     {
         var command = new UnenrollFromCourseCommand(courseId);
+
+        return HandleResult(await Sender.Send(command, cancellationToken));
+    }
+
+    [HasCourseMemberPermission(
+        [CoursePermissionType.RemoveCourseMember],
+        [PermissionType.ManageCourse])]
+    [HttpDelete("{memberId:guid}")]
+    public async Task<IActionResult> RemoveCourseMember(
+        Guid memberId,
+        CancellationToken cancellationToken)
+    {
+        var command = new RemoveCourseMemberCommand(memberId);
 
         return HandleResult(await Sender.Send(command, cancellationToken));
     }

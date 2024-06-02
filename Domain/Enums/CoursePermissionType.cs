@@ -15,4 +15,5 @@ public enum CoursePermissionType
     UpdateCourseRole,
     DeleteCourseRole,
     ChangeCourseMemberRole,
+    RemoveCourseMember,
 }
