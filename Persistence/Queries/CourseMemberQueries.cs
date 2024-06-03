@@ -26,38 +26,25 @@ public class CourseMemberQueries : ICourseMemberQueries
         Expression<Func<CourseMember, object>> keySelector = queryParams.SortColumn?.ToLower() switch
         {
             "firstname" => x => x.User!.FirstName,
-            "lastname" => x => x.User!.LastName,
             "patronymic" => x => x.User!.Patronymic,
-            _ => x => x.Id
+            _ => x => x.User!.LastName
         };
 
         IQueryable<CourseMember> courseMembersQuery = _dbContext.CourseMembers
             .Where(x => x.CourseId == courseId && x.User != null)
-            .SortBy(queryParams.SortOrder, keySelector);
-
-        if (!string.IsNullOrWhiteSpace(queryParams.FirstName))
-        {
-            courseMembersQuery = courseMembersQuery
-                .Where(x => EF.Functions.ILike(x.User!.FirstName, $"%{queryParams.FirstName}%"));
-        }
-
-        if (!string.IsNullOrWhiteSpace(queryParams.LastName))
-        {
-            courseMembersQuery = courseMembersQuery
-                .Where(x => EF.Functions.ILike(x.User!.LastName, $"%{queryParams.LastName}%"));
-        }
-
-        if (!string.IsNullOrWhiteSpace(queryParams.Patronymic))
-        {
-            courseMembersQuery = courseMembersQuery
-                .Where(x => EF.Functions.ILike(x.User!.Patronymic, $"%{queryParams.Patronymic}%"));
-        }
-
-        if (queryParams.Roles is not null)
-        {
-            courseMembersQuery = courseMembersQuery
-                .Where(x => x.CourseRole != null && queryParams.Roles.Contains(x.CourseRole.Id));
-        }
+            .SortBy(queryParams.SortOrder, keySelector)
+            .WhereIf(
+                !string.IsNullOrWhiteSpace(queryParams.FirstName),
+                x => EF.Functions.ILike(x.User!.FirstName, $"%{queryParams.FirstName}%"))
+            .WhereIf(
+                !string.IsNullOrWhiteSpace(queryParams.LastName),
+                x => EF.Functions.ILike(x.User!.LastName, $"%{queryParams.LastName}%"))
+            .WhereIf(
+                !string.IsNullOrWhiteSpace(queryParams.Patronymic),
+                x => EF.Functions.ILike(x.User!.Patronymic, $"%{queryParams.Patronymic}%"))
+            .WhereIf(
+                queryParams.Roles is not null,
+                x => x.CourseRole != null && queryParams.Roles!.Contains(x.CourseRole.Id));
 
         IQueryable<CourseMemberListItem> query;
 

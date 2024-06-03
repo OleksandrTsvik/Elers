@@ -9,9 +9,10 @@ import useLocationFrom from '../../hooks/use-location-from';
 
 interface Props {
   permissions: PermissionType | PermissionType[];
+  children?: React.ReactNode;
 }
 
-export default function PermissionsOutlet({ permissions }: Props) {
+export default function PermissionsOutlet({ permissions, children }: Props) {
   const { t } = useTranslation();
 
   const { locationFrom: redirectTo } = useLocationFrom();
@@ -35,5 +36,5 @@ export default function PermissionsOutlet({ permissions }: Props) {
     return <Navigate to={redirectTo} replace />;
   }
 
-  return <Outlet />;
+  return children ?? <Outlet />;
 }

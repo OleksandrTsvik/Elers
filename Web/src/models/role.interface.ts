@@ -1,5 +1,4 @@
 import { RolePermissionListItem } from './permission.interface';
-import { PermissionType } from '../auth';
 
 export interface Role {
   id: string;
@@ -10,7 +9,7 @@ export interface Role {
 export interface RoleListItem {
   id: string;
   name: string;
-  permissions: PermissionType[];
+  permissions: string[];
 }
 
 export interface UserRole {

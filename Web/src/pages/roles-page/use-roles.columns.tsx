@@ -1,4 +1,4 @@
-import { TableColumnsType } from 'antd';
+import { List, TableColumnsType } from 'antd';
 import { useTranslation } from 'react-i18next';
 
 import useRolesActions from './use-roles.actions';
@@ -30,7 +30,18 @@ export default function useRolesColumns() {
     {
       key: 'permissions',
       title: t('roles_page.permissions'),
-      render: (_, record) => record.permissions.join(', '),
+      render: (_, record) =>
+        !record.permissions.length ? null : (
+          <List
+            split={false}
+            dataSource={record.permissions}
+            renderItem={(item, index) => (
+              <List.Item className="p-0">
+                {index + 1}. {item}
+              </List.Item>
+            )}
+          />
+        ),
     },
     {
       key: 'action',

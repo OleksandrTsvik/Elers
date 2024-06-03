@@ -23,11 +23,11 @@ internal class RoleQueries : IRoleQueries
             .FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
     }
 
-    public Task<GetListRoleItemResponse[]> GetListRoles(CancellationToken cancellationToken = default)
+    public Task<GetListRoleItemResponseDto[]> GetListRoles(CancellationToken cancellationToken = default)
     {
         return _dbContext.Roles
             .Include(x => x.Permissions)
-            .Select(x => new GetListRoleItemResponse
+            .Select(x => new GetListRoleItemResponseDto
             {
                 Id = x.Id,
                 Name = x.Name,

@@ -41,7 +41,7 @@ export const usersApi = api.injectEndpoints({
         method: 'POST',
         body: data,
       }),
-      invalidatesTags: ['Users'],
+      invalidatesTags: (_, error) => (error ? [] : ['Users']),
     }),
     updateUser: builder.mutation<void, UpdateUserRequest>({
       query: ({ userId, ...data }) => ({
@@ -49,14 +49,14 @@ export const usersApi = api.injectEndpoints({
         method: 'PUT',
         body: data,
       }),
-      invalidatesTags: ['Users'],
+      invalidatesTags: (_, error) => (error ? [] : ['Users']),
     }),
     deleteUser: builder.mutation<void, { id: string }>({
       query: ({ id }) => ({
         url: `/users/${id}`,
         method: 'DELETE',
       }),
-      invalidatesTags: ['Users'],
+      invalidatesTags: (_, error) => (error ? [] : ['Users']),
     }),
   }),
 });

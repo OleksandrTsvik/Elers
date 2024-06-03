@@ -26,7 +26,7 @@ export const courseTabsApi = api.injectEndpoints({
         method: 'POST',
         body: data,
       }),
-      invalidatesTags: ['Course'],
+      invalidatesTags: (_, error) => (error ? [] : ['Course']),
     }),
     updateCourseTab: builder.mutation<void, UpdateCourseTabRequest>({
       query: ({ tabId, ...data }) => ({
@@ -34,7 +34,7 @@ export const courseTabsApi = api.injectEndpoints({
         method: 'PUT',
         body: data,
       }),
-      invalidatesTags: ['Course'],
+      invalidatesTags: (_, error) => (error ? [] : ['Course']),
     }),
     updateCourseTabColor: builder.mutation<void, UpdateCourseTabColorRequest>({
       query: ({ tabId, ...data }) => ({
@@ -42,14 +42,14 @@ export const courseTabsApi = api.injectEndpoints({
         method: 'PATCH',
         body: data,
       }),
-      invalidatesTags: ['Course'],
+      invalidatesTags: (_, error) => (error ? [] : ['Course']),
     }),
     deleteCourseTab: builder.mutation<void, { id: string }>({
       query: ({ id }) => ({
         url: `/courseTabs/${id}`,
         method: 'DELETE',
       }),
-      invalidatesTags: ['Course'],
+      invalidatesTags: (_, error) => (error ? [] : ['Course']),
     }),
   }),
 });

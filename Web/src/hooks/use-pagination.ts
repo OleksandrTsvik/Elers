@@ -17,7 +17,8 @@ export default function usePagination(initPagingParams?: PagingParams): {
     pagination: (pageSize, totalCount) => ({
       responsive: true,
       showSizeChanger: true,
-      pageSizeOptions: [1, 2, 5, 10, 20, 50, 100],
+      defaultPageSize: 20,
+      pageSizeOptions: [5, 10, 20, 50, 100],
       pageSize,
       total: totalCount,
       showTotal: (total) => t('pagination.total', { total }),

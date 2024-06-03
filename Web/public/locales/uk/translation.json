@@ -215,10 +215,11 @@
     "title": "Pdf файл"
   },
   "permissions_page": {
+    "course_permissions": "Дозволи для учасників курсу",
     "description": "Опис",
     "head_title": "Дозволи",
     "permission": "Дозвіл",
-    "title": "Дозволи"
+    "permissions": "Загальні дозволи користувачів"
   },
   "role_creation_page": {
     "head_title": "Створення ролі",

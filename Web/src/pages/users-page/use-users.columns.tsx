@@ -18,14 +18,14 @@ export default function useUsersColumns() {
       render: (_, __, index) => index + 1,
     },
     {
-      key: 'firstName',
-      dataIndex: 'firstName',
-      title: t('users_page.firstName'),
-    },
-    {
       key: 'lastName',
       dataIndex: 'lastName',
       title: t('users_page.lastName'),
+    },
+    {
+      key: 'firstName',
+      dataIndex: 'firstName',
+      title: t('users_page.firstName'),
     },
     {
       key: 'patronymic',

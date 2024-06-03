@@ -1,6 +1,6 @@
 import { RoutesType } from './routes-type.interface';
 import { PermissionType } from '../../auth';
-import { PermissionsPage } from '../../pages';
+import { CoursePermissionsTab, PermissionsPage } from '../../pages';
 import PermissionsOutlet from '../outlets/permissions.outlet';
 
 export const permissionsRoutes: RoutesType = {
@@ -9,9 +9,13 @@ export const permissionsRoutes: RoutesType = {
     element: (
       <PermissionsOutlet
         permissions={[PermissionType.ReadPermission, PermissionType.CreateRole]}
-      />
+      >
+        <PermissionsPage />
+      </PermissionsOutlet>
     ),
-    children: [{ index: true, element: <PermissionsPage /> }],
+    children: [
+      { path: 'course-permissions', element: <CoursePermissionsTab /> },
+    ],
   },
   public: {},
 };

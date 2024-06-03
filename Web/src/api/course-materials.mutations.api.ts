@@ -52,7 +52,8 @@ export const courseMaterialsMutationsApi = api.injectEndpoints({
         method: 'POST',
         body: data,
       }),
-      invalidatesTags: ['Course', 'CourseMaterialList'],
+      invalidatesTags: (_, error) =>
+        error ? [] : ['Course', 'CourseMaterialList'],
     }),
     updateCourseMaterialContent: builder.mutation<
       void,
@@ -63,7 +64,8 @@ export const courseMaterialsMutationsApi = api.injectEndpoints({
         method: 'PUT',
         body: { content },
       }),
-      invalidatesTags: ['Course', 'CourseMaterialList'],
+      invalidatesTags: (_, error) =>
+        error ? [] : ['Course', 'CourseMaterialList'],
       async onQueryStarted(
         { tabId, id, ...patch },
         { dispatch, queryFulfilled },
@@ -94,7 +96,8 @@ export const courseMaterialsMutationsApi = api.injectEndpoints({
         method: 'POST',
         body: data,
       }),
-      invalidatesTags: ['Course', 'CourseMaterialList'],
+      invalidatesTags: (_, error) =>
+        error ? [] : ['Course', 'CourseMaterialList'],
     }),
     updateCourseMaterialLink: builder.mutation<
       void,
@@ -105,7 +108,8 @@ export const courseMaterialsMutationsApi = api.injectEndpoints({
         method: 'PUT',
         body: { title, link },
       }),
-      invalidatesTags: ['Course', 'CourseMaterialList'],
+      invalidatesTags: (_, error) =>
+        error ? [] : ['Course', 'CourseMaterialList'],
       async onQueryStarted(
         { tabId, id, ...patch },
         { dispatch, queryFulfilled },
@@ -142,7 +146,8 @@ export const courseMaterialsMutationsApi = api.injectEndpoints({
           body: formData,
         };
       },
-      invalidatesTags: ['Course', 'CourseMaterialList'],
+      invalidatesTags: (_, error) =>
+        error ? [] : ['Course', 'CourseMaterialList'],
     }),
     updateCourseMaterialFile: builder.mutation<
       void,
@@ -162,7 +167,8 @@ export const courseMaterialsMutationsApi = api.injectEndpoints({
           body: formData,
         };
       },
-      invalidatesTags: ['Course', 'CourseMaterialList'],
+      invalidatesTags: (_, error) =>
+        error ? [] : ['Course', 'CourseMaterialList'],
       async onQueryStarted(
         { tabId, id, ...patch },
         { dispatch, queryFulfilled },
@@ -193,14 +199,16 @@ export const courseMaterialsMutationsApi = api.injectEndpoints({
         method: 'PATCH',
         body: data,
       }),
-      invalidatesTags: ['Course', 'CourseMaterialList'],
+      invalidatesTags: (_, error) =>
+        error ? [] : ['Course', 'CourseMaterialList'],
     }),
     deleteCourseMaterial: builder.mutation<void, { id: string }>({
       query: ({ id }) => ({
         url: `/courseMaterials/${id}`,
         method: 'DELETE',
       }),
-      invalidatesTags: ['Course', 'CourseMaterialList'],
+      invalidatesTags: (_, error) =>
+        error ? [] : ['Course', 'CourseMaterialList'],
     }),
   }),
 });

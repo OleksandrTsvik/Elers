@@ -12,11 +12,6 @@ export default function usePermissionsColumns() {
 
   const columns: TableColumnsType<DataType> = [
     {
-      key: 'permission',
-      dataIndex: 'name',
-      title: t('roles_page.permission'),
-    },
-    {
       key: 'description',
       dataIndex: 'description',
       title: t('roles_page.description'),

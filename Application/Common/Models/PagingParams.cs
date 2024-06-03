@@ -11,7 +11,7 @@ public class PagingParams
         set => _pageNumber = (value > 0) ? value : 1;
     }
 
-    private int _pageSize = 10;
+    private int _pageSize = 20;
     public int PageSize
     {
         get => _pageSize;

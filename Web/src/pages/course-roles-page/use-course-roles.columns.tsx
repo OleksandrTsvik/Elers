@@ -1,4 +1,4 @@
-import { TableColumnsType } from 'antd';
+import { List, TableColumnsType } from 'antd';
 import { ItemType } from 'antd/es/menu/hooks/useItems';
 import { useTranslation } from 'react-i18next';
 
@@ -33,7 +33,18 @@ export default function useCourseRolesColumns(
       key: 'permissions',
       title: t('course_roles_page.permissions'),
       render: (_, record) =>
-        record.coursePermissions.map((item) => item.description).join('; '),
+        !record.coursePermissions.length ? null : (
+          <List
+            split={false}
+            dataSource={record.coursePermissions}
+            rowKey={(item) => item.id}
+            renderItem={(item, index) => (
+              <List.Item className="p-0">
+                {index + 1}. {item.description}
+              </List.Item>
+            )}
+          />
+        ),
     },
     {
       key: 'action',

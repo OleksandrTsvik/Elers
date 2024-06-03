@@ -34,46 +34,46 @@ msgstr "Керування курсами. Дозволяє користувач
 
 # Description of course permissions
 msgid "UpdateCourse"
-msgstr "Оновлення інформації про курс"
+msgstr "Оновлення інформації про курс."
 
 msgid "UpdateCourseImage"
-msgstr "Зміна зображення курсу"
+msgstr "Зміна зображення курсу."
 
 msgid "DeleteCourse"
-msgstr "Видалення курсу"
+msgstr "Видалення курсу."
 
 msgid "CreateCourseTab"
-msgstr "Створення нових вкладок"
+msgstr "Створення нових вкладок."
 
 msgid "UpdateCourseTab"
-msgstr "Оновлення вкладок"
+msgstr "Оновлення вкладок."
 
 msgid "DeleteCourseTab"
-msgstr "Видалення вкладок"
+msgstr "Видалення вкладок."
 
 msgid "CreateCourseMaterial"
-msgstr "Додавання матеріалу"
+msgstr "Додавання матеріалу."
 
 msgid "UpdateCourseMaterial"
-msgstr "Оновлення матеріалу"
+msgstr "Оновлення матеріалу."
 
 msgid "DeleteCourseMaterial"
-msgstr "Видалення матеріалу"
+msgstr "Видалення матеріалу."
 
 msgid "CreateCourseRole"
-msgstr "Створення нових ролей для учасників курсу"
+msgstr "Створення нових ролей для учасників курсу."
 
 msgid "UpdateCourseRole"
-msgstr "Оновлення ролей"
+msgstr "Оновлення ролей."
 
 msgid "DeleteCourseRole"
-msgstr "Видалення ролей"
+msgstr "Видалення ролей."
 
 msgid "ChangeCourseMemberRole"
-msgstr "Зміна ролей учасників курсу"
+msgstr "Зміна ролей учасників курсу."
 
 msgid "RemoveCourseMember"
-msgstr "Видалення учасників курсу"
+msgstr "Видалення учасників курсу."
 
 # Validation errors
 msgid "Remove unnecessary spaces at the beginning or end."

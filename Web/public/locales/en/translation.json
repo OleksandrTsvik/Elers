@@ -215,10 +215,11 @@
     "title": "Pdf file"
   },
   "permissions_page": {
+    "course_permissions": "Permissions for course members",
     "description": "Description",
     "head_title": "Permissions",
     "permission": "Permission",
-    "title": "Permissions"
+    "permissions": "General user permissions"
   },
   "role_creation_page": {
     "head_title": "Create a role",

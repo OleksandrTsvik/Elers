@@ -39,7 +39,7 @@ export const rolesApi = api.injectEndpoints({
         method: 'POST',
         body: data,
       }),
-      invalidatesTags: ['Roles'],
+      invalidatesTags: (_, error) => (error ? [] : ['Roles']),
     }),
     updateRole: builder.mutation<void, UpdateRoleRequest>({
       query: ({ roleId, ...data }) => ({
@@ -47,14 +47,14 @@ export const rolesApi = api.injectEndpoints({
         method: 'PUT',
         body: data,
       }),
-      invalidatesTags: ['Roles'],
+      invalidatesTags: (_, error) => (error ? [] : ['Roles']),
     }),
     deleteRole: builder.mutation<void, { id: string }>({
       query: ({ id }) => ({
         url: `/roles/${id}`,
         method: 'DELETE',
       }),
-      invalidatesTags: ['Roles'],
+      invalidatesTags: (_, error) => (error ? [] : ['Roles']),
     }),
   }),
 });

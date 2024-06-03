@@ -51,7 +51,7 @@ export const coursesApi = api.injectEndpoints({
         method: 'POST',
         body: data,
       }),
-      invalidatesTags: ['CourseList'],
+      invalidatesTags: (_, error) => (error ? [] : ['CourseList']),
     }),
     updateCourseTitle: builder.mutation<void, { id: string; title: string }>({
       query: ({ id, ...data }) => ({
@@ -59,7 +59,7 @@ export const coursesApi = api.injectEndpoints({
         method: 'PATCH',
         body: data,
       }),
-      invalidatesTags: ['Course', 'CourseList'],
+      invalidatesTags: (_, error) => (error ? [] : ['Course', 'CourseList']),
     }),
     updateCourseDescription: builder.mutation<
       void,
@@ -70,7 +70,7 @@ export const coursesApi = api.injectEndpoints({
         method: 'PATCH',
         body: data,
       }),
-      invalidatesTags: ['Course', 'CourseList'],
+      invalidatesTags: (_, error) => (error ? [] : ['Course', 'CourseList']),
     }),
     updateCourseTabType: builder.mutation<
       void,
@@ -81,7 +81,7 @@ export const coursesApi = api.injectEndpoints({
         method: 'PATCH',
         body: data,
       }),
-      invalidatesTags: ['Course'],
+      invalidatesTags: (_, error) => (error ? [] : ['Course']),
     }),
     changeCourseImage: builder.mutation<
       void,
@@ -97,21 +97,21 @@ export const coursesApi = api.injectEndpoints({
           body: formData,
         };
       },
-      invalidatesTags: ['Course', 'CourseList'],
+      invalidatesTags: (_, error) => (error ? [] : ['Course', 'CourseList']),
     }),
     deleteCourseImage: builder.mutation<void, { id: string }>({
       query: ({ id }) => ({
         url: `/courses/image/${id}`,
         method: 'DELETE',
       }),
-      invalidatesTags: ['Course', 'CourseList'],
+      invalidatesTags: (_, error) => (error ? [] : ['Course', 'CourseList']),
     }),
     deleteCourse: builder.mutation<void, { id: string }>({
       query: ({ id }) => ({
         url: `/courses/${id}`,
         method: 'DELETE',
       }),
-      invalidatesTags: ['CourseList'],
+      invalidatesTags: (_, error) => (error ? [] : ['CourseList']),
     }),
   }),
 });

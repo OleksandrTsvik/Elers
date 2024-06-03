@@ -38,6 +38,9 @@ export default function useUserRules(mode: FormMode): Rules {
     ],
     firstName: [
       {
+        required: true,
+      },
+      {
         min: USER_RULES.firstName.min,
         max: USER_RULES.firstName.max,
         message: t('users_page.rules.firstName_len', USER_RULES.firstName),
@@ -46,6 +49,9 @@ export default function useUserRules(mode: FormMode): Rules {
     ],
     lastName: [
       {
+        required: true,
+      },
+      {
         min: USER_RULES.lastName.min,
         max: USER_RULES.lastName.max,
         message: t('users_page.rules.lastName_len', USER_RULES.lastName),
@@ -53,6 +59,9 @@ export default function useUserRules(mode: FormMode): Rules {
       trimWhitespace,
     ],
     patronymic: [
+      {
+        required: true,
+      },
       {
         min: USER_RULES.patronymic.min,
         max: USER_RULES.patronymic.max,

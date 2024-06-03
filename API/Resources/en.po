@@ -34,46 +34,46 @@ msgstr "Allows the user to change course data even if they are not a member of t
 
 # Description of course permissions
 msgid "UpdateCourse"
-msgstr "Update on the course information"
+msgstr "Update on the course information."
 
 msgid "UpdateCourseImage"
-msgstr "Change the course image"
+msgstr "Change the course image."
 
 msgid "DeleteCourse"
-msgstr "Delete a course"
+msgstr "Delete a course."
 
 msgid "CreateCourseTab"
-msgstr "Create new tabs"
+msgstr "Create new tabs."
 
 msgid "UpdateCourseTab"
-msgstr "Update tabs"
+msgstr "Update tabs."
 
 msgid "DeleteCourseTab"
-msgstr "Delete tabs"
+msgstr "Delete tabs."
 
 msgid "CreateCourseMaterial"
-msgstr "Add materials"
+msgstr "Add materials."
 
 msgid "UpdateCourseMaterial"
-msgstr "Update materials"
+msgstr "Update materials."
 
 msgid "DeleteCourseMaterial"
-msgstr "Delete materials"
+msgstr "Delete materials."
 
 msgid "CreateCourseRole"
-msgstr "Create new roles for course members"
+msgstr "Create new roles for course members."
 
 msgid "UpdateCourseRole"
-msgstr "Update roles"
+msgstr "Update roles."
 
 msgid "DeleteCourseRole"
-msgstr "Delete roles"
+msgstr "Delete roles."
 
 msgid "ChangeCourseMemberRole"
-msgstr "Change the roles of course members"
+msgstr "Change the roles of course members."
 
 msgid "RemoveCourseMember"
-msgstr "Delete course members"
+msgstr "Delete course members."
 
 # Validation errors
 msgid ""

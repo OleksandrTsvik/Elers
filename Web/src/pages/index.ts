@@ -15,6 +15,7 @@ import MaterialLinkEditPage from './material-link-edit-page/material-link-edit.p
 import MyCoursesPage from './my-courses-page/my-courses.page';
 import NotFoundPage from './not-found-page/not-found.page';
 import PdfPage from './pdf-page/pdf.page';
+import CoursePermissionsTab from './permissions-page/course-permissions.tab';
 import PermissionsPage from './permissions-page/permissions.page';
 import RoleCreationPage from './role-creation-page/role-creation.page';
 import RoleEditPage from './role-edit-page/role-edit.page';
@@ -40,6 +41,7 @@ export {
   MaterialLinkEditPage,
   MyCoursesPage,
   PdfPage,
+  CoursePermissionsTab,
   PermissionsPage,
   NotFoundPage,
   RoleCreationPage,
