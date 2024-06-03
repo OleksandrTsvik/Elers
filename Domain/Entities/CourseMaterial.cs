@@ -7,6 +7,7 @@ namespace Domain.Entities;
 [JsonDerivedType(typeof(CourseMaterialContent))]
 [JsonDerivedType(typeof(CourseMaterialLink))]
 [JsonDerivedType(typeof(CourseMaterialFile))]
+[JsonDerivedType(typeof(CourseMaterialAssignment))]
 public abstract class CourseMaterial : Entity
 {
     public Guid CourseTabId { get; set; }
@@ -51,5 +52,19 @@ public class CourseMaterialFile : CourseMaterial
     public CourseMaterialFile() : base()
     {
         Type = CourseMaterialType.File;
+    }
+}
+
+public class CourseMaterialAssignment : CourseMaterial
+{
+    public string Title { get; set; } = string.Empty;
+    public string Description { get; set; } = string.Empty;
+    public DateTime? Deadline { get; set; }
+    public int MaxFiles { get; set; }
+    public int MaxGrade { get; set; }
+
+    public CourseMaterialAssignment() : base()
+    {
+        Type = CourseMaterialType.Assignment;
     }
 }

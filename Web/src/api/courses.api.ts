@@ -37,7 +37,7 @@ export const coursesApi = api.injectEndpoints({
       query: ({ id }) => ({
         url: `/courses/tab/${id}`,
       }),
-      providesTags: ['Course'],
+      providesTags: ['CourseByTabId'],
     }),
     getListCourses: builder.query<CourseListItem[], void>({
       query: () => ({
@@ -59,7 +59,8 @@ export const coursesApi = api.injectEndpoints({
         method: 'PATCH',
         body: data,
       }),
-      invalidatesTags: (_, error) => (error ? [] : ['Course', 'CourseList']),
+      invalidatesTags: (_, error) =>
+        error ? [] : ['Course', 'CourseByTabId', 'CourseList'],
     }),
     updateCourseDescription: builder.mutation<
       void,
@@ -81,7 +82,7 @@ export const coursesApi = api.injectEndpoints({
         method: 'PATCH',
         body: data,
       }),
-      invalidatesTags: (_, error) => (error ? [] : ['Course']),
+      invalidatesTags: (_, error) => (error ? [] : ['Course', 'CourseByTabId']),
     }),
     changeCourseImage: builder.mutation<
       void,

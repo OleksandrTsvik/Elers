@@ -1,4 +1,5 @@
 using API.Contracts;
+using Application.CourseMaterials.CreateCourseMaterialAssignment;
 using Application.CourseMaterials.CreateCourseMaterialContent;
 using Application.CourseMaterials.CreateCourseMaterialFile;
 using Application.CourseMaterials.CreateCourseMaterialLink;
@@ -190,6 +191,26 @@ public class CourseMaterialsController : ApiControllerBase
             materialId,
             request.Title,
             request.File is not null ? new FormFileProxy(request.File) : null);
+
+        return HandleResult(await Sender.Send(command, cancellationToken));
+    }
+
+    [HasCourseMemberPermission(
+        [CoursePermissionType.CreateCourseMaterial],
+        [PermissionType.ManageCourse])]
+    [HttpPost("assignment/{tabId:guid}")]
+    public async Task<IActionResult> CreateCourseMaterialAssignment(
+        Guid tabId,
+        [FromBody] CreateCourseMaterialAssignmentRequest request,
+        CancellationToken cancellationToken)
+    {
+        var command = new CreateCourseMaterialAssignmentCommand(
+            tabId,
+            request.Title,
+            request.Description,
+            request.Deadline,
+            request.MaxFiles,
+            request.MaxGrade);
 
         return HandleResult(await Sender.Send(command, cancellationToken));
     }

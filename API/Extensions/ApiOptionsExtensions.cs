@@ -1,9 +1,12 @@
 using API.Options;
+using API.Options.AppVars;
 using API.Options.Jwt;
+using Domain.Constants;
 using Infrastructure.Authentication;
 using Infrastructure.CloudinarySetup;
 using Infrastructure.Files;
 using Infrastructure.SupabaseSetup;
+using Microsoft.Extensions.Options;
 using Persistence.Options;
 
 namespace API.Extensions;
@@ -28,6 +31,12 @@ public static class ApiOptionsExtensions
 
         services.AddOptionsWithFluentValidation<FileSettings>(
             ConfigurationSections.FileSettings);
+
+        services.AddOptionsWithFluentValidation<AppVariables>(
+            ConfigurationSections.AppVariables);
+
+        services.AddScoped<IAppVariables, AppVariables>(sp =>
+            sp.GetRequiredService<IOptions<AppVariables>>().Value);
 
         return services;
     }

@@ -1,5 +1,6 @@
 import { RoutesType } from './routes-type.interface';
 import {
+  MaterialAssignmentCreationPage,
   MaterialContentCreationPage,
   MaterialContentEditPage,
   MaterialFileCreationPage,
@@ -18,6 +19,10 @@ export const courseMaterialsRoutes: RoutesType = {
           { path: 'content/:tabId', element: <MaterialContentCreationPage /> },
           { path: 'link/:tabId', element: <MaterialLinkCreationPage /> },
           { path: 'file/:tabId', element: <MaterialFileCreationPage /> },
+          {
+            path: 'assignment/:tabId',
+            element: <MaterialAssignmentCreationPage />,
+          },
         ],
       },
       {

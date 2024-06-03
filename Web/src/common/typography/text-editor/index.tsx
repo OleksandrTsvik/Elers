@@ -7,7 +7,7 @@ import { CKEDITOR_UPLOAD_IMAGE_URL } from '../../../utils/ckeditor/ckeditor.cons
 
 interface Props {
   editorKey: Key | null | undefined;
-  text: string;
+  text?: string;
   onChange: (text: string) => void;
 }
 

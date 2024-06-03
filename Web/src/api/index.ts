@@ -8,6 +8,7 @@ export const api = createApi({
     'Session',
     'Locale',
     'Course',
+    'CourseByTabId',
     'CourseList',
     'CourseMaterialList',
     'CourseMemberList',

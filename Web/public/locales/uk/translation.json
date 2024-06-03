@@ -87,8 +87,13 @@
     "visible_section": "Ця секція відображається на сторінці курсу"
   },
   "course_material": {
+    "assignment_description": "Опис завдання",
+    "assignment_max_files": "Максимальна кількість файлів, які можуть завантажити студенти",
+    "deadline": "Крайній термін здачі",
     "file": "Файл",
     "link": "Посилання",
+    "max_grade": "Максимальна оцінка",
+    "no_deadline": "відсутній",
     "rules": {
       "file_required": "Завантажте файл"
     },
@@ -166,6 +171,9 @@
     },
     "submit": "Увійти",
     "title": "Аутентифікація"
+  },
+  "material_assignment_creation_page": {
+    "head_title": "Додавання завдання"
   },
   "material_content_creation_page": {
     "head_title": "Додавання контенту",

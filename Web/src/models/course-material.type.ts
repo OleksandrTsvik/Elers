@@ -15,4 +15,12 @@ export type ConditionalCourseMaterial =
       title: string;
       fileName: string;
       uniqueFileName: string;
+    }
+  | {
+      type: CourseMaterialType.Assignment;
+      title: string;
+      description: string;
+      deadline?: Date;
+      maxFiles: number;
+      maxGrade: number;
     };

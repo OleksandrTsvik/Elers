@@ -25,5 +25,7 @@ public static class CourseMaterialClassMap
         BsonClassMap.RegisterClassMap<CourseMaterialLink>();
 
         BsonClassMap.RegisterClassMap<CourseMaterialFile>();
+
+        BsonClassMap.RegisterClassMap<CourseMaterialAssignment>();
     }
 }

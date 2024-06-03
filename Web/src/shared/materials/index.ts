@@ -4,6 +4,7 @@ export * from './course-material.breadcrumb';
 export * from './course-material.enum';
 export * from './course-materials.constants';
 export * from './course-materials.empty';
+export * from './material.assignment-form';
 export * from './material.content-editor';
 export * from './material.file-form';
 export * from './material.link-form';

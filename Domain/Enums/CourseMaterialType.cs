@@ -5,4 +5,5 @@ public enum CourseMaterialType
     Content,
     File,
     Link,
+    Assignment,
 }

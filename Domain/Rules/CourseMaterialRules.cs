@@ -9,4 +9,7 @@ public class CourseMaterialRules
 
     public const int MinTitleFileLength = 2;
     public const int MaxTitleFileLength = 64;
+
+    public const int MinTitleAssignmentLength = 2;
+    public const int MaxTitleAssignmentLength = 64;
 }

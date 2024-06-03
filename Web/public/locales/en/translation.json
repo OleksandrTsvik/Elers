@@ -87,8 +87,13 @@
     "visible_section": "This section is displayed on the course page"
   },
   "course_material": {
+    "assignment_description": "Assignment description",
+    "assignment_max_files": "Maximum number of files students can upload",
+    "deadline": "Deadline",
     "file": "File",
     "link": "Link",
+    "max_grade": "Maximum grade",
+    "no_deadline": "no",
     "rules": {
       "file_required": "Upload a file"
     },
@@ -166,6 +171,9 @@
     },
     "submit": "Login",
     "title": "Authentication"
+  },
+  "material_assignment_creation_page": {
+    "head_title": "Adding a assignment"
   },
   "material_content_creation_page": {
     "head_title": "Adding content",

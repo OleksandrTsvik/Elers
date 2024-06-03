@@ -6,6 +6,7 @@ import CourseRolesPage from './course-roles-page/course-roles.page';
 import ErrorPage from './error-page/error.page';
 import HomePage from './home-page/home.page';
 import LoginPage from './login-page/login.page';
+import MaterialAssignmentCreationPage from './material-assignment-creation-page/material-assignment-creation.page';
 import MaterialContentCreationPage from './material-content-creation-page/material-content-creation.page';
 import MaterialContentEditPage from './material-content-edit-page/material-content-edit.page';
 import MaterialFileCreationPage from './material-file-creation-page/material-file-creation.page';
@@ -33,6 +34,7 @@ export {
   ErrorPage,
   HomePage,
   LoginPage,
+  MaterialAssignmentCreationPage,
   MaterialContentCreationPage,
   MaterialContentEditPage,
   MaterialFileCreationPage,
