@@ -175,6 +175,9 @@
   "material_assignment_creation_page": {
     "head_title": "Додавання завдання"
   },
+  "material_assignment_edit_page": {
+    "head_title": "Редагування завдання"
+  },
   "material_content_creation_page": {
     "head_title": "Додавання контенту",
     "title": "Додавання контенту"

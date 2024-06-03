@@ -1,4 +1,5 @@
 import { Button, DatePicker, Form, Input, InputNumber, Radio } from 'antd';
+import dayjs from 'dayjs';
 import { useTranslation } from 'react-i18next';
 
 import useMaterialAssignmentRules from './use-material-assignment.rules';
@@ -44,7 +45,12 @@ export function MaterialAssignmentForm({
     <Form
       form={form}
       layout="vertical"
-      initialValues={initialValues}
+      initialValues={{
+        ...initialValues,
+        deadline: initialValues.deadline
+          ? dayjs(initialValues.deadline)
+          : undefined,
+      }}
       onFinish={onSubmit}
     >
       <ErrorForm error={error} form={form} />
@@ -67,11 +73,7 @@ export function MaterialAssignmentForm({
         label={t('course_material.assignment_description')}
         rules={rules.description}
       >
-        <TextEditor
-          editorKey="description"
-          text={form.getFieldValue('description') as string}
-          onChange={(text) => form.setFieldValue('description', text)}
-        />
+        <TextEditor editorKey="description" />
       </Form.Item>
 
       <Form.Item

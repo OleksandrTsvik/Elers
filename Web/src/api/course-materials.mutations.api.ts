@@ -40,13 +40,22 @@ interface UpdateCourseMaterialFileRequest {
   file?: UploadFile;
 }
 
-interface CreateCourseMaterialAssignmentRequest {
-  tabId: string;
+interface CourseMaterialAssignmentRequest {
   title: string;
   description: string;
   deadline?: Date;
   maxFiles: number;
   maxGrade: number;
+}
+
+interface CreateCourseMaterialAssignmentRequest
+  extends CourseMaterialAssignmentRequest {
+  tabId: string;
+}
+
+interface UpdateCourseMaterialAssignmentRequest
+  extends CourseMaterialAssignmentRequest {
+  id?: string;
 }
 
 export const courseMaterialsMutationsApi = api.injectEndpoints({
@@ -211,6 +220,20 @@ export const courseMaterialsMutationsApi = api.injectEndpoints({
       invalidatesTags: (_, error) =>
         error ? [] : ['Course', 'CourseMaterialList'],
     }),
+    updateCourseMaterialAssignment: builder.mutation<
+      void,
+      UpdateCourseMaterialAssignmentRequest
+    >({
+      query: ({ id, ...data }) => ({
+        url: `/courseMaterials/assignment/${id}`,
+        method: 'PUT',
+        body: data,
+      }),
+      invalidatesTags: (_, error) =>
+        error
+          ? []
+          : ['Course', 'CourseMaterialAssignment', 'CourseMaterialList'],
+    }),
     updateCourseMaterialActive: builder.mutation<
       void,
       { id: string; isActive: boolean }
@@ -242,6 +265,7 @@ export const {
   useCreateCourseMaterialFileMutation,
   useUpdateCourseMaterialFileMutation,
   useCreateCourseMaterialAssignmentMutation,
+  useUpdateCourseMaterialAssignmentMutation,
   useUpdateCourseMaterialActiveMutation,
   useDeleteCourseMaterialMutation,
 } = courseMaterialsMutationsApi;

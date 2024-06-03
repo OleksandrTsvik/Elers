@@ -23,6 +23,19 @@ interface GetCourseMaterialFileResponse extends GetCourseMaterialResponse {
   fileTitle: string;
 }
 
+interface GetCourseMaterialAssignmentResponse {
+  id: string;
+  courseTabId: string;
+  isActive: boolean;
+  order: number;
+
+  title: string;
+  description: string;
+  deadline?: Date;
+  maxFiles: number;
+  maxGrade: number;
+}
+
 export const courseMaterialsQueriesApi = api.injectEndpoints({
   overrideExisting: false,
   endpoints: (builder) => ({
@@ -50,6 +63,15 @@ export const courseMaterialsQueriesApi = api.injectEndpoints({
         url: `/courseMaterials/${tabId}/file/${id}`,
       }),
     }),
+    getCourseMaterialAssignment: builder.query<
+      GetCourseMaterialAssignmentResponse,
+      { id?: string }
+    >({
+      query: ({ id }) => ({
+        url: `/courseMaterials/assignment/${id}`,
+      }),
+      providesTags: ['CourseMaterialAssignment'],
+    }),
     getListCourseMaterialsByTabId: builder.query<
       CourseMaterial[],
       { id: string }
@@ -75,6 +97,7 @@ export const {
   useGetCourseMaterialContentQuery,
   useGetCourseMaterialLinkQuery,
   useGetCourseMaterialFileQuery,
+  useGetCourseMaterialAssignmentQuery,
   useGetListCourseMaterialsByTabIdQuery,
   useGetListCourseMaterialsByTabIdToEditQuery,
 } = courseMaterialsQueriesApi;

@@ -27,7 +27,7 @@ export function MaterialContentEditor({
   return (
     <>
       <ErrorAlert className="mb-field" error={error} />
-      <TextEditor editorKey="text" text={text} onChange={setText} />
+      <TextEditor editorKey="text" value={text} onChange={setText} />
       <Button
         className={classnames('right-btn', 'mt-field')}
         type="primary"

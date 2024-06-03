@@ -175,6 +175,9 @@
   "material_assignment_creation_page": {
     "head_title": "Adding a assignment"
   },
+  "material_assignment_edit_page": {
+    "head_title": "Editing an assignment"
+  },
   "material_content_creation_page": {
     "head_title": "Adding content",
     "title": "Adding content"

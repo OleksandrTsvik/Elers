@@ -5,12 +5,14 @@ using Application.CourseMaterials.CreateCourseMaterialFile;
 using Application.CourseMaterials.CreateCourseMaterialLink;
 using Application.CourseMaterials.DeleteCourseMaterial;
 using Application.CourseMaterials.DownloadCourseMaterialFile;
+using Application.CourseMaterials.GetCourseMaterialAssignment;
 using Application.CourseMaterials.GetCourseMaterialContent;
 using Application.CourseMaterials.GetCourseMaterialFile;
 using Application.CourseMaterials.GetCourseMaterialLink;
 using Application.CourseMaterials.GetListCourseMaterialsByTabId;
 using Application.CourseMaterials.GetListCourseMaterialsByTabIdToEdit;
 using Application.CourseMaterials.UpdateCourseMaterialActive;
+using Application.CourseMaterials.UpdateCourseMaterialAssignment;
 using Application.CourseMaterials.UpdateCourseMaterialContent;
 using Application.CourseMaterials.UpdateCourseMaterialFile;
 using Application.CourseMaterials.UpdateCourseMaterialLink;
@@ -101,6 +103,19 @@ public class CourseMaterialsController : ApiControllerBase
         CancellationToken cancellationToken)
     {
         var query = new GetCourseMaterialFileQuery(tabId, id);
+
+        return HandleResult(await Sender.Send(query, cancellationToken));
+    }
+
+    [HasCourseMemberPermission(
+        [CoursePermissionType.UpdateCourseMaterial],
+        [PermissionType.ManageCourse])]
+    [HttpGet("assignment/{materialId:guid}")]
+    public async Task<IActionResult> GetCourseMaterialAssignment(
+        Guid materialId,
+        CancellationToken cancellationToken)
+    {
+        var query = new GetCourseMaterialAssignmentQuery(materialId);
 
         return HandleResult(await Sender.Send(query, cancellationToken));
     }
@@ -206,6 +221,26 @@ public class CourseMaterialsController : ApiControllerBase
     {
         var command = new CreateCourseMaterialAssignmentCommand(
             tabId,
+            request.Title,
+            request.Description,
+            request.Deadline,
+            request.MaxFiles,
+            request.MaxGrade);
+
+        return HandleResult(await Sender.Send(command, cancellationToken));
+    }
+
+    [HasCourseMemberPermission(
+        [CoursePermissionType.UpdateCourseMaterial],
+        [PermissionType.ManageCourse])]
+    [HttpPut("assignment/{materialId:guid}")]
+    public async Task<IActionResult> UpdateCourseMaterialAssignment(
+        Guid materialId,
+        [FromBody] UpdateCourseMaterialAssignmentRequest request,
+        CancellationToken cancellationToken)
+    {
+        var command = new UpdateCourseMaterialAssignmentCommand(
+            materialId,
             request.Title,
             request.Description,
             request.Deadline,

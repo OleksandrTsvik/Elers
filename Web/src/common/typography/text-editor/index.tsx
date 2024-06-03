@@ -7,11 +7,11 @@ import { CKEDITOR_UPLOAD_IMAGE_URL } from '../../../utils/ckeditor/ckeditor.cons
 
 interface Props {
   editorKey: Key | null | undefined;
-  text?: string;
-  onChange: (text: string) => void;
+  value?: string;
+  onChange?: (text: string) => void;
 }
 
-export default function TextEditor({ editorKey, text, onChange }: Props) {
+export default function TextEditor({ editorKey, value, onChange }: Props) {
   const { locale } = useLocale();
 
   return (
@@ -26,8 +26,8 @@ export default function TextEditor({ editorKey, text, onChange }: Props) {
           headers: { 'Accept-Language': locale },
         },
       }}
-      data={text}
-      onChange={(_, editor) => onChange(editor.getData())}
+      data={value}
+      onChange={(_, editor) => onChange && onChange(editor.getData())}
     />
   );
 }

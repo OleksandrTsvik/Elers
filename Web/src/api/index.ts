@@ -10,6 +10,7 @@ export const api = createApi({
     'Course',
     'CourseByTabId',
     'CourseList',
+    'CourseMaterialAssignment',
     'CourseMaterialList',
     'CourseMemberList',
     'CourseRoles',
