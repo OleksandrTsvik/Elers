@@ -1,20 +1,29 @@
+using Application.Common.Models;
 using Application.Common.Queries;
 using Application.Courses.GetCourseById;
 using Application.Courses.GetCourseByIdToEdit;
 using Application.Courses.GetCourseByTabId;
 using Application.Courses.GetListCourses;
+using Domain.Entities;
 using Domain.Enums;
 using Microsoft.EntityFrameworkCore;
+using MongoDB.Driver;
+using Persistence.Constants;
+using Persistence.Extensions;
 
 namespace Persistence.Queries;
 
 internal class CourseQueries : ICourseQueries
 {
     private readonly ApplicationDbContext _dbContext;
+    private readonly IMongoCollection<CourseMaterial> _courseMaterialsCollection;
 
-    public CourseQueries(ApplicationDbContext dbContext)
+    public CourseQueries(ApplicationDbContext dbContext, IMongoDatabase mongoDatabase)
     {
         _dbContext = dbContext;
+
+        _courseMaterialsCollection = mongoDatabase.GetCollection<CourseMaterial>(
+            CollectionNames.CourseMaterials);
     }
 
     public Task<GetCourseByIdResponseDto?> GetCourseById(
@@ -97,17 +106,74 @@ internal class CourseQueries : ICourseQueries
             .FirstOrDefaultAsync(x => x.TabId == id, cancellationToken);
     }
 
-    public Task<GetListCourseItemResponse[]> GetListCourses(CancellationToken cancellationToken = default)
+    public async Task<PagedList<GetListCourseItemResponse>> GetListCourses(
+        GetListCoursesQueryParams queryParams,
+        CancellationToken cancellationToken = default)
     {
-        return _dbContext.Courses
-            .Select(x => new GetListCourseItemResponse
+        IQueryable<Course> coursesQuery = _dbContext.Courses
+            .OrderBy(x => x.Title)
+            .WhereIf(
+                !string.IsNullOrWhiteSpace(queryParams.Search),
+                x => EF.Functions.ILike(x.Title, $"%{queryParams.Search}%"));
+
+        PagedList<CourseListItemDto> courses = await coursesQuery
+            .Select(x => new CourseListItemDto
             {
                 Id = x.Id,
                 Title = x.Title,
                 Description = x.Description,
-                ImageUrl = x.ImageUrl
+                ImageUrl = x.ImageUrl,
+                CountMembers = x.CourseMembers.Count,
+                TabIds = x.CourseTabs.Where(x => x.IsActive).Select(x => x.Id)
             })
-            .OrderBy(x => x.Title)
-            .ToArrayAsync(cancellationToken);
+            .ToPagedListAsync(queryParams.PageNumber, queryParams.PageSize, cancellationToken);
+
+        Guid[] tabIds = courses.Items.SelectMany(x => x.TabIds).ToArray();
+
+        List<CountMaterialsDto> countMaterialsByTabs = await _courseMaterialsCollection
+            .Aggregate()
+            .Group(
+                courseMaterial => courseMaterial.CourseTabId,
+                x => new CountMaterialsDto
+                {
+                    TabId = x.Key,
+                    CountMaterials = x.Count(courseMaterial =>
+                        courseMaterial.IsActive && tabIds.Contains(courseMaterial.CourseTabId) &&
+                        courseMaterial.Type != CourseMaterialType.Assignment &&
+                        courseMaterial.Type != CourseMaterialType.Test),
+                    CountAssignments = x.Count(courseMaterial =>
+                        courseMaterial.IsActive && tabIds.Contains(courseMaterial.CourseTabId) &&
+                        courseMaterial.Type == CourseMaterialType.Assignment),
+                    CountTests = x.Count(courseMaterial =>
+                        courseMaterial.IsActive && tabIds.Contains(courseMaterial.CourseTabId) &&
+                        courseMaterial.Type == CourseMaterialType.Test)
+                })
+            .ToListAsync(cancellationToken);
+
+        var coursesResponse = courses.Items
+            .Select(course => new GetListCourseItemResponse
+            {
+                Id = course.Id,
+                Title = course.Title,
+                Description = course.Description,
+                ImageUrl = course.ImageUrl,
+                CountMembers = course.CountMembers,
+                CountMaterials = countMaterialsByTabs
+                    .Where(x => course.TabIds.Contains(x.TabId))
+                    .Sum(x => x.CountMaterials),
+                CountAssignments = countMaterialsByTabs
+                    .Where(x => course.TabIds.Contains(x.TabId))
+                    .Sum(x => x.CountAssignments),
+                CountTests = countMaterialsByTabs
+                    .Where(x => course.TabIds.Contains(x.TabId))
+                    .Sum(x => x.CountTests)
+            })
+            .ToList();
+
+        return new PagedList<GetListCourseItemResponse>(
+            coursesResponse,
+            courses.TotalCount,
+            courses.CurrentPage,
+            courses.PageSize);
     }
 }

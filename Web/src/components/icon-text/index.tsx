@@ -3,7 +3,7 @@ import { Space } from 'antd';
 
 interface Props {
   icon: React.FC;
-  text: string;
+  text: string | number;
 }
 
 export default function IconText({ icon, text }: Props) {

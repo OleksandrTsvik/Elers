@@ -1,4 +1,5 @@
 import { api } from '.';
+import { PagedList, PagingParams } from '../common/types';
 import {
   Course,
   CourseListItem,
@@ -11,6 +12,10 @@ interface GetCourseByTabIdResponse {
   courseId: string;
   title: string;
   courseTabType: CourseTabType;
+}
+
+interface GetListCoursesRequest extends PagingParams {
+  search?: string;
 }
 
 interface CreateCourseRequest {
@@ -39,9 +44,13 @@ export const coursesApi = api.injectEndpoints({
       }),
       providesTags: ['CourseByTabId'],
     }),
-    getListCourses: builder.query<CourseListItem[], void>({
-      query: () => ({
+    getListCourses: builder.query<
+      PagedList<CourseListItem>,
+      GetListCoursesRequest
+    >({
+      query: (params) => ({
         url: '/courses',
+        params,
       }),
       providesTags: ['CourseList'],
     }),

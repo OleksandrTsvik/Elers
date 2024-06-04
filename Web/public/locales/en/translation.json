@@ -32,6 +32,7 @@
     "yellow": "Yellow"
   },
   "course": {
+    "courses": "Courses",
     "description": "Description",
     "enroll": "Enroll in the course",
     "material": {

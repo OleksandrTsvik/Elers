@@ -15,7 +15,7 @@ export default function CourseEditBreadcrumb({ courseId, title }: Props) {
       className="mb-breadcrumb"
       items={[
         {
-          title: <Link to="/courses">{t('my_courses_page.head_title')}</Link>,
+          title: <Link to="/">{t('course.courses')}</Link>,
         },
         {
           title: <Link to={`/courses/${courseId}`}>{title}</Link>,

@@ -1,3 +1,4 @@
+using Application.Common.Models;
 using Application.Courses.GetCourseById;
 using Application.Courses.GetCourseByIdToEdit;
 using Application.Courses.GetCourseByTabId;
@@ -17,5 +18,7 @@ public interface ICourseQueries
         Guid id,
         CancellationToken cancellationToken = default);
 
-    Task<GetListCourseItemResponse[]> GetListCourses(CancellationToken cancellationToken = default);
+    Task<PagedList<GetListCourseItemResponse>> GetListCourses(
+        GetListCoursesQueryParams queryParams,
+        CancellationToken cancellationToken = default);
 }

@@ -1,16 +1,17 @@
+import { useState } from 'react';
+
+import HomeCourseList from './home.course-list';
 import HomeHead from './home.head';
-import HomeListCourses from './home.list-courses';
 import HomeSearch from './home.search';
-import { useGetListCoursesQuery } from '../../api/courses.api';
 
 export default function HomePage() {
-  const { data, isFetching } = useGetListCoursesQuery();
+  const [search, setSearch] = useState<string>();
 
   return (
     <>
       <HomeHead />
-      <HomeSearch />
-      <HomeListCourses isLoading={isFetching} courses={data} />
+      <HomeSearch onSearch={setSearch} />
+      <HomeCourseList search={search} />
     </>
   );
 }

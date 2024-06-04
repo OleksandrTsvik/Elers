@@ -34,9 +34,11 @@ public class CoursesController : ApiControllerBase
 
     [AllowAnonymous]
     [HttpGet]
-    public async Task<IActionResult> GetListCourses(CancellationToken cancellationToken)
+    public async Task<IActionResult> GetListCourses(
+        [FromQuery] GetListCoursesQueryParams queryParams,
+        CancellationToken cancellationToken)
     {
-        var query = new GetListCoursesQuery();
+        var query = new GetListCoursesQuery(queryParams);
 
         return HandleResult(await Sender.Send(query, cancellationToken));
     }

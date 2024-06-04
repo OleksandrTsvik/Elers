@@ -6,6 +6,11 @@ export interface CourseListItem {
   title: string;
   description?: string;
   imageUrl?: string;
+
+  countMembers: number;
+  countMaterials: number;
+  countAssignments: number;
+  countTests: number;
 }
 
 export interface Course {

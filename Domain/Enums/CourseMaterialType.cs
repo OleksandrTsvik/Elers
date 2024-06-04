@@ -6,4 +6,5 @@ public enum CourseMaterialType
     File,
     Link,
     Assignment,
+    Test
 }

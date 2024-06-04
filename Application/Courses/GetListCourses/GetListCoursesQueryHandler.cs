@@ -1,10 +1,12 @@
 using Application.Common.Messaging;
+using Application.Common.Models;
 using Application.Common.Queries;
 using Domain.Shared;
 
 namespace Application.Courses.GetListCourses;
 
-public class GetListCoursesQueryHandler : IQueryHandler<GetListCoursesQuery, GetListCourseItemResponse[]>
+public class GetListCoursesQueryHandler
+    : IQueryHandler<GetListCoursesQuery, PagedList<GetListCourseItemResponse>>
 {
     private readonly ICourseQueries _courseQueries;
 
@@ -13,10 +15,10 @@ public class GetListCoursesQueryHandler : IQueryHandler<GetListCoursesQuery, Get
         _courseQueries = courseQueries;
     }
 
-    public async Task<Result<GetListCourseItemResponse[]>> Handle(
+    public async Task<Result<PagedList<GetListCourseItemResponse>>> Handle(
         GetListCoursesQuery request,
         CancellationToken cancellationToken)
     {
-        return await _courseQueries.GetListCourses(cancellationToken);
+        return await _courseQueries.GetListCourses(request.QueryParams, cancellationToken);
     }
 }

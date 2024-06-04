@@ -32,6 +32,7 @@
     "yellow": "Жовтий"
   },
   "course": {
+    "courses": "Курси",
     "description": "Опис",
     "enroll": "Зареєструватися на курс",
     "material": {
