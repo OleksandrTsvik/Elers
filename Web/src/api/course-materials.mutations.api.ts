@@ -244,7 +244,7 @@ export const courseMaterialsMutationsApi = api.injectEndpoints({
         body: data,
       }),
       invalidatesTags: (_, error) =>
-        error ? [] : ['Course', 'CourseMaterialList'],
+        error ? [] : ['Course', 'CourseList', 'CourseMaterialList'],
     }),
     deleteCourseMaterial: builder.mutation<void, { id: string }>({
       query: ({ id }) => ({

@@ -14,3 +14,10 @@ export interface User {
   email: string;
   roles: string[];
 }
+
+export interface UserDto {
+  id: string;
+  firstName: string;
+  lastName: string;
+  patronymic: string;
+}

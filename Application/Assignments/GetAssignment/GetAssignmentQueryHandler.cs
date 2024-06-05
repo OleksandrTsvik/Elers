@@ -70,7 +70,7 @@ public class GetAssignmentQueryHandler : IQueryHandler<GetAssignmentQuery, GetAs
 
             if (submittedAssignment is not null)
             {
-                TeacherDto? teacher = null;
+                UserDto? teacher = null;
                 double? grade = null;
 
                 if (submittedAssignment.Status == SubmittedAssignmentStatus.Graded)
@@ -81,7 +81,7 @@ public class GetAssignmentQueryHandler : IQueryHandler<GetAssignmentQuery, GetAs
 
                 if (submittedAssignment.TeacherId.HasValue)
                 {
-                    teacher = await _userQueries.GetTeacherDtoById(
+                    teacher = await _userQueries.GetUserDtoById(
                         submittedAssignment.TeacherId.Value, cancellationToken);
                 }
 

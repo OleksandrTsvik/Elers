@@ -176,4 +176,12 @@ internal class CourseQueries : ICourseQueries
             courses.CurrentPage,
             courses.PageSize);
     }
+
+    public Task<Guid[]> GetCourseTabIds(Guid courseId, CancellationToken cancellationToken = default)
+    {
+        return _dbContext.CourseTabs
+            .Where(x => x.CourseId == courseId)
+            .Select(x => x.Id)
+            .ToArrayAsync(cancellationToken);
+    }
 }

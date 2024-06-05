@@ -18,7 +18,7 @@ public class GetAssignmentResponse
 
 public class SubmittedAssignmentDto
 {
-    public required TeacherDto? Teacher { get; init; }
+    public required UserDto? Teacher { get; init; }
     public required SubmittedAssignmentStatus Status { get; init; }
     public required int AttemptNumber { get; init; }
     public required double? Grade { get; init; }

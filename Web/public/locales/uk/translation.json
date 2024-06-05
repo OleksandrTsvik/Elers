@@ -28,6 +28,11 @@
     "status": "Статус",
     "submit": "Здати роботу",
     "submitted_at": "Відправлено",
+    "submitted_select_status": {
+      "graded": "Оцінені",
+      "resubmit": "Доопрацювання",
+      "submitted": "Неперевірені"
+    },
     "submitted_status": {
       "Graded": "Оцінено",
       "Resubmit": "Повернуто на доопрацювання",
@@ -53,6 +58,8 @@
     "yellow": "Жовтий"
   },
   "course": {
+    "course": "Курс",
+    "course_roles": "Ролі курсу",
     "courses": "Курси",
     "description": "Опис",
     "enroll": "Зареєструватися на курс",
@@ -65,6 +72,7 @@
       "test": "Тест"
     },
     "materials_count": "Кількість матеріалів",
+    "members": "Учасники",
     "rules": {
       "description_len": "Максимальна довжина опису {{max}} символів",
       "tab_name_len": "Назва секції повинна мати від {{min}} до {{max}} символів",
@@ -72,6 +80,8 @@
       "title_required": "Введіть заголовок курсу"
     },
     "section_name": "Назва секції",
+    "student": "Студент",
+    "submitted_assignment": "Надіслані завдання",
     "tab_color": "Колір заголовка секції",
     "tab_type": "Тип представлення курсу",
     "tab_types": {

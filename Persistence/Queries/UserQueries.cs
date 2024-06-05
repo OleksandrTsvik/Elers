@@ -67,10 +67,10 @@ internal class UserQueries : IUserQueries
             .FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
     }
 
-    public Task<TeacherDto?> GetTeacherDtoById(Guid id, CancellationToken cancellationToken = default)
+    public Task<UserDto?> GetUserDtoById(Guid id, CancellationToken cancellationToken = default)
     {
         return _dbContext.Users
-            .Select(x => new TeacherDto
+            .Select(x => new UserDto
             {
                 Id = x.Id,
                 FirstName = x.FirstName,
@@ -78,5 +78,21 @@ internal class UserQueries : IUserQueries
                 Patronymic = x.Patronymic
             })
             .FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
+    }
+
+    public Task<UserDto[]> GetUserDtosByIds(
+        IEnumerable<Guid> userIds,
+        CancellationToken cancellationToken = default)
+    {
+        return _dbContext.Users
+            .Where(x => userIds.Contains(x.Id))
+            .Select(x => new UserDto
+            {
+                Id = x.Id,
+                FirstName = x.FirstName,
+                LastName = x.LastName,
+                Patronymic = x.Patronymic
+            })
+            .ToArrayAsync(cancellationToken);
     }
 }

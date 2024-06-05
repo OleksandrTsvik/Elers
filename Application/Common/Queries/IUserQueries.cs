@@ -13,5 +13,9 @@ public interface IUserQueries
 
     Task<GetUserByIdResponse?> GetUserById(Guid id, CancellationToken cancellationToken = default);
 
-    Task<TeacherDto?> GetTeacherDtoById(Guid id, CancellationToken cancellationToken = default);
+    Task<UserDto?> GetUserDtoById(Guid id, CancellationToken cancellationToken = default);
+
+    Task<UserDto[]> GetUserDtosByIds(
+        IEnumerable<Guid> userIds,
+        CancellationToken cancellationToken = default);
 }

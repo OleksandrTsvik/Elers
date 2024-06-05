@@ -1,7 +1,6 @@
 import {
   PictureOutlined,
   SolutionOutlined,
-  TeamOutlined,
   UserAddOutlined,
   UserDeleteOutlined,
 } from '@ant-design/icons';
@@ -76,7 +75,7 @@ export default function useCourseActions(
       icon: <UserAddOutlined />,
       label: t('course.enroll'),
       onClick: handleEnrollClick,
-      show: () => !isCreator && !isMember,
+      show: !isCreator && !isMember,
       coursePermissions: [],
       userPermissions: [],
     },
@@ -85,15 +84,7 @@ export default function useCourseActions(
       icon: <UserDeleteOutlined />,
       label: t('course.unenroll'),
       onClick: handleUnenrollClick,
-      show: () => !isCreator && isMember,
-      coursePermissions: [],
-      userPermissions: [],
-    },
-    {
-      key: 'members',
-      icon: <TeamOutlined />,
-      label: 'Учасники',
-      onClick: () => navigate(`/courses/members/${courseId}`),
+      show: !isCreator && isMember,
       coursePermissions: [],
       userPermissions: [],
     },
@@ -116,7 +107,7 @@ export default function useCourseActions(
     {
       key: 'roles',
       icon: <SolutionOutlined />,
-      label: 'Ролі курсу',
+      label: t('course.course_roles'),
       onClick: () => navigate(`/courses/roles/${courseId}`),
       coursePermissions: [
         CoursePermissionType.CreateCourseRole,

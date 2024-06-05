@@ -1,7 +1,11 @@
 using API.Contracts;
 using Application.Assignments.DownloadAssignmentFile;
 using Application.Assignments.GetAssignment;
+using Application.Assignments.GetListAssignmentTitles;
+using Application.Assignments.GetListSubmittedAssignments;
 using Application.Assignments.SubmitAssignment;
+using Domain.Enums;
+using Infrastructure.CourseMemberPermissions;
 using Infrastructure.Files;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -27,6 +31,30 @@ public class AssignmentsController : ApiControllerBase
         CancellationToken cancellationToken)
     {
         var query = new DownloadAssignmentFileQuery(fileName);
+
+        return HandleResult(await Sender.Send(query, cancellationToken));
+    }
+
+    [HttpGet("titles/{courseId:guid}")]
+    public async Task<IActionResult> GetListAssignmentTitles(
+        Guid courseId,
+        CancellationToken cancellationToken)
+    {
+        var query = new GetListAssignmentTitlesQuery(courseId);
+
+        return HandleResult(await Sender.Send(query, cancellationToken));
+    }
+
+    [HasCourseMemberPermission(
+        [CoursePermissionType.GradeCourseStudents],
+        [PermissionType.GradeStudents])]
+    [HttpGet("submitted/{courseId:guid}")]
+    public async Task<IActionResult> GetListSubmittedAssignments(
+        Guid courseId,
+        [FromQuery] GetListSubmittedAssignmentsQueryParams queryParams,
+        CancellationToken cancellationToken)
+    {
+        var query = new GetListSubmittedAssignmentsQuery(courseId, queryParams);
 
         return HandleResult(await Sender.Send(query, cancellationToken));
     }

@@ -21,4 +21,8 @@ public interface ICourseQueries
     Task<PagedList<GetListCourseItemResponse>> GetListCourses(
         GetListCoursesQueryParams queryParams,
         CancellationToken cancellationToken = default);
+
+    Task<Guid[]> GetCourseTabIds(
+        Guid courseId,
+        CancellationToken cancellationToken = default);
 }

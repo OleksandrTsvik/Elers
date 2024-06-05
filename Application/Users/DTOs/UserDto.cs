@@ -1,6 +1,6 @@
 namespace Application.Users.DTOs;
 
-public class TeacherDto
+public class UserDto
 {
     public required Guid Id { get; init; }
     public required string FirstName { get; init; }

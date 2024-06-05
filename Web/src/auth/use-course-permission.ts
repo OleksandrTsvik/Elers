@@ -1,12 +1,18 @@
 import { TableColumnsType } from 'antd';
 import { ItemType } from 'antd/es/menu/hooks/useItems';
+import { Tab } from 'rc-tabs/lib/interface';
 
 import { CoursePermissionType } from './course-permission-type.enum';
 import { hasCoursePermission } from './has-course-permission.util';
 import { PermissionType } from './permission-type.enum';
 import { useAuth } from './use-auth';
 import { useGetCourseMemberPermissionsQuery } from '../api/course-permissions.api';
-import { AuthItemAction, AuthItemColumn } from '../common/types';
+import {
+  AuthItem,
+  AuthItemAction,
+  AuthItemColumn,
+  AuthItemTab,
+} from '../common/types';
 
 export function useCoursePermission(courseId: string | undefined) {
   const { checkPermission } = useAuth();
@@ -27,15 +33,25 @@ export function useCoursePermission(courseId: string | undefined) {
     hasCoursePermission(memberPermissions, coursePermissions) ||
     checkPermission(userPermissions);
 
-  const filterActions = (actions: AuthItemAction[]): ItemType[] =>
-    actions
+  const filterItems = <T extends AuthItem, U>(items: T[]): U[] =>
+    items
       .filter(
         (item) =>
-          item.show?.() ??
-          checkCoursePermission(item.coursePermissions, item.userPermissions),
+          item.show ??
+          checkCoursePermission(
+            item.coursePermissions ?? [],
+            item.userPermissions,
+          ),
       )
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      .map(({ coursePermissions, userPermissions, show, ...item }) => item);
+      .map(
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        ({ coursePermissions, userPermissions, show, ...item }) => item as U,
+      );
+
+  const filterActions = (actions: AuthItemAction[]): ItemType[] =>
+    filterItems(actions);
+
+  const filterTabs = (tabs: AuthItemTab[]): Tab[] => filterItems(tabs);
 
   const filterColumns = <RecordType>(
     columns: AuthItemColumn<RecordType>[],
@@ -53,6 +69,7 @@ export function useCoursePermission(courseId: string | undefined) {
     memberPermissions,
     checkCoursePermission,
     filterActions,
+    filterTabs,
     filterColumns,
     isLoadingCoursePermission: isFetching,
     error,
