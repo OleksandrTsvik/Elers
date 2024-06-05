@@ -11,7 +11,7 @@ namespace Domain.Entities;
 public abstract class CourseMaterial : Entity
 {
     public Guid CourseTabId { get; set; }
-    public CourseMaterialType Type { get; set; }
+    public CourseMaterialType Type { get; protected set; }
     public bool IsActive { get; set; }
     public int Order { get; set; }
 

@@ -14,6 +14,7 @@ export const api = createApi({
     'CourseMaterialList',
     'CourseMemberList',
     'CourseRoles',
+    'Assignment',
     'Roles',
     'Users',
   ],

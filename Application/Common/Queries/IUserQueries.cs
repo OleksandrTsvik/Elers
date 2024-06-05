@@ -1,4 +1,5 @@
 using Application.Auth.GetInfo;
+using Application.Users.DTOs;
 using Application.Users.GetListUsers;
 using Application.Users.GetUserById;
 
@@ -11,4 +12,6 @@ public interface IUserQueries
     Task<GetListUserItemResponse[]> GetListUsers(CancellationToken cancellationToken = default);
 
     Task<GetUserByIdResponse?> GetUserById(Guid id, CancellationToken cancellationToken = default);
+
+    Task<TeacherDto?> GetTeacherDtoById(Guid id, CancellationToken cancellationToken = default);
 }

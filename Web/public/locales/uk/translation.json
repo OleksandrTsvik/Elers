@@ -15,6 +15,27 @@
     "save_changes": "Зберегти зміни",
     "search": "Пошук"
   },
+  "assignment": {
+    "attempt_number": "Спроба",
+    "comment": "Коментар",
+    "empty_fields_error": "Додайте текст або файли!",
+    "empty_text_error": "Додайте текст!",
+    "files": "Файли",
+    "grade": "Оцінка",
+    "last_uploaded_answer": "Остання завантажена відповідь",
+    "max_files": "Максимальна кількість файлів",
+    "resubmission_warning": "При повторній відправці попередню відповідь буде повністю видалено.",
+    "status": "Статус",
+    "submit": "Здати роботу",
+    "submitted_at": "Відправлено",
+    "submitted_status": {
+      "Graded": "Оцінено",
+      "Resubmit": "Повернуто на доопрацювання",
+      "Submitted": "Відправлено на перевірку"
+    },
+    "teacher": "Викладач",
+    "text": "Текст"
+  },
   "color": {
     "blue": "Синій",
     "cyan": "Блакитний",

@@ -29,4 +29,10 @@ public interface ICourseMemberPermissionService
         Guid courseId,
         IEnumerable<CoursePermissionType> courseMemberPermissions,
         IEnumerable<PermissionType> userPermissions);
+
+    Task<bool> CheckCoursePermissionsByCourseTabIdAsync(
+        Guid userId,
+        Guid courseTabId,
+        IEnumerable<CoursePermissionType> courseMemberPermissions,
+        IEnumerable<PermissionType> userPermissions);
 }

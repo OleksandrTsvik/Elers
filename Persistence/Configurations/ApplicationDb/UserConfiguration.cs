@@ -1,7 +1,9 @@
 using Domain.Entities;
+using Domain.Enums;
 using Domain.Rules;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Persistence.Configurations.ApplicationDb;
 
@@ -10,6 +12,17 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
     public void Configure(EntityTypeBuilder<User> builder)
     {
         builder.HasKey(user => user.Id);
+
+        builder
+            .HasDiscriminator(user => user.Type)
+            .HasValue<User>(UserType.User)
+            .HasValue<Student>(UserType.Student)
+            .HasValue<Teacher>(UserType.Teacher);
+
+        builder
+            .Property(user => user.Type)
+            .IsRequired()
+            .HasConversion(new EnumToStringConverter<UserType>());
 
         builder
             .Property(user => user.Email)

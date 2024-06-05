@@ -1,9 +1,11 @@
+using Domain.Enums;
 using Domain.Primitives;
 
 namespace Domain.Entities;
 
 public class User : Entity
 {
+    public UserType Type { get; }
     public string Email { get; set; } = string.Empty;
     public string PasswordHash { get; set; } = string.Empty;
     public DateTime RegistrationDate { get; set; }

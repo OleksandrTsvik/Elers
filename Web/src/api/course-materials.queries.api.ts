@@ -46,6 +46,7 @@ export const courseMaterialsQueriesApi = api.injectEndpoints({
       query: ({ tabId, id }) => ({
         url: `/courseMaterials/${tabId}/content/${id}`,
       }),
+      providesTags: ['Session'],
     }),
     getCourseMaterialLink: builder.query<
       GetCourseMaterialLinkResponse,
@@ -54,6 +55,7 @@ export const courseMaterialsQueriesApi = api.injectEndpoints({
       query: ({ tabId, id }) => ({
         url: `/courseMaterials/${tabId}/link/${id}`,
       }),
+      providesTags: ['Session'],
     }),
     getCourseMaterialFile: builder.query<
       GetCourseMaterialFileResponse,
@@ -62,6 +64,7 @@ export const courseMaterialsQueriesApi = api.injectEndpoints({
       query: ({ tabId, id }) => ({
         url: `/courseMaterials/${tabId}/file/${id}`,
       }),
+      providesTags: ['Session'],
     }),
     getCourseMaterialAssignment: builder.query<
       GetCourseMaterialAssignmentResponse,
@@ -70,7 +73,7 @@ export const courseMaterialsQueriesApi = api.injectEndpoints({
       query: ({ id }) => ({
         url: `/courseMaterials/assignment/${id}`,
       }),
-      providesTags: ['CourseMaterialAssignment'],
+      providesTags: ['Session', 'CourseMaterialAssignment'],
     }),
     getListCourseMaterialsByTabId: builder.query<
       CourseMaterial[],
@@ -88,7 +91,7 @@ export const courseMaterialsQueriesApi = api.injectEndpoints({
       query: ({ id }) => ({
         url: `/courseMaterials/tabs/edit/${id}`,
       }),
-      providesTags: ['CourseMaterialList'],
+      providesTags: ['Session', 'CourseMaterialList'],
     }),
   }),
 });

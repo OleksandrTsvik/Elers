@@ -15,6 +15,27 @@
     "save_changes": "Save changes",
     "search": "Search"
   },
+  "assignment": {
+    "attempt_number": "Attempt number",
+    "comment": "Comment",
+    "empty_fields_error": "Add text or files!",
+    "empty_text_error": "Add text!",
+    "files": "Files",
+    "grade": "Grade",
+    "last_uploaded_answer": "Last uploaded answer",
+    "max_files": "Maximum number of files",
+    "resubmission_warning": "Upon resubmission, the previous answer will be completely deleted.",
+    "status": "Status",
+    "submit": "Submit assignment",
+    "submitted_at": "Sent",
+    "submitted_status": {
+      "Graded": "Graded",
+      "Resubmit": "Returned for revision",
+      "Submitted": "Sent for review"
+    },
+    "teacher": "Teacher",
+    "text": "Text"
+  },
   "color": {
     "blue": "Blue",
     "cyan": "Cyan",

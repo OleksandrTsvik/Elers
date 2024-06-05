@@ -1,3 +1,4 @@
+import AssignmentPage from './assignment-page/assignment.page';
 import CourseChangeImagePage from './course-change-image-page/course-change-image.page';
 import CourseEditPage from './course-edit-page/course-edit.page';
 import CourseMembersPage from './course-members-page/course-members.page';
@@ -27,6 +28,7 @@ import UserEditPage from './user-edit-page/user-edit.page';
 import UsersPage from './users-page/users.page';
 
 export {
+  AssignmentPage,
   CourseChangeImagePage,
   CourseEditPage,
   CourseMembersPage,

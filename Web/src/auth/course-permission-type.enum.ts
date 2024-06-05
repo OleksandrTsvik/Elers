@@ -13,4 +13,5 @@ export enum CoursePermissionType {
   DeleteCourseRole = 'DeleteCourseRole',
   ChangeCourseMemberRole = 'ChangeCourseMemberRole',
   RemoveCourseMember = 'RemoveCourseMember',
+  GradeCourseStudents = 'GradeCourseStudents',
 }

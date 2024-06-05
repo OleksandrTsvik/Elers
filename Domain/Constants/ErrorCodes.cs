@@ -8,6 +8,19 @@ public static class ErrorCodes
         public const string NullResult = "Error.NullResult";
     }
 
+    public static class Assignments
+    {
+        public const string NotFound = "Assignments.NotFound";
+        public const string Unavailable = "Assignments.Unavailable";
+        public const string StudentsOnly = "Assignments.StudentsOnly";
+        public const string EmptyFields = "Assignments.EmptyFields";
+        public const string ManyFiles = "Assignments.ManyFiles";
+        public const string AlreadyGraded = "Assignments.AlreadyGraded";
+        public const string DeadlinePassed = "Assignments.DeadlinePassed";
+        public const string FileNotFound = "Assignments.FileNotFound";
+        public const string FileAccessDenied = "Assignments.FileAccessDenied";
+    }
+
     public static class Courses
     {
         public const string NotFound = "Courses.NotFound";

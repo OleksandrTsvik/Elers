@@ -13,4 +13,5 @@ public enum PermissionType
     DeleteUser,
     CreateCourse,
     ManageCourse,
+    GradeStudents,
 }

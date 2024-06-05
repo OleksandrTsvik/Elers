@@ -171,4 +171,23 @@ public class CourseMemberPermissionService : ICourseMemberPermissionService
                 .Any(role => role.Permissions
                     .Any(permission => userPermissions.Contains(permission.Name))));
     }
+
+    public async Task<bool> CheckCoursePermissionsByCourseTabIdAsync(
+        Guid userId,
+        Guid courseTabId,
+        IEnumerable<CoursePermissionType> courseMemberPermissions,
+        IEnumerable<PermissionType> userPermissions)
+    {
+        Guid courseId = await _dbContext.CourseTabs
+            .Where(x => x.Id == courseTabId)
+            .Select(x => x.CourseId)
+            .FirstOrDefaultAsync();
+
+        if (courseId == Guid.Empty)
+        {
+            return false;
+        }
+
+        return await CheckCoursePermissionsAsync(userId, courseId, courseMemberPermissions, userPermissions);
+    }
 }

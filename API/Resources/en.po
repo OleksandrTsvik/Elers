@@ -32,6 +32,9 @@ msgstr "Allows the user to create new courses."
 msgid "ManageCourse"
 msgstr "Allows the user to change course data even if they are not a member of the course."
 
+msgid "GradeStudents"
+msgstr "Allows the user to assign grades to students even if they are not a teacher or course member."
+
 # Description of course permissions
 msgid "UpdateCourse"
 msgstr "Update on the course information."
@@ -74,6 +77,9 @@ msgstr "Change the roles of course members."
 
 msgid "RemoveCourseMember"
 msgstr "Delete course members."
+
+msgid "GradeCourseStudents"
+msgstr "Grading students."
 
 # Validation errors
 msgid ""

@@ -1,7 +1,7 @@
 import { Button, Space, Typography } from 'antd';
 import dayjs from 'dayjs';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 import { TextEditorOutput } from '../../../common/typography';
 import { CourseMaterial } from '../../../models/course-material.type';
@@ -18,6 +18,8 @@ interface Props {
 }
 
 export default function CourseTabMaterial({ material }: Props) {
+  const { courseId } = useParams();
+
   const { t } = useTranslation();
   const { downloadCourseMaterialFile } = useDownloadCourseMaterialFile();
 
@@ -52,7 +54,10 @@ export default function CourseTabMaterial({ material }: Props) {
     case CourseMaterialType.Assignment:
       return (
         <div className="mt-field">
-          <Link className="d-block" to={''}>
+          <Link
+            className="d-block"
+            to={`/courses/${courseId}/assignment/${material.id}`}
+          >
             <Space align="start">
               <CourseMaterialIcon type={CourseMaterialType.Assignment} />
               {material.title}

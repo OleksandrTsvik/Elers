@@ -10,4 +10,5 @@ export enum PermissionType {
   DeleteUser = 'DeleteUser',
   CreateCourse = 'CreateCourse',
   ManageCourse = 'ManageCourse',
+  GradeStudents = 'GradeStudents',
 }

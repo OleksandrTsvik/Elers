@@ -85,6 +85,8 @@ public static class DependencyInjection
 #pragma warning restore
 
         CourseMaterialClassMap.RegisterClassMaps();
+        SubmittedAssignmentClassMap.RegisterClassMaps();
+        GradeClassMap.RegisterClassMaps();
     }
 
     private static IServiceCollection AddRepositories(this IServiceCollection services)
@@ -100,6 +102,11 @@ public static class DependencyInjection
         services.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
         services.AddScoped<IRoleRepository, RoleRepository>();
         services.AddScoped<IUserRepository, UserRepository>();
+
+        services.AddScoped<IStudentRepository, StudentRepository>();
+
+        services.AddScoped<IGradeRepository, GradeRepository>();
+        services.AddScoped<ISubmittedAssignmentRepository, SubmittedAssignmentRepository>();
 
         return services;
     }
@@ -122,6 +129,8 @@ public static class DependencyInjection
     private static IServiceCollection AddServices(this IServiceCollection services)
     {
         services.AddScoped<ICourseMemberPermissionService, CourseMemberPermissionService>();
+
+        services.AddScoped<ICourseService, CourseService>();
 
         return services;
     }

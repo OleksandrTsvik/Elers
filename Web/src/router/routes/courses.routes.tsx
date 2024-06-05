@@ -1,5 +1,6 @@
 import { RoutesType } from './routes-type.interface';
 import {
+  AssignmentPage,
   CourseChangeImagePage,
   CourseEditPage,
   CourseMembersPage,
@@ -21,6 +22,12 @@ export const coursesRoutes: RoutesType = {
   },
   public: {
     path: 'courses',
-    children: [{ path: ':courseId', element: <CoursePage /> }],
+    children: [
+      { path: ':courseId', element: <CoursePage /> },
+      {
+        path: ':courseId/assignment/:id',
+        element: <AssignmentPage />,
+      },
+    ],
   },
 };

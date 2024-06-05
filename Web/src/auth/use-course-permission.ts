@@ -8,7 +8,7 @@ import { useAuth } from './use-auth';
 import { useGetCourseMemberPermissionsQuery } from '../api/course-permissions.api';
 import { AuthItemAction, AuthItemColumn } from '../common/types';
 
-export function useCoursePermission(courseId?: string) {
+export function useCoursePermission(courseId: string | undefined) {
   const { checkPermission } = useAuth();
 
   const { data, isFetching, error } = useGetCourseMemberPermissionsQuery({

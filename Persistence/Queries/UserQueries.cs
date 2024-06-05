@@ -1,5 +1,6 @@
 using Application.Auth.GetInfo;
 using Application.Common.Queries;
+using Application.Users.DTOs;
 using Application.Users.GetListUsers;
 using Application.Users.GetUserById;
 using Microsoft.EntityFrameworkCore;
@@ -62,6 +63,19 @@ internal class UserQueries : IUserQueries
                 Patronymic = x.Patronymic,
                 Email = x.Email,
                 Roles = x.Roles.Select(role => role.Name).ToArray()
+            })
+            .FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
+    }
+
+    public Task<TeacherDto?> GetTeacherDtoById(Guid id, CancellationToken cancellationToken = default)
+    {
+        return _dbContext.Users
+            .Select(x => new TeacherDto
+            {
+                Id = x.Id,
+                FirstName = x.FirstName,
+                LastName = x.LastName,
+                Patronymic = x.Patronymic
             })
             .FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
     }
