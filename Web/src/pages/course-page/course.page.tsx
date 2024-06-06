@@ -1,7 +1,9 @@
 import { Skeleton } from 'antd';
 import { useParams } from 'react-router-dom';
 
-import CourseTabs from './course.tabs';
+import CourseContent from './course.content';
+import CourseHead from './course.head';
+import CourseHeader from './course.header';
 import { useGetCourseByIdQuery } from '../../api/courses.api';
 import { NavigateToError, NavigateToNotFound } from '../../common/navigate';
 
@@ -21,5 +23,15 @@ export default function CoursePage() {
     return <NavigateToNotFound />;
   }
 
-  return <CourseTabs course={data} />;
+  return (
+    <>
+      <CourseHead title={data.title} />
+      <CourseHeader
+        courseId={data.id}
+        title={data.title}
+        description={data.description}
+      />
+      <CourseContent course={data} />
+    </>
+  );
 }

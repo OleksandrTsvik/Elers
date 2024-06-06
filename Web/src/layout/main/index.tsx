@@ -1,4 +1,5 @@
-import { Grid, Layout, theme } from 'antd';
+import { Grid, Layout, Skeleton, theme } from 'antd';
+import { Suspense } from 'react';
 import { Outlet } from 'react-router-dom';
 
 import { CONTENT_MAX_WIDTH } from '../layout.constants';
@@ -20,7 +21,9 @@ export default function Main() {
       }}
     >
       <div style={{ margin: '0 auto', maxWidth: CONTENT_MAX_WIDTH }}>
-        <Outlet />
+        <Suspense fallback={<Skeleton active />}>
+          <Outlet />
+        </Suspense>
       </div>
     </Layout.Content>
   );

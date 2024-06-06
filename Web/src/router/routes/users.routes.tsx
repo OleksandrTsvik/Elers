@@ -1,7 +1,18 @@
+import { lazy } from 'react';
+
 import { RoutesType } from './routes-type.interface';
 import { PermissionType } from '../../auth';
-import { UserCreationPage, UserEditPage, UsersPage } from '../../pages';
 import PermissionsOutlet from '../outlets/permissions.outlet';
+
+const UserCreationPage = lazy(
+  () => import('../../pages/user-creation-page/user-creation.page'),
+);
+
+const UserEditPage = lazy(
+  () => import('../../pages/user-edit-page/user-edit.page'),
+);
+
+const UsersPage = lazy(() => import('../../pages/users-page/users.page'));
 
 export const usersRoutes: RoutesType = {
   private: {

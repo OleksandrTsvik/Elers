@@ -11,7 +11,9 @@ import {
   AuthItem,
   AuthItemAction,
   AuthItemColumn,
+  AuthItemMenu,
   AuthItemTab,
+  MenuItem,
 } from '../common/types';
 
 export function useCoursePermission(courseId: string | undefined) {
@@ -53,6 +55,8 @@ export function useCoursePermission(courseId: string | undefined) {
 
   const filterTabs = (tabs: AuthItemTab[]): Tab[] => filterItems(tabs);
 
+  const filterMenu = (tabs: AuthItemMenu[]): MenuItem[] => filterItems(tabs);
+
   const filterColumns = <RecordType>(
     columns: AuthItemColumn<RecordType>[],
   ): TableColumnsType<RecordType> =>
@@ -69,6 +73,7 @@ export function useCoursePermission(courseId: string | undefined) {
     memberPermissions,
     checkCoursePermission,
     filterActions,
+    filterMenu,
     filterTabs,
     filterColumns,
     isLoadingCoursePermission: isFetching,

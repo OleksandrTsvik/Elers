@@ -47,46 +47,52 @@ export default function AssignmentSubmit({ assignmentId, maxFiles }: Props) {
   };
 
   return (
-    <Form form={form} layout="vertical" onFinish={handleSubmit}>
-      <ErrorForm error={emptyFieldsError || error} form={form} />
+    <>
+      <Typography.Paragraph type="warning">
+        {t('assignment.resubmission_warning')}
+      </Typography.Paragraph>
 
-      <Form.Item
-        hasFeedback
-        name="text"
-        label={t('assignment.text')}
-        rules={rules.text}
-      >
-        <TextEditor editorKey="text" />
-      </Form.Item>
+      <Form form={form} layout="vertical" onFinish={handleSubmit}>
+        <ErrorForm error={emptyFieldsError || error} form={form} />
 
-      {maxFiles > 0 && (
-        <>
-          <Form.Item
-            hasFeedback
-            name="files"
-            label={t('assignment.files')}
-            valuePropName="fileList"
-            rules={rules.files}
-            getValueFromEvent={getFileListFromEvent}
-          >
-            <FileDropzone
-              multiple
-              maxCount={maxFiles}
-              fileSizeLimitMb={FILE_SIZE_LIMIT_MB}
-            />
-          </Form.Item>
+        <Form.Item
+          hasFeedback
+          name="text"
+          label={t('assignment.text')}
+          rules={rules.text}
+        >
+          <TextEditor editorKey="text" />
+        </Form.Item>
 
-          <Typography.Paragraph type="secondary">
-            {t('assignment.max_files')}: {maxFiles}
-          </Typography.Paragraph>
-        </>
-      )}
+        {maxFiles > 0 && (
+          <>
+            <Form.Item
+              hasFeedback
+              name="files"
+              label={t('assignment.files')}
+              valuePropName="fileList"
+              rules={rules.files}
+              getValueFromEvent={getFileListFromEvent}
+            >
+              <FileDropzone
+                multiple
+                maxCount={maxFiles}
+                fileSizeLimitMb={FILE_SIZE_LIMIT_MB}
+              />
+            </Form.Item>
 
-      <Form.Item className="text-right">
-        <Button type="primary" htmlType="submit" loading={isLoading}>
-          {t('assignment.submit')}
-        </Button>
-      </Form.Item>
-    </Form>
+            <Typography.Paragraph type="secondary">
+              {t('assignment.max_files')}: {maxFiles}
+            </Typography.Paragraph>
+          </>
+        )}
+
+        <Form.Item className="text-right">
+          <Button type="primary" htmlType="submit" loading={isLoading}>
+            {t('assignment.submit')}
+          </Button>
+        </Form.Item>
+      </Form>
+    </>
   );
 }

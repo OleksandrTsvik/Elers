@@ -1,3 +1,4 @@
+import { lazy } from 'react';
 import { RouteObject, createBrowserRouter } from 'react-router-dom';
 
 import { anonymousRoutes } from './anonymous.routes';
@@ -5,8 +6,10 @@ import AnonymousOutlet from './outlets/anonymous.outlet';
 import PrivateOutlet from './outlets/private.outlet';
 import { privateRoutes } from './private.routes';
 import { publicRoutes } from './public.routes';
+import { courseMenuRoutes } from './routes';
 import LayoutPage from '../layout/layout.page';
-import { PdfPage } from '../pages';
+
+const PdfPage = lazy(() => import('../pages/pdf-page/pdf.page'));
 
 const routes: RouteObject[] = [
   { path: '/pdf/*', element: <PdfPage /> },
@@ -22,6 +25,7 @@ const routes: RouteObject[] = [
         element: <AnonymousOutlet />,
         children: anonymousRoutes,
       },
+      courseMenuRoutes,
       ...publicRoutes,
     ],
   },

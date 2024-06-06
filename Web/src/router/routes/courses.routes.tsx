@@ -1,14 +1,26 @@
+import { lazy } from 'react';
+
 import { RoutesType } from './routes-type.interface';
-import {
-  AssignmentPage,
-  SubmittedAssignmentsPage,
-  CourseChangeImagePage,
-  CourseEditPage,
-  CourseMembersPage,
-  CoursePage,
-  CourseRolesPage,
-  MyCoursesPage,
-} from '../../pages';
+
+const AssignmentPage = lazy(
+  () => import('../../pages/assignment-page/assignment.page'),
+);
+
+const CourseChangeImagePage = lazy(
+  () => import('../../pages/course-change-image-page/course-change-image.page'),
+);
+
+const CourseEditPage = lazy(
+  () => import('../../pages/course-edit-page/course-edit.page'),
+);
+
+const CourseRolesPage = lazy(
+  () => import('../../pages/course-roles-page/course-roles.page'),
+);
+
+const MyCoursesPage = lazy(
+  () => import('../../pages/my-courses-page/my-courses.page'),
+);
 
 export const coursesRoutes: RoutesType = {
   private: {
@@ -18,22 +30,11 @@ export const coursesRoutes: RoutesType = {
       { path: 'edit/:courseId', element: <CourseEditPage /> },
       { path: 'change-image/:courseId', element: <CourseChangeImagePage /> },
       { path: 'roles/:courseId', element: <CourseRolesPage /> },
-      {
-        element: <CoursePage />,
-        children: [
-          { path: ':courseId/members', element: <CourseMembersPage /> },
-          {
-            path: ':courseId/submitted-assignments',
-            element: <SubmittedAssignmentsPage />,
-          },
-        ],
-      },
     ],
   },
   public: {
     path: 'courses',
     children: [
-      { path: ':courseId', element: <CoursePage /> },
       {
         path: ':courseId/assignment/:id',
         element: <AssignmentPage />,

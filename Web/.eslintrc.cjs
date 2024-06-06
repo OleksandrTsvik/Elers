@@ -19,10 +19,6 @@ module.exports = {
   },
   plugins: ['react-refresh', 'prettier'],
   rules: {
-    'react-refresh/only-export-components': [
-      'warn',
-      { allowConstantExport: true },
-    ],
     '@typescript-eslint/no-misused-promises': 'off',
     'react/react-in-jsx-scope': 'off',
     'no-console': 'warn',

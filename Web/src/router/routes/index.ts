@@ -1,4 +1,5 @@
 import { courseMaterialsRoutes } from './course-materials.routes';
+import { courseMenuRoutes } from './course-menu.routes';
 import { coursesRoutes } from './courses.routes';
 import { permissionsRoutes } from './permissions.routes';
 import { rolesRoutes } from './roles.routes';
@@ -15,3 +16,5 @@ const arrayRoutes = [
 export const arrayPrivateRoutes = arrayRoutes.map((routes) => routes.private);
 
 export const arrayPublicRoutes = arrayRoutes.map((routes) => routes.public);
+
+export { courseMenuRoutes };

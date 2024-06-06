@@ -1,6 +1,7 @@
+import { lazy } from 'react';
 import { RouteObject } from 'react-router-dom';
 
-import { LoginPage } from '../pages';
+const LoginPage = lazy(() => import('../pages/login-page/login.page'));
 
 export const anonymousRoutes: RouteObject[] = [
   { path: 'login', element: <LoginPage /> },

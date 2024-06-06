@@ -1,7 +1,12 @@
+import { lazy } from 'react';
+
 import { RoutesType } from './routes-type.interface';
 import { PermissionType } from '../../auth';
-import { CoursePermissionsTab, PermissionsPage } from '../../pages';
 import PermissionsOutlet from '../outlets/permissions.outlet';
+
+const PermissionsPage = lazy(
+  () => import('../../pages/permissions-page/permissions.page'),
+);
 
 export const permissionsRoutes: RoutesType = {
   private: {
@@ -9,13 +14,9 @@ export const permissionsRoutes: RoutesType = {
     element: (
       <PermissionsOutlet
         permissions={[PermissionType.ReadPermission, PermissionType.CreateRole]}
-      >
-        <PermissionsPage />
-      </PermissionsOutlet>
+      />
     ),
-    children: [
-      { path: 'course-permissions', element: <CoursePermissionsTab /> },
-    ],
+    children: [{ index: true, element: <PermissionsPage /> }],
   },
   public: {},
 };

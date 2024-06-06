@@ -38,7 +38,9 @@ export default function SubmittedAssignmentsList({
       dataSource={data?.items}
       pagination={pagination(data?.pageSize, data?.totalCount)}
       rowKey={(item) => item.submittedAssignmentId}
-      renderItem={(item) => <SubmittedAssignmentsListItem item={item} />}
+      renderItem={(item) => (
+        <SubmittedAssignmentsListItem courseId={courseId} item={item} />
+      )}
     />
   );
 }

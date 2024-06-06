@@ -94,10 +94,6 @@ export default function SubmittedAssignmentContent({
           {t('assignment.comment')}: {submittedAssignment.teacherComment}
         </>
       )}
-
-      <Typography.Paragraph type="warning">
-        {t('assignment.resubmission_warning')}
-      </Typography.Paragraph>
     </>
   );
 }

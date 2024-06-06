@@ -23,18 +23,16 @@ export function AuthMiddleware({ children }: Props) {
   const [isLoading, setIsLoading] = useState(true);
 
   useLayoutEffect(() => {
-    setTimeout(() => {
-      if (isAuth) {
-        setIsLoading(false);
-        return;
-      }
+    if (isAuth) {
+      setIsLoading(false);
+      return;
+    }
 
-      refresh()
-        .unwrap()
-        .then((response) => appDispatch(setCredentials(response)))
-        .catch((error) => displayError(error, { display: false }))
-        .finally(() => setIsLoading(false));
-    }, 1200);
+    refresh()
+      .unwrap()
+      .then((response) => appDispatch(setCredentials(response)))
+      .catch((error) => displayError(error, { display: false }))
+      .finally(() => setIsLoading(false));
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
