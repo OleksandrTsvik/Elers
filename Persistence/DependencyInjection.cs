@@ -125,6 +125,8 @@ public static class DependencyInjection
     private static IServiceCollection AddQueries(this IServiceCollection services)
     {
         services.AddScoped<IAssignmentQueries, AssignmentQueries>();
+        services.AddScoped<IGradeQueries, GradeQueries>();
+        services.AddScoped<ISubmittedAssignmentQueries, SubmittedAssignmentQueries>();
 
         services.AddScoped<ICourseMaterialQueries, CourseMaterialQueries>();
         services.AddScoped<ICourseMemberQueries, CourseMemberQueries>();

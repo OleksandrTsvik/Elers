@@ -4,6 +4,8 @@ using Application.Common.Models;
 using Application.Common.Queries;
 using Application.Common.Services;
 using Domain.Enums;
+using Domain.Errors;
+using Domain.Repositories;
 using Domain.Shared;
 
 namespace Application.CourseMembers.GetListCourseMembers;
@@ -11,17 +13,20 @@ namespace Application.CourseMembers.GetListCourseMembers;
 public class GetListCourseMembersQueryHandler
     : IQueryHandler<GetListCourseMembersQuery, PagedList<CourseMemberListItem>>
 {
+    private readonly ICourseRepository _courseRepository;
     private readonly ICourseMemberQueries _courseMemberQueries;
     private readonly ICourseMemberPermissionService _courseMemberPermissionService;
     private readonly ITranslator _translator;
     private readonly IUserContext _userContext;
 
     public GetListCourseMembersQueryHandler(
+        ICourseRepository courseRepository,
         ICourseMemberQueries courseMemberQueries,
         ICourseMemberPermissionService courseMemberPermissionService,
         ITranslator translator,
         IUserContext userContext)
     {
+        _courseRepository = courseRepository;
         _courseMemberQueries = courseMemberQueries;
         _courseMemberPermissionService = courseMemberPermissionService;
         _translator = translator;
@@ -32,6 +37,11 @@ public class GetListCourseMembersQueryHandler
         GetListCourseMembersQuery request,
         CancellationToken cancellationToken)
     {
+        if (!await _courseRepository.ExistsByIdAsync(request.CourseId, cancellationToken))
+        {
+            return CourseErrors.NotFound(request.CourseId);
+        }
+
         bool isGetWithRoles = await IsGetWithRoles(request.CourseId);
 
         PagedList<CourseMemberListItem> courseMembersResponse = await _courseMemberQueries

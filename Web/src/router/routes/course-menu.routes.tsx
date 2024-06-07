@@ -23,6 +23,14 @@ const SubmittedAssignmentReviewPage = lazy(
     ),
 );
 
+const CourseGradesPage = lazy(
+  () => import('../../pages/course-grades-page/course-grades.page'),
+);
+
+const CourseMyGradesPage = lazy(
+  () => import('../../pages/course-my-grades-page/course-my-grades.page'),
+);
+
 export const courseMenuRoutes: RouteObject = {
   path: 'courses',
   element: <CourseMenu />,
@@ -40,6 +48,8 @@ export const courseMenuRoutes: RouteObject = {
           path: ':courseId/submitted-assignments/:id',
           element: <SubmittedAssignmentReviewPage />,
         },
+        { path: 'grades/:courseId', element: <CourseGradesPage /> },
+        { path: 'my-grades/:courseId', element: <CourseMyGradesPage /> },
       ],
     },
   ],

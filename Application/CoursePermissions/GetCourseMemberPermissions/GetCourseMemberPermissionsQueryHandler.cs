@@ -30,6 +30,7 @@ public class GetCourseMemberPermissionsQueryHandler
             {
                 IsCreator = false,
                 IsMember = false,
+                IsStudent = false,
                 MemberPermissions = []
             };
         }

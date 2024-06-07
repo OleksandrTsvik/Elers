@@ -48,7 +48,7 @@ export default function SubmittedAssignmentReviewPage() {
 
       <DeadlineParagraph deadline={data.deadline} />
 
-      <Typography.Title level={3}>{t('course.student')}</Typography.Title>
+      <Typography.Title level={3}>{t('user.student')}</Typography.Title>
 
       <Typography.Paragraph>
         <UserAvatar className="mr-avatar" url={data.student.avatarUrl} />

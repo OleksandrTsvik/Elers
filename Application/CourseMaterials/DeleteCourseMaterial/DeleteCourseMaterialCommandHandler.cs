@@ -12,15 +12,21 @@ public class DeleteCourseMaterialCommandHandler : ICommandHandler<DeleteCourseMa
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly ICourseMaterialRepository _courseMaterialRepository;
+    private readonly ISubmittedAssignmentRepository _submittedAssignmentRepository;
+    private readonly IGradeRepository _gradeRepository;
     private readonly IFileService _fileService;
 
     public DeleteCourseMaterialCommandHandler(
         IUnitOfWork unitOfWork,
         ICourseMaterialRepository courseMaterialRepository,
+        ISubmittedAssignmentRepository submittedAssignmentRepository,
+        IGradeRepository gradeRepository,
         IFileService fileService)
     {
         _unitOfWork = unitOfWork;
         _courseMaterialRepository = courseMaterialRepository;
+        _submittedAssignmentRepository = submittedAssignmentRepository;
+        _gradeRepository = gradeRepository;
         _fileService = fileService;
     }
 
@@ -37,6 +43,22 @@ public class DeleteCourseMaterialCommandHandler : ICommandHandler<DeleteCourseMa
         if (courseMaterial is CourseMaterialFile courseMaterialFile)
         {
             await _fileService.RemoveAsync(courseMaterialFile.UniqueFileName, cancellationToken);
+        }
+        else if (courseMaterial is CourseMaterialAssignment courseMaterialAssignment)
+        {
+            List<string> uniqueFileNames = await _submittedAssignmentRepository
+                .GetSubmittedFilesByAssignmentIdAsync(courseMaterialAssignment.Id, cancellationToken);
+
+            if (uniqueFileNames.Count != 0)
+            {
+                await _fileService.RemoveRangeAsync(uniqueFileNames, cancellationToken);
+            }
+
+            await _gradeRepository.RemoveRangeByAssignmentIdAsync(
+                courseMaterialAssignment.Id, cancellationToken);
+
+            await _submittedAssignmentRepository.RemoveRangeByAssignmentIdAsync(
+                courseMaterialAssignment.Id, cancellationToken);
         }
 
         await _courseMaterialRepository.RemoveAsync(courseMaterial.Id, cancellationToken);

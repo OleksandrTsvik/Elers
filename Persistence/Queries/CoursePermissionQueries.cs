@@ -1,6 +1,7 @@
 using Application.Common.Queries;
 using Application.CoursePermissions.GetCourseMemberPermissions;
 using Application.CoursePermissions.GetListCoursePermissions;
+using Domain.Enums;
 using Microsoft.EntityFrameworkCore;
 
 namespace Persistence.Queries;
@@ -28,6 +29,11 @@ public class CoursePermissionQueries : ICoursePermissionQueries
                 IsCreator = x.CreatorId == userId,
                 IsMember = x.CourseMembers.Any(courseMember =>
                     courseMember.CourseId == courseId && courseMember.UserId == userId),
+                IsStudent = x.CourseMembers.Any(courseMember =>
+                    courseMember.CourseId == courseId &&
+                    courseMember.UserId == userId &&
+                    courseMember.User != null &&
+                    courseMember.User.Type == UserType.Student),
                 MemberPermissions = x.CreatorId == userId
                     ? Array.Empty<string>()
                     : x.CourseMembers

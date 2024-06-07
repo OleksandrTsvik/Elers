@@ -1,0 +1,44 @@
+.table {
+  position: relative;
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid;
+  border-color: var(--table-border-color);
+
+  tr,
+  th,
+  td {
+    padding: 10px;
+    border: 1px solid;
+    border-color: var(--table-border-color);
+  }
+
+  tr th:nth-child(1) {
+    width: 1px;
+  }
+
+  th:nth-child(n + 3),
+  td:nth-child(n + 3) {
+    text-align: center;
+  }
+
+  tr:first-child th:nth-child(n + 3) {
+    vertical-align: middle;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    width: 30px;
+    min-width: 30px;
+    max-height: 140px;
+    padding: 6px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    span {
+      display: block;
+      transform: rotate(180deg);
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+}

@@ -25,6 +25,7 @@ export function useCoursePermission(courseId: string | undefined) {
 
   const isCreator = data?.isCreator ?? false;
   const isMember = data?.isMember ?? false;
+  const isStudent = data?.isStudent ?? false;
   const memberPermissions = data?.memberPermissions ?? [];
 
   const checkCoursePermission = (
@@ -40,14 +41,16 @@ export function useCoursePermission(courseId: string | undefined) {
       .filter(
         (item) =>
           item.show ??
-          checkCoursePermission(
-            item.coursePermissions ?? [],
-            item.userPermissions,
-          ),
+          (item.check ||
+            checkCoursePermission(
+              item.coursePermissions ?? [],
+              item.userPermissions,
+            )),
       )
       .map(
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        ({ coursePermissions, userPermissions, show, ...item }) => item as U,
+        ({ coursePermissions, userPermissions, show, check, ...item }) =>
+          item as U,
       );
 
   const filterActions = (actions: AuthItemAction[]): ItemType[] =>
@@ -70,6 +73,7 @@ export function useCoursePermission(courseId: string | undefined) {
   return {
     isCreator,
     isMember,
+    isStudent,
     memberPermissions,
     checkCoursePermission,
     filterActions,

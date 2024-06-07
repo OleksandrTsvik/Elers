@@ -14,11 +14,13 @@ public abstract class CourseMaterial : Entity
     public CourseMaterialType Type { get; protected set; }
     public bool IsActive { get; set; }
     public int Order { get; set; }
+    public DateTime CreatedAt { get; set; }
 
     public CourseMaterial()
     {
         IsActive = true;
         Order = -1;
+        CreatedAt = DateTime.UtcNow;
     }
 }
 

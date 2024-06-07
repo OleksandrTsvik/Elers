@@ -7,9 +7,32 @@ namespace Persistence.Repositories;
 
 internal class GradeRepository : MongoDbRepository<Grade>, IGradeRepository
 {
+    private readonly IMongoCollection<CourseMaterial> _courseMaterialsCollection;
+
     public GradeRepository(IMongoDatabase mongoDatabase)
         : base(mongoDatabase, CollectionNames.Grades)
     {
+        _courseMaterialsCollection = mongoDatabase.GetCollection<CourseMaterial>(
+            CollectionNames.CourseMaterials);
+    }
+
+    public Task<List<Grade>> GetByCourseIdAsync(
+        Guid courseId,
+        CancellationToken cancellationToken = default)
+    {
+        return Collection
+            .Find(x => x.CourseId == courseId)
+            .ToListAsync(cancellationToken);
+    }
+
+    public Task<List<Grade>> GetByCourseIdAndStudentIdAsync(
+        Guid courseId,
+        Guid studentId,
+        CancellationToken cancellationToken = default)
+    {
+        return Collection
+            .Find(x => x.CourseId == courseId && x.StudentId == studentId)
+            .ToListAsync(cancellationToken);
     }
 
     public async Task<GradeAssignment?> GetByAssignmentIdAndStudentIdAsync(
@@ -60,5 +83,32 @@ internal class GradeRepository : MongoDbRepository<Grade>, IGradeRepository
             update,
             null,
             cancellationToken);
+    }
+
+    public async Task RemoveRangeByCourseIdAsync(Guid courseId, CancellationToken cancellationToken = default)
+    {
+        await Collection.DeleteManyAsync(x => x.CourseId == courseId, cancellationToken);
+    }
+
+    public async Task RemoveRangeByAssignmentIdAsync(
+        Guid assignmentId,
+        CancellationToken cancellationToken = default)
+    {
+        await Collection.OfType<GradeAssignment>()
+            .DeleteManyAsync(x => x.AssignmentId == assignmentId, cancellationToken);
+    }
+
+    public async Task RemoveRangeByCourseTabIdAsync(
+        Guid courseTabId,
+        CancellationToken cancellationToken = default)
+    {
+        List<Guid> assignmentIds = await _courseMaterialsCollection
+            .OfType<CourseMaterialAssignment>()
+            .Find(x => x.CourseTabId == courseTabId)
+            .Project(x => x.Id)
+            .ToListAsync(cancellationToken);
+
+        await Collection.OfType<GradeAssignment>()
+            .DeleteManyAsync(x => assignmentIds.Contains(x.AssignmentId), cancellationToken);
     }
 }

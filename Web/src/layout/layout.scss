@@ -5,6 +5,14 @@ body {
   padding: 0;
 }
 
+:root {
+  --table-border-color: rgb(240, 240, 240);
+}
+
+body.dark {
+  --table-border-color: rgb(48, 48, 48);
+}
+
 .d-block {
   display: block;
 }

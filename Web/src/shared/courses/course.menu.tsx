@@ -1,4 +1,9 @@
-import { ReadOutlined, TeamOutlined } from '@ant-design/icons';
+import {
+  ReadOutlined,
+  StarOutlined,
+  TeamOutlined,
+  TrophyOutlined,
+} from '@ant-design/icons';
 import { Menu, Skeleton } from 'antd';
 import { Suspense } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -17,7 +22,7 @@ export default function CourseMenu() {
   const { t } = useTranslation();
 
   const { isAuth } = useAuth();
-  const { filterMenu } = useCoursePermission(courseId);
+  const { isStudent, filterMenu } = useCoursePermission(courseId);
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -29,6 +34,12 @@ export default function CourseMenu() {
       label: t('course.course'),
     },
     {
+      key: `/courses/my-grades/${courseId}`,
+      icon: <TrophyOutlined />,
+      label: t('course.my_grades'),
+      show: isStudent,
+    },
+    {
       key: `/courses/members/${courseId}`,
       icon: <TeamOutlined />,
       label: t('course.members'),
@@ -38,6 +49,13 @@ export default function CourseMenu() {
       key: `/courses/submitted-assignments/${courseId}`,
       icon: <CourseMaterialIcon type={CourseMaterialType.Assignment} />,
       label: t('course.submitted_assignment'),
+      coursePermissions: [CoursePermissionType.GradeCourseStudents],
+      userPermissions: [PermissionType.GradeStudents],
+    },
+    {
+      key: `/courses/grades/${courseId}`,
+      icon: <StarOutlined />,
+      label: t('course.grades'),
       coursePermissions: [CoursePermissionType.GradeCourseStudents],
       userPermissions: [PermissionType.GradeStudents],
     },

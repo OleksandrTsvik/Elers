@@ -29,7 +29,7 @@ export default function SubmittedAssignmentsSelectStudent({
       allowClear
       showSearch
       loading={isFetching}
-      placeholder={t('course.student')}
+      placeholder={t('user.student')}
       value={value}
       options={data?.map(({ id, firstName, lastName, patronymic }) => ({
         label: `${lastName} ${firstName} ${patronymic}`,

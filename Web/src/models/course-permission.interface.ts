@@ -3,6 +3,7 @@ import { CoursePermissionType } from '../auth';
 export interface CourseMemberPermissions {
   isCreator: boolean;
   isMember: boolean;
+  isStudent: boolean;
   memberPermissions: CoursePermissionType[];
 }
 

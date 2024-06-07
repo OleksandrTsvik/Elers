@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 
 import SubmittedAssignmentsListItem from './submitted-assignments.list-item';
 import { useGetListSubmittedAssignmentsQuery } from '../../api/assignments.api';
+import { NavigateToError } from '../../common/navigate';
 import usePagination from '../../hooks/use-pagination';
 import { SubmittedAssignmentStatus } from '../../models/assignment.interface';
 
@@ -21,13 +22,17 @@ export default function SubmittedAssignmentsList({
 
   const { pagination, pagingParams } = usePagination();
 
-  const { data, isFetching } = useGetListSubmittedAssignmentsQuery({
+  const { data, isFetching, error } = useGetListSubmittedAssignmentsQuery({
     courseId,
     ...pagingParams,
     status,
     assignmentId,
     studentId,
   });
+
+  if (error) {
+    return <NavigateToError error={error} />;
+  }
 
   return (
     <List

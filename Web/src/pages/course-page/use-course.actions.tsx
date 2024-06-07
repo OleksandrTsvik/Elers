@@ -76,8 +76,6 @@ export default function useCourseActions(
       label: t('course.enroll'),
       onClick: handleEnrollClick,
       show: !isCreator && !isMember,
-      coursePermissions: [],
-      userPermissions: [],
     },
     {
       key: 'unenroll',
@@ -85,8 +83,6 @@ export default function useCourseActions(
       label: t('course.unenroll'),
       onClick: handleUnenrollClick,
       show: !isCreator && isMember,
-      coursePermissions: [],
-      userPermissions: [],
     },
     {
       key: 'edit',

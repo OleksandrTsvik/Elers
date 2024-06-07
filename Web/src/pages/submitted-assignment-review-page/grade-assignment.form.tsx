@@ -71,6 +71,7 @@ export default function GradeAssignmentForm({
       >
         <InputNumber
           className="w-100"
+          addonAfter={t('course_material.max_grade_tip', { maxGrade })}
           min={0}
           max={maxGrade}
           parser={(displayValue) => stringToInputNumber(displayValue)}

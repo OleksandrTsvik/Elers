@@ -59,7 +59,7 @@ export function SubmittedAssignmentDetails({
 
       {teacher && (
         <Typography.Paragraph>
-          {t('assignment.teacher')}: {teacher.lastName} {teacher.firstName}{' '}
+          {t('user.teacher')}: {teacher.lastName} {teacher.firstName}{' '}
           {teacher.patronymic}
         </Typography.Paragraph>
       )}

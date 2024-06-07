@@ -15,7 +15,17 @@ public interface ISubmittedAssignmentRepository
         string uniqueFileName,
         CancellationToken cancellationToken = default);
 
+    Task<List<string>> GetSubmittedFilesByAssignmentIdAsync(
+        Guid assignmentId,
+        CancellationToken cancellationToken = default);
+
     Task AddAsync(SubmittedAssignment submittedAssignment, CancellationToken cancellationToken = default);
 
     Task UpdateAsync(SubmittedAssignment submittedAssignment, CancellationToken cancellationToken = default);
+
+    Task RemoveRangeByAssignmentIdAsync(Guid assignmentId, CancellationToken cancellationToken = default);
+
+    Task RemoveRangeByCourseTabIdsAsync(
+        IEnumerable<Guid> tabIds,
+        CancellationToken cancellationToken = default);
 }

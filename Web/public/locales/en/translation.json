@@ -38,7 +38,6 @@
       "Resubmit": "Returned for revision",
       "Submitted": "Sent for review"
     },
-    "teacher": "Teacher",
     "text": "Text"
   },
   "color": {
@@ -63,6 +62,7 @@
     "courses": "Courses",
     "description": "Description",
     "enroll": "Enroll in the course",
+    "grades": "Grades",
     "material": {
       "assignment": "Assignment",
       "content": "Content",
@@ -73,6 +73,7 @@
     },
     "materials_count": "Number of materials",
     "members": "Members",
+    "my_grades": "My grades",
     "rules": {
       "description_len": "Maximum description length {{max}} characters",
       "tab_name_len": "The section name must contain from {{min}} to {{max}} characters",
@@ -80,7 +81,6 @@
       "title_required": "Enter the course title"
     },
     "section_name": "Section name",
-    "student": "Student",
     "submitted_assignment": "Submitted assignments",
     "tab_color": "Section title color",
     "tab_type": "Course presentation type",
@@ -125,6 +125,7 @@
     "file": "File",
     "link": "Link",
     "max_grade": "Maximum grade",
+    "max_grade_tip": "max {{maxGrade}}",
     "no_deadline": "no",
     "rules": {
       "file_required": "Upload a file"
@@ -158,6 +159,7 @@
     "title": "Course roles",
     "update": "Edit a role"
   },
+  "date": "Date",
   "error": {
     "bad_request": "Bad Request. Please check your data and try again.",
     "conflict": "Conflict. Try again with different data.",
@@ -304,6 +306,11 @@
     },
     "head_title": "Checking the submitted assignment",
     "setting_grade": "Setting a grade"
+  },
+  "user": {
+    "full_name": "Full name",
+    "student": "Student",
+    "teacher": "Teacher"
   },
   "user_creation_page": {
     "head_title": "Create a user",

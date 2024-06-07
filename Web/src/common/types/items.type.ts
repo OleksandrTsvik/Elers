@@ -11,6 +11,7 @@ export type GetActionItems<T = void> = (record: T) => ItemType[];
 
 export type AuthItem = {
   show?: boolean;
+  check?: boolean;
   coursePermissions?: CoursePermissionType[];
   userPermissions?: PermissionType[];
 };

@@ -23,6 +23,10 @@ export default function AssignmentSubmitGuard({
   const { isLoadingCoursePermission, isMember, checkCoursePermission } =
     useCoursePermission(courseId);
 
+  if (status === SubmittedAssignmentStatus.Graded) {
+    return null;
+  }
+
   if (
     status !== SubmittedAssignmentStatus.Submitted &&
     status !== SubmittedAssignmentStatus.Resubmit &&

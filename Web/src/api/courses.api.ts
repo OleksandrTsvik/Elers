@@ -52,7 +52,7 @@ export const coursesApi = api.injectEndpoints({
         url: '/courses',
         params,
       }),
-      providesTags: ['CourseList'],
+      providesTags: ['CourseList', 'CourseMaterialList'],
     }),
     createCourse: builder.mutation<void, CreateCourseRequest>({
       query: (data) => ({
