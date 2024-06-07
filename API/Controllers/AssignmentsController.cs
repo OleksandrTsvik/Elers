@@ -3,6 +3,8 @@ using Application.Assignments.DownloadAssignmentFile;
 using Application.Assignments.GetAssignment;
 using Application.Assignments.GetListAssignmentTitles;
 using Application.Assignments.GetListSubmittedAssignments;
+using Application.Assignments.GetSubmittedAssignment;
+using Application.Assignments.GradeAssignment;
 using Application.Assignments.SubmitAssignment;
 using Domain.Enums;
 using Infrastructure.CourseMemberPermissions;
@@ -59,6 +61,16 @@ public class AssignmentsController : ApiControllerBase
         return HandleResult(await Sender.Send(query, cancellationToken));
     }
 
+    [HttpGet("review/{submittedAssignmentId:guid}")]
+    public async Task<IActionResult> GetSubmittedAssignment(
+        Guid submittedAssignmentId,
+        CancellationToken cancellationToken)
+    {
+        var query = new GetSubmittedAssignmentQuery(submittedAssignmentId);
+
+        return HandleResult(await Sender.Send(query, cancellationToken));
+    }
+
     [HttpPost("{id:guid}")]
     public async Task<IActionResult> SubmitAssignment(
         Guid id,
@@ -69,6 +81,21 @@ public class AssignmentsController : ApiControllerBase
             id,
             request.Text,
             request.Files?.Select(file => new FormFileProxy(file)).ToArray());
+
+        return HandleResult(await Sender.Send(command, cancellationToken));
+    }
+
+    [HttpPost("grade/{submittedAssignmentId:guid}")]
+    public async Task<IActionResult> GradeAssignment(
+        Guid submittedAssignmentId,
+        [FromBody] GradeAssignmentRequest request,
+        CancellationToken cancellationToken)
+    {
+        var command = new GradeAssignmentCommand(
+            submittedAssignmentId,
+            request.Status,
+            request.Grade,
+            request.Comment);
 
         return HandleResult(await Sender.Send(command, cancellationToken));
     }

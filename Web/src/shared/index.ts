@@ -5,6 +5,7 @@ export { RoleForm, UserForm };
 
 export type { RoleFormValues, UserFormValues };
 
+export * from './assignments';
 export * from './course-tabs';
 export * from './courses';
 export * from './materials';

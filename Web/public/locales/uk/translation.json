@@ -296,6 +296,15 @@
     "user_roles": "Ролі",
     "users": "Користувачі"
   },
+  "submitted_task_review_page": {
+    "give_grade": "Виставити оцінку",
+    "grade_status": {
+      "graded": "Оцінено",
+      "resubmit": "Доопрацювання"
+    },
+    "head_title": "Перевірка надісланого завдання",
+    "setting_grade": "Виставлення оцінки"
+  },
   "user_creation_page": {
     "head_title": "Створення користувача",
     "title": "Створення користувача"

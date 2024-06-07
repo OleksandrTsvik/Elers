@@ -1,3 +1,5 @@
+import { UserDto } from './user.interface';
+
 export interface Assignment {
   assignmentId: string;
   courseTabId: string;
@@ -10,18 +12,32 @@ export interface Assignment {
 }
 
 export interface SubmittedAssignment {
-  teacher?: {
-    id: string;
-    firstName: string;
-    lastName: string;
-    patronymic: string;
-  };
+  teacher?: UserDto;
   status: SubmittedAssignmentStatus;
   attemptNumber: number;
   grade?: number;
   teacherComment?: string;
   text?: string;
-  files: { fileName: string; uniqueFileName: string }[];
+  files: SubmitAssignmentFile[];
+  submittedAt: Date;
+}
+
+export interface SubmittedAssignmentReview {
+  submittedAssignmentId: string;
+  assignmentId: string;
+  title: string;
+  description: string;
+  deadline?: Date;
+  maxFiles: number;
+  maxGrade: number;
+  student: UserDto;
+  teacher?: UserDto;
+  grade?: number;
+  status: SubmittedAssignmentStatus;
+  attemptNumber: number;
+  teacherComment?: string;
+  text?: string;
+  files: SubmitAssignmentFile[];
   submittedAt: Date;
 }
 
@@ -29,4 +45,9 @@ export enum SubmittedAssignmentStatus {
   Submitted = 'Submitted',
   Graded = 'Graded',
   Resubmit = 'Resubmit',
+}
+
+export interface SubmitAssignmentFile {
+  fileName: string;
+  uniqueFileName: string;
 }

@@ -23,7 +23,8 @@ public class StudentQueries : IStudentQueries
                 Id = x.User!.Id,
                 FirstName = x.User.FirstName,
                 LastName = x.User.LastName,
-                Patronymic = x.User.Patronymic
+                Patronymic = x.User.Patronymic,
+                AvatarUrl = x.User.AvatarUrl
             })
             .ToArrayAsync(cancellationToken);
     }

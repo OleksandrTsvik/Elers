@@ -4,6 +4,8 @@ namespace Domain.Repositories;
 
 public interface ISubmittedAssignmentRepository
 {
+    Task<SubmittedAssignment?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default);
+
     Task<SubmittedAssignment?> GetByAssignmentIdAndStudentIdAsync(
         Guid assignmentId,
         Guid studentId,

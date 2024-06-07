@@ -103,7 +103,7 @@ public class ApplicationDbContextSeed
 
     private async Task SeedUsersAsync(List<Role> allRoles)
     {
-        List<UserDto> seedUsers = GetUsersSeedData();
+        List<UserSeed> seedUsers = UserSeed.GetUsersSeedData();
         var seedEmails = seedUsers.Select(x => x.Email).ToList();
 
         List<string> existingEmails = await _dbContext.Users
@@ -113,7 +113,7 @@ public class ApplicationDbContextSeed
 
         var newUsers = new List<User>();
 
-        foreach (UserDto user in seedUsers)
+        foreach (UserSeed user in seedUsers)
         {
             if (!existingEmails.Any(x => x == user.Email))
             {
@@ -176,17 +176,4 @@ public class ApplicationDbContextSeed
         _dbContext.CoursePermissions.RemoveRange(removePermissionsFromDb);
         await _dbContext.CoursePermissions.AddRangeAsync(newPermissions);
     }
-
-    private static List<UserDto> GetUsersSeedData() =>
-        [
-            new UserDto
-            {
-                Email = "ipz203_tsos@student.ztu.edu.ua",
-                Password = "123456",
-                FirstName = "Цвік",
-                LastName = "Олександр",
-                Patronymic = "Сергійович",
-                DefaultRoles = [DefaultRole.Admin]
-            }
-        ];
 }

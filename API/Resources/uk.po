@@ -101,6 +101,9 @@ msgstr "Надано результат null."
 msgid "Assignments.NotFound"
 msgstr "Завдання з Id = '{0}' не знайдено."
 
+msgid "Assignments.Assignments.SubmittedNotFound"
+msgstr "Надіслане виконане завдання з Id = '{0}' не знайдено."
+
 msgid "Assignments.Unavailable"
 msgstr "Завдання з Id = '{0}' недоступне."
 
@@ -125,8 +128,17 @@ msgstr "Файл не знайдено."
 msgid "Assignments.FileAccessDenied"
 msgstr "У вас немає дозволу на завантаження цього файлу."
 
+msgid "Assignments.SubmittedAccessDenied"
+msgstr "У вас немає дозволу на перегляд цього відправленого завдання."
+
+msgid "Assignments.GradeAccessDenied"
+msgstr "У вас немає дозволу на виставлення оцінки для цього завдання."
+
 msgid "Courses.NotFound"
 msgstr "Курс з Id = '{0}' не знайдено."
+
+msgid "Courses.NotFoundByTabId"
+msgstr "Курс по Id вкладки = '{0}' не знайдено."
 
 msgid "CourseMaterials.NotFound"
 msgstr "Матеріал курсу з Id = '{0}' не знайдено."
@@ -172,6 +184,9 @@ msgstr "Роль з Id = '{0}' не знайдено."
 
 msgid "Roles.NameNotUnique"
 msgstr "Роль = '{0}' уже існує."
+
+msgid "Students.NotFound"
+msgstr "Студента з Id = '{0}' не знайдено."
 
 msgid "Users.NotFound"
 msgstr "Користувача з Id = '{0}' не знайдено."

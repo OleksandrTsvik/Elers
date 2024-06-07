@@ -184,4 +184,14 @@ internal class CourseQueries : ICourseQueries
             .Select(x => x.Id)
             .ToArrayAsync(cancellationToken);
     }
+
+    public Task<Guid?> GetCourseIdByCourseTabId(
+        Guid courseTabId,
+        CancellationToken cancellationToken = default)
+    {
+        return _dbContext.CourseTabs
+            .Where(x => x.Id == courseTabId)
+            .Select(x => (Guid?)x.CourseId)
+            .FirstOrDefaultAsync(cancellationToken);
+    }
 }

@@ -52,7 +52,18 @@ public class SubmitAssignmentCommandHandler : ICommandHandler<SubmitAssignmentCo
             return AssignmentErrors.NotFound(request.AssignmentId);
         }
 
-        if (assignment.Deadline.HasValue && assignment.Deadline.Value.AddDays(1).Date < DateTime.UtcNow.Date)
+        SubmittedAssignment? submittedAssignment = await _submittedAssignmentRepository
+            .GetByAssignmentIdAndStudentIdAsync(assignment.Id, student.Id, cancellationToken);
+
+        if (submittedAssignment?.Status == SubmittedAssignmentStatus.Graded)
+        {
+            return AssignmentErrors.AlreadyGraded();
+        }
+
+        if (submittedAssignment?.Status != SubmittedAssignmentStatus.Submitted &&
+            submittedAssignment?.Status != SubmittedAssignmentStatus.Resubmit &&
+            assignment.Deadline.HasValue &&
+            assignment.Deadline.Value.AddDays(1).Date < DateTime.UtcNow.Date)
         {
             return AssignmentErrors.DeadlinePassed();
         }
@@ -61,14 +72,6 @@ public class SubmitAssignmentCommandHandler : ICommandHandler<SubmitAssignmentCo
             student.Id, assignment.CourseTabId, cancellationToken))
         {
             return AssignmentErrors.StudentsOnly();
-        }
-
-        SubmittedAssignment? submittedAssignment = await _submittedAssignmentRepository
-            .GetByAssignmentIdAndStudentIdAsync(assignment.Id, student.Id, cancellationToken);
-
-        if (submittedAssignment?.Status == SubmittedAssignmentStatus.Graded)
-        {
-            return AssignmentErrors.AlreadyGraded();
         }
 
         if (string.IsNullOrEmpty(request.Text) && (request.Files is null || request.Files.Length == 0))

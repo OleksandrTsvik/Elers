@@ -296,6 +296,15 @@
     "user_roles": "Roles",
     "users": "Users"
   },
+  "submitted_task_review_page": {
+    "give_grade": "Give a grade",
+    "grade_status": {
+      "graded": "Graded",
+      "resubmit": "Resubmit"
+    },
+    "head_title": "Checking the submitted assignment",
+    "setting_grade": "Setting a grade"
+  },
   "user_creation_page": {
     "head_title": "Create a user",
     "title": "Create a user"

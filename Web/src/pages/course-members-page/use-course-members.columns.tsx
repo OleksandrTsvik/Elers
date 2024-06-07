@@ -1,5 +1,4 @@
-import { UserOutlined } from '@ant-design/icons';
-import { Avatar, TableColumnsType } from 'antd';
+import { TableColumnsType } from 'antd';
 import { useTranslation } from 'react-i18next';
 
 import useCourseMembersActions from './use-course-members.actions';
@@ -10,7 +9,7 @@ import {
   useCoursePermission,
 } from '../../auth';
 import { AuthItemColumn } from '../../common/types';
-import { ActionsDropdown } from '../../components';
+import { ActionsDropdown, UserAvatar } from '../../components';
 import { GetColumnSearchProps } from '../../hooks/use-table-search-props';
 import { CourseMember } from '../../models/course-member.interface';
 
@@ -36,12 +35,7 @@ export default function useCourseMembersColumns(
     {
       key: 'avatar',
       width: 1,
-      render: (_, record) =>
-        record.avatarUrl ? (
-          <Avatar src={record.avatarUrl} />
-        ) : (
-          <Avatar icon={<UserOutlined />} />
-        ),
+      render: (_, record) => <UserAvatar url={record.avatarUrl} />,
       coursePermissions: [],
       userPermissions: [],
     },

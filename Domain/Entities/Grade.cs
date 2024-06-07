@@ -11,7 +11,6 @@ public class Grade : Entity
     public GradeType Type { get; protected set; }
     public Guid CourseId { get; set; }
     public Guid StudentId { get; set; }
-    public string Title { get; set; } = string.Empty;
     public double Value { get; set; }
     public DateTime CreatedAt { get; set; }
 }

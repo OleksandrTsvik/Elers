@@ -2,7 +2,6 @@ export * from './auth.api';
 export * from './auth.guard';
 export * from './auth.middleware';
 export * from './auth.slice';
-export * from './base-query-with-reauth';
 export * from './course-permission-type.enum';
 export * from './has-course-permission.util';
 export * from './has-permission.util';

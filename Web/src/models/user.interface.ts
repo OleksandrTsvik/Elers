@@ -2,7 +2,7 @@ import { PermissionType } from '../auth';
 
 export interface AuthUser {
   email: string;
-  avatarUrl: string;
+  avatarUrl?: string;
   permissions: PermissionType[];
 }
 
@@ -20,4 +20,5 @@ export interface UserDto {
   firstName: string;
   lastName: string;
   patronymic: string;
+  avatarUrl?: string;
 }

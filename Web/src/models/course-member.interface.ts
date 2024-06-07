@@ -4,7 +4,7 @@ export interface CourseMember {
   firstName: string;
   lastName: string;
   patronymic: string;
-  avatarUrl: string;
+  avatarUrl?: string;
   courseRole?: {
     id?: string;
     description?: string;

@@ -11,6 +11,7 @@ public static class ErrorCodes
     public static class Assignments
     {
         public const string NotFound = "Assignments.NotFound";
+        public const string SubmittedNotFound = "Assignments.SubmittedNotFound";
         public const string Unavailable = "Assignments.Unavailable";
         public const string StudentsOnly = "Assignments.StudentsOnly";
         public const string EmptyFields = "Assignments.EmptyFields";
@@ -19,11 +20,15 @@ public static class ErrorCodes
         public const string DeadlinePassed = "Assignments.DeadlinePassed";
         public const string FileNotFound = "Assignments.FileNotFound";
         public const string FileAccessDenied = "Assignments.FileAccessDenied";
+        public const string SubmittedAccessDenied = "Assignments.SubmittedAccessDenied";
+        public const string GradeAccessDenied = "Assignments.GradeAccessDenied";
+        public const string GradeLimit = "Assignments.GradeLimit";
     }
 
     public static class Courses
     {
         public const string NotFound = "Courses.NotFound";
+        public const string NotFoundByTabId = "Courses.NotFoundByTabId";
     }
 
     public static class CourseMaterials
@@ -67,6 +72,11 @@ public static class ErrorCodes
     {
         public const string NotFound = "Roles.NotFound";
         public const string NameNotUnique = "Roles.NameNotUnique";
+    }
+
+    public static class Students
+    {
+        public const string NotFound = "Students.NotFound";
     }
 
     public static class Users

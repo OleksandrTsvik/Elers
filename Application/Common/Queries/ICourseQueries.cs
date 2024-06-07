@@ -25,4 +25,8 @@ public interface ICourseQueries
     Task<Guid[]> GetCourseTabIds(
         Guid courseId,
         CancellationToken cancellationToken = default);
+
+    Task<Guid?> GetCourseIdByCourseTabId(
+        Guid courseTabId,
+        CancellationToken cancellationToken = default);
 }

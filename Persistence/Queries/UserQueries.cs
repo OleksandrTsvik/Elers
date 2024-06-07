@@ -75,7 +75,8 @@ internal class UserQueries : IUserQueries
                 Id = x.Id,
                 FirstName = x.FirstName,
                 LastName = x.LastName,
-                Patronymic = x.Patronymic
+                Patronymic = x.Patronymic,
+                AvatarUrl = x.AvatarUrl
             })
             .FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
     }
@@ -91,7 +92,8 @@ internal class UserQueries : IUserQueries
                 Id = x.Id,
                 FirstName = x.FirstName,
                 LastName = x.LastName,
-                Patronymic = x.Patronymic
+                Patronymic = x.Patronymic,
+                AvatarUrl = x.AvatarUrl
             })
             .ToArrayAsync(cancellationToken);
     }

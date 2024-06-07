@@ -4,6 +4,7 @@ import { api } from '.';
 import { PagedList, PagingParams } from '../common/types';
 import {
   Assignment,
+  SubmittedAssignmentReview,
   SubmittedAssignmentStatus,
 } from '../models/assignment.interface';
 
@@ -34,6 +35,13 @@ interface SubmitAssignmentRequest {
   id: string;
   text?: string;
   files?: UploadFile[];
+}
+
+interface GradeAssignmentRequest {
+  submittedAssignmentId: string;
+  status: SubmittedAssignmentStatus;
+  grade: number;
+  comment?: string;
 }
 
 export const assignmentsApi = api.injectEndpoints({
@@ -69,6 +77,20 @@ export const assignmentsApi = api.injectEndpoints({
       }),
       providesTags: ['CourseMaterialAssignment', 'CourseMaterialList'],
     }),
+    getSubmittedAssignment: builder.query<
+      SubmittedAssignmentReview,
+      { submittedAssignmentId?: string }
+    >({
+      query: ({ submittedAssignmentId }) => ({
+        url: `/assignments/review/${submittedAssignmentId}`,
+      }),
+      providesTags: [
+        'Session',
+        'Assignment',
+        'CourseMaterialAssignment',
+        'CourseMaterialList',
+      ],
+    }),
     submitAssignment: builder.mutation<void, SubmitAssignmentRequest>({
       query: ({ id, text, files }) => {
         const formData = new FormData();
@@ -91,6 +113,14 @@ export const assignmentsApi = api.injectEndpoints({
       },
       invalidatesTags: (_, error) => (error ? [] : ['Assignment']),
     }),
+    gradeAssignment: builder.mutation<void, GradeAssignmentRequest>({
+      query: ({ submittedAssignmentId, ...data }) => ({
+        url: `/assignments/grade/${submittedAssignmentId}`,
+        method: 'POST',
+        body: data,
+      }),
+      invalidatesTags: (_, error) => (error ? [] : ['Assignment']),
+    }),
   }),
 });
 
@@ -98,5 +128,7 @@ export const {
   useGetAssignmentQuery,
   useGetListSubmittedAssignmentsQuery,
   useGetListAssignmentTitlesQuery,
+  useGetSubmittedAssignmentQuery,
   useSubmitAssignmentMutation,
+  useGradeAssignmentMutation,
 } = assignmentsApi;

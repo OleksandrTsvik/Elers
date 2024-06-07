@@ -9,6 +9,7 @@ using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Serializers;
 using MongoDB.Driver;
+using MongoDB.Driver.Core.Events;
 using Persistence.Configurations.MongoDb;
 using Persistence.Options;
 using Persistence.Queries;
@@ -60,7 +61,17 @@ public static class DependencyInjection
             MongoDbSettings mongoDbSettings = sp.GetRequiredService<
                 IOptions<DatabaseSettings>>().Value.MongoDb;
 
-            return new MongoClient(mongoDbSettings.ConnectionString);
+            var settings = MongoClientSettings.FromConnectionString(mongoDbSettings.ConnectionString);
+
+            settings.ClusterConfigurator = cb =>
+            {
+                cb.Subscribe<CommandStartedEvent>(e =>
+                {
+                    Console.WriteLine($"{e.CommandName} - {e.Command.ToJson()}");
+                });
+            };
+
+            return new MongoClient(settings);
         });
 
         services.AddSingleton<IMongoDatabase>(sp =>

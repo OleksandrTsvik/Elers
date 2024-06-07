@@ -1,3 +1,4 @@
+export * from './assignment.rules';
 export * from './course-material.rules';
 export * from './course-role.rules';
 export * from './course.rules';

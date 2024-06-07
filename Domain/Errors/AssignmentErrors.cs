@@ -9,6 +9,11 @@ public static class AssignmentErrors
         ErrorCodes.Assignments.NotFound,
         $"The assignment with the Id = '{assignmentId}' was not found.", assignmentId);
 
+    public static Error SubmittedNotFound(Guid submittedAssignmentId) => Error.NotFound(
+        ErrorCodes.Assignments.SubmittedNotFound,
+        $"The submitted completed assignment with the Id = '{submittedAssignmentId}' was not found.",
+        submittedAssignmentId);
+
     public static Error Unavailable(Guid assignmentId) => Error.Forbidden(
         ErrorCodes.Assignments.Unavailable,
         $"The assignment with the Id = '{assignmentId}' is not available.", assignmentId);
@@ -40,4 +45,16 @@ public static class AssignmentErrors
     public static Error FileAccessDenied() => Error.Forbidden(
         ErrorCodes.Assignments.FileAccessDenied,
         "You do not have permission to download this file.");
+
+    public static Error SubmittedAccessDenied() => Error.Forbidden(
+        ErrorCodes.Assignments.SubmittedAccessDenied,
+        "You do not have permission to view this submitted assignment.");
+
+    public static Error GradeAccessDenied() => Error.Forbidden(
+        ErrorCodes.Assignments.GradeAccessDenied,
+        "You do not have permission to grade this assignment.");
+
+    public static Error GradeLimit(int maxGrade) => Error.Validation(
+        ErrorCodes.Assignments.GradeLimit,
+        $"You can give a maximum of '{maxGrade}' grade.", maxGrade);
 }

@@ -1,6 +1,6 @@
 namespace Domain.Rules;
 
-public class CourseMaterialRules
+public static class CourseMaterialRules
 {
     public const int MinTitleLinkLength = 2;
     public const int MaxTitleLinkLength = 64;
