@@ -23,17 +23,27 @@ interface GetCourseMaterialFileResponse extends GetCourseMaterialResponse {
   fileTitle: string;
 }
 
-interface GetCourseMaterialAssignmentResponse {
+interface CourseMaterialResponse {
   id: string;
   courseTabId: string;
   isActive: boolean;
   order: number;
+}
 
+interface GetCourseMaterialAssignmentResponse extends CourseMaterialResponse {
   title: string;
   description: string;
   deadline?: Date;
   maxFiles: number;
   maxGrade: number;
+}
+
+interface GetCourseMaterialTestResponse extends CourseMaterialResponse {
+  title: string;
+  description?: string;
+  numberAttempts: number;
+  timeLimitInMinutes?: number;
+  deadline?: Date;
 }
 
 export const courseMaterialsQueriesApi = api.injectEndpoints({
@@ -75,6 +85,15 @@ export const courseMaterialsQueriesApi = api.injectEndpoints({
       }),
       providesTags: ['Session', 'CourseMaterialAssignment'],
     }),
+    getCourseMaterialTest: builder.query<
+      GetCourseMaterialTestResponse,
+      { id?: string }
+    >({
+      query: ({ id }) => ({
+        url: `/courseMaterials/test/${id}`,
+      }),
+      providesTags: ['Session', 'CourseMaterialTest'],
+    }),
     getListCourseMaterialsByTabId: builder.query<
       CourseMaterial[],
       { id: string }
@@ -101,6 +120,7 @@ export const {
   useGetCourseMaterialLinkQuery,
   useGetCourseMaterialFileQuery,
   useGetCourseMaterialAssignmentQuery,
+  useGetCourseMaterialTestQuery,
   useGetListCourseMaterialsByTabIdQuery,
   useGetListCourseMaterialsByTabIdToEditQuery,
 } = courseMaterialsQueriesApi;

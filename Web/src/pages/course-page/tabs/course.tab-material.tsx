@@ -72,5 +72,25 @@ export default function CourseTabMaterial({ material }: Props) {
           </Typography.Paragraph>
         </div>
       );
+    case CourseMaterialType.Test:
+      return (
+        <div className="mt-field">
+          <Link
+            className="d-block"
+            to={`/courses/${courseId}/test/${material.id}`}
+          >
+            <Space align="start">
+              <CourseMaterialIcon type={CourseMaterialType.Test} />
+              {material.title}
+            </Space>
+          </Link>
+          {material.deadline && (
+            <Typography.Paragraph className="m-0" type="secondary">
+              {t('course_test.deadline')}:{' '}
+              {dayjs(material.deadline).format(DATE_FORMAT)}
+            </Typography.Paragraph>
+          )}
+        </div>
+      );
   }
 }

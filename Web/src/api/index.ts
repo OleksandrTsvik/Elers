@@ -11,6 +11,7 @@ export const api = createApi({
     'CourseByTabId',
     'CourseList',
     'CourseMaterialAssignment',
+    'CourseMaterialTest',
     'CourseMaterialList',
     'CourseMemberList',
     'CourseRoles',

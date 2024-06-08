@@ -50,6 +50,17 @@ const MaterialLinkEditPage = lazy(
   () => import('../../pages/material-link-edit-page/material-link-edit.page'),
 );
 
+const MaterialTestCreationPage = lazy(
+  () =>
+    import(
+      '../../pages/material-test-creation-page/material-test-creation.page'
+    ),
+);
+
+const MaterialTestEditPage = lazy(
+  () => import('../../pages/material-test-edit-page/material-test-edit.page'),
+);
+
 export const courseMaterialsRoutes: RoutesType = {
   private: {
     path: 'courses/material',
@@ -64,18 +75,17 @@ export const courseMaterialsRoutes: RoutesType = {
             path: 'assignment/:tabId',
             element: <MaterialAssignmentCreationPage />,
           },
+          { path: 'test/:tabId', element: <MaterialTestCreationPage /> },
         ],
       },
       {
-        path: 'edit',
+        path: 'edit/:tabId',
         children: [
-          { path: ':tabId/content/:id', element: <MaterialContentEditPage /> },
-          { path: ':tabId/link/:id', element: <MaterialLinkEditPage /> },
-          { path: ':tabId/file/:id', element: <MaterialFileEditPage /> },
-          {
-            path: ':tabId/assignment/:id',
-            element: <MaterialAssignmentEditPage />,
-          },
+          { path: 'content/:id', element: <MaterialContentEditPage /> },
+          { path: 'link/:id', element: <MaterialLinkEditPage /> },
+          { path: 'file/:id', element: <MaterialFileEditPage /> },
+          { path: 'assignment/:id', element: <MaterialAssignmentEditPage /> },
+          { path: 'test/:id', element: <MaterialTestEditPage /> },
         ],
       },
     ],

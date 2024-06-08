@@ -159,6 +159,12 @@
     "title": "Course roles",
     "update": "Edit a role"
   },
+  "course_test": {
+    "deadline": "Deadline",
+    "description": "Description",
+    "number_attempts": "Number of attempts",
+    "time_limit": "Time limit (minutes)"
+  },
   "date": "Date",
   "error": {
     "bad_request": "Bad Request. Please check your data and try again.",
@@ -235,6 +241,12 @@
   "material_link_edit_page": {
     "head_title": "Editing a link",
     "title": "Editing a link"
+  },
+  "material_test_creation_page": {
+    "head_title": "Adding a test"
+  },
+  "material_test_edit_page": {
+    "head_title": "Editing a test"
   },
   "my_courses_page": {
     "create_course": "Create a course",

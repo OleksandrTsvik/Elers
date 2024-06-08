@@ -6,7 +6,7 @@ namespace Domain.Entities;
 
 [JsonDerivedType(typeof(GradeAssignment))]
 [JsonDerivedType(typeof(GradeTest))]
-public class Grade : Entity
+public abstract class Grade : Entity
 {
     public GradeType Type { get; protected set; }
     public Guid CourseId { get; set; }

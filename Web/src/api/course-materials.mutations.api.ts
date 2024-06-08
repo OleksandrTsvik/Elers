@@ -58,6 +58,22 @@ interface UpdateCourseMaterialAssignmentRequest
   id?: string;
 }
 
+interface CourseMaterialTestRequest {
+  title: string;
+  description?: string;
+  numberAttempts: number;
+  timeLimitInMinutes?: number;
+  deadline?: Date;
+}
+
+interface CreateCourseMaterialTestRequest extends CourseMaterialTestRequest {
+  tabId: string;
+}
+
+interface UpdateCourseMaterialTestRequest extends CourseMaterialTestRequest {
+  id?: string;
+}
+
 export const courseMaterialsMutationsApi = api.injectEndpoints({
   overrideExisting: false,
   endpoints: (builder) => ({
@@ -234,6 +250,30 @@ export const courseMaterialsMutationsApi = api.injectEndpoints({
           ? []
           : ['Course', 'CourseMaterialAssignment', 'CourseMaterialList'],
     }),
+    createCourseMaterialTest: builder.mutation<
+      void,
+      CreateCourseMaterialTestRequest
+    >({
+      query: ({ tabId, ...data }) => ({
+        url: `/courseMaterials/test/${tabId}`,
+        method: 'POST',
+        body: data,
+      }),
+      invalidatesTags: (_, error) =>
+        error ? [] : ['Course', 'CourseMaterialList'],
+    }),
+    updateCourseMaterialTest: builder.mutation<
+      void,
+      UpdateCourseMaterialTestRequest
+    >({
+      query: ({ id, ...data }) => ({
+        url: `/courseMaterials/test/${id}`,
+        method: 'PUT',
+        body: data,
+      }),
+      invalidatesTags: (_, error) =>
+        error ? [] : ['Course', 'CourseMaterialTest', 'CourseMaterialList'],
+    }),
     updateCourseMaterialActive: builder.mutation<
       void,
       { id: string; isActive: boolean }
@@ -266,6 +306,8 @@ export const {
   useUpdateCourseMaterialFileMutation,
   useCreateCourseMaterialAssignmentMutation,
   useUpdateCourseMaterialAssignmentMutation,
+  useCreateCourseMaterialTestMutation,
+  useUpdateCourseMaterialTestMutation,
   useUpdateCourseMaterialActiveMutation,
   useDeleteCourseMaterialMutation,
 } = courseMaterialsMutationsApi;

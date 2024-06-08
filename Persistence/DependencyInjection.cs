@@ -98,6 +98,7 @@ public static class DependencyInjection
         CourseMaterialClassMap.RegisterClassMaps();
         SubmittedAssignmentClassMap.RegisterClassMaps();
         GradeClassMap.RegisterClassMaps();
+        TestQuestionClassMap.RegisterClassMaps();
     }
 
     private static IServiceCollection AddRepositories(this IServiceCollection services)

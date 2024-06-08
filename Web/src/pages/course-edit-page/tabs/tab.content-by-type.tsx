@@ -62,5 +62,25 @@ export default function TabContentByType({ material }: Props) {
           </Typography.Paragraph>
         </>
       );
+    case CourseMaterialType.Test:
+      return (
+        <>
+          <Typography.Text>{material.title}</Typography.Text>
+          <Typography.Paragraph className="m-0" type="secondary">
+            {t('course_material.deadline')}:{' '}
+            {material.deadline
+              ? dayjs(material.deadline).format(DATE_FORMAT)
+              : t('course_material.no_deadline')}
+          </Typography.Paragraph>
+          <Typography.Paragraph className="m-0" type="secondary">
+            {t('course_test.number_attempts')}: {material.numberAttempts}
+          </Typography.Paragraph>
+          {material.timeLimitInMinutes && (
+            <Typography.Paragraph className="m-0" type="secondary">
+              {t('course_test.time_limit')}: {material.timeLimitInMinutes}
+            </Typography.Paragraph>
+          )}
+        </>
+      );
   }
 }

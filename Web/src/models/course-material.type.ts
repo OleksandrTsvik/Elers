@@ -23,4 +23,12 @@ export type ConditionalCourseMaterial =
       deadline?: Date;
       maxFiles: number;
       maxGrade: number;
+    }
+  | {
+      type: CourseMaterialType.Test;
+      title: string;
+      description?: string;
+      numberAttempts: number;
+      timeLimitInMinutes?: number;
+      deadline?: Date;
     };

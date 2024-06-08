@@ -9,3 +9,4 @@ export * from './assignments';
 export * from './course-tabs';
 export * from './courses';
 export * from './materials';
+export * from './tests';

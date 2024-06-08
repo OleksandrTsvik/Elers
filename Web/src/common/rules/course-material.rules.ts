@@ -16,4 +16,9 @@ export const COURSE_MATERIAL_RULES = {
     maxFiles: { min: 0, max: MAX_FILES_STUDENT_UPLOAD_ASSIGNMENT },
     maxGrade: { min: 1, max: MAX_ASSIGNMENT_GRADE },
   },
+  test: {
+    title: { min: 2, max: 64 },
+    numberAttempts: { min: 1, max: 100 },
+    timeLimitInMinutes: { min: 1, max: 43_200 },
+  },
 };

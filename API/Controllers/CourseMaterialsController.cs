@@ -3,12 +3,14 @@ using Application.CourseMaterials.CreateCourseMaterialAssignment;
 using Application.CourseMaterials.CreateCourseMaterialContent;
 using Application.CourseMaterials.CreateCourseMaterialFile;
 using Application.CourseMaterials.CreateCourseMaterialLink;
+using Application.CourseMaterials.CreateCourseMaterialTest;
 using Application.CourseMaterials.DeleteCourseMaterial;
 using Application.CourseMaterials.DownloadCourseMaterialFile;
 using Application.CourseMaterials.GetCourseMaterialAssignment;
 using Application.CourseMaterials.GetCourseMaterialContent;
 using Application.CourseMaterials.GetCourseMaterialFile;
 using Application.CourseMaterials.GetCourseMaterialLink;
+using Application.CourseMaterials.GetCourseMaterialTest;
 using Application.CourseMaterials.GetListCourseMaterialsByTabId;
 using Application.CourseMaterials.GetListCourseMaterialsByTabIdToEdit;
 using Application.CourseMaterials.UpdateCourseMaterialActive;
@@ -16,6 +18,7 @@ using Application.CourseMaterials.UpdateCourseMaterialAssignment;
 using Application.CourseMaterials.UpdateCourseMaterialContent;
 using Application.CourseMaterials.UpdateCourseMaterialFile;
 using Application.CourseMaterials.UpdateCourseMaterialLink;
+using Application.CourseMaterials.UpdateCourseMaterialTest;
 using Domain.Enums;
 using Infrastructure.CourseMemberPermissions;
 using Infrastructure.Files;
@@ -116,6 +119,19 @@ public class CourseMaterialsController : ApiControllerBase
         CancellationToken cancellationToken)
     {
         var query = new GetCourseMaterialAssignmentQuery(materialId);
+
+        return HandleResult(await Sender.Send(query, cancellationToken));
+    }
+
+    [HasCourseMemberPermission(
+        [CoursePermissionType.UpdateCourseMaterial],
+        [PermissionType.ManageCourse])]
+    [HttpGet("test/{materialId:guid}")]
+    public async Task<IActionResult> GetCourseMaterialTest(
+        Guid materialId,
+        CancellationToken cancellationToken)
+    {
+        var query = new GetCourseMaterialTestQuery(materialId);
 
         return HandleResult(await Sender.Send(query, cancellationToken));
     }
@@ -246,6 +262,46 @@ public class CourseMaterialsController : ApiControllerBase
             request.Deadline,
             request.MaxFiles,
             request.MaxGrade);
+
+        return HandleResult(await Sender.Send(command, cancellationToken));
+    }
+
+    [HasCourseMemberPermission(
+        [CoursePermissionType.CreateCourseMaterial],
+        [PermissionType.ManageCourse])]
+    [HttpPost("test/{tabId:guid}")]
+    public async Task<IActionResult> CreateCourseMaterialTest(
+        Guid tabId,
+        [FromBody] CreateCourseMaterialTestRequest request,
+        CancellationToken cancellationToken)
+    {
+        var command = new CreateCourseMaterialTestCommand(
+            tabId,
+            request.Title,
+            request.Description,
+            request.NumberAttempts,
+            request.TimeLimitInMinutes,
+            request.Deadline);
+
+        return HandleResult(await Sender.Send(command, cancellationToken));
+    }
+
+    [HasCourseMemberPermission(
+        [CoursePermissionType.UpdateCourseMaterial],
+        [PermissionType.ManageCourse])]
+    [HttpPut("test/{materialId:guid}")]
+    public async Task<IActionResult> UpdateCourseMaterialTest(
+        Guid materialId,
+        [FromBody] UpdateCourseMaterialTestRequest request,
+        CancellationToken cancellationToken)
+    {
+        var command = new UpdateCourseMaterialTestCommand(
+            materialId,
+            request.Title,
+            request.Description,
+            request.NumberAttempts,
+            request.TimeLimitInMinutes,
+            request.Deadline);
 
         return HandleResult(await Sender.Send(command, cancellationToken));
     }

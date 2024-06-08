@@ -12,4 +12,7 @@ public static class CourseMaterialRules
 
     public const int MinTitleAssignmentLength = 2;
     public const int MaxTitleAssignmentLength = 64;
+
+    public const int MinTitleTestLength = 2;
+    public const int MaxTitleTestLength = 64;
 }

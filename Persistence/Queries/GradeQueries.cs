@@ -49,6 +49,20 @@ public class GradeQueries : IGradeQueries
 
         var assessments = new List<AssessmentItem>(assignmentAssessments);
 
+        List<AssessmentItem> testAssessments = await _courseMaterialsCollection
+            .OfType<CourseMaterialTest>()
+            .Find(x => tabIds.Contains(x.CourseTabId))
+            .SortBy(x => x.CreatedAt)
+            .Project(x => new AssessmentItem
+            {
+                Id = x.Id,
+                Title = x.Title,
+                Type = GradeType.Test
+            })
+            .ToListAsync(cancellationToken);
+
+        assessments.AddRange(testAssessments);
+
         return assessments;
     }
 }

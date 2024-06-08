@@ -159,6 +159,12 @@
     "title": "Ролі курсу",
     "update": "Редагування ролі"
   },
+  "course_test": {
+    "deadline": "Дата завершення тесту",
+    "description": "Опис",
+    "number_attempts": "Кількість спроб",
+    "time_limit": "Обмеження в часі (в хвилинах)"
+  },
   "date": "Дата",
   "error": {
     "bad_request": "Невірний запит. Будь ласка, перевірте дані та повторіть спробу.",
@@ -235,6 +241,12 @@
   "material_link_edit_page": {
     "head_title": "Редагування посилання",
     "title": "Редагування посилання"
+  },
+  "material_test_creation_page": {
+    "head_title": "Додавання тесту"
+  },
+  "material_test_edit_page": {
+    "head_title": "Редагування тесту"
   },
   "my_courses_page": {
     "create_course": "Створити курс",

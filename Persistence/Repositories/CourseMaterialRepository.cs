@@ -75,6 +75,14 @@ internal class CourseMaterialRepository : MongoDbRepository<CourseMaterial>, ICo
                     .Set(nameof(CourseMaterialAssignment.MaxFiles), assignment.MaxFiles)
                     .Set(nameof(CourseMaterialAssignment.MaxGrade), assignment.MaxGrade);
                 break;
+            case CourseMaterialTest test:
+                update = update
+                    .Set(nameof(CourseMaterialTest.Title), test.Title)
+                    .Set(nameof(CourseMaterialTest.Description), test.Description)
+                    .Set(nameof(CourseMaterialTest.NumberAttempts), test.NumberAttempts)
+                    .Set(nameof(CourseMaterialTest.TimeLimitInMinutes), test.TimeLimitInMinutes)
+                    .Set(nameof(CourseMaterialTest.Deadline), test.Deadline);
+                break;
         }
 
         await Collection.UpdateOneAsync(
