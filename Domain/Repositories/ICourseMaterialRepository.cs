@@ -28,4 +28,6 @@ public interface ICourseMaterialRepository
     Task RemoveRangeByCourseTabIdsAsync(
         IEnumerable<Guid> tabIds,
         CancellationToken cancellationToken = default);
+
+    Task<bool> ExistsByIdAsync(Guid id, CancellationToken cancellationToken = default);
 }

@@ -14,4 +14,5 @@ public enum PermissionType
     CreateCourse,
     ManageCourse,
     GradeStudents,
+    ManageTestQuestions,
 }

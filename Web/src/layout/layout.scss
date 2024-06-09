@@ -17,6 +17,10 @@ body.dark {
   display: block;
 }
 
+.text-center {
+  text-align: center;
+}
+
 .text-right {
   text-align: right;
 }
@@ -37,6 +41,49 @@ body.dark {
   padding: 0 !important;
 }
 
+.px-1 {
+  padding-right: 0.25rem;
+  padding-left: 0.25rem;
+}
+
+.px-2 {
+  padding-right: 0.5rem;
+  padding-left: 0.5rem;
+}
+
+.px-3 {
+  padding-right: 1rem;
+  padding-left: 1rem;
+}
+
+.pe-1 {
+  padding-right: 0.25rem;
+}
+
+.pe-2 {
+  padding-right: 0.5rem;
+}
+
+.pe-3 {
+  padding-right: 1rem;
+}
+
+.ps-0 {
+  padding-left: 0;
+}
+
+.ps-1 {
+  padding-left: 0.25rem;
+}
+
+.ps-2 {
+  padding-left: 0.5rem;
+}
+
+.ps-3 {
+  padding-left: 1rem;
+}
+
 .btn-success {
   background: #00b96b;
   box-shadow: 0 2px 0 rgba(5, 213, 88, 0.12);
@@ -49,6 +96,16 @@ body.dark {
 .right-btn {
   display: block;
   margin-left: auto;
+}
+
+.square-radio {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+
+  label {
+    border-radius: 0 !important;
+  }
 }
 
 .mr-avatar {
@@ -69,4 +126,8 @@ body.dark {
 
 .mt-course_material {
   margin-top: 1.2rem;
+}
+
+.pb-label-field {
+  padding-bottom: 8px;
 }

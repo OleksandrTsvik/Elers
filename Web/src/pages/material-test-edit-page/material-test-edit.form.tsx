@@ -2,6 +2,7 @@ import { Skeleton, Spin } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 
+import TestQuestionList from './test-question.list';
 import { useUpdateCourseMaterialTestMutation } from '../../api/course-materials.mutations.api';
 import { useGetCourseMaterialTestQuery } from '../../api/course-materials.queries.api';
 import { NavigateToError, NavigateToNotFound } from '../../common/navigate';
@@ -37,14 +38,18 @@ export default function MaterialTestEditForm() {
   }
 
   return (
-    <Spin spinning={isFetching} tip={t('loading.changes')}>
-      <MaterialTestForm
-        initialValues={data}
-        textOnSubmitButton={t('actions.save_changes')}
-        isLoading={isLoadingUpdate}
-        error={errorUpdate}
-        onSubmit={handleSubmit}
-      />
-    </Spin>
+    <>
+      <Spin spinning={isFetching} tip={t('loading.changes')}>
+        <MaterialTestForm
+          initialValues={data}
+          textOnSubmitButton={t('actions.save_changes')}
+          isLoading={isLoadingUpdate}
+          error={errorUpdate}
+          onSubmit={handleSubmit}
+        />
+      </Spin>
+
+      <TestQuestionList testId={data.id} />
+    </>
   );
 }

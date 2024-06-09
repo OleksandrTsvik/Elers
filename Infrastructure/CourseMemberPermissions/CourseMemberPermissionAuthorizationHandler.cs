@@ -16,6 +16,7 @@ public class CourseMemberPermissionAuthorizationHandler
     private const string RouteCourseMaterialId = "materialId";
     private const string RouteCourseRoleId = "roleId";
     private const string RouteCourseMemberId = "memberId";
+    private const string RouteTestQuestionId = "testQuestionId";
 
     private readonly IServiceScopeFactory _serviceScopeFactory;
 
@@ -82,7 +83,8 @@ public class CourseMemberPermissionAuthorizationHandler
             RouteCourseTabId,
             RouteCourseMaterialId,
             RouteCourseRoleId,
-            RouteCourseMemberId
+            RouteCourseMemberId,
+            RouteTestQuestionId
         ];
 
         foreach (string typeRouteId in typeRouteIds)
@@ -123,6 +125,8 @@ public class CourseMemberPermissionAuthorizationHandler
                 .IsCreatorByCourseRoleIdAsync(userId, parsedRouteId),
             RouteCourseMemberId => await courseMemberPermissionService
                 .IsCreatorByCourseMemberIdAsync(userId, parsedRouteId),
+            RouteTestQuestionId => await courseMemberPermissionService
+                .IsCreatorByTestQuestionIdAsync(userId, parsedRouteId),
             _ => false
         };
 
@@ -143,6 +147,8 @@ public class CourseMemberPermissionAuthorizationHandler
                 .GetCourseMemberPermissionsByCourseRoleIdAsync(userId, parsedRouteId),
             RouteCourseMemberId => await courseMemberPermissionService
                 .GetCourseMemberPermissionsByCourseMemberIdAsync(userId, parsedRouteId),
+            RouteTestQuestionId => await courseMemberPermissionService
+                .GetCourseMemberPermissionsByTestQuestionIdAsync(userId, parsedRouteId),
             _ => []
         };
 

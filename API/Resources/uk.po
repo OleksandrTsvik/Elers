@@ -35,6 +35,9 @@ msgstr "Керування курсами. Дозволяє користувач
 msgid "GradeStudents"
 msgstr "Оцінювання студентів. Дозволяє користувачу виставляти оцінки студентам, навіть якщо він не є викладачем або учасником курсу."
 
+msgid "ManageTestQuestions"
+msgstr "Керування запитаннями тесту. Дозволяє користувачу змінювати запитання тесту, навіть якщо він не є викладачем або учасником курсу."
+
 # Description of course permissions
 msgid "UpdateCourse"
 msgstr "Оновлення інформації про курс."
@@ -80,6 +83,15 @@ msgstr "Видалення учасників курсу."
 
 msgid "GradeCourseStudents"
 msgstr "Виставлення оцінок студентам."
+
+msgid "CreateTestQuestion"
+msgstr "Додавання запитань до тесту."
+
+msgid "UpdateTestQuestion"
+msgstr "Оновлення запитань тесту."
+
+msgid "DeleteTestQuestion"
+msgstr "Видалення запитань тесту."
 
 # Validation errors
 msgid "Remove unnecessary spaces at the beginning or end."
@@ -187,6 +199,12 @@ msgstr "Роль = '{0}' уже існує."
 
 msgid "Students.NotFound"
 msgstr "Студента з Id = '{0}' не знайдено."
+
+msgid "Tests.NotFound"
+msgstr "Тест з Id = '{0}' не знайдено."
+
+msgid "TestQuestions.NotFound"
+msgstr "Запитання тесту з Id = '{0}' не знайдено."
 
 msgid "Users.NotFound"
 msgstr "Користувача з Id = '{0}' не знайдено."

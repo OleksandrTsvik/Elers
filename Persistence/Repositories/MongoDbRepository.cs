@@ -18,6 +18,17 @@ internal abstract class MongoDbRepository<TDocument>
         return await Collection.Find(x => x.Id == id).FirstOrDefaultAsync(cancellationToken);
     }
 
+    public async Task<TEntity?> GetByIdAsync<TEntity>(
+        Guid id,
+        CancellationToken cancellationToken = default)
+        where TEntity : TDocument
+    {
+        return await Collection
+            .OfType<TEntity>()
+            .Find(x => x.Id == id)
+            .FirstOrDefaultAsync(cancellationToken);
+    }
+
     public async Task AddAsync(TDocument document, CancellationToken cancellationToken = default)
     {
         await Collection.InsertOneAsync(document, null, cancellationToken);
@@ -40,5 +51,10 @@ internal abstract class MongoDbRepository<TDocument>
         await Collection.DeleteManyAsync(
             x => documents.Select(document => document.Id).Contains(x.Id),
             cancellationToken);
+    }
+
+    public Task<bool> ExistsByIdAsync(Guid id, CancellationToken cancellationToken = default)
+    {
+        return Collection.Find(x => x.Id == id).AnyAsync(cancellationToken);
     }
 }

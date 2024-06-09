@@ -251,7 +251,7 @@ export const courseMaterialsMutationsApi = api.injectEndpoints({
           : ['Course', 'CourseMaterialAssignment', 'CourseMaterialList'],
     }),
     createCourseMaterialTest: builder.mutation<
-      void,
+      string,
       CreateCourseMaterialTestRequest
     >({
       query: ({ tabId, ...data }) => ({

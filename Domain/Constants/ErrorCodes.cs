@@ -79,6 +79,16 @@ public static class ErrorCodes
         public const string NotFound = "Students.NotFound";
     }
 
+    public static class Tests
+    {
+        public const string NotFound = "Tests.NotFound";
+    }
+
+    public static class TestQuestions
+    {
+        public const string NotFound = "TestQuestions.NotFound";
+    }
+
     public static class Users
     {
         public const string NotFound = "Users.NotFound";

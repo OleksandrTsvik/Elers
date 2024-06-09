@@ -12,17 +12,6 @@ internal class CourseMaterialRepository : MongoDbRepository<CourseMaterial>, ICo
     {
     }
 
-    public async Task<TEntity?> GetByIdAsync<TEntity>(
-        Guid id,
-        CancellationToken cancellationToken = default)
-        where TEntity : CourseMaterial
-    {
-        return await Collection
-            .OfType<TEntity>()
-            .Find(x => x.Id == id)
-            .FirstOrDefaultAsync(cancellationToken);
-    }
-
     public Task<List<string>> GetUniqueFileNamesByCourseTabIdAsync(
         Guid tabId,
         CancellationToken cancellationToken = default)

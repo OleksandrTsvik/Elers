@@ -11,6 +11,7 @@ public class CourseMemberPermissionService : ICourseMemberPermissionService
 {
     private readonly ApplicationDbContext _dbContext;
     private readonly IMongoCollection<CourseMaterial> _courseMaterialsCollection;
+    private readonly IMongoCollection<TestQuestion> _testQuestionsCollection;
 
     public CourseMemberPermissionService(ApplicationDbContext dbContext, IMongoDatabase mongoDatabase)
     {
@@ -18,6 +19,9 @@ public class CourseMemberPermissionService : ICourseMemberPermissionService
 
         _courseMaterialsCollection = mongoDatabase.GetCollection<CourseMaterial>(
             CollectionNames.CourseMaterials);
+
+        _testQuestionsCollection = mongoDatabase.GetCollection<TestQuestion>(
+            CollectionNames.TestQuestions);
     }
 
     public Task<string[]> GetCourseMemberPermissionsByCourseIdAsync(Guid userId, Guid courseId)
@@ -98,6 +102,23 @@ public class CourseMemberPermissionService : ICourseMemberPermissionService
         return await GetCourseMemberPermissionsByCourseIdAsync(userId, courseId);
     }
 
+    public async Task<string[]> GetCourseMemberPermissionsByTestQuestionIdAsync(
+        Guid userId,
+        Guid testQuestionId)
+    {
+        Guid courseMaterialTestId = await _testQuestionsCollection
+            .Find(x => x.Id == testQuestionId)
+            .Project(x => x.TestId)
+            .FirstOrDefaultAsync();
+
+        if (courseMaterialTestId == Guid.Empty)
+        {
+            return [];
+        }
+
+        return await GetCourseMemberPermissionsByCourseMaterialIdAsync(userId, courseMaterialTestId);
+    }
+
     public Task<bool> IsCreatorByCourseIdAsync(Guid userId, Guid courseId)
     {
         return _dbContext.Courses.AnyAsync(x => x.CreatorId == userId && x.Id == courseId);
@@ -137,6 +158,21 @@ public class CourseMemberPermissionService : ICourseMemberPermissionService
         return _dbContext.Courses.AnyAsync(x =>
             x.CreatorId == userId && x.CourseMembers.Any(courseMember =>
                 courseMember.CourseId == x.Id && courseMember.Id == courseMemberId));
+    }
+
+    public async Task<bool> IsCreatorByTestQuestionIdAsync(Guid userId, Guid testQuestionId)
+    {
+        Guid courseMaterialTestId = await _testQuestionsCollection
+            .Find(x => x.Id == testQuestionId)
+            .Project(x => x.TestId)
+            .FirstOrDefaultAsync();
+
+        if (courseMaterialTestId == Guid.Empty)
+        {
+            return false;
+        }
+
+        return await IsCreatorByCourseMaterialIdAsync(userId, courseMaterialTestId);
     }
 
     public async Task<bool> CheckCoursePermissionsAsync(

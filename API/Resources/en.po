@@ -35,6 +35,9 @@ msgstr "Allows the user to change course data even if they are not a member of t
 msgid "GradeStudents"
 msgstr "Allows the user to assign grades to students even if they are not a teacher or course member."
 
+msgid "ManageTestQuestions"
+msgstr "Allows the user to change test questions even if they are not a teacher or course member."
+
 # Description of course permissions
 msgid "UpdateCourse"
 msgstr "Update on the course information."
@@ -80,6 +83,15 @@ msgstr "Delete course members."
 
 msgid "GradeCourseStudents"
 msgstr "Grading students."
+
+msgid "CreateTestQuestion"
+msgstr "Create test questions."
+
+msgid "UpdateTestQuestion"
+msgstr "Update test questions."
+
+msgid "DeleteTestQuestion"
+msgstr "Delete test questions."
 
 # Validation errors
 msgid ""

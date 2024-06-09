@@ -8,4 +8,4 @@ public record CreateCourseMaterialTestCommand(
     string? Description,
     int NumberAttempts,
     int? TimeLimitInMinutes,
-    DateTime? Deadline) : ICommand;
+    DateTime? Deadline) : ICommand<Guid>;

@@ -119,6 +119,7 @@
     "visible_section": "Ця секція відображається на сторінці курсу"
   },
   "course_material": {
+    "answer": "Відповідь",
     "assignment_description": "Опис завдання",
     "assignment_max_files": "Максимальна кількість файлів, які можуть завантажити студенти",
     "deadline": "Крайній термін здачі",
@@ -127,6 +128,7 @@
     "max_grade": "Максимальна оцінка",
     "max_grade_tip": "макс. {{maxGrade}}",
     "no_deadline": "відсутній",
+    "question": "Запитання",
     "rules": {
       "file_required": "Завантажте файл"
     },
@@ -160,9 +162,30 @@
     "update": "Редагування ролі"
   },
   "course_test": {
+    "add_answer_option": "Додати варіант відповіді",
+    "add_three_answers": "Додайте принаймні 3 відповіді",
+    "add_two_answers": "Додайте принаймні 2 відповіді",
+    "answer_option": "Варіант відповіді",
+    "answer_options": "Варіанти відповідей",
+    "choose_more_than_one_correct_answer": "Виберіть більше однієї правильної відповіді",
+    "choose_one_correct_answer": "Виберіть одну правильну відповідь",
     "deadline": "Дата завершення тесту",
+    "delete_question": "Видалити запитання",
     "description": "Опис",
+    "enter_all_answers": "Введіть усі відповіді",
+    "notification": {
+      "question_created": "Запитання успішно створено",
+      "question_updated": "Запитання успішно оновлено"
+    },
     "number_attempts": "Кількість спроб",
+    "points": "Бали",
+    "question_type": {
+      "Input": "Коротка відповідь",
+      "MultipleChoice": "Множинний вибір",
+      "SingleChoice": "Вибір однієї відповіді"
+    },
+    "question_type_title": "Тип питання",
+    "test_questions": "Запитання тесту",
     "time_limit": "Обмеження в часі (в хвилинах)"
   },
   "date": "Дата",
@@ -243,6 +266,7 @@
     "title": "Редагування посилання"
   },
   "material_test_creation_page": {
+    "creation_form_note": "Ви можете додавати запитання до тесту після його створення.",
     "head_title": "Додавання тесту"
   },
   "material_test_edit_page": {

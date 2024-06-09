@@ -119,6 +119,7 @@
     "visible_section": "This section is displayed on the course page"
   },
   "course_material": {
+    "answer": "Answer",
     "assignment_description": "Assignment description",
     "assignment_max_files": "Maximum number of files students can upload",
     "deadline": "Deadline",
@@ -127,6 +128,7 @@
     "max_grade": "Maximum grade",
     "max_grade_tip": "max {{maxGrade}}",
     "no_deadline": "no",
+    "question": "Question",
     "rules": {
       "file_required": "Upload a file"
     },
@@ -160,9 +162,30 @@
     "update": "Edit a role"
   },
   "course_test": {
+    "add_answer_option": "Add an answer option",
+    "add_three_answers": "Add at least 3 answers",
+    "add_two_answers": "Add at least 2 answers",
+    "answer_option": "Answer option",
+    "answer_options": "Answer options",
+    "choose_more_than_one_correct_answer": "Choose more than one correct answer",
+    "choose_one_correct_answer": "Choose one correct answer",
     "deadline": "Deadline",
+    "delete_question": "Delete question",
     "description": "Description",
+    "enter_all_answers": "Enter all answers",
+    "notification": {
+      "question_created": "Question was successfully created",
+      "question_updated": "Question was successfully updated"
+    },
     "number_attempts": "Number of attempts",
+    "points": "Points",
+    "question_type": {
+      "Input": "Short answer",
+      "MultipleChoice": "Multiple choice",
+      "SingleChoice": "Choose one answer"
+    },
+    "question_type_title": "Question type",
+    "test_questions": "Test questions",
     "time_limit": "Time limit (minutes)"
   },
   "date": "Date",
@@ -243,6 +266,7 @@
     "title": "Editing a link"
   },
   "material_test_creation_page": {
+    "creation_form_note": "You can add questions to the test after creating the test.",
     "head_title": "Adding a test"
   },
   "material_test_edit_page": {

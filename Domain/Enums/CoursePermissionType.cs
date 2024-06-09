@@ -17,4 +17,7 @@ public enum CoursePermissionType
     ChangeCourseMemberRole,
     RemoveCourseMember,
     GradeCourseStudents,
+    CreateTestQuestion,
+    UpdateTestQuestion,
+    DeleteTestQuestion,
 }

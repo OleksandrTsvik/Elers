@@ -1,4 +1,5 @@
-import { Skeleton } from 'antd';
+import { Skeleton, Typography } from 'antd';
+import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 
 import MaterialTestCreationBreadcrumb from './material-test-creation.breadcrumb';
@@ -9,6 +10,8 @@ import { NavigateToError, NavigateToNotFound } from '../../common/navigate';
 
 export default function MaterialTestCreationPage() {
   const { tabId } = useParams();
+  const { t } = useTranslation();
+
   const { data, isFetching, error } = useGetCourseByTabIdQuery({ id: tabId });
 
   if (isFetching) {
@@ -31,6 +34,9 @@ export default function MaterialTestCreationPage() {
         courseTitle={data.title}
       />
       <MaterialTestCreationForm tabId={data.tabId} />
+      <Typography.Paragraph italic strong>
+        {t('material_test_creation_page.creation_form_note')}
+      </Typography.Paragraph>
     </>
   );
 }

@@ -6,7 +6,7 @@ using Domain.Shared;
 
 namespace Application.CourseMaterials.CreateCourseMaterialTest;
 
-public class CreateCourseMaterialTestCommandHandler : ICommandHandler<CreateCourseMaterialTestCommand>
+public class CreateCourseMaterialTestCommandHandler : ICommandHandler<CreateCourseMaterialTestCommand, Guid>
 {
     private readonly ICourseMaterialRepository _courseMaterialRepository;
     private readonly ICourseTabRepository _courseTabRepository;
@@ -19,7 +19,7 @@ public class CreateCourseMaterialTestCommandHandler : ICommandHandler<CreateCour
         _courseTabRepository = courseTabRepository;
     }
 
-    public async Task<Result> Handle(
+    public async Task<Result<Guid>> Handle(
         CreateCourseMaterialTestCommand request,
         CancellationToken cancellationToken)
     {
@@ -40,6 +40,6 @@ public class CreateCourseMaterialTestCommandHandler : ICommandHandler<CreateCour
 
         await _courseMaterialRepository.AddAsync(courseMaterialTest, cancellationToken);
 
-        return Result.Success();
+        return courseMaterialTest.Id;
     }
 }

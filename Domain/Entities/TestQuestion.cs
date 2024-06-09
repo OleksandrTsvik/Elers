@@ -13,6 +13,12 @@ public abstract class TestQuestion : Entity
     public TestQuestionType Type { get; protected set; }
     public string Text { get; set; } = string.Empty;
     public double Points { get; set; }
+    public DateTime CreatedAt { get; set; }
+
+    public TestQuestion()
+    {
+        CreatedAt = DateTime.UtcNow;
+    }
 }
 
 public class TestQuestionInput : TestQuestion
