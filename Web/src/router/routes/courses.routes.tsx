@@ -22,6 +22,12 @@ const MyCoursesPage = lazy(
   () => import('../../pages/my-courses-page/my-courses.page'),
 );
 
+const TestPage = lazy(() => import('../../pages/test-page/test.page'));
+
+const TestPassingPage = lazy(
+  () => import('../../pages/test-passing-page/test-passing.page'),
+);
+
 export const coursesRoutes: RoutesType = {
   private: {
     path: 'courses',
@@ -30,6 +36,10 @@ export const coursesRoutes: RoutesType = {
       { path: 'edit/:courseId', element: <CourseEditPage /> },
       { path: 'change-image/:courseId', element: <CourseChangeImagePage /> },
       { path: 'roles/:courseId', element: <CourseRolesPage /> },
+      {
+        path: ':courseId/test/attempt/:testSessionId',
+        element: <TestPassingPage />,
+      },
     ],
   },
   public: {
@@ -38,6 +48,10 @@ export const coursesRoutes: RoutesType = {
       {
         path: ':courseId/assignment/:id',
         element: <AssignmentPage />,
+      },
+      {
+        path: ':courseId/test/:id',
+        element: <TestPage />,
       },
     ],
   },

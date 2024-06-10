@@ -27,7 +27,7 @@ public class CreateTestQuestionSingleChoiceCommandValidator
         });
 
         RuleFor(x => x.Options)
-            .Must(x => x.Count() >= 2)
+            .Must(x => x.Count >= 2)
             .WithMessage(translator.GetString(ValidationMessages.TestQuestions.AddTwoAnswers));
 
         RuleFor(x => x.Options)

@@ -57,4 +57,8 @@ public static class AssignmentErrors
     public static Error GradeLimit(int maxGrade) => Error.Validation(
         ErrorCodes.Assignments.GradeLimit,
         $"You can give a maximum of '{maxGrade}' grade.", maxGrade);
+
+    public static Error NotActive() => Error.Forbidden(
+        ErrorCodes.Assignments.NotActive,
+        "The assignment is not active.");
 }

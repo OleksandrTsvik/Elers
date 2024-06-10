@@ -169,10 +169,14 @@
     "answer_options": "Варіанти відповідей",
     "choose_more_than_one_correct_answer": "Виберіть більше однієї правильної відповіді",
     "choose_one_correct_answer": "Виберіть одну правильну відповідь",
+    "continue_attempt": "Продовжити спробу",
     "deadline": "Дата завершення тесту",
     "delete_question": "Видалити запитання",
     "description": "Опис",
     "enter_all_answers": "Введіть усі відповіді",
+    "finished_at": "Завершено",
+    "grade": "Оцінка",
+    "no_deadline": "відсутня",
     "notification": {
       "question_created": "Запитання успішно створено",
       "question_updated": "Запитання успішно оновлено"
@@ -185,6 +189,8 @@
       "SingleChoice": "Вибір однієї відповіді"
     },
     "question_type_title": "Тип питання",
+    "results_previous_attempts": "Результати попередніх спроб",
+    "started_at": "Розпочато",
     "test_questions": "Запитання тесту",
     "time_limit": "Обмеження в часі (в хвилинах)"
   },
@@ -343,6 +349,13 @@
     },
     "head_title": "Перевірка надісланого завдання",
     "setting_grade": "Виставлення оцінки"
+  },
+  "test_passing_page": {
+    "failed_get_question": "Не вдалося завантажити запитання",
+    "points": "Бали за правильну відповідь",
+    "save_answer": "Зберегти відповідь",
+    "time_left": "Залишилося часу",
+    "title": "Тестування"
   },
   "user": {
     "full_name": "ПІБ",

@@ -12,3 +12,4 @@ export const IMAGE_SIZE_LIMIT_MB = IMAGE_SIZE_LIMIT / bytesInOneMb;
 export const SEARCH_PARAM_PDF_FILE_NAME = 'fileName';
 
 export const DATE_FORMAT = 'DD.MM.YYYY';
+export const DATE_TIME_FORMAT = 'DD.MM.YYYY HH:mm';

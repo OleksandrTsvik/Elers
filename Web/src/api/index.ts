@@ -16,6 +16,8 @@ export const api = createApi({
     'CourseMemberList',
     'CourseRoles',
     'Assignment',
+    'Test',
+    'TestSession',
     'TestQuestion',
     'TestQuestionIdsAndTypes',
     'Roles',

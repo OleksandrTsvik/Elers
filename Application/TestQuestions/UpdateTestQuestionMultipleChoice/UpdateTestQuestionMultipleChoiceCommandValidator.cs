@@ -27,7 +27,7 @@ public class UpdateTestQuestionMultipleChoiceCommandValidator
         });
 
         RuleFor(x => x.Options)
-            .Must(x => x.Count() >= 3)
+            .Must(x => x.Count >= 3)
             .WithMessage(translator.GetString(ValidationMessages.TestQuestions.AddThreeAnswers));
 
         RuleFor(x => x.Options)

@@ -1,11 +1,12 @@
 using Application.Common.Messaging;
 using Application.Common.Queries;
+using Application.TestQuestions.DTOs;
 using Domain.Shared;
 
 namespace Application.TestQuestions.GetTestQuestionIdsAndTypes;
 
 public class GetTestQuestionIdsQueryHandler
-    : IQueryHandler<GetTestQuestionIdsAndTypesQuery, List<GetTestQuestionIdsAndTypesResponse>>
+    : IQueryHandler<GetTestQuestionIdsAndTypesQuery, List<TestQuestionIdsAndTypesDto>>
 {
     private readonly ITestQuestionQueries _testQuestionQueries;
 
@@ -14,10 +15,11 @@ public class GetTestQuestionIdsQueryHandler
         _testQuestionQueries = testQuestionQueries;
     }
 
-    public async Task<Result<List<GetTestQuestionIdsAndTypesResponse>>> Handle(
+    public async Task<Result<List<TestQuestionIdsAndTypesDto>>> Handle(
         GetTestQuestionIdsAndTypesQuery request,
         CancellationToken cancellationToken)
     {
-        return await _testQuestionQueries.GetTestQuestionIdsByTestId(request.TestId, cancellationToken);
+        return await _testQuestionQueries.GetTestQuestionIdsAndTypesByTestId(
+            request.TestId, cancellationToken);
     }
 }

@@ -23,6 +23,7 @@ public static class ErrorCodes
         public const string SubmittedAccessDenied = "Assignments.SubmittedAccessDenied";
         public const string GradeAccessDenied = "Assignments.GradeAccessDenied";
         public const string GradeLimit = "Assignments.GradeLimit";
+        public const string NotActive = "Assignments.NotActive";
     }
 
     public static class Courses
@@ -82,6 +83,17 @@ public static class ErrorCodes
     public static class Tests
     {
         public const string NotFound = "Tests.NotFound";
+        public const string NoQuestions = "Tests.NoQuestions";
+        public const string NotFoundAnswer = "Tests.NotFoundAnswer";
+        public const string InvalidSessionAnswer = "Tests.InvalidSessionAnswer";
+        public const string UserSessionNotFound = "Tests.UserSessionNotFound";
+        public const string StudentsOnly = "Tests.StudentsOnly";
+        public const string NotActive = "Tests.NotActive";
+        public const string DeadlinePassed = "Tests.DeadlinePassed";
+        public const string AttemptsExceeded = "Tests.AttemptsExceeded";
+        public const string UnfinishedAttempts = "Tests.UnfinishedAttempts";
+        public const string AttemptExpired = "Tests.AttemptExpired";
+        public const string AttemptAlreadyCompleted = "Tests.AttemptAlreadyCompleted";
     }
 
     public static class TestQuestions

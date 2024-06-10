@@ -1,8 +1,8 @@
 using Domain.Enums;
 
-namespace Application.TestQuestions.GetTestQuestionIdsAndTypes;
+namespace Application.TestQuestions.DTOs;
 
-public class GetTestQuestionIdsAndTypesResponse
+public class TestQuestionIdsAndTypesDto
 {
     public required Guid Id { get; init; }
     public required TestQuestionType Type { get; init; }

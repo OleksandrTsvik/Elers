@@ -52,6 +52,11 @@ public class SubmitAssignmentCommandHandler : ICommandHandler<SubmitAssignmentCo
             return AssignmentErrors.NotFound(request.AssignmentId);
         }
 
+        if (!assignment.IsActive)
+        {
+            //
+        }
+
         SubmittedAssignment? submittedAssignment = await _submittedAssignmentRepository
             .GetByAssignmentIdAndStudentIdAsync(assignment.Id, student.Id, cancellationToken);
 

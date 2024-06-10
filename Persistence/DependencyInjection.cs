@@ -99,6 +99,7 @@ public static class DependencyInjection
         SubmittedAssignmentClassMap.RegisterClassMaps();
         GradeClassMap.RegisterClassMaps();
         TestQuestionClassMap.RegisterClassMaps();
+        TestSessionClassMap.RegisterClassMaps();
     }
 
     private static IServiceCollection AddRepositories(this IServiceCollection services)
@@ -121,6 +122,7 @@ public static class DependencyInjection
         services.AddScoped<ISubmittedAssignmentRepository, SubmittedAssignmentRepository>();
 
         services.AddScoped<ITestQuestionRepository, TestQuestionRepository>();
+        services.AddScoped<ITestSessionRespository, TestSessionRespository>();
 
         return services;
     }
@@ -131,6 +133,7 @@ public static class DependencyInjection
         services.AddScoped<IGradeQueries, GradeQueries>();
         services.AddScoped<ISubmittedAssignmentQueries, SubmittedAssignmentQueries>();
         services.AddScoped<ITestQuestionQueries, TestQuestionQueries>();
+        services.AddScoped<ITestQueries, TestQueries>();
 
         services.AddScoped<ICourseMaterialQueries, CourseMaterialQueries>();
         services.AddScoped<ICourseMemberQueries, CourseMemberQueries>();

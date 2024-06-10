@@ -1,16 +1,28 @@
 import { Breadcrumb, Skeleton } from 'antd';
+import { ItemType } from 'antd/es/breadcrumb/Breadcrumb';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
 import { useGetCourseByIdQuery } from '../../api/courses.api';
 import { NavigateToError, NavigateToNotFound } from '../../common/navigate';
 
-interface Props {
-  courseId?: string;
-  title: React.ReactNode;
+interface BaseProps {
+  courseId: string | undefined;
 }
 
-export function CourseBreadcrumb({ courseId, title }: Props) {
+interface TitleProps extends BaseProps {
+  title: React.ReactNode;
+  items?: never;
+}
+
+interface ItemsProps extends BaseProps {
+  title?: never;
+  items: ItemType[];
+}
+
+type Props = TitleProps | ItemsProps;
+
+export function CourseBreadcrumb({ courseId, title, items }: Props) {
   const { t } = useTranslation();
 
   const { data, isFetching, error } = useGetCourseByIdQuery({ id: courseId });
@@ -39,9 +51,7 @@ export function CourseBreadcrumb({ courseId, title }: Props) {
         {
           title: <Link to={`/courses/${data.id}`}>{data.title}</Link>,
         },
-        {
-          title,
-        },
+        ...(items ? items : [{ title }]),
       ]}
     />
   );

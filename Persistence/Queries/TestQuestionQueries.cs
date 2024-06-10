@@ -1,5 +1,5 @@
 using Application.Common.Queries;
-using Application.TestQuestions.GetTestQuestionIdsAndTypes;
+using Application.TestQuestions.DTOs;
 using Domain.Entities;
 using MongoDB.Driver;
 using Persistence.Constants;
@@ -16,14 +16,14 @@ public class TestQuestionQueries : ITestQuestionQueries
             CollectionNames.TestQuestions);
     }
 
-    public Task<List<GetTestQuestionIdsAndTypesResponse>> GetTestQuestionIdsByTestId(
+    public Task<List<TestQuestionIdsAndTypesDto>> GetTestQuestionIdsAndTypesByTestId(
         Guid testId,
         CancellationToken cancellationToken = default)
     {
         return _testQuestionsCollection
             .Find(x => x.TestId == testId)
             .SortBy(x => x.CreatedAt)
-            .Project(x => new GetTestQuestionIdsAndTypesResponse
+            .Project(x => new TestQuestionIdsAndTypesDto
             {
                 Id = x.Id,
                 Type = x.Type

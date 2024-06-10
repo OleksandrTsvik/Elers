@@ -6,9 +6,11 @@ import { DATE_FORMAT } from '../../utils/constants/app.constants';
 
 interface Props {
   deadline: Date | undefined;
+  title?: string;
+  noDeadlineText?: string;
 }
 
-export function DeadlineParagraph({ deadline }: Props) {
+export function DeadlineParagraph({ deadline, title, noDeadlineText }: Props) {
   const { t } = useTranslation();
 
   return (
@@ -21,10 +23,10 @@ export function DeadlineParagraph({ deadline }: Props) {
           : 'secondary'
       }
     >
-      {t('course_material.deadline')}:{' '}
+      {title ?? t('course_material.deadline')}:{' '}
       {deadline
         ? dayjs(deadline).format(DATE_FORMAT)
-        : t('course_material.no_deadline')}
+        : noDeadlineText ?? t('course_material.no_deadline')}
     </Typography.Paragraph>
   );
 }
