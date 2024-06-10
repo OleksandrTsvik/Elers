@@ -1,7 +1,7 @@
-import QuestionMultipleChoiceForm from './question-type-forms/question-multiple-choice.form';
-import QuestionSingleChoiceForm from './question-type-forms/question-single-choice.form';
 import QuestionInputCreationForm from './question-type-save-forms/question-input.creation-form';
-import QuestionInputEditForm from './question-type-save-forms/question-input.edit-form';
+import QuestionMultipleChoiceCreationForm from './question-type-save-forms/question-multiple-choice.creation-form';
+import QuestionSingleChoiceCreationForm from './question-type-save-forms/question-single-choice.creation-form';
+import TestQuestionBodyEditForm from './test-question.body-edit-form';
 import { TestQuestionType } from '../../models/test-question.interface';
 
 interface Props {
@@ -20,30 +20,13 @@ export default function TestQuestionBodyForm({
       case TestQuestionType.Input:
         return <QuestionInputCreationForm testId={testId} />;
       case TestQuestionType.SingleChoice:
-        return (
-          <QuestionSingleChoiceForm
-            initialValues={{ text: '', points: 1, options: [] }}
-            textOnSubmitButton="Go"
-            isLoading={false}
-            error={undefined}
-            onSubmit={(values) => console.log(values)}
-          />
-        );
+        return <QuestionSingleChoiceCreationForm testId={testId} />;
       case TestQuestionType.MultipleChoice:
-        return (
-          <QuestionMultipleChoiceForm
-            initialValues={{ text: '', points: 1, options: [] }}
-            textOnSubmitButton="Go"
-            isLoading={false}
-            error={undefined}
-            onSubmit={(values) => console.log(values)}
-          />
-        );
+        return <QuestionMultipleChoiceCreationForm testId={testId} />;
+      default:
+        return null;
     }
   }
 
-  switch (questionType) {
-    case TestQuestionType.Input:
-      return <QuestionInputEditForm questionId={questionId} />;
-  }
+  return <TestQuestionBodyEditForm questionId={questionId} />;
 }

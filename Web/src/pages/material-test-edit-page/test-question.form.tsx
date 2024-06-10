@@ -9,6 +9,7 @@ interface Props {
   testId: string;
   questionId: string | undefined;
   questionType: TestQuestionType;
+  resetQuestionId: () => void;
   onChangeQuestionType: (value: TestQuestionType) => void;
 }
 
@@ -16,13 +17,17 @@ export default function TestQuestionForm({
   testId,
   questionId,
   questionType,
+  resetQuestionId,
   onChangeQuestionType,
 }: Props) {
   const { t } = useTranslation();
 
   return (
     <>
-      <DeleteQuestionButton questionId={questionId} />
+      <DeleteQuestionButton
+        questionId={questionId}
+        resetQuestionId={resetQuestionId}
+      />
 
       <Typography.Paragraph className="pb-label-field m-0">
         {t('course_test.question_type_title')}

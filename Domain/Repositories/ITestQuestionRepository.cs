@@ -12,4 +12,8 @@ public interface ITestQuestionRepository
     Task AddAsync(TestQuestion testQuestion, CancellationToken cancellationToken = default);
 
     Task UpdateAsync(TestQuestion testQuestion, CancellationToken cancellationToken = default);
+
+    Task RemoveAsync(Guid id, CancellationToken cancellationToken = default);
+
+    Task<bool> ExistsByIdAsync(Guid id, CancellationToken cancellationToken = default);
 }

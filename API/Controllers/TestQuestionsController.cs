@@ -1,7 +1,12 @@
 using Application.TestQuestions.CreateTestQuestionInput;
+using Application.TestQuestions.CreateTestQuestionMultipleChoice;
+using Application.TestQuestions.CreateTestQuestionSingleChoice;
+using Application.TestQuestions.DeleteTestQuestion;
 using Application.TestQuestions.GetTestQuestion;
 using Application.TestQuestions.GetTestQuestionIdsAndTypes;
 using Application.TestQuestions.UpdateTestQuestionInput;
+using Application.TestQuestions.UpdateTestQuestionMultipleChoice;
+using Application.TestQuestions.UpdateTestQuestionSingleChoice;
 using Domain.Enums;
 using Infrastructure.CourseMemberPermissions;
 using Microsoft.AspNetCore.Mvc;
@@ -68,6 +73,91 @@ public class TestQuestionsController : ApiControllerBase
             request.Text,
             request.Points,
             request.Answer);
+
+        return HandleResult(await Sender.Send(command, cancellationToken));
+    }
+
+    [HasCourseMemberPermission(
+        [CoursePermissionType.CreateTestQuestion],
+        [PermissionType.ManageTestQuestions])]
+    [HttpPost("single-choice/{materialId:guid}")]
+    public async Task<IActionResult> CreateTestQuestionSingleChoice(
+        Guid materialId,
+        [FromBody] CreateTestQuestionSingleChoiceRequest request,
+        CancellationToken cancellationToken)
+    {
+        var command = new CreateTestQuestionSingleChoiceCommand(
+            materialId,
+            request.Text,
+            request.Points,
+            request.Options);
+
+        return HandleResult(await Sender.Send(command, cancellationToken));
+    }
+
+    [HasCourseMemberPermission(
+        [CoursePermissionType.UpdateTestQuestion],
+        [PermissionType.ManageTestQuestions])]
+    [HttpPut("single-choice/{testQuestionId:guid}")]
+    public async Task<IActionResult> UpdateTestQuestionSingleChoice(
+        Guid testQuestionId,
+        [FromBody] UpdateTestQuestionSingleChoiceRequest request,
+        CancellationToken cancellationToken)
+    {
+        var command = new UpdateTestQuestionSingleChoiceCommand(
+            testQuestionId,
+            request.Text,
+            request.Points,
+            request.Options);
+
+        return HandleResult(await Sender.Send(command, cancellationToken));
+    }
+
+    [HasCourseMemberPermission(
+        [CoursePermissionType.CreateTestQuestion],
+        [PermissionType.ManageTestQuestions])]
+    [HttpPost("multiple-choice/{materialId:guid}")]
+    public async Task<IActionResult> CreateTestQuestionMultipleChoice(
+        Guid materialId,
+        [FromBody] CreateTestQuestionMultipleChoiceRequest request,
+        CancellationToken cancellationToken)
+    {
+        var command = new CreateTestQuestionMultipleChoiceCommand(
+            materialId,
+            request.Text,
+            request.Points,
+            request.Options);
+
+        return HandleResult(await Sender.Send(command, cancellationToken));
+    }
+
+    [HasCourseMemberPermission(
+        [CoursePermissionType.UpdateTestQuestion],
+        [PermissionType.ManageTestQuestions])]
+    [HttpPut("multiple-choice/{testQuestionId:guid}")]
+    public async Task<IActionResult> UpdateTestQuestionMultipleChoice(
+        Guid testQuestionId,
+        [FromBody] UpdateTestQuestionMultipleChoiceRequest request,
+        CancellationToken cancellationToken)
+    {
+        var command = new UpdateTestQuestionMultipleChoiceCommand(
+            testQuestionId,
+            request.Text,
+            request.Points,
+            request.Options);
+
+        return HandleResult(await Sender.Send(command, cancellationToken));
+    }
+
+    [HasCourseMemberPermission(
+        [CoursePermissionType.DeleteTestQuestion],
+        [PermissionType.ManageTestQuestions])]
+    [HttpDelete("{testQuestionId:guid}")]
+    public async Task<IActionResult> DeleteTestQuestion(
+        Guid testQuestionId,
+        CancellationToken cancellationToken)
+    {
+        var command = new DeleteTestQuestionCommand(testQuestionId);
 
         return HandleResult(await Sender.Send(command, cancellationToken));
     }

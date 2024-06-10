@@ -270,6 +270,7 @@
     "head_title": "Додавання тесту"
   },
   "material_test_edit_page": {
+    "confirm_delete_question_title": "Ви дійсно бажаєте видалити вибране запитання?",
     "head_title": "Редагування тесту"
   },
   "my_courses_page": {

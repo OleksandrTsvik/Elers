@@ -270,6 +270,7 @@
     "head_title": "Adding a test"
   },
   "material_test_edit_page": {
+    "confirm_delete_question_title": "Do you really want to delete the selected question?",
     "head_title": "Editing a test"
   },
   "my_courses_page": {

@@ -1,17 +1,9 @@
 import { api } from '.';
-import { TestQuestionType } from '../models/test-question.interface';
-
-interface TestQuestionResponse {
-  id: string;
-  testId: string;
-  text: string;
-  points: number;
-  createdAt: Date;
-}
-
-interface GetTestQuestionInputResponse extends TestQuestionResponse {
-  answer: string;
-}
+import {
+  TestQuestion,
+  TestQuestionChoiceOption,
+  TestQuestionType,
+} from '../models/test-question.interface';
 
 interface GetTestQuestionIdsAndTypes {
   id: string;
@@ -28,6 +20,14 @@ interface CreateTestQuestionInputRequest extends CreateTestQuestion {
   answer: string;
 }
 
+interface CreateTestQuestionSingleChoiceRequest extends CreateTestQuestion {
+  options: TestQuestionChoiceOption[];
+}
+
+interface CreateTestQuestionMultipleChoiceRequest extends CreateTestQuestion {
+  options: TestQuestionChoiceOption[];
+}
+
 interface UpdateTestQuestion {
   id?: string;
   text: string;
@@ -38,13 +38,18 @@ interface UpdateTestQuestionInputRequest extends UpdateTestQuestion {
   answer: string;
 }
 
+interface UpdateTestQuestionSingleChoiceRequest extends UpdateTestQuestion {
+  options: TestQuestionChoiceOption[];
+}
+
+interface UpdateTestQuestionMultipleChoiceRequest extends UpdateTestQuestion {
+  options: TestQuestionChoiceOption[];
+}
+
 export const testQuestionsApi = api.injectEndpoints({
   overrideExisting: false,
   endpoints: (builder) => ({
-    getTestQuestionInput: builder.query<
-      GetTestQuestionInputResponse,
-      { id?: string }
-    >({
+    getTestQuestion: builder.query<TestQuestion, { id?: string }>({
       query: ({ id }) => ({
         url: `/testQuestions/${id}`,
       }),
@@ -82,12 +87,70 @@ export const testQuestionsApi = api.injectEndpoints({
       }),
       invalidatesTags: (_, error) => (error ? [] : ['TestQuestion']),
     }),
+    createTestQuestionSingleChoice: builder.mutation<
+      void,
+      CreateTestQuestionSingleChoiceRequest
+    >({
+      query: ({ testId, ...data }) => ({
+        url: `/testQuestions/single-choice/${testId}`,
+        method: 'POST',
+        body: data,
+      }),
+      invalidatesTags: (_, error) =>
+        error ? [] : ['TestQuestion', 'TestQuestionIdsAndTypes'],
+    }),
+    updateTestQuestionSingleChoice: builder.mutation<
+      void,
+      UpdateTestQuestionSingleChoiceRequest
+    >({
+      query: ({ id, ...data }) => ({
+        url: `/testQuestions/single-choice/${id}`,
+        method: 'PUT',
+        body: data,
+      }),
+      invalidatesTags: (_, error) => (error ? [] : ['TestQuestion']),
+    }),
+    createTestQuestionMultipleChoice: builder.mutation<
+      void,
+      CreateTestQuestionMultipleChoiceRequest
+    >({
+      query: ({ testId, ...data }) => ({
+        url: `/testQuestions/multiple-choice/${testId}`,
+        method: 'POST',
+        body: data,
+      }),
+      invalidatesTags: (_, error) =>
+        error ? [] : ['TestQuestion', 'TestQuestionIdsAndTypes'],
+    }),
+    updateTestQuestionMultipleChoice: builder.mutation<
+      void,
+      UpdateTestQuestionMultipleChoiceRequest
+    >({
+      query: ({ id, ...data }) => ({
+        url: `/testQuestions/multiple-choice/${id}`,
+        method: 'PUT',
+        body: data,
+      }),
+      invalidatesTags: (_, error) => (error ? [] : ['TestQuestion']),
+    }),
+    deleteTestQuestion: builder.mutation<void, { id?: string }>({
+      query: ({ id }) => ({
+        url: `/testQuestions/${id}`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: (_, error) => (error ? [] : ['TestQuestionIdsAndTypes']),
+    }),
   }),
 });
 
 export const {
-  useGetTestQuestionInputQuery,
+  useGetTestQuestionQuery,
   useGetTestQuestionIdsAndTypesQuery,
   useCreateTestQuestionInputMutation,
   useUpdateTestQuestionInputMutation,
+  useCreateTestQuestionSingleChoiceMutation,
+  useUpdateTestQuestionSingleChoiceMutation,
+  useCreateTestQuestionMultipleChoiceMutation,
+  useUpdateTestQuestionMultipleChoiceMutation,
+  useDeleteTestQuestionMutation,
 } = testQuestionsApi;

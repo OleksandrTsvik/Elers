@@ -82,6 +82,7 @@ export default function TestQuestionList({ testId }: Props) {
           testId={testId}
           questionId={questionId}
           questionType={questionType}
+          resetQuestionId={() => setQuestionId(undefined)}
           onChangeQuestionType={setQuestionType}
         />
       </Spin>
