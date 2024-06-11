@@ -15,7 +15,7 @@ public class SubmitAssignmentCommandHandler : ICommandHandler<SubmitAssignmentCo
     private readonly ICourseMaterialRepository _courseMaterialRepository;
     private readonly IStudentRepository _studentRepository;
     private readonly ISubmittedAssignmentRepository _submittedAssignmentRepository;
-    private readonly ICourseService _courseService;
+    private readonly ICourseMemberService _courseMemberService;
     private readonly IFileService _fileService;
     private readonly IUserContext _userContext;
 
@@ -23,14 +23,14 @@ public class SubmitAssignmentCommandHandler : ICommandHandler<SubmitAssignmentCo
         IStudentRepository studentRepository,
         ISubmittedAssignmentRepository submittedAssignmentRepository,
         ICourseMaterialRepository courseMaterialRepository,
-        ICourseService courseService,
+        ICourseMemberService courseMemberService,
         IFileService fileService,
         IUserContext userContext)
     {
         _studentRepository = studentRepository;
         _courseMaterialRepository = courseMaterialRepository;
         _submittedAssignmentRepository = submittedAssignmentRepository;
-        _courseService = courseService;
+        _courseMemberService = courseMemberService;
         _fileService = fileService;
         _userContext = userContext;
     }
@@ -73,7 +73,7 @@ public class SubmitAssignmentCommandHandler : ICommandHandler<SubmitAssignmentCo
             return AssignmentErrors.DeadlinePassed();
         }
 
-        if (!await _courseService.IsCourseMemberByCourseTabIdAsync(
+        if (!await _courseMemberService.IsCourseMemberByCourseTabIdAsync(
             student.Id, assignment.CourseTabId, cancellationToken))
         {
             return AssignmentErrors.StudentsOnly();

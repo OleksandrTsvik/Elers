@@ -3,6 +3,7 @@ using Domain.Entities;
 using Domain.Enums;
 using Microsoft.EntityFrameworkCore;
 using MongoDB.Driver;
+using MongoDB.Driver.Linq;
 using Persistence.Constants;
 
 namespace Persistence.Services;

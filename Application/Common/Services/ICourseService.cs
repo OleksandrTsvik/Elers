@@ -2,8 +2,8 @@ namespace Application.Common.Services;
 
 public interface ICourseService
 {
-    Task<bool> IsCourseMemberByCourseTabIdAsync(
-        Guid userId,
-        Guid courseTabId,
+    Task RemoveMaterialsByCourseTabIdsAsync(
+        IEnumerable<Guid> tabIds,
+        bool deleteGrades = true,
         CancellationToken cancellationToken = default);
 }

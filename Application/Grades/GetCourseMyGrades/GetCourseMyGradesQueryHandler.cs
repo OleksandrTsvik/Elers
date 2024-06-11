@@ -48,7 +48,7 @@ public class GetCourseMyGradesQueryHandler
         }
 
         List<AssessmentItem> assessments = await _gradeQueries.GetAssessments(
-            request.CourseId, cancellationToken);
+            request.CourseId, true, cancellationToken);
 
         List<Grade> grades = await _gradeRepository.GetByCourseIdAndStudentIdAsync(
             request.CourseId, _userContext.UserId, cancellationToken);

@@ -35,7 +35,7 @@ export default function TestQuestionMultipleChoiceFrom({
 
   return (
     <Spin spinning={isLoading}>
-      <ErrorAlert error={error} />
+      <ErrorAlert className="mb-field" error={error} />
 
       <Checkbox.Group value={answer} onChange={handleSubmit}>
         <Flex vertical gap="small">

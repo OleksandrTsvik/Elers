@@ -15,5 +15,7 @@ public interface ITestQuestionRepository
 
     Task RemoveAsync(Guid id, CancellationToken cancellationToken = default);
 
+    Task RemoveRangeByTestIdAsync(Guid testId, CancellationToken cancellationToken = default);
+
     Task<bool> ExistsByIdAsync(Guid id, CancellationToken cancellationToken = default);
 }

@@ -16,20 +16,20 @@ public class StartTestCommandHandler : ICommandHandler<StartTestCommand, Guid>
     private readonly ICourseMaterialRepository _courseMaterialRepository;
     private readonly ITestSessionRespository _testSessionRespository;
     private readonly ITestQuestionQueries _testQuestionQueries;
-    private readonly ICourseService _courseService;
+    private readonly ICourseMemberService _courseMemberService;
     private readonly IUserContext _userContext;
 
     public StartTestCommandHandler(
         ICourseMaterialRepository courseMaterialRepository,
         ITestSessionRespository testSessionRespository,
         ITestQuestionQueries testQuestionQueries,
-        ICourseService courseService,
+        ICourseMemberService courseMemberService,
         IUserContext userContext)
     {
         _courseMaterialRepository = courseMaterialRepository;
         _testSessionRespository = testSessionRespository;
         _testQuestionQueries = testQuestionQueries;
-        _courseService = courseService;
+        _courseMemberService = courseMemberService;
         _userContext = userContext;
     }
 
@@ -43,7 +43,7 @@ public class StartTestCommandHandler : ICommandHandler<StartTestCommand, Guid>
             return TestErrors.NotFound(request.TestId);
         }
 
-        if (!await _courseService.IsCourseMemberByCourseTabIdAsync(
+        if (!await _courseMemberService.IsCourseMemberByCourseTabIdAsync(
             _userContext.UserId, test.CourseTabId, cancellationToken))
         {
             return TestErrors.StudentsOnly();

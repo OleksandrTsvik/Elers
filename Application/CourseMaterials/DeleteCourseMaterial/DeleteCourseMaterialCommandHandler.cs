@@ -1,4 +1,3 @@
-using Application.Common.Interfaces;
 using Application.Common.Messaging;
 using Application.Common.Services;
 using Domain.Entities;
@@ -10,23 +9,26 @@ namespace Application.CourseMaterials.DeleteCourseMaterial;
 
 public class DeleteCourseMaterialCommandHandler : ICommandHandler<DeleteCourseMaterialCommand>
 {
-    private readonly IUnitOfWork _unitOfWork;
     private readonly ICourseMaterialRepository _courseMaterialRepository;
     private readonly ISubmittedAssignmentRepository _submittedAssignmentRepository;
     private readonly IGradeRepository _gradeRepository;
+    private readonly ITestQuestionRepository _testQuestionRepository;
+    private readonly ITestSessionRespository _testSessionRespository;
     private readonly IFileService _fileService;
 
     public DeleteCourseMaterialCommandHandler(
-        IUnitOfWork unitOfWork,
         ICourseMaterialRepository courseMaterialRepository,
         ISubmittedAssignmentRepository submittedAssignmentRepository,
         IGradeRepository gradeRepository,
+        ITestQuestionRepository testQuestionRepository,
+        ITestSessionRespository testSessionRespository,
         IFileService fileService)
     {
-        _unitOfWork = unitOfWork;
         _courseMaterialRepository = courseMaterialRepository;
         _submittedAssignmentRepository = submittedAssignmentRepository;
         _gradeRepository = gradeRepository;
+        _testQuestionRepository = testQuestionRepository;
+        _testSessionRespository = testSessionRespository;
         _fileService = fileService;
     }
 
@@ -60,10 +62,14 @@ public class DeleteCourseMaterialCommandHandler : ICommandHandler<DeleteCourseMa
             await _submittedAssignmentRepository.RemoveRangeByAssignmentIdAsync(
                 courseMaterialAssignment.Id, cancellationToken);
         }
+        else if (courseMaterial is CourseMaterialTest courseMaterialTest)
+        {
+            await _gradeRepository.RemoveRangeByTestIdAsync(courseMaterialTest.Id, cancellationToken);
+            await _testSessionRespository.RemoveRangeByTestIdAsync(courseMaterialTest.Id, cancellationToken);
+            await _testQuestionRepository.RemoveRangeByTestIdAsync(courseMaterialTest.Id, cancellationToken);
+        }
 
         await _courseMaterialRepository.RemoveAsync(courseMaterial.Id, cancellationToken);
-
-        await _unitOfWork.SaveChangesAsync(cancellationToken);
 
         return Result.Success();
     }

@@ -2,19 +2,16 @@ using Domain.Entities;
 using Domain.Enums;
 using Domain.Repositories;
 using MongoDB.Driver;
+using MongoDB.Driver.Linq;
 using Persistence.Constants;
 
 namespace Persistence.Repositories;
 
 internal class GradeRepository : MongoDbRepository<Grade>, IGradeRepository
 {
-    private readonly IMongoCollection<CourseMaterial> _courseMaterialsCollection;
-
     public GradeRepository(IMongoDatabase mongoDatabase)
         : base(mongoDatabase, CollectionNames.Grades)
     {
-        _courseMaterialsCollection = mongoDatabase.GetCollection<CourseMaterial>(
-            CollectionNames.CourseMaterials);
     }
 
     public Task<List<Grade>> GetByCourseIdAsync(
@@ -128,17 +125,9 @@ internal class GradeRepository : MongoDbRepository<Grade>, IGradeRepository
             .DeleteManyAsync(x => x.AssignmentId == assignmentId, cancellationToken);
     }
 
-    public async Task RemoveRangeByCourseTabIdAsync(
-        Guid courseTabId,
-        CancellationToken cancellationToken = default)
+    public async Task RemoveRangeByTestIdAsync(Guid testId, CancellationToken cancellationToken = default)
     {
-        List<Guid> assignmentIds = await _courseMaterialsCollection
-            .OfType<CourseMaterialAssignment>()
-            .Find(x => x.CourseTabId == courseTabId)
-            .Project(x => x.Id)
-            .ToListAsync(cancellationToken);
-
-        await Collection.OfType<GradeAssignment>()
-            .DeleteManyAsync(x => assignmentIds.Contains(x.AssignmentId), cancellationToken);
+        await Collection.OfType<GradeTest>()
+            .DeleteManyAsync(x => x.TestId == testId, cancellationToken);
     }
 }

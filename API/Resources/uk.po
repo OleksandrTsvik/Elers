@@ -159,7 +159,7 @@ msgid "Assignments.GradeAccessDenied"
 msgstr "У вас немає дозволу на виставлення оцінки для цього завдання."
 
 msgid "Assignments.NotActive"
-msgstr "Завдання не активне."
+msgstr "Завдання неактивне."
 
 msgid "Courses.NotFound"
 msgstr "Курс з Id = '{0}' не знайдено."
@@ -234,7 +234,7 @@ msgid "Tests.StudentsOnly"
 msgstr "Лише студенти курсу можуть проходити тести!"
 
 msgid "Tests.NotActive"
-msgstr "Тест не активний."
+msgstr "Тест неактивний."
 
 msgid "Tests.DeadlinePassed"
 msgstr "Дедлайн тесту минув."

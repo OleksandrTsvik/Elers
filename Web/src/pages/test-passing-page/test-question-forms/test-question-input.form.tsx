@@ -33,7 +33,7 @@ export default function TestQuestionInputFrom({
 
   return (
     <>
-      <ErrorAlert error={error} />
+      <ErrorAlert className="mb-field" error={error} />
 
       <Input
         className="mb-field"

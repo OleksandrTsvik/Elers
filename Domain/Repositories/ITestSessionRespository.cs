@@ -31,6 +31,10 @@ public interface ITestSessionRespository
         DateTime finishedAt,
         CancellationToken cancellationToken = default);
 
+    Task RemoveQuestionAsync(Guid questionId, CancellationToken cancellationToken = default);
+
+    Task RemoveRangeByTestIdAsync(Guid testId, CancellationToken cancellationToken = default);
+
     Task<bool> ExistsByIdAndUserIdAsync(Guid id, Guid userId, CancellationToken cancellationToken = default);
 
     Task<bool> ExistsActiveSessionAsync(

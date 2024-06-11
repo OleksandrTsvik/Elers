@@ -15,7 +15,7 @@ export default function StartTestButton({ courseId, testId }: Props) {
   const navigate = useNavigate();
 
   const { modal } = App.useApp();
-  const [startTest, { isLoading, error }] = useStartTestMutation();
+  const [startTest, { error }] = useStartTestMutation();
 
   const handleClick = async () => {
     await modal.confirm({
@@ -33,7 +33,7 @@ export default function StartTestButton({ courseId, testId }: Props) {
     <>
       <ErrorAlert className="mb-field" error={error} />
 
-      <Button block type="primary" loading={isLoading} onClick={handleClick}>
+      <Button block type="primary" onClick={handleClick}>
         {t('course_test.start_test')}
       </Button>
     </>

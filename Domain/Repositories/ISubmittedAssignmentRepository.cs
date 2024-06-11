@@ -24,8 +24,4 @@ public interface ISubmittedAssignmentRepository
     Task UpdateAsync(SubmittedAssignment submittedAssignment, CancellationToken cancellationToken = default);
 
     Task RemoveRangeByAssignmentIdAsync(Guid assignmentId, CancellationToken cancellationToken = default);
-
-    Task RemoveRangeByCourseTabIdsAsync(
-        IEnumerable<Guid> tabIds,
-        CancellationToken cancellationToken = default);
 }

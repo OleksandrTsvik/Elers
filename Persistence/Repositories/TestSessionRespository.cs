@@ -2,6 +2,7 @@ using Domain.Entities;
 using Domain.Repositories;
 using MongoDB.Bson;
 using MongoDB.Driver;
+using MongoDB.Driver.Linq;
 using Persistence.Constants;
 
 namespace Persistence.Repositories;
@@ -80,6 +81,25 @@ internal class TestSessionRespository : MongoDbRepository<TestSession>, ITestSes
             update,
             null,
             cancellationToken);
+    }
+
+    public async Task RemoveQuestionAsync(Guid questionId, CancellationToken cancellationToken = default)
+    {
+        FilterDefinition<TestSession> filter = Builders<TestSession>.Filter.Empty;
+
+        UpdateDefinition<TestSession> update = Builders<TestSession>.Update
+            .PullFilter(x => x.Answers, answers => answers.QuestionId == questionId);
+
+        await Collection.UpdateManyAsync(
+            filter,
+            update,
+            null,
+            cancellationToken);
+    }
+
+    public async Task RemoveRangeByTestIdAsync(Guid testId, CancellationToken cancellationToken = default)
+    {
+        await Collection.DeleteManyAsync(x => x.TestId == testId, cancellationToken);
     }
 
     public Task<bool> ExistsByIdAndUserIdAsync(

@@ -43,7 +43,7 @@ public class GetCourseGradesQueryHandler : IQueryHandler<GetCourseGradesQuery, G
         }
 
         List<AssessmentItem> assessments = await _gradeQueries.GetAssessments(
-            request.CourseId, cancellationToken);
+            request.CourseId, false, cancellationToken);
 
         UserDto[] students = await _studentQueries.GetCourseStudents(request.CourseId, cancellationToken);
 

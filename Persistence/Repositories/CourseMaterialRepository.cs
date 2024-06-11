@@ -12,28 +12,6 @@ internal class CourseMaterialRepository : MongoDbRepository<CourseMaterial>, ICo
     {
     }
 
-    public Task<List<string>> GetUniqueFileNamesByCourseTabIdAsync(
-        Guid tabId,
-        CancellationToken cancellationToken = default)
-    {
-        return Collection
-            .OfType<CourseMaterialFile>()
-            .Find(x => x.CourseTabId == tabId)
-            .Project(x => x.UniqueFileName)
-            .ToListAsync(cancellationToken);
-    }
-
-    public Task<List<string>> GetUniqueFileNamesByCourseTabIdsAsync(
-        IEnumerable<Guid> tabIds,
-        CancellationToken cancellationToken = default)
-    {
-        return Collection
-            .OfType<CourseMaterialFile>()
-            .Find(x => tabIds.Contains(x.CourseTabId))
-            .Project(x => x.UniqueFileName)
-            .ToListAsync(cancellationToken);
-    }
-
     public async Task UpdateAsync(CourseMaterial courseMaterial, CancellationToken cancellationToken = default)
     {
         UpdateDefinition<CourseMaterial> update = Builders<CourseMaterial>.Update
@@ -80,17 +58,5 @@ internal class CourseMaterialRepository : MongoDbRepository<CourseMaterial>, ICo
             update,
             null,
             cancellationToken);
-    }
-
-    public async Task RemoveRangeByCourseTabIdAsync(Guid tabId, CancellationToken cancellationToken = default)
-    {
-        await Collection.DeleteManyAsync(x => x.CourseTabId == tabId, cancellationToken);
-    }
-
-    public async Task RemoveRangeByCourseTabIdsAsync(
-        IEnumerable<Guid> tabIds,
-        CancellationToken cancellationToken = default)
-    {
-        await Collection.DeleteManyAsync(x => tabIds.Contains(x.CourseTabId), cancellationToken);
     }
 }

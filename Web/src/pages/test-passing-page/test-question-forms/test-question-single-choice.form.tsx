@@ -35,7 +35,7 @@ export default function TestQuestionSingleChoiceFrom({
 
   return (
     <Spin spinning={isLoading}>
-      <ErrorAlert error={error} />
+      <ErrorAlert className="mb-field" error={error} />
 
       <Radio.Group
         value={answer}

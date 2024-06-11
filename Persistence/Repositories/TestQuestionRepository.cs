@@ -37,4 +37,9 @@ internal class TestQuestionRepository : MongoDbRepository<TestQuestion>, ITestQu
             null,
             cancellationToken);
     }
+
+    public async Task RemoveRangeByTestIdAsync(Guid testId, CancellationToken cancellationToken = default)
+    {
+        await Collection.DeleteManyAsync(x => x.TestId == testId, cancellationToken);
+    }
 }

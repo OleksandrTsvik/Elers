@@ -131,7 +131,6 @@ public static class DependencyInjection
     {
         services.AddScoped<IAssignmentQueries, AssignmentQueries>();
         services.AddScoped<IGradeQueries, GradeQueries>();
-        services.AddScoped<ISubmittedAssignmentQueries, SubmittedAssignmentQueries>();
         services.AddScoped<ITestQuestionQueries, TestQuestionQueries>();
         services.AddScoped<ITestQueries, TestQueries>();
 
@@ -154,6 +153,7 @@ public static class DependencyInjection
     {
         services.AddScoped<ICourseMemberPermissionService, CourseMemberPermissionService>();
 
+        services.AddScoped<ICourseMemberService, CourseMemberService>();
         services.AddScoped<ICourseService, CourseService>();
 
         return services;

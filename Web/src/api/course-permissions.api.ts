@@ -14,7 +14,7 @@ export const coursePermissionsApi = api.injectEndpoints({
       query: ({ courseId }) => ({
         url: `/coursePermissions/${courseId}`,
       }),
-      providesTags: ['Session'],
+      providesTags: ['Session', 'CourseMemberList'],
     }),
     getListCoursePermissions: builder.query<CoursePermissionListItem[], void>({
       query: () => ({

@@ -42,5 +42,5 @@ public interface IGradeRepository
 
     Task RemoveRangeByAssignmentIdAsync(Guid assignmentId, CancellationToken cancellationToken = default);
 
-    Task RemoveRangeByCourseTabIdAsync(Guid courseTabId, CancellationToken cancellationToken = default);
+    Task RemoveRangeByTestIdAsync(Guid testId, CancellationToken cancellationToken = default);
 }

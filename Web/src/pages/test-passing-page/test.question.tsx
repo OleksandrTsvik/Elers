@@ -23,7 +23,7 @@ export default function TestQuestion({ testSessionId, questionId }: Props) {
   }
 
   if (error) {
-    return <ErrorAlert error={error} />;
+    return <ErrorAlert className="mt-field" error={error} />;
   }
 
   if (!data) {

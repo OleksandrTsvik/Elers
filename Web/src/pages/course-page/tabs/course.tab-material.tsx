@@ -64,12 +64,12 @@ export default function CourseTabMaterial({ material }: Props) {
             </Space>
           </Link>
           <TextEditorOutput text={material.description} />
-          <Typography.Paragraph className="m-0" type="secondary">
-            {t('course_material.deadline')}:{' '}
-            {material.deadline
-              ? dayjs(material.deadline).format(DATE_FORMAT)
-              : t('course_material.no_deadline')}
-          </Typography.Paragraph>
+          {material.deadline && (
+            <Typography.Paragraph className="m-0" type="secondary">
+              {t('course_material.deadline')}:{' '}
+              {dayjs(material.deadline).format(DATE_FORMAT)}
+            </Typography.Paragraph>
+          )}
         </div>
       );
     case CourseMaterialType.Test:

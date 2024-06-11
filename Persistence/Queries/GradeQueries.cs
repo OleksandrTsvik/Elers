@@ -2,20 +2,21 @@ using Application.Common.Queries;
 using Application.Grades.DTOs;
 using Domain.Entities;
 using Domain.Enums;
-using Microsoft.EntityFrameworkCore;
 using MongoDB.Driver;
+using MongoDB.Driver.Linq;
 using Persistence.Constants;
+using Persistence.Extensions;
 
 namespace Persistence.Queries;
 
 public class GradeQueries : IGradeQueries
 {
-    private readonly ApplicationDbContext _dbContext;
+    private readonly ICourseQueries _courseQueries;
     private readonly IMongoCollection<CourseMaterial> _courseMaterialsCollection;
 
-    public GradeQueries(ApplicationDbContext dbContext, IMongoDatabase mongoDatabase)
+    public GradeQueries(ICourseQueries courseQueries, IMongoDatabase mongoDatabase)
     {
-        _dbContext = dbContext;
+        _courseQueries = courseQueries;
 
         _courseMaterialsCollection = mongoDatabase.GetCollection<CourseMaterial>(
             CollectionNames.CourseMaterials);
@@ -23,12 +24,10 @@ public class GradeQueries : IGradeQueries
 
     public async Task<List<AssessmentItem>> GetAssessments(
         Guid courseId,
+        bool onlyActive = true,
         CancellationToken cancellationToken = default)
     {
-        Guid[] tabIds = await _dbContext.CourseTabs
-            .Where(x => x.CourseId == courseId)
-            .Select(x => x.Id)
-            .ToArrayAsync(cancellationToken);
+        Guid[] tabIds = await _courseQueries.GetCourseTabIds(courseId, cancellationToken);
 
         if (tabIds.Length == 0)
         {
@@ -37,9 +36,11 @@ public class GradeQueries : IGradeQueries
 
         List<AssessmentItem> assignmentAssessments = await _courseMaterialsCollection
             .OfType<CourseMaterialAssignment>()
-            .Find(x => tabIds.Contains(x.CourseTabId))
-            .SortBy(x => x.CreatedAt)
-            .Project(x => new AssessmentItem
+            .AsQueryable()
+            .Where(x => tabIds.Contains(x.CourseTabId))
+            .WhereIf(onlyActive, x => x.IsActive)
+            .OrderBy(x => x.CreatedAt)
+            .Select(x => new AssessmentItem
             {
                 Id = x.Id,
                 Title = x.Title,
@@ -51,9 +52,11 @@ public class GradeQueries : IGradeQueries
 
         List<AssessmentItem> testAssessments = await _courseMaterialsCollection
             .OfType<CourseMaterialTest>()
-            .Find(x => tabIds.Contains(x.CourseTabId))
-            .SortBy(x => x.CreatedAt)
-            .Project(x => new AssessmentItem
+            .AsQueryable()
+            .Where(x => tabIds.Contains(x.CourseTabId))
+            .WhereIf(onlyActive, x => x.IsActive)
+            .OrderBy(x => x.CreatedAt)
+            .Select(x => new AssessmentItem
             {
                 Id = x.Id,
                 Title = x.Title,

@@ -9,13 +9,9 @@ namespace Persistence.Repositories;
 internal class SubmittedAssignmentRepository
     : MongoDbRepository<SubmittedAssignment>, ISubmittedAssignmentRepository
 {
-    private readonly IMongoCollection<CourseMaterial> _courseMaterialsCollection;
-
     public SubmittedAssignmentRepository(IMongoDatabase mongoDatabase)
         : base(mongoDatabase, CollectionNames.SubmittedAssignments)
     {
-        _courseMaterialsCollection = mongoDatabase.GetCollection<CourseMaterial>(
-            CollectionNames.CourseMaterials);
     }
 
     public async Task<SubmittedAssignment?> GetByAssignmentIdAndStudentIdAsync(
@@ -73,27 +69,5 @@ internal class SubmittedAssignmentRepository
         CancellationToken cancellationToken = default)
     {
         await Collection.DeleteManyAsync(x => x.AssignmentId == assignmentId, cancellationToken);
-    }
-
-    public async Task RemoveRangeByCourseTabIdsAsync(
-        IEnumerable<Guid> tabIds,
-        CancellationToken cancellationToken = default)
-    {
-        List<Guid> submittedIds = await _courseMaterialsCollection.OfType<CourseMaterialAssignment>()
-            .AsQueryable()
-            .Join(
-                Collection.AsQueryable(),
-                material => material.Id,
-                submitted => submitted.AssignmentId,
-                (material, submitted) => new
-                {
-                    CourseTabId = material.CourseTabId,
-                    SubmittedId = submitted.Id,
-                })
-            .Where(x => tabIds.Contains(x.CourseTabId))
-            .Select(x => x.SubmittedId)
-            .ToListAsync(cancellationToken);
-
-        await Collection.DeleteManyAsync(x => submittedIds.Contains(x.Id), cancellationToken);
     }
 }
