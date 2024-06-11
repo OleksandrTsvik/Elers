@@ -4,6 +4,7 @@ using Application.Courses.GetCourseById;
 using Application.Courses.GetCourseByIdToEdit;
 using Application.Courses.GetCourseByTabId;
 using Application.Courses.GetListCourses;
+using Application.Courses.GetMyCourses;
 using Domain.Entities;
 using Domain.Enums;
 using Microsoft.EntityFrameworkCore;
@@ -175,6 +176,27 @@ internal class CourseQueries : ICourseQueries
             courses.TotalCount,
             courses.CurrentPage,
             courses.PageSize);
+    }
+
+    public Task<PagedList<GetMyCourseItemResponse>> GetMyCourses(
+        Guid userId,
+        GetMyCoursesQueryParams queryParams,
+        CancellationToken cancellationToken = default)
+    {
+        IQueryable<Course> coursesQuery = _dbContext.Courses
+            .Where(x => x.CreatorId == userId ||
+                x.CourseMembers.Any(courseMember => courseMember.Id == userId))
+            .OrderBy(x => x.Title);
+
+        return coursesQuery
+            .Select(x => new GetMyCourseItemResponse
+            {
+                Id = x.Id,
+                Title = x.Title,
+                ImageUrl = x.ImageUrl,
+                IsCreator = x.CreatorId == userId
+            })
+            .ToPagedListAsync(queryParams.PageNumber, queryParams.PageSize, cancellationToken);
     }
 
     public Task<Guid[]> GetCourseTabIds(Guid courseId, CancellationToken cancellationToken = default)

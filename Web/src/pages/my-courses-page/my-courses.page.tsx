@@ -1,4 +1,5 @@
 import MyCoursesHead from './my-courses.head';
+import MyCoursesList from './my-courses.list';
 import MyCoursesTitle from './my-courses.title';
 
 export default function MyCoursesPage() {
@@ -6,6 +7,7 @@ export default function MyCoursesPage() {
     <>
       <MyCoursesHead />
       <MyCoursesTitle />
+      <MyCoursesList />
     </>
   );
 }

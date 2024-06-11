@@ -30,3 +30,10 @@ export interface CourseToEdit {
   tabType: CourseTabType;
   courseTabs: CourseTab[];
 }
+
+export interface MyCourseListItem {
+  id: string;
+  title: string;
+  imageUrl?: string;
+  isCreator: boolean;
+}

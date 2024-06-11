@@ -4,6 +4,7 @@ import {
   Course,
   CourseListItem,
   CourseToEdit,
+  MyCourseListItem,
 } from '../models/course.interface';
 import { CourseTabType } from '../shared';
 
@@ -17,6 +18,8 @@ interface GetCourseByTabIdResponse {
 interface GetListCoursesRequest extends PagingParams {
   search?: string;
 }
+
+interface GetMyCoursesRequest extends PagingParams {}
 
 interface CreateCourseRequest {
   title: string;
@@ -53,6 +56,16 @@ export const coursesApi = api.injectEndpoints({
         params,
       }),
       providesTags: ['CourseList', 'CourseMaterialList'],
+    }),
+    getMyCourses: builder.query<
+      PagedList<MyCourseListItem>,
+      GetMyCoursesRequest
+    >({
+      query: (params) => ({
+        url: '/courses/my',
+        params,
+      }),
+      providesTags: ['CourseList'],
     }),
     createCourse: builder.mutation<void, CreateCourseRequest>({
       query: (data) => ({
@@ -131,6 +144,7 @@ export const {
   useGetCourseByIdToEditQuery,
   useGetCourseByTabIdQuery,
   useGetListCoursesQuery,
+  useGetMyCoursesQuery,
   useCreateCourseMutation,
   useUpdateCourseTitleMutation,
   useUpdateCourseDescriptionMutation,

@@ -7,6 +7,7 @@ using Application.Courses.GetCourseById;
 using Application.Courses.GetCourseByIdToEdit;
 using Application.Courses.GetCourseByTabId;
 using Application.Courses.GetListCourses;
+using Application.Courses.GetMyCourses;
 using Application.Courses.UpdateCourseDescription;
 using Application.Courses.UpdateCourseTabType;
 using Application.Courses.UpdateCourseTitle;
@@ -39,6 +40,16 @@ public class CoursesController : ApiControllerBase
         CancellationToken cancellationToken)
     {
         var query = new GetListCoursesQuery(queryParams);
+
+        return HandleResult(await Sender.Send(query, cancellationToken));
+    }
+
+    [HttpGet("my")]
+    public async Task<IActionResult> GetMyCourses(
+        [FromQuery] GetMyCoursesQueryParams queryParams,
+        CancellationToken cancellationToken)
+    {
+        var query = new GetMyCoursesQuery(queryParams);
 
         return HandleResult(await Sender.Send(query, cancellationToken));
     }

@@ -3,6 +3,7 @@ using Application.Courses.GetCourseById;
 using Application.Courses.GetCourseByIdToEdit;
 using Application.Courses.GetCourseByTabId;
 using Application.Courses.GetListCourses;
+using Application.Courses.GetMyCourses;
 
 namespace Application.Common.Queries;
 
@@ -20,6 +21,11 @@ public interface ICourseQueries
 
     Task<PagedList<GetListCourseItemResponse>> GetListCourses(
         GetListCoursesQueryParams queryParams,
+        CancellationToken cancellationToken = default);
+
+    Task<PagedList<GetMyCourseItemResponse>> GetMyCourses(
+        Guid userId,
+        GetMyCoursesQueryParams queryParams,
         CancellationToken cancellationToken = default);
 
     Task<Guid[]> GetCourseTabIds(

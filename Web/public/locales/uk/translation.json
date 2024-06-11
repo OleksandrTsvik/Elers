@@ -293,6 +293,7 @@
   "my_courses_page": {
     "create_course": "Створити курс",
     "creation_title": "Створення курсу",
+    "creator_badge": "Автор",
     "head_title": "Мої курси",
     "title": "Мої курси"
   },

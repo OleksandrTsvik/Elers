@@ -293,6 +293,7 @@
   "my_courses_page": {
     "create_course": "Create a course",
     "creation_title": "Create a course",
+    "creator_badge": "Author",
     "head_title": "My courses",
     "title": "My courses"
   },
