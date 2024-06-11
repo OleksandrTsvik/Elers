@@ -22,5 +22,7 @@ public class CreateCourseMaterialTestCommandValidator : AbstractValidator<Create
         RuleFor(x => x.TimeLimitInMinutes)
             .GreaterThanOrEqualTo(1)
                 .When(x => x.TimeLimitInMinutes is not null);
+
+        RuleFor(x => x.GradingMethod).IsInEnum();
     }
 }

@@ -39,8 +39,8 @@ export default function TestQuestionMultipleChoiceFrom({
 
       <Checkbox.Group value={answer} onChange={handleSubmit}>
         <Flex vertical gap="small">
-          {options.map((item) => (
-            <Checkbox key={item} value={item}>
+          {options.map((item, index) => (
+            <Checkbox key={index} value={item}>
               {item}
             </Checkbox>
           ))}

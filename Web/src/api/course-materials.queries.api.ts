@@ -1,5 +1,5 @@
 import { api } from '.';
-import { CourseMaterial } from '../models/course-material.type';
+import { CourseMaterial, GradingMethod } from '../models/course-material.type';
 import { CourseTabType } from '../shared';
 
 interface GetCourseMaterialResponse {
@@ -44,6 +44,7 @@ interface GetCourseMaterialTestResponse extends CourseMaterialResponse {
   numberAttempts: number;
   timeLimitInMinutes?: number;
   deadline?: Date;
+  gradingMethod: GradingMethod;
 }
 
 export const courseMaterialsQueriesApi = api.injectEndpoints({

@@ -22,6 +22,13 @@ public static class GradeClassMap
 
         BsonClassMap.RegisterClassMap<GradeAssignment>();
 
-        BsonClassMap.RegisterClassMap<GradeTest>();
+        BsonClassMap.RegisterClassMap<GradeTest>(classMap =>
+        {
+            classMap.AutoMap();
+
+            classMap
+                .MapMember(grade => grade.GradingMethod)
+                .SetSerializer(new EnumSerializer<GradingMethod>(BsonType.String));
+        });
     }
 }

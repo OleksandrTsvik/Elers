@@ -79,6 +79,7 @@ public class CourseMaterialTest : CourseMaterial
     public int NumberAttempts { get; set; }
     public int? TimeLimitInMinutes { get; set; }
     public DateTime? Deadline { get; set; }
+    public GradingMethod GradingMethod { get; set; }
 
     public CourseMaterialTest() : base()
     {

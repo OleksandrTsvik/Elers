@@ -2,6 +2,7 @@ import { Rule } from 'antd/es/form';
 
 import { COURSE_MATERIAL_RULES } from '../../common/rules';
 import useValidationRules from '../../hooks/use-validation-rules';
+import { GradingMethod } from '../../models/course-material.type';
 
 interface Rules {
   title: Rule[];
@@ -9,6 +10,7 @@ interface Rules {
   numberAttempts: Rule[];
   timeLimitInMinutes: Rule[];
   deadline: Rule[];
+  gradingMethod: Rule[];
 }
 
 export default function useMaterialTestRules(): Rules {
@@ -41,5 +43,14 @@ export default function useMaterialTestRules(): Rules {
       },
     ],
     deadline: [],
+    gradingMethod: [
+      {
+        required: true,
+      },
+      {
+        type: 'enum',
+        enum: Object.values(GradingMethod),
+      },
+    ],
   };
 }

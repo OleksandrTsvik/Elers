@@ -2,8 +2,10 @@ using Application.Common.Interfaces;
 using Application.Common.Messaging;
 using Application.Common.Queries;
 using Application.Grades.DTOs;
+using Application.Tests.DTOs;
 using Application.Users.DTOs;
 using Domain.Entities;
+using Domain.Enums;
 using Domain.Errors;
 using Domain.Repositories;
 using Domain.Shared;
@@ -17,20 +19,22 @@ public class GetCourseMyGradesQueryHandler
     private readonly IGradeQueries _gradeQueries;
     private readonly IGradeRepository _gradeRepository;
     private readonly IUserQueries _userQueries;
+    private readonly ITestQueries _testQueries;
     private readonly IUserContext _userContext;
-    private UserDto[] _teachers = [];
 
     public GetCourseMyGradesQueryHandler(
         ICourseRepository courseRepository,
         IGradeQueries gradeQueries,
         IGradeRepository gradeRepository,
         IUserQueries userQueries,
+        ITestQueries testQueries,
         IUserContext userContext)
     {
         _courseRepository = courseRepository;
         _gradeQueries = gradeQueries;
         _gradeRepository = gradeRepository;
         _userQueries = userQueries;
+        _testQueries = testQueries;
         _userContext = userContext;
     }
 
@@ -49,10 +53,7 @@ public class GetCourseMyGradesQueryHandler
         List<Grade> grades = await _gradeRepository.GetByCourseIdAndStudentIdAsync(
             request.CourseId, _userContext.UserId, cancellationToken);
 
-        IEnumerable<Guid> teacherIds = grades.OfType<GradeAssignment>().Select(x => x.TeacherId);
-        _teachers = await _userQueries.GetUserDtosByIds(teacherIds, cancellationToken);
-
-        List<CourseMyGrade> mappedGrades = MapGrades(grades);
+        List<CourseMyGrade> mappedGrades = await MapGradesAsync(grades, cancellationToken);
 
         GetCourseMyGradeItemResponse[] response = assessments
             .Select(x => new GetCourseMyGradeItemResponse
@@ -65,9 +66,25 @@ public class GetCourseMyGradesQueryHandler
         return response;
     }
 
-    private List<CourseMyGrade> MapGrades(IEnumerable<Grade> grades)
+    private async Task<List<CourseMyGrade>> MapGradesAsync(
+        IEnumerable<Grade> grades,
+        CancellationToken cancellationToken)
     {
         var result = new List<CourseMyGrade>(grades.Count());
+
+        IEnumerable<Guid> teacherIds = grades.OfType<GradeAssignment>().Select(x => x.TeacherId);
+        UserDto[] teachers = await _userQueries.GetUserDtosByIds(teacherIds, cancellationToken);
+
+        IEnumerable<Guid> testIds = grades.OfType<GradeTest>().Select(x => x.TestId);
+        List<CourseTestMyGrade> tests = await _testQueries.GetCourseTestMyGradesByIds(
+            testIds, cancellationToken);
+
+        IEnumerable<Guid> testSessionIds = grades.OfType<GradeTest>()
+            .SelectMany(x => x.Values.Select(value => value.TestSessionId))
+            .Distinct();
+
+        List<TestSessionDto> testSessions = await _testQueries.GetTestSessionDtosByIds(
+            testSessionIds, cancellationToken);
 
         foreach (Grade grade in grades)
         {
@@ -81,7 +98,7 @@ public class GetCourseMyGradesQueryHandler
                     Grade = gradeAssignment.Value,
                     Type = gradeAssignment.Type,
                     CreatedAt = gradeAssignment.CreatedAt,
-                    Teacher = _teachers.FirstOrDefault(x => x.Id == gradeAssignment.TeacherId)
+                    Teacher = teachers.FirstOrDefault(x => x.Id == gradeAssignment.TeacherId)
                 };
             }
             else if (grade is GradeTest gradeTest)
@@ -89,7 +106,10 @@ public class GetCourseMyGradesQueryHandler
                 myGrade = new CourseMyGrade
                 {
                     AssessmentId = gradeTest.TestId,
-                    Grade = gradeTest.Value,
+                    Grade = GetGradeTestValue(
+                        tests.FirstOrDefault(x => x.TestId == gradeTest.TestId),
+                        testSessions.Where(x => gradeTest.Values.Any(value => value.TestSessionId == x.Id)),
+                        gradeTest),
                     Type = gradeTest.Type,
                     CreatedAt = gradeTest.CreatedAt
                 };
@@ -103,5 +123,36 @@ public class GetCourseMyGradesQueryHandler
         }
 
         return result;
+    }
+
+    private static double? GetGradeTestValue(
+        CourseTestMyGrade? test,
+        IEnumerable<TestSessionDto> testSessions,
+        GradeTest gradeTest)
+    {
+        if (test is null || gradeTest.Values.Count == 0)
+        {
+            return null;
+        }
+
+        IEnumerable<TestSessionDto> availableTestSessions = testSessions
+            .Where(x => x.FinishedAt is not null || (test.TimeLimitInMinutes.HasValue &&
+                x.StartedAt.AddMinutes(test.TimeLimitInMinutes.Value) < DateTime.UtcNow));
+
+        IEnumerable<double> availableGradeValues = gradeTest.Values
+            .Where(x => availableTestSessions.Any(session => session.Id == x.TestSessionId))
+            .Select(x => x.Value);
+
+        if (!availableGradeValues.Any())
+        {
+            return null;
+        }
+
+        return gradeTest.GradingMethod switch
+        {
+            GradingMethod.LastAttempt => availableGradeValues.Last(),
+            GradingMethod.BestAttempt => availableGradeValues.Max(),
+            _ => null
+        };
     }
 }

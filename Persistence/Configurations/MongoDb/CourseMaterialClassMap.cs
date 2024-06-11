@@ -28,6 +28,13 @@ public static class CourseMaterialClassMap
 
         BsonClassMap.RegisterClassMap<CourseMaterialAssignment>();
 
-        BsonClassMap.RegisterClassMap<CourseMaterialTest>();
+        BsonClassMap.RegisterClassMap<CourseMaterialTest>(classMap =>
+        {
+            classMap.AutoMap();
+
+            classMap
+                .MapMember(test => test.GradingMethod)
+                .SetSerializer(new EnumSerializer<GradingMethod>(BsonType.String));
+        });
     }
 }

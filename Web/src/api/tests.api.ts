@@ -48,6 +48,13 @@ export const testsApi = api.injectEndpoints({
         'TestQuestion',
       ],
     }),
+    startTest: builder.mutation<string, { testId: string }>({
+      query: ({ testId }) => ({
+        url: `/tests/${testId}`,
+        method: 'POST',
+      }),
+      invalidatesTags: (_, error) => (error ? [] : ['Test', 'TestSession']),
+    }),
     sendAnswerToTestQuestion: builder.mutation<
       void,
       SendAnswerToTestQuestionRequest
@@ -59,6 +66,13 @@ export const testsApi = api.injectEndpoints({
       }),
       invalidatesTags: (_, error) => (error ? [] : ['TestSession']),
     }),
+    finishTest: builder.mutation<void, { testSessionId: string }>({
+      query: ({ testSessionId }) => ({
+        url: `/tests/finish/${testSessionId}`,
+        method: 'POST',
+      }),
+      invalidatesTags: (_, error) => (error ? [] : ['Test']),
+    }),
   }),
 });
 
@@ -66,5 +80,7 @@ export const {
   useGetTestQuery,
   useGetTestSessionQuery,
   useGetTestSessionQuestionQuery,
+  useStartTestMutation,
   useSendAnswerToTestQuestionMutation,
+  useFinishTestMutation,
 } = testsApi;

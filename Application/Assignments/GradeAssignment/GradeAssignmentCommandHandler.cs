@@ -94,7 +94,6 @@ public class GradeAssignmentCommandHandler : ICommandHandler<GradeAssignmentComm
                 CourseId = courseId.Value,
                 StudentId = submittedAssignment.StudentId,
                 Value = request.Grade,
-                CreatedAt = DateTime.UtcNow,
                 TeacherId = _userContext.UserId,
                 AssignmentId = assignment.Id
             };

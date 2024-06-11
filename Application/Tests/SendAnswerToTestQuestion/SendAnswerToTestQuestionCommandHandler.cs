@@ -14,20 +14,26 @@ public class SendAnswerToTestQuestionCommandHandler : ICommandHandler<SendAnswer
     private readonly ITestQuestionRepository _testQuestionRepository;
     private readonly ITestSessionRespository _testSessionRespository;
     private readonly ICourseMaterialRepository _courseMaterialRepository;
+    private readonly IGradeRepository _gradeRepository;
     private readonly ITestQueries _testQueries;
+    private readonly ICourseQueries _courseQueries;
     private readonly IUserContext _userContext;
 
     public SendAnswerToTestQuestionCommandHandler(
         ITestQuestionRepository testQuestionRepository,
         ITestSessionRespository testSessionRespository,
         ICourseMaterialRepository courseMaterialRepository,
+        IGradeRepository gradeRepository,
         ITestQueries testQueries,
+        ICourseQueries courseQueries,
         IUserContext userContext)
     {
         _testQuestionRepository = testQuestionRepository;
         _testSessionRespository = testSessionRespository;
         _courseMaterialRepository = courseMaterialRepository;
+        _gradeRepository = gradeRepository;
         _testQueries = testQueries;
+        _courseQueries = courseQueries;
         _userContext = userContext;
     }
 
@@ -84,29 +90,62 @@ public class SendAnswerToTestQuestionCommandHandler : ICommandHandler<SendAnswer
             return TestErrors.NotFoundAnswer();
         }
 
+        double points = 0;
+
         if (testQuestion is TestQuestionInput questionInput &&
             questionAnswer is TestSessionAnswerInput answerInput)
         {
-            answerInput.Answer = request.Answer;
+            if (questionInput.Answer == answerInput.Answer && questionInput.Answer != request.Answer)
+            {
+                points = -questionInput.Points;
+            }
+            else if (questionInput.Answer != answerInput.Answer && questionInput.Answer == request.Answer)
+            {
+                points = questionInput.Points;
+            }
 
-            // await _testSessionRespository.UpdateAnswerAsync(
-            //     request.TestSessionId, answerInput, cancellationToken);
+            answerInput.Answer = request.Answer;
         }
         else if (testQuestion is TestQuestionSingleChoice questionSingleChoice &&
             questionAnswer is TestSessionAnswerSingleChoice answerSingleChoice)
         {
-            answerSingleChoice.Answer = request.Answer;
+            string? correctAnswer = questionSingleChoice.Options
+                .Where(x => x.IsCorrect)
+                .Select(x => x.Option)
+                .FirstOrDefault();
 
-            // await _testSessionRespository.UpdateAnswerAsync(
-            //     request.TestSessionId, answerSingleChoice, cancellationToken);
+            if (correctAnswer == answerSingleChoice.Answer && correctAnswer != request.Answer)
+            {
+                points = -questionSingleChoice.Points;
+            }
+            else if (correctAnswer != answerSingleChoice.Answer && correctAnswer == request.Answer)
+            {
+                points = questionSingleChoice.Points;
+            }
+
+            answerSingleChoice.Answer = request.Answer;
         }
         else if (testQuestion is TestQuestionMultipleChoice questionMultipleChoice &&
             questionAnswer is TestSessionAnswerMultipleChoice answerMultipleChoice)
         {
-            answerMultipleChoice.Answers = request.Answers;
+            IEnumerable<string> correctAnswers = questionMultipleChoice.Options
+                .Where(x => x.IsCorrect)
+                .Select(x => x.Option);
 
-            // await _testSessionRespository.UpdateAnswerAsync(
-            //     request.TestSessionId, answerMultipleChoice, cancellationToken);
+            if (answerMultipleChoice.Answers is not null && request.Answers is not null &&
+                answerMultipleChoice.Answers.All(x => correctAnswers.Contains(x)) &&
+                !request.Answers.All(x => correctAnswers.Contains(x)))
+            {
+                points = -questionMultipleChoice.Points;
+            }
+            else if ((answerMultipleChoice.Answers is null || !answerMultipleChoice.Answers.All(x => correctAnswers.Contains(x))) &&
+                request.Answers is not null &&
+                request.Answers.All(x => correctAnswers.Contains(x)))
+            {
+                points = questionMultipleChoice.Points;
+            }
+
+            answerMultipleChoice.Answers = request.Answers;
         }
         else
         {
@@ -115,6 +154,51 @@ public class SendAnswerToTestQuestionCommandHandler : ICommandHandler<SendAnswer
 
         await _testSessionRespository.UpdateAnswerAsync(
             request.TestSessionId, questionAnswer, cancellationToken);
+
+        GradeTest? grade = await _gradeRepository.GetByTestIdAndStudentIdAsync(
+            test.Id, testSession.UserId, cancellationToken);
+
+        if (grade is not null)
+        {
+            GradeTestItem? gradeTestItem = grade.Values.Find(x => x.TestSessionId == testSession.Id);
+
+            if (gradeTestItem is not null)
+            {
+                gradeTestItem.Value += points;
+            }
+            else
+            {
+                gradeTestItem = new GradeTestItem
+                {
+                    TestSessionId = testSession.Id,
+                    Value = points
+                };
+
+                grade.Values.Add(gradeTestItem);
+            }
+
+            await _gradeRepository.UpdateAsync(grade, cancellationToken);
+        }
+        else
+        {
+            Guid? courseId = await _courseQueries.GetCourseIdByCourseTabId(
+                test.CourseTabId, cancellationToken);
+
+            if (!courseId.HasValue)
+            {
+                return CourseErrors.NotFoundByTabId(test.CourseTabId);
+            }
+
+            grade = new GradeTest
+            {
+                CourseId = courseId.Value,
+                StudentId = _userContext.UserId,
+                TestId = test.Id,
+                Values = [new GradeTestItem { TestSessionId = testSession.Id, Value = points }]
+            };
+
+            await _gradeRepository.AddAsync(grade, cancellationToken);
+        }
 
         return Result.Success();
     }

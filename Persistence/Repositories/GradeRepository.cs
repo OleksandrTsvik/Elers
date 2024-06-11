@@ -1,4 +1,5 @@
 using Domain.Entities;
+using Domain.Enums;
 using Domain.Repositories;
 using MongoDB.Driver;
 using Persistence.Constants;
@@ -46,6 +47,17 @@ internal class GradeRepository : MongoDbRepository<Grade>, IGradeRepository
             .FirstOrDefaultAsync(cancellationToken);
     }
 
+    public async Task<GradeTest?> GetByTestIdAndStudentIdAsync(
+        Guid testId,
+        Guid studentId,
+        CancellationToken cancellationToken = default)
+    {
+        return await Collection
+            .OfType<GradeTest>()
+            .Find(x => x.TestId == testId && x.StudentId == studentId)
+            .FirstOrDefaultAsync(cancellationToken);
+    }
+
     public async Task<double?> GetValueByAssignmentIdAndStudentIdAsync(
         Guid assignmentId,
         Guid studentId,
@@ -63,7 +75,6 @@ internal class GradeRepository : MongoDbRepository<Grade>, IGradeRepository
         UpdateDefinition<Grade> update = Builders<Grade>.Update
             .Set(x => x.CourseId, grade.CourseId)
             .Set(x => x.StudentId, grade.StudentId)
-            .Set(x => x.Value, grade.Value)
             .Set(x => x.CreatedAt, grade.CreatedAt);
 
         switch (grade)
@@ -71,15 +82,34 @@ internal class GradeRepository : MongoDbRepository<Grade>, IGradeRepository
             case GradeAssignment assignment:
                 update = update
                     .Set(nameof(GradeAssignment.TeacherId), assignment.TeacherId)
-                    .Set(nameof(GradeAssignment.AssignmentId), assignment.AssignmentId);
+                    .Set(nameof(GradeAssignment.AssignmentId), assignment.AssignmentId)
+                    .Set(nameof(GradeAssignment.Value), assignment.Value);
                 break;
             case GradeTest test:
-                update = update.Set(nameof(GradeTest.TestId), test.TestId);
+                update = update
+                    .Set(nameof(GradeTest.TestId), test.TestId)
+                    .Set(nameof(GradeTest.GradingMethod), test.GradingMethod)
+                    .Set(nameof(GradeTest.Values), test.Values);
                 break;
         }
 
         await Collection.UpdateOneAsync(
             x => x.Id == grade.Id,
+            update,
+            null,
+            cancellationToken);
+    }
+
+    public async Task UpdateTestGradingMethodAsync(
+        Guid testId,
+        GradingMethod gradingMethod,
+        CancellationToken cancellationToken = default)
+    {
+        UpdateDefinition<GradeTest> update = Builders<GradeTest>.Update
+            .Set(x => x.GradingMethod, gradingMethod);
+
+        await Collection.OfType<GradeTest>().UpdateManyAsync(
+            x => x.TestId == testId,
             update,
             null,
             cancellationToken);

@@ -54,7 +54,7 @@ public class SubmitAssignmentCommandHandler : ICommandHandler<SubmitAssignmentCo
 
         if (!assignment.IsActive)
         {
-            //
+            return AssignmentErrors.NotActive();
         }
 
         SubmittedAssignment? submittedAssignment = await _submittedAssignmentRepository

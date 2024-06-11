@@ -243,10 +243,10 @@ msgid "Tests.AttemptsExceeded"
 msgstr "Перевищено ліміт спроб."
 
 msgid "Tests.UnfinishedAttempts"
-msgstr "Ви не можете почати нову спробу тесту, поки не завершиться попередня спроба."
+msgstr "Ви не можете почати нову спробу, поки не завершиться попередня."
 
 msgid "Tests.AttemptExpired"
-msgstr "Не вдалося надіслати відповідь. Ваша спроба закінчилася."
+msgstr "Ваша спроба закінчилася."
 
 msgid "Tests.AttemptAlreadyCompleted"
 msgstr "Ви не можете завершити спробу тестування, оскільки вона вже була завершена раніше."

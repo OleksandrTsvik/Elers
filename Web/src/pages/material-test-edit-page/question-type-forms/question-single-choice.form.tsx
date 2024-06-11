@@ -1,6 +1,7 @@
 import { red } from '@ant-design/colors';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import { Button, Flex, Form, Input, InputNumber, Radio } from 'antd';
+import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import {
@@ -38,6 +39,10 @@ export default function QuestionSingleChoiceForm({
 
   const baseRules = useBaseTestQuestionRules();
   const rules = useQuestionSingleChoiceRules();
+
+  useEffect(() => {
+    form.setFieldsValue(initialValues);
+  }, [form, initialValues]);
 
   const handleSubmit = (values: QuestionSingleChoiceFormValues) => {
     values.options.forEach((item) => {

@@ -1,3 +1,4 @@
+using Application.Tests.FinishTest;
 using Application.Tests.GetTest;
 using Application.Tests.GetTestSession;
 using Application.Tests.GetTestSessionQuestion;
@@ -64,6 +65,16 @@ public class TestsController : ApiControllerBase
             questionId,
             request.Answer,
             request.Answers);
+
+        return HandleResult(await Sender.Send(command, cancellationToken));
+    }
+
+    [HttpPost("finish/{testSessionId:guid}")]
+    public async Task<IActionResult> FinishTest(
+        Guid testSessionId,
+        CancellationToken cancellationToken)
+    {
+        var command = new FinishTestCommand(testSessionId);
 
         return HandleResult(await Sender.Send(command, cancellationToken));
     }

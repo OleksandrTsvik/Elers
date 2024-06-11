@@ -1,8 +1,10 @@
-import { Button, Table, TableColumnsType } from 'antd';
+import { Button, Table } from 'antd';
 import dayjs from 'dayjs';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
+import { useCoursePermission } from '../../auth';
+import { AuthItemColumn } from '../../common/types';
 import { TableContainer } from '../../components';
 import { TestAttemptItem } from '../../models/test.interface';
 import { DATE_TIME_FORMAT } from '../../utils/constants/app.constants';
@@ -18,7 +20,9 @@ export default function ResultsPreviousAttemptsTable({
 }: Props) {
   const { t } = useTranslation();
 
-  const columns: TableColumnsType<TestAttemptItem> = [
+  const { filterColumns } = useCoursePermission(courseId);
+
+  const columns: AuthItemColumn<TestAttemptItem>[] = [
     {
       key: 'index',
       title: '#',
@@ -54,14 +58,15 @@ export default function ResultsPreviousAttemptsTable({
             </Button>
           </Link>
         ),
+      show: attemps.some((item) => !item.isCompleted),
     },
   ];
 
   return (
-    <TableContainer>
+    <TableContainer className="mb-field">
       <Table
         bordered
-        columns={columns}
+        columns={filterColumns(columns)}
         dataSource={attemps}
         rowKey={(record) => record.testSessionId}
         pagination={false}

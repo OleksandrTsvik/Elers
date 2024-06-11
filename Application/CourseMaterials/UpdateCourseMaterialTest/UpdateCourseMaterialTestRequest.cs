@@ -1,3 +1,5 @@
+using Domain.Enums;
+
 namespace Application.CourseMaterials.UpdateCourseMaterialTest;
 
 public record UpdateCourseMaterialTestRequest(
@@ -5,4 +7,5 @@ public record UpdateCourseMaterialTestRequest(
     string? Description,
     int NumberAttempts,
     int? TimeLimitInMinutes,
-    DateTime? Deadline);
+    DateTime? Deadline,
+    GradingMethod GradingMethod);

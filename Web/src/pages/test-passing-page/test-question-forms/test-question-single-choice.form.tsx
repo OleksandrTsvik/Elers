@@ -42,8 +42,8 @@ export default function TestQuestionSingleChoiceFrom({
         onChange={({ target }) => handleSubmit(target.value as string)}
       >
         <Flex vertical gap="small">
-          {options.map((item) => (
-            <Radio key={item} value={item}>
+          {options.map((item, index) => (
+            <Radio key={index} value={item}>
               {item}
             </Radio>
           ))}

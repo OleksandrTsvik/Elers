@@ -2,6 +2,7 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
 import { useCreateCourseMaterialTestMutation } from '../../api/course-materials.mutations.api';
+import { GradingMethod } from '../../models/course-material.type';
 import { MaterialTestForm, MaterialTestFormValues } from '../../shared';
 
 interface Props {
@@ -25,7 +26,11 @@ export default function MaterialTestCreationForm({ tabId }: Props) {
 
   return (
     <MaterialTestForm
-      initialValues={{ title: '', numberAttempts: 1 }}
+      initialValues={{
+        title: '',
+        numberAttempts: 1,
+        gradingMethod: GradingMethod.BestAttempt,
+      }}
       textOnSubmitButton={t('actions.add')}
       isLoading={isLoading}
       error={error}

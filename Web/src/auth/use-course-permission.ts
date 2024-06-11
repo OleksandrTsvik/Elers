@@ -58,17 +58,11 @@ export function useCoursePermission(courseId: string | undefined) {
 
   const filterTabs = (tabs: AuthItemTab[]): Tab[] => filterItems(tabs);
 
-  const filterMenu = (tabs: AuthItemMenu[]): MenuItem[] => filterItems(tabs);
+  const filterMenu = (items: AuthItemMenu[]): MenuItem[] => filterItems(items);
 
   const filterColumns = <RecordType>(
     columns: AuthItemColumn<RecordType>[],
-  ): TableColumnsType<RecordType> =>
-    columns
-      .filter(({ coursePermissions, userPermissions }) =>
-        checkCoursePermission(coursePermissions, userPermissions),
-      )
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      .map(({ coursePermissions, userPermissions, ...item }) => item);
+  ): TableColumnsType<RecordType> => filterItems(columns);
 
   return {
     isCreator,

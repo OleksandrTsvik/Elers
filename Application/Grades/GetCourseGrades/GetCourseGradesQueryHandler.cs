@@ -3,6 +3,7 @@ using Application.Common.Queries;
 using Application.Grades.DTOs;
 using Application.Users.DTOs;
 using Domain.Entities;
+using Domain.Enums;
 using Domain.Errors;
 using Domain.Repositories;
 using Domain.Shared;
@@ -95,7 +96,7 @@ public class GetCourseGradesQueryHandler : IQueryHandler<GetCourseGradesQuery, G
                 {
                     AssessmentId = gradeTest.TestId,
                     GradeId = gradeTest.Id,
-                    Grade = gradeTest.Value,
+                    Grade = GetGradeTestValue(gradeTest),
                     Type = gradeTest.Type,
                     CreatedAt = gradeTest.CreatedAt
                 };
@@ -110,4 +111,14 @@ public class GetCourseGradesQueryHandler : IQueryHandler<GetCourseGradesQuery, G
 
         return grades;
     }
+
+    private static double? GetGradeTestValue(GradeTest gradeTest) =>
+        gradeTest.GradingMethod switch
+        {
+            GradingMethod.LastAttempt => gradeTest.Values.Count != 0 ? gradeTest.Values.Last().Value : null,
+            GradingMethod.BestAttempt => gradeTest.Values.Count != 0
+                ? gradeTest.Values.Max(x => x.Value)
+                : null,
+            _ => null
+        };
 }

@@ -1,4 +1,5 @@
 using Domain.Entities;
+using Domain.Enums;
 
 namespace Domain.Repositories;
 
@@ -18,6 +19,11 @@ public interface IGradeRepository
         Guid studentId,
         CancellationToken cancellationToken = default);
 
+    Task<GradeTest?> GetByTestIdAndStudentIdAsync(
+        Guid testId,
+        Guid studentId,
+        CancellationToken cancellationToken = default);
+
     Task<double?> GetValueByAssignmentIdAndStudentIdAsync(
         Guid assignmentId,
         Guid studentId,
@@ -26,6 +32,11 @@ public interface IGradeRepository
     Task AddAsync(Grade grade, CancellationToken cancellationToken = default);
 
     Task UpdateAsync(Grade grade, CancellationToken cancellationToken = default);
+
+    Task UpdateTestGradingMethodAsync(
+        Guid testId,
+        GradingMethod gradingMethod,
+        CancellationToken cancellationToken = default);
 
     Task RemoveRangeByCourseIdAsync(Guid courseId, CancellationToken cancellationToken = default);
 

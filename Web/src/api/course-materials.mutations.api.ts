@@ -2,6 +2,7 @@ import { UploadFile } from 'antd';
 
 import { api } from '.';
 import { courseMaterialsQueriesApi } from './course-materials.queries.api';
+import { GradingMethod } from '../models/course-material.type';
 
 interface CreateCourseMaterialContentRequest {
   tabId: string;
@@ -64,6 +65,7 @@ interface CourseMaterialTestRequest {
   numberAttempts: number;
   timeLimitInMinutes?: number;
   deadline?: Date;
+  gradingMethod: GradingMethod;
 }
 
 interface CreateCourseMaterialTestRequest extends CourseMaterialTestRequest {

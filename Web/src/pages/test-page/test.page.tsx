@@ -3,6 +3,8 @@ import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 
 import ResultsPreviousAttemptsTable from './results-previous-attempts.table';
+import StartTestButton from './start-test.button';
+import StartTestGuard from './start-test.guard';
 import TestBreadcrumb from './test.breadcrumb';
 import TestHead from './test.head';
 import { useGetTestQuery } from '../../api/tests.api';
@@ -54,6 +56,14 @@ export default function TestPage() {
         noDeadlineText={t('course_test.no_deadline')}
       />
 
+      <Typography.Paragraph>
+        {t('course_test.grading_method')}:{' '}
+        {t([
+          `course_test.grading_method_type.${data.gradingMethod}`,
+          data.gradingMethod,
+        ])}
+      </Typography.Paragraph>
+
       {data.attempts.length > 0 && (
         <>
           <Typography.Title level={4}>
@@ -66,6 +76,14 @@ export default function TestPage() {
           />
         </>
       )}
+
+      <StartTestGuard
+        courseId={courseId}
+        attempts={data.attempts}
+        numberAttempts={data.numberAttempts}
+      >
+        <StartTestButton courseId={courseId} testId={data.testId} />
+      </StartTestGuard>
     </>
   );
 }

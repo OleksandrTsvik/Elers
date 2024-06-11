@@ -1,4 +1,5 @@
 using Application.Common.Messaging;
+using Domain.Enums;
 
 namespace Application.CourseMaterials.UpdateCourseMaterialTest;
 
@@ -8,4 +9,5 @@ public record UpdateCourseMaterialTestCommand(
     string? Description,
     int NumberAttempts,
     int? TimeLimitInMinutes,
-    DateTime? Deadline) : ICommand;
+    DateTime? Deadline,
+    GradingMethod GradingMethod) : ICommand;

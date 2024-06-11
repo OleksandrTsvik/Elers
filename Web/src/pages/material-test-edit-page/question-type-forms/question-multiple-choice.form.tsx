@@ -1,6 +1,7 @@
 import { red } from '@ant-design/colors';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import { Button, Checkbox, Flex, Form, Input, InputNumber } from 'antd';
+import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import {
@@ -39,6 +40,10 @@ export default function QuestionMultipleChoiceForm({
 
   const baseRules = useBaseTestQuestionRules();
   const rules = useQuestionMultipleChoiceRules();
+
+  useEffect(() => {
+    form.setFieldsValue(initialValues);
+  }, [form, initialValues]);
 
   const handleSubmit = (values: QuestionMultipleChoiceFormValues) => {
     values.options.forEach((item) => {

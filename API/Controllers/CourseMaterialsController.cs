@@ -281,7 +281,8 @@ public class CourseMaterialsController : ApiControllerBase
             request.Description,
             request.NumberAttempts,
             request.TimeLimitInMinutes,
-            request.Deadline);
+            request.Deadline,
+            request.GradingMethod);
 
         return HandleResult(await Sender.Send(command, cancellationToken));
     }
@@ -301,7 +302,8 @@ public class CourseMaterialsController : ApiControllerBase
             request.Description,
             request.NumberAttempts,
             request.TimeLimitInMinutes,
-            request.Deadline);
+            request.Deadline,
+            request.GradingMethod);
 
         return HandleResult(await Sender.Send(command, cancellationToken));
     }

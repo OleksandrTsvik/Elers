@@ -31,4 +31,10 @@ export type ConditionalCourseMaterial =
       numberAttempts: number;
       timeLimitInMinutes?: number;
       deadline?: Date;
+      gradingMethod: GradingMethod;
     };
+
+export enum GradingMethod {
+  LastAttempt = 'LastAttempt',
+  BestAttempt = 'BestAttempt',
+}

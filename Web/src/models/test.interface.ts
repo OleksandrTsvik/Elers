@@ -1,3 +1,4 @@
+import { GradingMethod } from './course-material.type';
 import { TestQuestionType } from './test-question.interface';
 
 export interface Test {
@@ -8,6 +9,7 @@ export interface Test {
   numberAttempts: number;
   timeLimitInMinutes?: number;
   deadline?: Date;
+  gradingMethod: GradingMethod;
   attempts: TestAttemptItem[];
 }
 

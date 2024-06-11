@@ -22,5 +22,7 @@ public class UpdateCourseMaterialTestCommandValidator : AbstractValidator<Update
         RuleFor(x => x.TimeLimitInMinutes)
             .GreaterThanOrEqualTo(1)
                 .When(x => x.TimeLimitInMinutes is not null);
+
+        RuleFor(x => x.GradingMethod).IsInEnum();
     }
 }

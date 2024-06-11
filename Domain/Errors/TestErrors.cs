@@ -47,7 +47,7 @@ public static class TestErrors
 
     public static Error AttemptExpired() => Error.Forbidden(
         ErrorCodes.Tests.AttemptExpired,
-        "Unable to submit the answer. Your attempt has expired.");
+        "Your attempt has expired.");
 
     public static Error AttemptAlreadyCompleted() => Error.Conflict(
         ErrorCodes.Tests.AttemptAlreadyCompleted,

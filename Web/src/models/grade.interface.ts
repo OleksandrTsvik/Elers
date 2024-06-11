@@ -24,13 +24,13 @@ export interface CourseGradeItemResponse {
 export type GradeItemResponse = {
   assessmentId: string;
   gradeId: string;
-  grade: number;
+  grade?: number;
   createdAt: Date;
 } & ConditionalGradeItemResponse;
 
 export type MyGradeResponse = {
   assessmentId: string;
-  grade: number;
+  grade?: number;
   createdAt: Date;
 } & ConditionalGradeItemResponse;
 

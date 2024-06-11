@@ -1,19 +1,17 @@
 import { green } from '@ant-design/colors';
-import { Radio, Skeleton, Statistic } from 'antd';
-import dayjs from 'dayjs';
+import { Radio, Skeleton } from 'antd';
 import { useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 
+import FinishTestButton from './finish-test.button';
 import TestPassingBreadcrumb from './test-passing.breadcrumb';
 import TestQuestion from './test.question';
+import TimeLeftCountdown from './time-left.countdown';
 import { useGetTestSessionQuery } from '../../api/tests.api';
 import { NavigateToError, NavigateToNotFound } from '../../common/navigate';
-import { isNumber } from '../../utils/helpers';
 
 export default function TestPassingPage() {
   const { testSessionId } = useParams();
-  const { t } = useTranslation();
 
   const [questionId, setQuestionId] = useState<string>();
 
@@ -37,15 +35,17 @@ export default function TestPassingPage() {
     <>
       <TestPassingBreadcrumb testId={data.testId} />
 
-      {isNumber(data.timeLimitInMinutes) && (
-        <Statistic.Countdown
-          className="text-right"
-          title={t('test_passing_page.time_left')}
-          value={dayjs(data.startedAt)
-            .add(data.timeLimitInMinutes, 'minute')
-            .toString()}
-        />
-      )}
+      <TimeLeftCountdown
+        startedAt={data.startedAt}
+        timeLimitInMinutes={data.timeLimitInMinutes}
+        testSessionId={data.testSessionId}
+        testId={data.testId}
+      />
+
+      <FinishTestButton
+        testSessionId={data.testSessionId}
+        testId={data.testId}
+      />
 
       <Radio.Group
         className="square-radio mt-field"

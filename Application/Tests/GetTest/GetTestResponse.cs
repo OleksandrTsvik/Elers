@@ -1,3 +1,5 @@
+using Domain.Enums;
+
 namespace Application.Tests.GetTest;
 
 public class GetTestResponse
@@ -9,6 +11,7 @@ public class GetTestResponse
     public required int NumberAttempts { get; init; }
     public required int? TimeLimitInMinutes { get; init; }
     public required DateTime? Deadline { get; init; }
+    public required GradingMethod GradingMethod { get; init; }
     public required List<TestAttemptItem> Attempts { get; init; }
 }
 

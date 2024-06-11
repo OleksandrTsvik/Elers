@@ -1,4 +1,4 @@
-import { Button, DatePicker, Form, Input, InputNumber } from 'antd';
+import { Button, DatePicker, Form, Input, InputNumber, Select } from 'antd';
 import dayjs from 'dayjs';
 import { useTranslation } from 'react-i18next';
 
@@ -6,6 +6,7 @@ import useMaterialTestRules from './use-material-test.rules';
 import { ErrorForm } from '../../common/error';
 import { COURSE_MATERIAL_RULES } from '../../common/rules';
 import { TextEditor } from '../../common/typography';
+import { GradingMethod } from '../../models/course-material.type';
 import { DATE_FORMAT } from '../../utils/constants/app.constants';
 import { stringToInputNumber } from '../../utils/helpers';
 
@@ -15,6 +16,7 @@ export interface MaterialTestFormValues {
   numberAttempts: number;
   timeLimitInMinutes?: number;
   deadline?: Date;
+  gradingMethod: GradingMethod;
 }
 
 interface Props {
@@ -104,6 +106,20 @@ export function MaterialTestForm({
         rules={rules.deadline}
       >
         <DatePicker className="w-100" format={DATE_FORMAT} />
+      </Form.Item>
+
+      <Form.Item
+        hasFeedback
+        name="gradingMethod"
+        label={t('course_test.grading_method')}
+        rules={rules.gradingMethod}
+      >
+        <Select
+          options={Object.values(GradingMethod).map((item) => ({
+            label: t([`course_test.grading_method_type.${item}`, item]),
+            value: item,
+          }))}
+        />
       </Form.Item>
 
       <Form.Item className="text-right">

@@ -15,7 +15,7 @@ public class GetCourseMyGradeItemResponse
 public class CourseMyGrade
 {
     public required Guid AssessmentId { get; init; }
-    public required double Grade { get; init; }
+    public required double? Grade { get; init; }
     public required GradeType Type { get; init; }
     public required DateTime CreatedAt { get; init; }
 }
@@ -23,4 +23,10 @@ public class CourseMyGrade
 public class CourseMyGradeAssignment : CourseMyGrade
 {
     public required UserDto? Teacher { get; init; }
+}
+
+public class CourseTestMyGrade
+{
+    public Guid TestId { get; set; }
+    public int? TimeLimitInMinutes { get; set; }
 }

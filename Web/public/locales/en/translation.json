@@ -38,7 +38,8 @@
       "Resubmit": "Returned for revision",
       "Submitted": "Sent for review"
     },
-    "text": "Text"
+    "text": "Text",
+    "update_list": "Refresh the list"
   },
   "color": {
     "blue": "Blue",
@@ -118,6 +119,9 @@
     "visible_material": "This material is displayed on the course page",
     "visible_section": "This section is displayed on the course page"
   },
+  "course_grades_page": {
+    "update_table": "Refresh the table"
+  },
   "course_material": {
     "answer": "Answer",
     "assignment_description": "Assignment description",
@@ -174,8 +178,14 @@
     "delete_question": "Delete question",
     "description": "Description",
     "enter_all_answers": "Enter all answers",
+    "finish_test": "Finish test",
     "finished_at": "Completed",
     "grade": "Grade",
+    "grading_method": "Grading method",
+    "grading_method_type": {
+      "BestAttempt": "Best attempt",
+      "LastAttempt": "Last attempt"
+    },
     "no_deadline": "no",
     "notification": {
       "question_created": "Question was successfully created",
@@ -190,6 +200,7 @@
     },
     "question_type_title": "Question type",
     "results_previous_attempts": "Results of previous attempts",
+    "start_test": "Start test",
     "started_at": "Started",
     "test_questions": "Test questions",
     "time_limit": "Time limit (minutes)"
@@ -352,6 +363,7 @@
   },
   "test_passing_page": {
     "failed_get_question": "Failed to get a question",
+    "finishing_test": "Finishing the test ...",
     "points": "Points for the correct answer",
     "save_answer": "Save answer",
     "time_left": "Time left",

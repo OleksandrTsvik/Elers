@@ -38,7 +38,8 @@
       "Resubmit": "Повернуто на доопрацювання",
       "Submitted": "Відправлено на перевірку"
     },
-    "text": "Текст"
+    "text": "Текст",
+    "update_list": "Оновити список"
   },
   "color": {
     "blue": "Синій",
@@ -118,6 +119,9 @@
     "visible_material": "Цей матеріал відображається на сторінці курсу",
     "visible_section": "Ця секція відображається на сторінці курсу"
   },
+  "course_grades_page": {
+    "update_table": "Оновити таблицю"
+  },
   "course_material": {
     "answer": "Відповідь",
     "assignment_description": "Опис завдання",
@@ -174,8 +178,14 @@
     "delete_question": "Видалити запитання",
     "description": "Опис",
     "enter_all_answers": "Введіть усі відповіді",
+    "finish_test": "Завершити тест",
     "finished_at": "Завершено",
     "grade": "Оцінка",
+    "grading_method": "Метод оцінювання",
+    "grading_method_type": {
+      "BestAttempt": "Краща оцінка",
+      "LastAttempt": "Остання спроба"
+    },
     "no_deadline": "відсутня",
     "notification": {
       "question_created": "Запитання успішно створено",
@@ -190,6 +200,7 @@
     },
     "question_type_title": "Тип питання",
     "results_previous_attempts": "Результати попередніх спроб",
+    "start_test": "Почати тест",
     "started_at": "Розпочато",
     "test_questions": "Запитання тесту",
     "time_limit": "Обмеження в часі (в хвилинах)"
@@ -352,6 +363,7 @@
   },
   "test_passing_page": {
     "failed_get_question": "Не вдалося завантажити запитання",
+    "finishing_test": "Завершення тесту ...",
     "points": "Бали за правильну відповідь",
     "save_answer": "Зберегти відповідь",
     "time_left": "Залишилося часу",

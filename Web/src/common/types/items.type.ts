@@ -23,7 +23,5 @@ export type AuthItemMenu = MenuItem & AuthItem;
 export type AuthItemColumn<RecordType> = (
   | ColumnGroupType<RecordType>
   | ColumnType<RecordType>
-) & {
-  coursePermissions: CoursePermissionType[];
-  userPermissions: PermissionType[];
-};
+) &
+  AuthItem;

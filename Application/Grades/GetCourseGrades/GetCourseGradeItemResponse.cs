@@ -22,7 +22,7 @@ public class GradeItemResponse
 {
     public required Guid AssessmentId { get; init; }
     public required Guid GradeId { get; init; }
-    public required double Grade { get; init; }
+    public required double? Grade { get; init; }
     public required GradeType Type { get; init; }
     public required DateTime CreatedAt { get; init; }
 }
