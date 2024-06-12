@@ -1,4 +1,6 @@
 {
+  "No": "No",
+  "Yes": "Yes",
   "actions": {
     "add": "Add",
     "cancel": "Cancel",
@@ -200,6 +202,7 @@
     },
     "question_type_title": "Question type",
     "results_previous_attempts": "Results of previous attempts",
+    "shuffle_questions": "Shuffle the questions",
     "start_test": "Start test",
     "started_at": "Started",
     "test_questions": "Test questions",
@@ -405,9 +408,9 @@
     "title": "Users",
     "user_type": "Type",
     "user_types": {
-      "User": "User",
       "Student": "Student",
-      "Teacher": "Teacher"
+      "Teacher": "Teacher",
+      "User": "User"
     }
   },
   "validation_rule": {

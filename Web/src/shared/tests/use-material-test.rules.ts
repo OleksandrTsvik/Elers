@@ -11,6 +11,7 @@ interface Rules {
   timeLimitInMinutes: Rule[];
   deadline: Rule[];
   gradingMethod: Rule[];
+  shuffleQuestions: Rule[];
 }
 
 export default function useMaterialTestRules(): Rules {
@@ -30,6 +31,7 @@ export default function useMaterialTestRules(): Rules {
     description: [],
     numberAttempts: [
       {
+        required: true,
         type: 'integer',
         min: COURSE_MATERIAL_RULES.test.numberAttempts.min,
         max: COURSE_MATERIAL_RULES.test.numberAttempts.max,
@@ -50,6 +52,12 @@ export default function useMaterialTestRules(): Rules {
       {
         type: 'enum',
         enum: Object.values(GradingMethod),
+      },
+    ],
+    shuffleQuestions: [
+      {
+        required: true,
+        type: 'boolean',
       },
     ],
   };

@@ -36,7 +36,8 @@ public class CreateCourseMaterialTestCommandHandler : ICommandHandler<CreateCour
             NumberAttempts = request.NumberAttempts,
             TimeLimitInMinutes = request.TimeLimitInMinutes,
             Deadline = request.Deadline,
-            GradingMethod = request.GradingMethod
+            GradingMethod = request.GradingMethod,
+            ShuffleQuestions = request.ShuffleQuestions
         };
 
         await _courseMaterialRepository.AddAsync(courseMaterialTest, cancellationToken);

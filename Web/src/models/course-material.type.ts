@@ -32,6 +32,7 @@ export type ConditionalCourseMaterial =
       timeLimitInMinutes?: number;
       deadline?: Date;
       gradingMethod: GradingMethod;
+      shuffleQuestions: boolean;
     };
 
 export enum GradingMethod {

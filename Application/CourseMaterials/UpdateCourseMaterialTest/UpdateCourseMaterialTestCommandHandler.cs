@@ -43,6 +43,7 @@ public class UpdateCourseMaterialTestCommandHandler : ICommandHandler<UpdateCour
         courseMaterialTest.TimeLimitInMinutes = request.TimeLimitInMinutes;
         courseMaterialTest.Deadline = request.Deadline;
         courseMaterialTest.GradingMethod = request.GradingMethod;
+        courseMaterialTest.ShuffleQuestions = request.ShuffleQuestions;
 
         await _courseMaterialRepository.UpdateAsync(courseMaterialTest, cancellationToken);
 

@@ -66,6 +66,7 @@ interface CourseMaterialTestRequest {
   timeLimitInMinutes?: number;
   deadline?: Date;
   gradingMethod: GradingMethod;
+  shuffleQuestions: boolean;
 }
 
 interface CreateCourseMaterialTestRequest extends CourseMaterialTestRequest {

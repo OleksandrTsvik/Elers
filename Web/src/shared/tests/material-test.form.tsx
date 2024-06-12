@@ -1,4 +1,12 @@
-import { Button, DatePicker, Form, Input, InputNumber, Select } from 'antd';
+import {
+  Button,
+  DatePicker,
+  Form,
+  Input,
+  InputNumber,
+  Radio,
+  Select,
+} from 'antd';
 import dayjs from 'dayjs';
 import { useTranslation } from 'react-i18next';
 
@@ -17,6 +25,7 @@ export interface MaterialTestFormValues {
   timeLimitInMinutes?: number;
   deadline?: Date;
   gradingMethod: GradingMethod;
+  shuffleQuestions: boolean;
 }
 
 interface Props {
@@ -120,6 +129,18 @@ export function MaterialTestForm({
             value: item,
           }))}
         />
+      </Form.Item>
+
+      <Form.Item
+        hasFeedback
+        name="shuffleQuestions"
+        label={t('course_test.shuffle_questions')}
+        rules={rules.shuffleQuestions}
+      >
+        <Radio.Group>
+          <Radio value={false}>{t('No')}</Radio>
+          <Radio value={true}>{t('Yes')}</Radio>
+        </Radio.Group>
       </Form.Item>
 
       <Form.Item className="text-right">

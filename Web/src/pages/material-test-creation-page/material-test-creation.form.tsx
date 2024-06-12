@@ -30,6 +30,7 @@ export default function MaterialTestCreationForm({ tabId }: Props) {
         title: '',
         numberAttempts: 1,
         gradingMethod: GradingMethod.BestAttempt,
+        shuffleQuestions: false,
       }}
       textOnSubmitButton={t('actions.add')}
       isLoading={isLoading}

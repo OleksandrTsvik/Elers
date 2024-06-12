@@ -49,7 +49,8 @@ internal class CourseMaterialRepository : MongoDbRepository<CourseMaterial>, ICo
                     .Set(nameof(CourseMaterialTest.NumberAttempts), test.NumberAttempts)
                     .Set(nameof(CourseMaterialTest.TimeLimitInMinutes), test.TimeLimitInMinutes)
                     .Set(nameof(CourseMaterialTest.Deadline), test.Deadline)
-                    .Set(nameof(CourseMaterialTest.GradingMethod), test.GradingMethod);
+                    .Set(nameof(CourseMaterialTest.GradingMethod), test.GradingMethod)
+                    .Set(nameof(CourseMaterialTest.ShuffleQuestions), test.ShuffleQuestions);
                 break;
         }
 

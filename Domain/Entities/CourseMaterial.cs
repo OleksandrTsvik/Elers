@@ -80,6 +80,7 @@ public class CourseMaterialTest : CourseMaterial
     public int? TimeLimitInMinutes { get; set; }
     public DateTime? Deadline { get; set; }
     public GradingMethod GradingMethod { get; set; }
+    public bool ShuffleQuestions { get; set; }
 
     public CourseMaterialTest() : base()
     {

@@ -8,4 +8,5 @@ public record UpdateCourseMaterialTestRequest(
     int NumberAttempts,
     int? TimeLimitInMinutes,
     DateTime? Deadline,
-    GradingMethod GradingMethod);
+    GradingMethod GradingMethod,
+    bool ShuffleQuestions);

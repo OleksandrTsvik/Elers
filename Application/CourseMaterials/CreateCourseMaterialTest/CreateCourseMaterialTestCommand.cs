@@ -10,4 +10,5 @@ public record CreateCourseMaterialTestCommand(
     int NumberAttempts,
     int? TimeLimitInMinutes,
     DateTime? Deadline,
-    GradingMethod GradingMethod) : ICommand<Guid>;
+    GradingMethod GradingMethod,
+    bool ShuffleQuestions) : ICommand<Guid>;

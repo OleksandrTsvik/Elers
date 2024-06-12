@@ -1,4 +1,6 @@
 {
+  "No": "Ні",
+  "Yes": "Так",
   "actions": {
     "add": "Додати",
     "cancel": "Скасувати",
@@ -200,6 +202,7 @@
     },
     "question_type_title": "Тип питання",
     "results_previous_attempts": "Результати попередніх спроб",
+    "shuffle_questions": "Випадковий порядок питань",
     "start_test": "Почати тест",
     "started_at": "Розпочато",
     "test_questions": "Запитання тесту",
@@ -405,9 +408,9 @@
     "title": "Користувачі",
     "user_type": "Тип",
     "user_types": {
-      "User": "Користувач",
       "Student": "Студент",
-      "Teacher": "Викладач"
+      "Teacher": "Викладач",
+      "User": "Користувач"
     }
   },
   "validation_rule": {

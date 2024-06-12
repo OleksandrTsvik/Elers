@@ -79,11 +79,19 @@ public class StartTestCommandHandler : ICommandHandler<StartTestCommand, Guid>
             return TestErrors.NoQuestions(request.TestId);
         }
 
+        List<TestSessionAnswer> sessionAnswers = GetSessionAnswers(questionIdsAndTypes);
+
+        if (test.ShuffleQuestions)
+        {
+            var random = new Random();
+            sessionAnswers = sessionAnswers.OrderBy(_ => random.Next()).ToList();
+        }
+
         var testSession = new TestSession
         {
             TestId = request.TestId,
             UserId = _userContext.UserId,
-            Answers = GetSessionAnswers(questionIdsAndTypes)
+            Answers = sessionAnswers
         };
 
         await _testSessionRespository.AddAsync(testSession, cancellationToken);

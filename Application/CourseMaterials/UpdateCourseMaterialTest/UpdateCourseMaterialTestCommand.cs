@@ -10,4 +10,5 @@ public record UpdateCourseMaterialTestCommand(
     int NumberAttempts,
     int? TimeLimitInMinutes,
     DateTime? Deadline,
-    GradingMethod GradingMethod) : ICommand;
+    GradingMethod GradingMethod,
+    bool ShuffleQuestions) : ICommand;

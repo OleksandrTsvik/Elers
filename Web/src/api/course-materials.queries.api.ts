@@ -45,6 +45,7 @@ interface GetCourseMaterialTestResponse extends CourseMaterialResponse {
   timeLimitInMinutes?: number;
   deadline?: Date;
   gradingMethod: GradingMethod;
+  shuffleQuestions: boolean;
 }
 
 export const courseMaterialsQueriesApi = api.injectEndpoints({
