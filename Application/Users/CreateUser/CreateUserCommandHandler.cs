@@ -38,6 +38,7 @@ public class CreateUserCommandHandler : ICommandHandler<CreateUserCommand>
 
         var user = new User
         {
+            Type = request.Type,
             Email = request.Email,
             PasswordHash = _passwordService.HashPassword(request.Password),
             FirstName = request.FirstName,

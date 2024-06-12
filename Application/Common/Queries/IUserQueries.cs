@@ -1,4 +1,5 @@
 using Application.Auth.GetInfo;
+using Application.Common.Models;
 using Application.Users.DTOs;
 using Application.Users.GetListUsers;
 using Application.Users.GetUserById;
@@ -9,7 +10,9 @@ public interface IUserQueries
 {
     Task<GetInfoResponse?> GetInfo(Guid id, CancellationToken cancellationToken = default);
 
-    Task<GetListUserItemResponse[]> GetListUsers(CancellationToken cancellationToken = default);
+    Task<PagedList<GetListUserItemResponse>> GetListUsers(
+        GetListUsersQueryParams queryParams,
+        CancellationToken cancellationToken = default);
 
     Task<GetUserByIdResponse?> GetUserById(Guid id, CancellationToken cancellationToken = default);
 

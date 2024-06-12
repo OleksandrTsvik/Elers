@@ -9,6 +9,8 @@ public class CreateUserCommandValidator : AbstractValidator<CreateUserCommand>
 {
     public CreateUserCommandValidator(ITranslator translator)
     {
+        RuleFor(x => x.Type).IsInEnum();
+
         RuleFor(x => x.Email)
             .EmailAddress()
             .MaximumLength(UserRules.MaxEmailLength)

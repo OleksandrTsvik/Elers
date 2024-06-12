@@ -402,7 +402,13 @@
       "password_required": "Password is required",
       "patronymic_len": "The patronymic must contain from {{min}} to {{max}} characters"
     },
-    "title": "Users"
+    "title": "Users",
+    "user_type": "Type",
+    "user_types": {
+      "User": "User",
+      "Student": "Student",
+      "Teacher": "Teacher"
+    }
   },
   "validation_rule": {
     "file_size_limit": "File size limit exceeded",

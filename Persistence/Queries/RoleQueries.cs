@@ -1,8 +1,10 @@
+using Application.Common.Models;
 using Application.Common.Queries;
 using Application.Roles.GetListRoles;
 using Application.Roles.GetListUserRoles;
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
+using Persistence.Extensions;
 
 namespace Persistence.Queries;
 
@@ -23,10 +25,13 @@ internal class RoleQueries : IRoleQueries
             .FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
     }
 
-    public Task<GetListRoleItemResponseDto[]> GetListRoles(CancellationToken cancellationToken = default)
+    public Task<PagedList<GetListRoleItemResponseDto>> GetListRoles(
+        GetListRolesQueryParams queryParams,
+        CancellationToken cancellationToken = default)
     {
         return _dbContext.Roles
             .Include(x => x.Permissions)
+            .OrderBy(x => x.Name)
             .Select(x => new GetListRoleItemResponseDto
             {
                 Id = x.Id,
@@ -35,8 +40,7 @@ internal class RoleQueries : IRoleQueries
                     .Select(permission => permission.Name)
                     .ToArray()
             })
-            .OrderBy(x => x.Name)
-            .ToArrayAsync(cancellationToken);
+            .ToPagedListAsync(queryParams.PageNumber, queryParams.PageSize, cancellationToken);
     }
 
     public Task<GetListUserRoleItemResponse[]> GetListUserRoles(CancellationToken cancellationToken = default)

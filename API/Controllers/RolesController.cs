@@ -34,9 +34,11 @@ public class RolesController : ApiControllerBase
 
     [HasPermission(PermissionType.ReadRole)]
     [HttpGet]
-    public async Task<IActionResult> GetListRoles(CancellationToken cancellationToken)
+    public async Task<IActionResult> GetListRoles(
+        [FromQuery] GetListRolesQueryParams queryParams,
+        CancellationToken cancellationToken)
     {
-        var query = new GetListRolesQuery();
+        var query = new GetListRolesQuery(queryParams);
 
         return HandleResult(await Sender.Send(query, cancellationToken));
     }

@@ -402,7 +402,13 @@
       "password_required": "Пароль є обов'язковим",
       "patronymic_len": "По батькові має містити від {{min}} до {{max}} символів"
     },
-    "title": "Користувачі"
+    "title": "Користувачі",
+    "user_type": "Тип",
+    "user_types": {
+      "User": "Користувач",
+      "Student": "Студент",
+      "Teacher": "Викладач"
+    }
   },
   "validation_rule": {
     "file_size_limit": "Перевищено ліміт розміру файлу",

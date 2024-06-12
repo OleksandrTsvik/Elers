@@ -1,9 +1,13 @@
+using System.Linq.Expressions;
 using Application.Auth.GetInfo;
+using Application.Common.Models;
 using Application.Common.Queries;
 using Application.Users.DTOs;
 using Application.Users.GetListUsers;
 using Application.Users.GetUserById;
+using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
+using Persistence.Extensions;
 
 namespace Persistence.Queries;
 
@@ -33,23 +37,49 @@ internal class UserQueries : IUserQueries
             .FirstOrDefaultAsync(cancellationToken);
     }
 
-    public Task<GetListUserItemResponse[]> GetListUsers(CancellationToken cancellationToken = default)
+    public Task<PagedList<GetListUserItemResponse>> GetListUsers(
+        GetListUsersQueryParams queryParams,
+        CancellationToken cancellationToken = default)
     {
-        return _dbContext.Users
+        Expression<Func<User, object>> keySelector = queryParams.SortColumn?.ToLower() switch
+        {
+            "firstname" => x => x.FirstName,
+            "patronymic" => x => x.Patronymic,
+            "email" => x => x.Email,
+            _ => x => x.LastName
+        };
+
+        IQueryable<User> query = _dbContext.Users
+            .SortBy(queryParams.SortOrder, keySelector)
+            .WhereIf(
+                !string.IsNullOrWhiteSpace(queryParams.FirstName),
+                x => EF.Functions.ILike(x.FirstName, $"%{queryParams.FirstName}%"))
+            .WhereIf(
+                !string.IsNullOrWhiteSpace(queryParams.LastName),
+                x => EF.Functions.ILike(x.LastName, $"%{queryParams.LastName}%"))
+            .WhereIf(
+                !string.IsNullOrWhiteSpace(queryParams.Patronymic),
+                x => EF.Functions.ILike(x.Patronymic, $"%{queryParams.Patronymic}%"))
+            .WhereIf(
+                !string.IsNullOrWhiteSpace(queryParams.Email),
+                x => EF.Functions.ILike(x.Email, $"%{queryParams.Email}%"))
+            .WhereIf(queryParams.Types is not null, x => queryParams.Types!.Contains(x.Type))
+            .WhereIf(
+                queryParams.Roles is not null,
+                x => queryParams.Roles!.Any(queryRole => x.Roles.Any(userRole => userRole.Id == queryRole)));
+
+        return query
             .Select(x => new GetListUserItemResponse
             {
                 Id = x.Id,
+                Type = x.Type,
                 FirstName = x.FirstName,
                 LastName = x.LastName,
                 Patronymic = x.Patronymic,
                 Email = x.Email,
                 Roles = x.Roles.Select(role => role.Name).ToArray()
             })
-            .OrderBy(x => x.FirstName)
-                .ThenBy(x => x.LastName)
-                .ThenBy(x => x.Patronymic)
-                .ThenBy(x => x.Email)
-            .ToArrayAsync(cancellationToken);
+            .ToPagedListAsync(queryParams.PageNumber, queryParams.PageSize, cancellationToken);
     }
 
     public Task<GetUserByIdResponse?> GetUserById(Guid id, CancellationToken cancellationToken = default)
@@ -58,6 +88,7 @@ internal class UserQueries : IUserQueries
             .Select(x => new GetUserByIdResponse
             {
                 Id = x.Id,
+                Type = x.Type,
                 FirstName = x.FirstName,
                 LastName = x.LastName,
                 Patronymic = x.Patronymic,

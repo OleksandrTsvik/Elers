@@ -1,7 +1,18 @@
 import { api } from '.';
-import { User } from '../models/user.interface';
+import { PagedList, PagingParams, SortParams } from '../common/types';
+import { User, UserType } from '../models/user.interface';
+
+interface GetListUsersRequest extends PagingParams, SortParams {
+  firstName?: string;
+  lastName?: string;
+  patronymic?: string;
+  email?: string;
+  roles?: string[];
+  types?: string[];
+}
 
 interface CreateUserRequest {
+  type: UserType;
   email: string;
   password: string;
   firstName: string;
@@ -12,6 +23,7 @@ interface CreateUserRequest {
 
 interface UpdateUserRequest {
   userId: string;
+  type: UserType;
   email: string;
   password: string;
   firstName: string;
@@ -29,9 +41,10 @@ export const usersApi = api.injectEndpoints({
       }),
       providesTags: ['Session', 'Users'],
     }),
-    getListUsers: builder.query<User[], void>({
-      query: () => ({
+    getListUsers: builder.query<PagedList<User>, GetListUsersRequest>({
+      query: (params) => ({
         url: '/users',
+        params,
       }),
       providesTags: ['Session', 'Users'],
     }),

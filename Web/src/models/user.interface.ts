@@ -8,6 +8,7 @@ export interface AuthUser {
 
 export interface User {
   id: string;
+  type: UserType;
   firstName: string;
   lastName: string;
   patronymic: string;
@@ -21,4 +22,10 @@ export interface UserDto {
   lastName: string;
   patronymic: string;
   avatarUrl?: string;
+}
+
+export enum UserType {
+  User = 'User',
+  Student = 'Student',
+  Teacher = 'Teacher',
 }

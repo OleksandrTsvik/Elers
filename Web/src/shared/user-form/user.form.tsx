@@ -1,4 +1,4 @@
-import { Button, Checkbox, Form, Input } from 'antd';
+import { Button, Checkbox, Form, Input, Select } from 'antd';
 import { useTranslation } from 'react-i18next';
 
 import useUserRules from './use-user.rules';
@@ -6,8 +6,10 @@ import { ErrorForm } from '../../common/error';
 import { USER_RULES } from '../../common/rules';
 import { FormMode } from '../../common/types';
 import { UserRole } from '../../models/role.interface';
+import { UserType } from '../../models/user.interface';
 
 export interface UserFormValues {
+  type: UserType;
   email: string;
   password: string;
   firstName: string;
@@ -48,6 +50,21 @@ export default function UserForm({
       onFinish={onSubmit}
     >
       <ErrorForm error={error} form={form} />
+
+      <Form.Item
+        hasFeedback
+        name="type"
+        label={t('users_page.user_type')}
+        rules={rules.type}
+      >
+        <Select
+          disabled={mode == FormMode.Edit}
+          options={Object.values(UserType).map((type) => ({
+            label: t([`users_page.user_types.${type}`, type]),
+            value: type,
+          }))}
+        />
+      </Form.Item>
 
       <Form.Item
         hasFeedback

@@ -4,8 +4,10 @@ import { useTranslation } from 'react-i18next';
 import { USER_RULES } from '../../common/rules';
 import { FormMode } from '../../common/types';
 import useValidationRules from '../../hooks/use-validation-rules';
+import { UserType } from '../../models/user.interface';
 
 interface Rules {
+  type: Rule[];
   email: Rule[];
   password: Rule[];
   firstName: Rule[];
@@ -18,6 +20,15 @@ export default function useUserRules(mode: FormMode): Rules {
   const { trimWhitespace } = useValidationRules();
 
   const rules: Rules = {
+    type: [
+      {
+        required: true,
+      },
+      {
+        type: 'enum',
+        enum: Object.values(UserType),
+      },
+    ],
     email: [
       {
         required: true,

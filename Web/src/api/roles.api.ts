@@ -1,4 +1,5 @@
 import { api } from '.';
+import { PagedList, PagingParams } from '../common/types';
 import { RoleListItem, Role, UserRole } from '../models/role.interface';
 
 interface UpdateRoleRequest {
@@ -21,9 +22,10 @@ export const rolesApi = api.injectEndpoints({
       }),
       providesTags: ['Session', 'Locale', 'Roles'],
     }),
-    getListRoles: builder.query<RoleListItem[], void>({
-      query: () => ({
+    getListRoles: builder.query<PagedList<RoleListItem>, PagingParams>({
+      query: (params) => ({
         url: '/roles',
+        params,
       }),
       providesTags: ['Session', 'Locale', 'Roles'],
     }),

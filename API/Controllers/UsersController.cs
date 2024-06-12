@@ -24,9 +24,11 @@ public class UsersController : ApiControllerBase
 
     [HasPermission(PermissionType.ReadUser)]
     [HttpGet]
-    public async Task<IActionResult> GetListUsers(CancellationToken cancellationToken)
+    public async Task<IActionResult> GetListUsers(
+        [FromQuery] GetListUsersQueryParams queryParams,
+        CancellationToken cancellationToken)
     {
-        var query = new GetListUsersQuery();
+        var query = new GetListUsersQuery(queryParams);
 
         return HandleResult(await Sender.Send(query, cancellationToken));
     }
@@ -38,6 +40,7 @@ public class UsersController : ApiControllerBase
         CancellationToken cancellationToken)
     {
         var command = new CreateUserCommand(
+            request.Type,
             request.Email,
             request.Password,
             request.FirstName,

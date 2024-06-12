@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { useGetListUserRolesQuery } from '../../api/roles.api';
 import { useCreateUserMutation } from '../../api/users.api';
 import { FormMode } from '../../common/types';
+import { UserType } from '../../models/user.interface';
 import { UserForm, UserFormValues } from '../../shared';
 
 export default function UserCreationForm() {
@@ -28,6 +29,7 @@ export default function UserCreationForm() {
     <UserForm
       mode={FormMode.Creation}
       initialValues={{
+        type: UserType.User,
         email: '',
         password: '',
         firstName: '',
