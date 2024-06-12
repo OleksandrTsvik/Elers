@@ -1,10 +1,12 @@
 using Application.TestQuestions.CreateTestQuestionInput;
+using Application.TestQuestions.CreateTestQuestionMatching;
 using Application.TestQuestions.CreateTestQuestionMultipleChoice;
 using Application.TestQuestions.CreateTestQuestionSingleChoice;
 using Application.TestQuestions.DeleteTestQuestion;
 using Application.TestQuestions.GetTestQuestion;
 using Application.TestQuestions.GetTestQuestionIdsAndTypes;
 using Application.TestQuestions.UpdateTestQuestionInput;
+using Application.TestQuestions.UpdateTestQuestionMatching;
 using Application.TestQuestions.UpdateTestQuestionMultipleChoice;
 using Application.TestQuestions.UpdateTestQuestionSingleChoice;
 using Domain.Enums;
@@ -141,6 +143,42 @@ public class TestQuestionsController : ApiControllerBase
         CancellationToken cancellationToken)
     {
         var command = new UpdateTestQuestionMultipleChoiceCommand(
+            testQuestionId,
+            request.Text,
+            request.Points,
+            request.Options);
+
+        return HandleResult(await Sender.Send(command, cancellationToken));
+    }
+
+    [HasCourseMemberPermission(
+        [CoursePermissionType.CreateTestQuestion],
+        [PermissionType.ManageTestQuestions])]
+    [HttpPost("matching/{materialId:guid}")]
+    public async Task<IActionResult> CreateTestQuestionMatching(
+        Guid materialId,
+        [FromBody] CreateTestQuestionMatchingRequest request,
+        CancellationToken cancellationToken)
+    {
+        var command = new CreateTestQuestionMatchingCommand(
+            materialId,
+            request.Text,
+            request.Points,
+            request.Options);
+
+        return HandleResult(await Sender.Send(command, cancellationToken));
+    }
+
+    [HasCourseMemberPermission(
+        [CoursePermissionType.UpdateTestQuestion],
+        [PermissionType.ManageTestQuestions])]
+    [HttpPut("matching/{testQuestionId:guid}")]
+    public async Task<IActionResult> UpdateTestQuestionMatching(
+        Guid testQuestionId,
+        [FromBody] UpdateTestQuestionMatchingRequest request,
+        CancellationToken cancellationToken)
+    {
+        var command = new UpdateTestQuestionMatchingCommand(
             testQuestionId,
             request.Text,
             request.Points,

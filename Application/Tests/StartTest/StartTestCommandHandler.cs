@@ -129,6 +129,13 @@ public class StartTestCommandHandler : ICommandHandler<StartTestCommand, Guid>
                         QuestionType = question.Type
                     });
                     break;
+                case TestQuestionType.Matching:
+                    sessionAnswers.Add(new TestSessionAnswerMatching
+                    {
+                        QuestionId = question.Id,
+                        QuestionType = question.Type
+                    });
+                    break;
             }
         }
 

@@ -25,5 +25,7 @@ public static class TestQuestionClassMap
         BsonClassMap.RegisterClassMap<TestQuestionSingleChoice>();
 
         BsonClassMap.RegisterClassMap<TestQuestionMultipleChoice>();
+
+        BsonClassMap.RegisterClassMap<TestQuestionMatching>();
     }
 }

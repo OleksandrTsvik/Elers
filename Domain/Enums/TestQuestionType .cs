@@ -5,4 +5,5 @@ public enum TestQuestionType
     Input,
     SingleChoice,
     MultipleChoice,
+    Matching,
 }

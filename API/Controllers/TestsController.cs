@@ -64,7 +64,8 @@ public class TestsController : ApiControllerBase
             testSessionId,
             questionId,
             request.Answer,
-            request.Answers);
+            request.Answers,
+            request.MatchOptions);
 
         return HandleResult(await Sender.Send(command, cancellationToken));
     }

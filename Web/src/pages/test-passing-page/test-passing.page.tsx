@@ -50,7 +50,7 @@ export default function TestPassingPage() {
       <Radio.Group
         className="square-radio mt-field"
         buttonStyle="solid"
-        value={questionId ?? data.questions[0].questionId}
+        value={questionId ?? data.questions[0]?.questionId}
         onChange={({ target }) => setQuestionId(target.value as string)}
       >
         {data.questions.map(({ questionId, isAnswered }, index) => (
@@ -66,7 +66,7 @@ export default function TestPassingPage() {
 
       <TestQuestion
         testSessionId={data.testSessionId}
-        questionId={questionId ?? data.questions[0].questionId}
+        questionId={questionId ?? data.questions[0]?.questionId}
       />
     </>
   );

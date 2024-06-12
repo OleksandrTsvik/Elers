@@ -11,5 +11,6 @@ public static class ValidationMessages
         public const string ChooseOneCorrectAnswer = "Choose one correct answer.";
         public const string AddThreeAnswers = "Add at least 3 answers.";
         public const string ChooseMoreThanOneCorrectAnswer = "Choose more than one correct answer.";
+        public const string AddTwoMatching = "Add at least 2 questions.";
     }
 }

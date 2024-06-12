@@ -2,6 +2,7 @@ import { api } from '.';
 import {
   TestQuestion,
   TestQuestionChoiceOption,
+  TestQuestionMatchOption,
   TestQuestionType,
 } from '../models/test-question.interface';
 
@@ -28,6 +29,10 @@ interface CreateTestQuestionMultipleChoiceRequest extends CreateTestQuestion {
   options: TestQuestionChoiceOption[];
 }
 
+interface CreateTestQuestionMatchingRequest extends CreateTestQuestion {
+  options: TestQuestionMatchOption[];
+}
+
 interface UpdateTestQuestion {
   id?: string;
   text: string;
@@ -44,6 +49,10 @@ interface UpdateTestQuestionSingleChoiceRequest extends UpdateTestQuestion {
 
 interface UpdateTestQuestionMultipleChoiceRequest extends UpdateTestQuestion {
   options: TestQuestionChoiceOption[];
+}
+
+interface UpdateTestQuestionMatchingRequest extends UpdateTestQuestion {
+  options: TestQuestionMatchOption[];
 }
 
 export const testQuestionsApi = api.injectEndpoints({
@@ -133,6 +142,29 @@ export const testQuestionsApi = api.injectEndpoints({
       }),
       invalidatesTags: (_, error) => (error ? [] : ['TestQuestion']),
     }),
+    createTestQuestionMatching: builder.mutation<
+      void,
+      CreateTestQuestionMatchingRequest
+    >({
+      query: ({ testId, ...data }) => ({
+        url: `/testQuestions/matching/${testId}`,
+        method: 'POST',
+        body: data,
+      }),
+      invalidatesTags: (_, error) =>
+        error ? [] : ['TestQuestion', 'TestQuestionIdsAndTypes'],
+    }),
+    updateTestQuestionMatching: builder.mutation<
+      void,
+      UpdateTestQuestionMatchingRequest
+    >({
+      query: ({ id, ...data }) => ({
+        url: `/testQuestions/matching/${id}`,
+        method: 'PUT',
+        body: data,
+      }),
+      invalidatesTags: (_, error) => (error ? [] : ['TestQuestion']),
+    }),
     deleteTestQuestion: builder.mutation<void, { id?: string }>({
       query: ({ id }) => ({
         url: `/testQuestions/${id}`,
@@ -152,5 +184,7 @@ export const {
   useUpdateTestQuestionSingleChoiceMutation,
   useCreateTestQuestionMultipleChoiceMutation,
   useUpdateTestQuestionMultipleChoiceMutation,
+  useCreateTestQuestionMatchingMutation,
+  useUpdateTestQuestionMatchingMutation,
   useDeleteTestQuestionMutation,
 } = testQuestionsApi;

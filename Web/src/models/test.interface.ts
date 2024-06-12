@@ -53,4 +53,15 @@ export type TestSessionQuestion = {
       options: string[];
       userAnswers?: string[];
     }
+  | {
+      questionType: TestQuestionType.Matching;
+      questions: string[];
+      answers: string[];
+      userAnswers?: AnswerMatchOption[];
+    }
 );
+
+export interface AnswerMatchOption {
+  question: string;
+  answer?: string;
+}

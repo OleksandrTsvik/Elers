@@ -29,6 +29,9 @@ internal class TestQuestionRepository : MongoDbRepository<TestQuestion>, ITestQu
             case TestQuestionMultipleChoice multipleChoice:
                 update = update.Set(nameof(TestQuestionMultipleChoice.Options), multipleChoice.Options);
                 break;
+            case TestQuestionMatching matching:
+                update = update.Set(nameof(TestQuestionMatching.Options), matching.Options);
+                break;
         }
 
         await Collection.UpdateOneAsync(

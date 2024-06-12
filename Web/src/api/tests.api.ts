@@ -1,5 +1,6 @@
 import { api } from '.';
 import {
+  AnswerMatchOption,
   Test,
   TestSession,
   TestSessionQuestion,
@@ -10,6 +11,7 @@ interface SendAnswerToTestQuestionRequest {
   questionId: string;
   answer?: string;
   answers?: string[];
+  matchOptions?: AnswerMatchOption[];
 }
 
 export const testsApi = api.injectEndpoints({

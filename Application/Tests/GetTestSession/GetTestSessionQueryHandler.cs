@@ -108,6 +108,16 @@ public class GetTestSessionQueryHandler : IQueryHandler<GetTestSessionQuery, Get
                         answerMultipleChoice.Answers.Count != 0,
                 };
             }
+            else if (answer is TestSessionAnswerMatching answerMatching)
+            {
+                item = new TestSessionQuestionItem
+                {
+                    QuestionId = answerMatching.QuestionId,
+                    IsAnswered = answerMatching.MatchOptions is not null &&
+                        answerMatching.MatchOptions.Count != 0 &&
+                        answerMatching.MatchOptions.Where(x => !string.IsNullOrEmpty(x.Answer)).Any(),
+                };
+            }
             else
             {
                 continue;

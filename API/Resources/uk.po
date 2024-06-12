@@ -112,6 +112,9 @@ msgstr "Додайте принаймні 3 відповіді."
 msgid "Choose more than one correct answer."
 msgstr "Виберіть більше однієї правильної відповіді."
 
+msgid "Add at least 2 questions."
+msgstr "Додайте принаймні 2 питання."
+
 msgid "Bad Request. Please check your data and try again."
 msgstr "Некоректний запит. Переконайтеся, що введено правильні дані."
 

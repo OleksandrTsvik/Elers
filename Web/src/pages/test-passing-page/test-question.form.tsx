@@ -1,4 +1,5 @@
 import TestQuestionInputFrom from './test-question-forms/test-question-input.form';
+import TestQuestionMatchingFrom from './test-question-forms/test-question-matching.form';
 import TestQuestionMultipleChoiceFrom from './test-question-forms/test-question-multiple-choice.form';
 import TestQuestionSingleChoiceFrom from './test-question-forms/test-question-single-choice.form';
 import { TestQuestionType } from '../../models/test-question.interface';
@@ -30,6 +31,15 @@ export default function TestQuestionForm({ testSessionQuestion }: Props) {
         <TestQuestionMultipleChoiceFrom
           questionId={testSessionQuestion.questionId}
           options={testSessionQuestion.options}
+          userAnswers={testSessionQuestion.userAnswers}
+        />
+      );
+    case TestQuestionType.Matching:
+      return (
+        <TestQuestionMatchingFrom
+          questionId={testSessionQuestion.questionId}
+          questions={testSessionQuestion.questions}
+          answers={testSessionQuestion.answers}
           userAnswers={testSessionQuestion.userAnswers}
         />
       );

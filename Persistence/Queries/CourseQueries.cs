@@ -185,7 +185,7 @@ internal class CourseQueries : ICourseQueries
     {
         IQueryable<Course> coursesQuery = _dbContext.Courses
             .Where(x => x.CreatorId == userId ||
-                x.CourseMembers.Any(courseMember => courseMember.Id == userId))
+                x.CourseMembers.Any(courseMember => courseMember.UserId == userId))
             .OrderBy(x => x.Title);
 
         return coursesQuery

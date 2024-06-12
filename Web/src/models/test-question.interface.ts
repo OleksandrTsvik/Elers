@@ -18,15 +18,25 @@ export type ConditionalTestQuestion =
   | {
       type: TestQuestionType.MultipleChoice;
       options: TestQuestionChoiceOption[];
+    }
+  | {
+      type: TestQuestionType.Matching;
+      options: TestQuestionMatchOption[];
     };
 
 export enum TestQuestionType {
   Input = 'Input',
   SingleChoice = 'SingleChoice',
   MultipleChoice = 'MultipleChoice',
+  Matching = 'Matching',
 }
 
 export interface TestQuestionChoiceOption {
   option: string;
   isCorrect: boolean;
+}
+
+export interface TestQuestionMatchOption {
+  question?: string;
+  answer: string;
 }

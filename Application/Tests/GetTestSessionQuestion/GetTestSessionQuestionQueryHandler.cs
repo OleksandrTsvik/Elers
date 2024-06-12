@@ -88,6 +88,28 @@ public class GetTestSessionQuestionQueryHandler
                 UserAnswers = answerMultipleChoice.Answers
             };
         }
+        else if (testQuestion is TestQuestionMatching questionMatching &&
+            questionAnswer is TestSessionAnswerMatching answerMatching)
+        {
+            var random = new Random();
+
+            return new GetTestSessionQuestionMatchingResponse
+            {
+                QuestionId = questionMatching.Id,
+                QuestionType = questionMatching.Type,
+                QuestionText = questionMatching.Text,
+                Points = questionMatching.Points,
+                Questions = questionMatching.Options
+                    .Where(x => !string.IsNullOrEmpty(x.Question))
+                    .Select(x => x.Question!)
+                    .ToArray(),
+                Answers = questionMatching.Options
+                    .Select(x => x.Answer)
+                    .OrderBy(_ => random.Next())
+                    .ToArray(),
+                UserAnswers = answerMatching.MatchOptions
+            };
+        }
 
         return TestErrors.InvalidSessionAnswer();
     }

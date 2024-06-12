@@ -1,4 +1,5 @@
 using System.Text.Json.Serialization;
+using Domain.Entities;
 using Domain.Enums;
 
 namespace Application.Tests.GetTestSessionQuestion;
@@ -29,4 +30,11 @@ public class GetTestSessionQuestionMultipleChoiceResponse : GetTestSessionQuesti
 {
     public required string[] Options { get; init; }
     public required List<string>? UserAnswers { get; init; }
+}
+
+public class GetTestSessionQuestionMatchingResponse : GetTestSessionQuestionResponse
+{
+    public required string[] Questions { get; init; }
+    public required string[] Answers { get; init; }
+    public required List<AnswerMatchOption>? UserAnswers { get; init; }
 }

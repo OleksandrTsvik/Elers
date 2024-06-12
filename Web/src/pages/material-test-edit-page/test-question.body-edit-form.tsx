@@ -2,6 +2,7 @@ import { Skeleton, Spin } from 'antd';
 import { useTranslation } from 'react-i18next';
 
 import QuestionInputEditForm from './question-type-save-forms/question-input.edit-form';
+import QuestionMatchingEditForm from './question-type-save-forms/question-mathcing.edit-form';
 import QuestionMultipleChoiceEditForm from './question-type-save-forms/question-multiple-choice.edit-form';
 import QuestionSingleChoiceEditForm from './question-type-save-forms/question-single-choice.edit-form';
 import { useGetTestQuestionQuery } from '../../api/test-questions.api';
@@ -52,6 +53,13 @@ export default function TestQuestionBodyEditForm({ questionId }: Props) {
           case TestQuestionType.MultipleChoice:
             return (
               <QuestionMultipleChoiceEditForm
+                questionId={questionId}
+                initialValues={data}
+              />
+            );
+          case TestQuestionType.Matching:
+            return (
+              <QuestionMatchingEditForm
                 questionId={questionId}
                 initialValues={data}
               />

@@ -90,66 +90,59 @@ public class SendAnswerToTestQuestionCommandHandler : ICommandHandler<SendAnswer
             return TestErrors.NotFoundAnswer();
         }
 
-        double points = 0;
+        bool isPreviousAnswerCorrect = false;
+        bool isCurrentAnswerCorrect = false;
 
         if (testQuestion is TestQuestionInput questionInput &&
             questionAnswer is TestSessionAnswerInput answerInput)
         {
-            if (questionInput.Answer == answerInput.Answer && questionInput.Answer != request.Answer)
-            {
-                points = -questionInput.Points;
-            }
-            else if (questionInput.Answer != answerInput.Answer && questionInput.Answer == request.Answer)
-            {
-                points = questionInput.Points;
-            }
+            isPreviousAnswerCorrect = IsAnswerInputCorrect(questionInput, answerInput.Answer);
+            isCurrentAnswerCorrect = IsAnswerInputCorrect(questionInput, request.Answer);
 
             answerInput.Answer = request.Answer;
         }
         else if (testQuestion is TestQuestionSingleChoice questionSingleChoice &&
             questionAnswer is TestSessionAnswerSingleChoice answerSingleChoice)
         {
-            string? correctAnswer = questionSingleChoice.Options
-                .Where(x => x.IsCorrect)
-                .Select(x => x.Option)
-                .FirstOrDefault();
+            isPreviousAnswerCorrect = IsAnswerSingleChoiceCorrect(
+                questionSingleChoice, answerSingleChoice.Answer);
 
-            if (correctAnswer == answerSingleChoice.Answer && correctAnswer != request.Answer)
-            {
-                points = -questionSingleChoice.Points;
-            }
-            else if (correctAnswer != answerSingleChoice.Answer && correctAnswer == request.Answer)
-            {
-                points = questionSingleChoice.Points;
-            }
+            isCurrentAnswerCorrect = IsAnswerSingleChoiceCorrect(questionSingleChoice, request.Answer);
 
             answerSingleChoice.Answer = request.Answer;
         }
         else if (testQuestion is TestQuestionMultipleChoice questionMultipleChoice &&
             questionAnswer is TestSessionAnswerMultipleChoice answerMultipleChoice)
         {
-            IEnumerable<string> correctAnswers = questionMultipleChoice.Options
-                .Where(x => x.IsCorrect)
-                .Select(x => x.Option);
+            isPreviousAnswerCorrect = IsAnswerMultipleChoiceCorrect(
+                questionMultipleChoice, answerMultipleChoice.Answers);
 
-            if (answerMultipleChoice.Answers is not null && request.Answers is not null &&
-                answerMultipleChoice.Answers.All(x => correctAnswers.Contains(x)) &&
-                !request.Answers.All(x => correctAnswers.Contains(x)))
-            {
-                points = -questionMultipleChoice.Points;
-            }
-            else if ((answerMultipleChoice.Answers is null || !answerMultipleChoice.Answers.All(x => correctAnswers.Contains(x))) &&
-                request.Answers is not null &&
-                request.Answers.All(x => correctAnswers.Contains(x)))
-            {
-                points = questionMultipleChoice.Points;
-            }
+            isCurrentAnswerCorrect = IsAnswerMultipleChoiceCorrect(questionMultipleChoice, request.Answers);
 
             answerMultipleChoice.Answers = request.Answers;
+        }
+        else if (testQuestion is TestQuestionMatching questionMatching &&
+            questionAnswer is TestSessionAnswerMatching answerMatching)
+        {
+            isPreviousAnswerCorrect = IsAnswerMatchingCorrect(questionMatching, answerMatching.MatchOptions);
+            isCurrentAnswerCorrect = IsAnswerMatchingCorrect(questionMatching, request.MatchOptions);
+
+            answerMatching.MatchOptions = request.MatchOptions;
         }
         else
         {
             return TestErrors.InvalidSessionAnswer();
+        }
+
+        double points = 0;
+
+        if (isPreviousAnswerCorrect && !isCurrentAnswerCorrect)
+        {
+            points = -testQuestion.Points;
+        }
+        else if (!isPreviousAnswerCorrect && isCurrentAnswerCorrect)
+        {
+            points = testQuestion.Points;
         }
 
         await _testSessionRespository.UpdateAnswerAsync(
@@ -202,4 +195,25 @@ public class SendAnswerToTestQuestionCommandHandler : ICommandHandler<SendAnswer
 
         return Result.Success();
     }
+
+    private static bool IsAnswerInputCorrect(TestQuestionInput question, string? answer) =>
+        question.Answer == answer;
+
+    private static bool IsAnswerSingleChoiceCorrect(TestQuestionSingleChoice question, string? answer) =>
+        question.Options.FirstOrDefault(x => x.IsCorrect)?.Option == answer;
+
+    private static bool IsAnswerMultipleChoiceCorrect(
+        TestQuestionMultipleChoice question,
+        List<string>? answers) =>
+        answers is not null &&
+        question.Options.Where(x => x.IsCorrect).Select(x => x.Option)
+            .All(x => answers.Contains(x));
+
+    private static bool IsAnswerMatchingCorrect(
+        TestQuestionMatching question,
+        List<AnswerMatchOption>? matchOptions) =>
+        matchOptions is not null &&
+        question.Options.Where(x => !string.IsNullOrEmpty(x.Question))
+            .All(x => matchOptions
+                .Any(answer => answer.Question == x.Question && answer.Answer == x.Answer));
 }

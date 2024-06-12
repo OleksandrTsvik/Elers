@@ -21,6 +21,7 @@ public class TestSession : Entity
 [JsonDerivedType(typeof(TestSessionAnswerInput))]
 [JsonDerivedType(typeof(TestSessionAnswerSingleChoice))]
 [JsonDerivedType(typeof(TestSessionAnswerMultipleChoice))]
+[JsonDerivedType(typeof(TestSessionAnswerMatching))]
 public abstract class TestSessionAnswer
 {
     public Guid QuestionId { get; set; }
@@ -55,4 +56,20 @@ public class TestSessionAnswerMultipleChoice : TestSessionAnswer
     {
         QuestionType = TestQuestionType.MultipleChoice;
     }
+}
+
+public class TestSessionAnswerMatching : TestSessionAnswer
+{
+    public List<AnswerMatchOption>? MatchOptions { get; set; }
+
+    public TestSessionAnswerMatching() : base()
+    {
+        QuestionType = TestQuestionType.Matching;
+    }
+}
+
+public class AnswerMatchOption
+{
+    public string Question { get; set; } = string.Empty;
+    public string? Answer { get; set; }
 }

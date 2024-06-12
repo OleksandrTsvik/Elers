@@ -33,6 +33,7 @@ export const gradesApi = api.injectEndpoints({
         'Session',
         'Course',
         'Assignment',
+        'Test',
         'CourseMaterialAssignment',
         'CourseMemberList',
       ],

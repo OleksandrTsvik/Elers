@@ -171,6 +171,8 @@
     "add_answer_option": "Add an answer option",
     "add_three_answers": "Add at least 3 answers",
     "add_two_answers": "Add at least 2 answers",
+    "add_two_matching": "Add at least 2 questions",
+    "answer": "Answer",
     "answer_option": "Answer option",
     "answer_options": "Answer options",
     "choose_more_than_one_correct_answer": "Choose more than one correct answer",
@@ -195,8 +197,10 @@
     },
     "number_attempts": "Number of attempts",
     "points": "Points",
+    "question": "Question",
     "question_type": {
       "Input": "Short answer",
+      "Matching": "Matching",
       "MultipleChoice": "Multiple choice",
       "SingleChoice": "Choose one answer"
     },

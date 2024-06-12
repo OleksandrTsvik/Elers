@@ -171,6 +171,8 @@
     "add_answer_option": "Додати варіант відповіді",
     "add_three_answers": "Додайте принаймні 3 відповіді",
     "add_two_answers": "Додайте принаймні 2 відповіді",
+    "add_two_matching": "Додайте принаймні 2 питання",
+    "answer": "Відповідь",
     "answer_option": "Варіант відповіді",
     "answer_options": "Варіанти відповідей",
     "choose_more_than_one_correct_answer": "Виберіть більше однієї правильної відповіді",
@@ -195,8 +197,10 @@
     },
     "number_attempts": "Кількість спроб",
     "points": "Бали",
+    "question": "Питання",
     "question_type": {
       "Input": "Коротка відповідь",
+      "Matching": "Відповідність",
       "MultipleChoice": "Множинний вибір",
       "SingleChoice": "Вибір однієї відповіді"
     },

@@ -7,6 +7,7 @@ namespace Domain.Entities;
 [JsonDerivedType(typeof(TestQuestionInput))]
 [JsonDerivedType(typeof(TestQuestionSingleChoice))]
 [JsonDerivedType(typeof(TestQuestionMultipleChoice))]
+[JsonDerivedType(typeof(TestQuestionMatching))]
 public abstract class TestQuestion : Entity
 {
     public Guid TestId { get; set; }
@@ -51,8 +52,24 @@ public class TestQuestionMultipleChoice : TestQuestion
     }
 }
 
+public class TestQuestionMatching : TestQuestion
+{
+    public List<TestQuestionMatchOption> Options { get; set; } = [];
+
+    public TestQuestionMatching() : base()
+    {
+        Type = TestQuestionType.Matching;
+    }
+}
+
 public class TestQuestionChoiceOption
 {
     public string Option { get; set; } = string.Empty;
     public bool IsCorrect { get; set; }
+}
+
+public class TestQuestionMatchOption
+{
+    public string? Question { get; set; }
+    public string Answer { get; set; } = string.Empty;
 }

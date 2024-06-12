@@ -65,7 +65,7 @@ export const coursesApi = api.injectEndpoints({
         url: '/courses/my',
         params,
       }),
-      providesTags: ['CourseList'],
+      providesTags: ['Session', 'CourseList', 'MyCourses'],
     }),
     createCourse: builder.mutation<void, CreateCourseRequest>({
       query: (data) => ({

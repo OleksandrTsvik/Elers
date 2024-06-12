@@ -30,5 +30,7 @@ public static class TestSessionClassMap
         BsonClassMap.RegisterClassMap<TestSessionAnswerSingleChoice>();
 
         BsonClassMap.RegisterClassMap<TestSessionAnswerMultipleChoice>();
+
+        BsonClassMap.RegisterClassMap<TestSessionAnswerMatching>();
     }
 }

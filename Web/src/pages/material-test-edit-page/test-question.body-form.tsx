@@ -1,4 +1,5 @@
 import QuestionInputCreationForm from './question-type-save-forms/question-input.creation-form';
+import QuestionMatchingCreationForm from './question-type-save-forms/question-matching.creation-form';
 import QuestionMultipleChoiceCreationForm from './question-type-save-forms/question-multiple-choice.creation-form';
 import QuestionSingleChoiceCreationForm from './question-type-save-forms/question-single-choice.creation-form';
 import TestQuestionBodyEditForm from './test-question.body-edit-form';
@@ -23,6 +24,8 @@ export default function TestQuestionBodyForm({
         return <QuestionSingleChoiceCreationForm testId={testId} />;
       case TestQuestionType.MultipleChoice:
         return <QuestionMultipleChoiceCreationForm testId={testId} />;
+      case TestQuestionType.Matching:
+        return <QuestionMatchingCreationForm testId={testId} />;
       default:
         return null;
     }
