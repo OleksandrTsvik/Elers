@@ -3,6 +3,7 @@ export * from './color-mode.util';
 export * from './color-picker.util';
 export * from './fetch.util';
 export * from './file.util';
+export * from './handle-drop-result';
 export * from './parse-error-object.util';
 export * from './query-params-without-navigate.util';
 export * from './type-converters.util';

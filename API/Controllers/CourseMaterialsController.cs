@@ -13,6 +13,8 @@ using Application.CourseMaterials.GetCourseMaterialLink;
 using Application.CourseMaterials.GetCourseMaterialTest;
 using Application.CourseMaterials.GetListCourseMaterialsByTabId;
 using Application.CourseMaterials.GetListCourseMaterialsByTabIdToEdit;
+using Application.CourseMaterials.MoveMaterialToAnotherTab;
+using Application.CourseMaterials.ReorderCourseMaterials;
 using Application.CourseMaterials.UpdateCourseMaterialActive;
 using Application.CourseMaterials.UpdateCourseMaterialAssignment;
 using Application.CourseMaterials.UpdateCourseMaterialContent;
@@ -320,6 +322,34 @@ public class CourseMaterialsController : ApiControllerBase
         CancellationToken cancellationToken)
     {
         var command = new UpdateCourseMaterialActiveCommand(materialId, request.IsActive);
+
+        return HandleResult(await Sender.Send(command, cancellationToken));
+    }
+
+    [HttpPut("reorder")]
+    public async Task<IActionResult> ReorderCourseMaterials(
+        [FromBody] ReorderCourseMaterialsRequest request,
+        CancellationToken cancellationToken)
+    {
+        var command = new ReorderCourseMaterialsCommand(request.Reorders);
+
+        return HandleResult(await Sender.Send(command, cancellationToken));
+    }
+
+    [HasCourseMemberPermission(
+        [
+            CoursePermissionType.UpdateCourseTab,
+            CoursePermissionType.CreateCourseMaterial,
+            CoursePermissionType.UpdateCourseMaterial
+        ],
+        [PermissionType.ManageCourse])]
+    [HttpPatch("move/{materialId:guid}")]
+    public async Task<IActionResult> MoveMaterialToAnotherTab(
+        Guid materialId,
+        [FromBody] MoveMaterialToAnotherTabRequest request,
+        CancellationToken cancellationToken)
+    {
+        var command = new MoveMaterialToAnotherTabCommand(materialId, request.NewCourseTabId);
 
         return HandleResult(await Sender.Send(command, cancellationToken));
     }

@@ -9,7 +9,7 @@ import {
   setCourseTabToQueryParam,
 } from '../../../shared';
 import { setModalMode } from '../course-edit.slice';
-import { CourseTabModalMode } from '../modals/tab-modal-mode.enum';
+import { CourseEditModalMode } from '../modals/edit-modal-mode.enum';
 
 interface Props {
   tabs: CourseTab[];
@@ -32,7 +32,7 @@ export default function TabListContent({ tabs }: Props) {
 
   const handleEdit = (action: 'add' | 'remove') => {
     if (action === 'add') {
-      appDispatch(setModalMode(CourseTabModalMode.CreateTab));
+      appDispatch(setModalMode(CourseEditModalMode.CreateTab));
     }
   };
 

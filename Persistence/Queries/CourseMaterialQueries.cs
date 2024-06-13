@@ -13,13 +13,13 @@ namespace Persistence.Queries;
 public class CourseMaterialQueries : ICourseMaterialQueries
 {
     private readonly ApplicationDbContext _dbContext;
-    private readonly IMongoCollection<CourseMaterial> _courseMaterialCollection;
+    private readonly IMongoCollection<CourseMaterial> _courseMaterialsCollection;
 
     public CourseMaterialQueries(ApplicationDbContext dbContext, IMongoDatabase mongoDatabase)
     {
         _dbContext = dbContext;
 
-        _courseMaterialCollection = mongoDatabase.GetCollection<CourseMaterial>(
+        _courseMaterialsCollection = mongoDatabase.GetCollection<CourseMaterial>(
             CollectionNames.CourseMaterials);
     }
 
@@ -27,8 +27,9 @@ public class CourseMaterialQueries : ICourseMaterialQueries
         Guid tabId,
         CancellationToken cancellationToken = default)
     {
-        return _courseMaterialCollection
+        return _courseMaterialsCollection
             .Find(x => x.IsActive && x.CourseTabId == tabId)
+            .SortBy(x => x.Order)
             .ToListAsync(cancellationToken);
     }
 
@@ -36,8 +37,9 @@ public class CourseMaterialQueries : ICourseMaterialQueries
         Guid tabId,
         CancellationToken cancellationToken = default)
     {
-        return _courseMaterialCollection
+        return _courseMaterialsCollection
             .Find(x => x.CourseTabId == tabId)
+            .SortBy(x => x.Order)
             .ToListAsync(cancellationToken);
     }
 
@@ -45,8 +47,9 @@ public class CourseMaterialQueries : ICourseMaterialQueries
         IEnumerable<Guid> tabIds,
         CancellationToken cancellationToken = default)
     {
-        return _courseMaterialCollection
+        return _courseMaterialsCollection
             .Find(x => x.IsActive && tabIds.Contains(x.CourseTabId))
+            .SortBy(x => x.Order)
             .ToListAsync(cancellationToken);
     }
 
@@ -54,7 +57,7 @@ public class CourseMaterialQueries : ICourseMaterialQueries
         IEnumerable<Guid> tabIds,
         CancellationToken cancellationToken = default)
     {
-        return _courseMaterialCollection
+        return _courseMaterialsCollection
             .Aggregate()
             .Group(
                 courseMaterial => courseMaterial.CourseTabId,
@@ -87,7 +90,7 @@ public class CourseMaterialQueries : ICourseMaterialQueries
         string uniqueFileName,
         CancellationToken cancellationToken = default)
     {
-        return await _courseMaterialCollection
+        return await _courseMaterialsCollection
             .OfType<CourseMaterialFile>()
             .Find(x => x.UniqueFileName == uniqueFileName)
             .Project(x => new GetCourseMaterialFileInfoDto
@@ -102,8 +105,9 @@ public class CourseMaterialQueries : ICourseMaterialQueries
         IEnumerable<Guid> tabIds,
         CancellationToken cancellationToken = default)
     {
-        return _courseMaterialCollection
+        return _courseMaterialsCollection
             .Find(x => tabIds.Contains(x.CourseTabId))
+            .SortBy(x => x.Order)
             .ToListAsync(cancellationToken);
     }
 
@@ -111,7 +115,7 @@ public class CourseMaterialQueries : ICourseMaterialQueries
         IEnumerable<Guid> tabIds,
         CancellationToken cancellationToken = default)
     {
-        return _courseMaterialCollection
+        return _courseMaterialsCollection
             .Aggregate()
             .Group(
                 courseMaterial => courseMaterial.CourseTabId,
@@ -120,6 +124,24 @@ public class CourseMaterialQueries : ICourseMaterialQueries
                     TabId = x.Key,
                     MaterialCount = x.Count(courseMaterial => tabIds.Contains(courseMaterial.CourseTabId))
                 })
+            .ToListAsync(cancellationToken);
+    }
+
+    public Task<Guid?> GetCourseTabId(Guid materialId, CancellationToken cancellationToken = default)
+    {
+        return _courseMaterialsCollection
+            .Find(x => x.Id == materialId)
+            .Project(x => (Guid?)x.CourseTabId)
+            .FirstOrDefaultAsync(cancellationToken);
+    }
+
+    public Task<List<Guid>> GetCourseMaterialIdsByTabId(
+        Guid courseTabId,
+        CancellationToken cancellationToken = default)
+    {
+        return _courseMaterialsCollection
+            .Find(x => x.CourseTabId == courseTabId)
+            .Project(x => x.Id)
             .ToListAsync(cancellationToken);
     }
 }

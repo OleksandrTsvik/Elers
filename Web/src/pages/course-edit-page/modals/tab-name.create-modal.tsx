@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 
-import { CourseTabModalMode } from './tab-modal-mode.enum';
+import { CourseEditModalMode } from './edit-modal-mode.enum';
 import TabNameModal from './tab-name.modal';
 import { useCreateCourseTabMutation } from '../../../api/course-tabs.api';
 import { CourseTabType, setCourseTabToQueryParamByType } from '../../../shared';
@@ -26,7 +26,7 @@ export default function TabNameCreateModal({ courseId, tabType }: Props) {
 
   return (
     <TabNameModal
-      isOpen={modalMode === CourseTabModalMode.CreateTab}
+      isOpen={modalMode === CourseEditModalMode.CreateTab}
       initialValues={{ tabName: '' }}
       textTitle={t('course_edit_page.new_section')}
       textOnSubmitButton={t('course_edit_page.add_section')}

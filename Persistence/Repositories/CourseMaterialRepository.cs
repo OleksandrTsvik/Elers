@@ -1,5 +1,6 @@
 using Domain.Entities;
 using Domain.Repositories;
+using Domain.Shared;
 using MongoDB.Driver;
 using Persistence.Constants;
 
@@ -15,6 +16,7 @@ internal class CourseMaterialRepository : MongoDbRepository<CourseMaterial>, ICo
     public async Task UpdateAsync(CourseMaterial courseMaterial, CancellationToken cancellationToken = default)
     {
         UpdateDefinition<CourseMaterial> update = Builders<CourseMaterial>.Update
+            .Set(x => x.CourseTabId, courseMaterial.CourseTabId)
             .Set(x => x.IsActive, courseMaterial.IsActive)
             .Set(x => x.Order, courseMaterial.Order);
 
@@ -59,5 +61,17 @@ internal class CourseMaterialRepository : MongoDbRepository<CourseMaterial>, ICo
             update,
             null,
             cancellationToken);
+    }
+
+    public async Task ReorderAsync(
+        IEnumerable<ReorderItem> reorders,
+        CancellationToken cancellationToken = default)
+    {
+        IEnumerable<UpdateOneModel<CourseMaterial>> requests = reorders
+            .Select(x => new UpdateOneModel<CourseMaterial>(
+                Builders<CourseMaterial>.Filter.Eq(x => x.Id, x.Id),
+                Builders<CourseMaterial>.Update.Set(x => x.Order, x.Order)));
+
+        await Collection.BulkWriteAsync(requests, null, cancellationToken);
     }
 }

@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 
-import { CourseTabModalMode } from './tab-modal-mode.enum';
+import { CourseEditModalMode } from './edit-modal-mode.enum';
 import TabNameModal from './tab-name.modal';
 import { useUpdateCourseTabMutation } from '../../../api/course-tabs.api';
 import { CourseTab } from '../../../models/course-tab.interface';
@@ -26,7 +26,7 @@ export default function TabNameUpdateModal({ courseTab }: Props) {
 
   return (
     <TabNameModal
-      isOpen={modalMode === CourseTabModalMode.EditName}
+      isOpen={modalMode === CourseEditModalMode.EditTabName}
       initialValues={{ tabName: courseTab.name }}
       textTitle={t('course_edit_page.change_tab_name')}
       textOnSubmitButton={t('actions.save_changes')}

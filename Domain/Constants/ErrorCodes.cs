@@ -36,6 +36,8 @@ public static class ErrorCodes
     {
         public const string NotFound = "CourseMaterials.NotFound";
         public const string FileNotFound = "CourseMaterials.FileNotFound";
+        public const string AccessDenied = "CourseMaterials.AccessDenied";
+        public const string CrossCourseMove = "CourseMaterials.CrossCourseMove";
     }
 
     public static class CourseMembers
@@ -55,6 +57,7 @@ public static class ErrorCodes
     public static class CourseTabs
     {
         public const string NotFound = "CourseTabs.NotFound";
+        public const string AccessDenied = "CourseTabs.AccessDenied";
     }
 
     public static class Files

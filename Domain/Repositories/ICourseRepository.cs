@@ -15,4 +15,8 @@ public interface ICourseRepository
     void Remove(Course course);
 
     Task<bool> ExistsByIdAsync(Guid id, CancellationToken cancellationToken = default);
+
+    Task<bool> CourseTabsInSameCourseAsync(
+        IEnumerable<Guid> tabIds,
+        CancellationToken cancellationToken = default);
 }

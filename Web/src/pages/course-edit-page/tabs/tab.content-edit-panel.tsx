@@ -1,4 +1,6 @@
+import { DragOutlined, ScissorOutlined } from '@ant-design/icons';
 import { Space, Tooltip, Button, Popconfirm } from 'antd';
+import { DraggableProvidedDragHandleProps } from 'react-beautiful-dnd';
 import { useTranslation } from 'react-i18next';
 
 import { getCourseMaterialEditPagePath } from './tab.utils';
@@ -7,18 +9,26 @@ import {
   useUpdateCourseMaterialActiveMutation,
 } from '../../../api/course-materials.mutations.api';
 import { DeleteIcon, EditIcon, VisibilityIcon } from '../../../components';
+import { useAppDispatch } from '../../../hooks/redux-hooks';
 import useDisplayError from '../../../hooks/use-display-error';
 import useNavigateFrom from '../../../hooks/use-navigate-from';
 import { CourseMaterial } from '../../../models/course-material.type';
 import { CourseMaterialIcon, useMaterialLabels } from '../../../shared';
+import { setActiveCourseMaterial, setModalMode } from '../course-edit.slice';
+import { CourseEditModalMode } from '../modals/edit-modal-mode.enum';
 
 interface Props {
   material: CourseMaterial;
+  dragHandleProps: DraggableProvidedDragHandleProps | null | undefined;
 }
 
-export default function TabContentEditPanel({ material }: Props) {
+export default function TabContentEditPanel({
+  material,
+  dragHandleProps,
+}: Props) {
   const { t } = useTranslation();
   const navigateFrom = useNavigateFrom();
+  const appDispatch = useAppDispatch();
 
   const { displayError } = useDisplayError();
   const { getMaterialLabel } = useMaterialLabels();
@@ -27,6 +37,11 @@ export default function TabContentEditPanel({ material }: Props) {
     useUpdateCourseMaterialActiveMutation();
 
   const [deleteCourseMaterial] = useDeleteCourseMaterialMutation();
+
+  const handleMoveMaterialClick = () => {
+    appDispatch(setActiveCourseMaterial(material));
+    appDispatch(setModalMode(CourseEditModalMode.MoveMaterial));
+  };
 
   const handleUpdateCourseMaterialActive = async () => {
     await updateCourseMaterialActive({
@@ -55,6 +70,9 @@ export default function TabContentEditPanel({ material }: Props) {
 
   return (
     <Space.Compact block size="small">
+      <Tooltip title={t('course_edit_page.drag_to_move')}>
+        <Button icon={<DragOutlined />} {...dragHandleProps} />
+      </Tooltip>
       <Tooltip title={getMaterialLabel(material.type)}>
         <Button icon={<CourseMaterialIcon type={material.type} />} disabled />
       </Tooltip>
@@ -70,6 +88,9 @@ export default function TabContentEditPanel({ material }: Props) {
           icon={<VisibilityIcon visibility={material.isActive} />}
           onClick={handleUpdateCourseMaterialActive}
         />
+      </Tooltip>
+      <Tooltip title={t('course_edit_page.move_to_another_section')}>
+        <Button icon={<ScissorOutlined />} onClick={handleMoveMaterialClick} />
       </Tooltip>
       <Tooltip title={t('actions.edit')}>
         <Button icon={<EditIcon />} onClick={handleClinkEdit} />

@@ -1,0 +1,3 @@
+namespace Application.CourseMaterials.MoveMaterialToAnotherTab;
+
+public record MoveMaterialToAnotherTabRequest(Guid NewCourseTabId);

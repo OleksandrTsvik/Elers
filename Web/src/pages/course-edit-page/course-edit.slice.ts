@@ -1,12 +1,14 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
-import { CourseTabModalMode } from './modals/tab-modal-mode.enum';
+import { CourseEditModalMode } from './modals/edit-modal-mode.enum';
+import { CourseMaterial } from '../../models/course-material.type';
 import { CourseTab } from '../../models/course-tab.interface';
 import { RootState } from '../../store';
 
 interface CourseEditState {
   activeCourseTab?: CourseTab;
-  modalMode?: CourseTabModalMode;
+  activeCourseMaterial?: CourseMaterial;
+  modalMode?: CourseEditModalMode;
 }
 
 const initialState: CourseEditState = {};
@@ -21,16 +23,23 @@ export const courseEditSlice = createSlice({
     ) => {
       state.activeCourseTab = payload;
     },
+    setActiveCourseMaterial: (
+      state,
+      { payload }: PayloadAction<CourseMaterial | undefined>,
+    ) => {
+      state.activeCourseMaterial = payload;
+    },
     setModalMode: (
       state,
-      { payload }: PayloadAction<CourseTabModalMode | undefined>,
+      { payload }: PayloadAction<CourseEditModalMode | undefined>,
     ) => {
       state.modalMode = payload;
     },
   },
 });
 
-export const { setActiveCourseTab, setModalMode } = courseEditSlice.actions;
+export const { setActiveCourseTab, setActiveCourseMaterial, setModalMode } =
+  courseEditSlice.actions;
 
 export const selectCourseEditState = (state: RootState) =>
   state.courseEditSlice;

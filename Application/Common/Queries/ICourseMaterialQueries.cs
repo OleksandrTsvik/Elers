@@ -34,4 +34,12 @@ public interface ICourseMaterialQueries
     Task<GetCourseMaterialFileInfoDto?> GetCourseMaterialFileInfo(
         string uniqueFileName,
         CancellationToken cancellationToken = default);
+
+    Task<Guid?> GetCourseTabId(
+        Guid materialId,
+        CancellationToken cancellationToken = default);
+
+    Task<List<Guid>> GetCourseMaterialIdsByTabId(
+        Guid courseTabId,
+        CancellationToken cancellationToken = default);
 }

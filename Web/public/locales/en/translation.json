@@ -79,13 +79,13 @@
     "my_grades": "My grades",
     "rules": {
       "description_len": "Maximum description length {{max}} characters",
-      "tab_name_len": "The section name must contain from {{min}} to {{max}} characters",
+      "tab_name_len": "The tab name must contain from {{min}} to {{max}} characters",
       "title_len": "The course title must contain from {{min}} to {{max}} characters",
       "title_required": "Enter the course title"
     },
-    "section_name": "Section name",
+    "section_name": "Tab name",
     "submitted_assignment": "Submitted assignments",
-    "tab_color": "Section title color",
+    "tab_color": "Tab title color",
     "tab_type": "Course presentation type",
     "tab_types": {
       "sections": "Sections",
@@ -102,24 +102,27 @@
   },
   "course_edit_page": {
     "add_material": "Add material",
-    "add_section": "Add section",
+    "add_section": "Add tab",
     "change_description": "Change the description",
-    "change_tab_color": "Change the color of the section",
-    "change_tab_name": "Change the name of the section",
+    "change_tab_color": "Change the color of the tab title",
+    "change_tab_name": "Change the tab name",
     "change_title": "Change the title",
-    "confirm_delete_section": "Are you sure you want to delete the '{{section}}' section?",
-    "delete_section": "Delete section",
+    "confirm_delete_section": "Are you sure you want to delete the '{{section}}' tab?",
+    "delete_section": "Delete tab",
+    "drag_to_move": "Drag to move",
     "head_title": "Course: {{title}}",
     "invisible_material": "This material is not displayed on the course page",
-    "invisible_section": "This section is not displayed on the course page",
-    "new_section": "New section",
+    "invisible_section": "This tab is not displayed on the course page",
+    "move_to_another_section": "Move to another tab",
+    "new_section": "New tab",
     "no_materials": "There are no materials",
-    "no_sections": "No sections",
+    "no_sections": "No tabs",
     "not_show_materials_count": "Do not show the number of materials",
+    "reorder_tabs": "Change the order of tabs",
     "show_materials_count": "Show the number of materials",
     "title": "Editing",
     "visible_material": "This material is displayed on the course page",
-    "visible_section": "This section is displayed on the course page"
+    "visible_section": "This tab is displayed on the course page"
   },
   "course_grades_page": {
     "update_table": "Refresh the table"

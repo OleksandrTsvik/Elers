@@ -79,13 +79,13 @@
     "my_grades": "Мої оцінки",
     "rules": {
       "description_len": "Максимальна довжина опису {{max}} символів",
-      "tab_name_len": "Назва секції повинна мати від {{min}} до {{max}} символів",
+      "tab_name_len": "Назва вкладки повинна мати від {{min}} до {{max}} символів",
       "title_len": "Заголовок курсу повинен мати від {{min}} до {{max}} символів",
       "title_required": "Введіть заголовок курсу"
     },
-    "section_name": "Назва секції",
+    "section_name": "Назва вкладки",
     "submitted_assignment": "Надіслані завдання",
-    "tab_color": "Колір заголовка секції",
+    "tab_color": "Колір заголовка вкладки",
     "tab_type": "Тип представлення курсу",
     "tab_types": {
       "sections": "Секції",
@@ -102,24 +102,27 @@
   },
   "course_edit_page": {
     "add_material": "Додати матеріал",
-    "add_section": "Додати секцію",
+    "add_section": "Додати вкладку",
     "change_description": "Змінити опис",
-    "change_tab_color": "Зміна кольору заголовка секції",
-    "change_tab_name": "Зміна назви секції",
+    "change_tab_color": "Зміна кольору заголовка вкладки",
+    "change_tab_name": "Зміна назви вкладки",
     "change_title": "Змінити заголовок",
-    "confirm_delete_section": "Ви дійсно бажаєте видалити секцію '{{section}}'?",
-    "delete_section": "Видалити секцію",
+    "confirm_delete_section": "Ви дійсно бажаєте видалити вкладку '{{section}}'?",
+    "delete_section": "Видалити вкладку",
+    "drag_to_move": "Потягніть, щоб перемістити",
     "head_title": "Курс: {{title}}",
     "invisible_material": "Цей матеріал не відображається на сторінці курсу",
-    "invisible_section": "Ця секція не відображається на сторінці курсу",
-    "new_section": "Нова секція",
+    "invisible_section": "Ця вкладка не відображається на сторінці курсу",
+    "move_to_another_section": "Перемістити до іншої вкладки",
+    "new_section": "Нова вкладка",
     "no_materials": "Матеріали відсутні",
-    "no_sections": "Секції відсутні",
+    "no_sections": "Вкладки відсутні",
     "not_show_materials_count": "Не показувати кількість матеріалів",
+    "reorder_tabs": "Змінити порядок вкладок",
     "show_materials_count": "Показувати кількість матеріалів",
     "title": "Редагування",
     "visible_material": "Цей матеріал відображається на сторінці курсу",
-    "visible_section": "Ця секція відображається на сторінці курсу"
+    "visible_section": "Ця вкладка відображається на сторінці курсу"
   },
   "course_grades_page": {
     "update_table": "Оновити таблицю"

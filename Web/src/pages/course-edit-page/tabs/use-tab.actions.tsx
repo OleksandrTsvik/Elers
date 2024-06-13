@@ -18,7 +18,7 @@ import useDisplayError from '../../../hooks/use-display-error';
 import { CourseTab } from '../../../models/course-tab.interface';
 import { deleteCourseTabFromQueryParam } from '../../../shared';
 import { setActiveCourseTab, setModalMode } from '../course-edit.slice';
-import { CourseTabModalMode } from '../modals/tab-modal-mode.enum';
+import { CourseEditModalMode } from '../modals/edit-modal-mode.enum';
 
 export default function useTabActions(tab: CourseTab) {
   const { t } = useTranslation();
@@ -30,7 +30,7 @@ export default function useTabActions(tab: CourseTab) {
   const [updateCourseTab, { isLoading }] = useUpdateCourseTabMutation();
   const [deleteCourseTab] = useDeleteCourseTabMutation();
 
-  const changeModalMode = (modalMode: CourseTabModalMode) => {
+  const changeModalMode = (modalMode: CourseEditModalMode) => {
     appDispatch(setActiveCourseTab(tab));
     appDispatch(setModalMode(modalMode));
   };
@@ -70,13 +70,13 @@ export default function useTabActions(tab: CourseTab) {
       key: 'edit',
       icon: <EditIcon />,
       label: t('actions.edit'),
-      onClick: () => changeModalMode(CourseTabModalMode.EditName),
+      onClick: () => changeModalMode(CourseEditModalMode.EditTabName),
     },
     {
       key: 'changeColor',
       icon: <ColorIcon />,
       label: t('actions.change_color'),
-      onClick: () => changeModalMode(CourseTabModalMode.EditColor),
+      onClick: () => changeModalMode(CourseEditModalMode.EditTabColor),
     },
     {
       key: 'changeVisibility',

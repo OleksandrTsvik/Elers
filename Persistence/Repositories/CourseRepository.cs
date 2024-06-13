@@ -17,4 +17,14 @@ internal class CourseRepository : ApplicationDbRepository<Course>, ICourseReposi
             .Include(x => x.CourseTabs)
             .FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
     }
+
+    public async Task<bool> CourseTabsInSameCourseAsync(
+        IEnumerable<Guid> tabIds,
+        CancellationToken cancellationToken = default)
+    {
+        return 1 == await DbContext.CourseTabs
+            .Where(x => tabIds.Contains(x.Id))
+            .GroupBy(cm => cm.CourseId)
+            .CountAsync(cancellationToken);
+    }
 }

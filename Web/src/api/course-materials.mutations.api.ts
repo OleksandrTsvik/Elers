@@ -2,6 +2,7 @@ import { UploadFile } from 'antd';
 
 import { api } from '.';
 import { courseMaterialsQueriesApi } from './course-materials.queries.api';
+import { ReorderItem } from '../common/types';
 import { GradingMethod } from '../models/course-material.type';
 
 interface CreateCourseMaterialContentRequest {
@@ -75,6 +76,10 @@ interface CreateCourseMaterialTestRequest extends CourseMaterialTestRequest {
 
 interface UpdateCourseMaterialTestRequest extends CourseMaterialTestRequest {
   id?: string;
+}
+
+interface ReorderCourseMaterialsRequest {
+  reorders: ReorderItem[];
 }
 
 export const courseMaterialsMutationsApi = api.injectEndpoints({
@@ -289,6 +294,30 @@ export const courseMaterialsMutationsApi = api.injectEndpoints({
       invalidatesTags: (_, error) =>
         error ? [] : ['Course', 'CourseList', 'CourseMaterialList'],
     }),
+    reorderCourseMaterials: builder.mutation<
+      void,
+      ReorderCourseMaterialsRequest
+    >({
+      query: (data) => ({
+        url: '/courseMaterials/reorder',
+        method: 'PUT',
+        body: data,
+      }),
+      invalidatesTags: (_, error) =>
+        error ? [] : ['Course', 'CourseMaterialList'],
+    }),
+    moveMaterialToAnotherTab: builder.mutation<
+      void,
+      { materialId: string; newCourseTabId: string }
+    >({
+      query: ({ materialId, ...data }) => ({
+        url: `/courseMaterials/move/${materialId}`,
+        method: 'PATCH',
+        body: data,
+      }),
+      invalidatesTags: (_, error) =>
+        error ? [] : ['Course', 'CourseMaterialList'],
+    }),
     deleteCourseMaterial: builder.mutation<void, { id: string }>({
       query: ({ id }) => ({
         url: `/courseMaterials/${id}`,
@@ -312,5 +341,7 @@ export const {
   useCreateCourseMaterialTestMutation,
   useUpdateCourseMaterialTestMutation,
   useUpdateCourseMaterialActiveMutation,
+  useReorderCourseMaterialsMutation,
+  useMoveMaterialToAnotherTabMutation,
   useDeleteCourseMaterialMutation,
 } = courseMaterialsMutationsApi;

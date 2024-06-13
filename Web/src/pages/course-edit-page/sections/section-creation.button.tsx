@@ -6,7 +6,7 @@ import { ImSection } from 'react-icons/im';
 import { useAppDispatch } from '../../../hooks/redux-hooks';
 import { classnames } from '../../../utils/helpers';
 import { setModalMode } from '../course-edit.slice';
-import { CourseTabModalMode } from '../modals/tab-modal-mode.enum';
+import { CourseEditModalMode } from '../modals/edit-modal-mode.enum';
 
 import styles from '../course-edit.module.scss';
 
@@ -15,7 +15,7 @@ export default function SectionCreationModalButton() {
   const appDispatch = useAppDispatch();
 
   const handleClick = () => {
-    appDispatch(setModalMode(CourseTabModalMode.CreateTab));
+    appDispatch(setModalMode(CourseEditModalMode.CreateTab));
   };
 
   return (

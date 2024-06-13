@@ -1,4 +1,5 @@
 using Domain.Entities;
+using Domain.Shared;
 
 namespace Domain.Repositories;
 
@@ -9,6 +10,8 @@ public interface ICourseTabRepository
     void Add(CourseTab courseTab);
 
     void Update(CourseTab courseTab);
+
+    Task ReorderAsync(IEnumerable<ReorderItem> reorders, CancellationToken cancellationToken = default);
 
     void Remove(CourseTab courseTab);
 

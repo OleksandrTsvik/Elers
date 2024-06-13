@@ -2,7 +2,7 @@ import { FormInstance, Modal } from 'antd';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { CourseTabModalMode } from './tab-modal-mode.enum';
+import { CourseEditModalMode } from './edit-modal-mode.enum';
 import { useUpdateCourseTabColorMutation } from '../../../api/course-tabs.api';
 import { CourseTab } from '../../../models/course-tab.interface';
 import TabColorForm, { TabColorFormValues } from '../forms/tab-color.form';
@@ -31,7 +31,7 @@ export default function TabColorUpdateModal({ courseTab }: Props) {
   return (
     <Modal
       destroyOnClose
-      open={modalMode === CourseTabModalMode.EditColor}
+      open={modalMode === CourseEditModalMode.EditTabColor}
       confirmLoading={isLoading}
       title={t('course_edit_page.change_tab_color')}
       okText={t('actions.save_changes')}

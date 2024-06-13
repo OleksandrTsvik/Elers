@@ -153,13 +153,13 @@ msgid "Assignments.FileNotFound"
 msgstr "Файл не знайдено."
 
 msgid "Assignments.FileAccessDenied"
-msgstr "У вас немає дозволу на завантаження цього файлу."
+msgstr "У Вас немає дозволу на завантаження цього файлу."
 
 msgid "Assignments.SubmittedAccessDenied"
-msgstr "У вас немає дозволу на перегляд цього відправленого завдання."
+msgstr "У Вас немає дозволу на перегляд цього відправленого завдання."
 
 msgid "Assignments.GradeAccessDenied"
-msgstr "У вас немає дозволу на виставлення оцінки для цього завдання."
+msgstr "У Вас немає дозволу на виставлення оцінки для цього завдання."
 
 msgid "Assignments.NotActive"
 msgstr "Завдання неактивне."
@@ -175,6 +175,12 @@ msgstr "Матеріал курсу з Id = '{0}' не знайдено."
 
 msgid "CourseMaterials.FileNotFound"
 msgstr "Файл не знайдено."
+
+msgid "CourseMaterials.AccessDenied"
+msgstr "Ви не маєте дозволу змінювати матеріали курсу."
+
+msgid "CourseMaterials.CrossCourseMove"
+msgstr "Ви не можете перенести матеріали до іншого курсу."
 
 msgid "CourseMembers.NotFound"
 msgstr "Учасник відсутній."
@@ -196,6 +202,9 @@ msgstr "Роль курсу = '{0}' уже існує."
 
 msgid "CourseTabs.NotFound"
 msgstr "Вкладка курсу з Id = '{0}' не знайдено."
+
+msgid "CourseTabs.AccessDenied"
+msgstr "Ви не маєте дозволу змінювати вкладки курсу."
 
 msgid "Files.Empty"
 msgstr "Файл із назвою = '{0}' порожній."

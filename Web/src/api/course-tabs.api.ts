@@ -1,4 +1,5 @@
 import { api } from '.';
+import { ReorderItem } from '../common/types';
 
 interface CreateCourseTabRequest {
   courseId: string;
@@ -15,6 +16,10 @@ interface UpdateCourseTabRequest {
 interface UpdateCourseTabColorRequest {
   tabId: string;
   color?: string;
+}
+
+interface ReorderCourseTabsRequest {
+  reorders: ReorderItem[];
 }
 
 export const courseTabsApi = api.injectEndpoints({
@@ -44,6 +49,14 @@ export const courseTabsApi = api.injectEndpoints({
       }),
       invalidatesTags: (_, error) => (error ? [] : ['Course']),
     }),
+    reorderCourseTabs: builder.mutation<void, ReorderCourseTabsRequest>({
+      query: (data) => ({
+        url: '/courseTabs/reorder',
+        method: 'PUT',
+        body: data,
+      }),
+      invalidatesTags: (_, error) => (error ? [] : ['Course']),
+    }),
     deleteCourseTab: builder.mutation<void, { id: string }>({
       query: ({ id }) => ({
         url: `/courseTabs/${id}`,
@@ -58,5 +71,6 @@ export const {
   useCreateCourseTabMutation,
   useUpdateCourseTabMutation,
   useUpdateCourseTabColorMutation,
+  useReorderCourseTabsMutation,
   useDeleteCourseTabMutation,
 } = courseTabsApi;

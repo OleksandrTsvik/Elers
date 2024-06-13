@@ -4,6 +4,8 @@ import CourseEditHead from './course-edit.head';
 import CourseEditTabType from './course-edit.tab-type';
 import CourseEditTabs from './course-edit.tabs';
 import CourseEditTitle from './course-edit.title';
+import MoveMaterialModal from './modals/move-material.modal';
+import ReorderTabsModalButton from './reorder-tabs.modal-button';
 import TabModals from './tabs/tab.modals';
 import { Course } from '../../models/course.interface';
 
@@ -21,9 +23,11 @@ export default function CourseEditPageContent({ course }: Props) {
         courseId={course.id}
         description={course.description}
       />
+      <ReorderTabsModalButton courseTabs={course.courseTabs} />
       <CourseEditTabType courseId={course.id} currentTabType={course.tabType} />
       <CourseEditTabs tabType={course.tabType} courseTabs={course.courseTabs} />
       <TabModals courseId={course.id} tabType={course.tabType} />
+      <MoveMaterialModal courseTabs={course.courseTabs} />
     </>
   );
 }

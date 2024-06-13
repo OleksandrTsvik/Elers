@@ -1,5 +1,6 @@
 using Application.CourseTabs.CreateCourseTab;
 using Application.CourseTabs.DeleteCourseTab;
+using Application.CourseTabs.ReorderCourseTabs;
 using Application.CourseTabs.UpdateCourseTab;
 using Application.CourseTabs.UpdateCourseTabColor;
 using Domain.Enums;
@@ -52,6 +53,16 @@ public class CourseTabsController : ApiControllerBase
         CancellationToken cancellationToken)
     {
         var command = new UpdateCourseTabColorCommand(tabId, request.Color);
+
+        return HandleResult(await Sender.Send(command, cancellationToken));
+    }
+
+    [HttpPut("reorder")]
+    public async Task<IActionResult> ReorderCourseTabs(
+        [FromBody] ReorderCourseTabsRequest request,
+        CancellationToken cancellationToken)
+    {
+        var command = new ReorderCourseTabsCommand(request.Reorders);
 
         return HandleResult(await Sender.Send(command, cancellationToken));
     }
