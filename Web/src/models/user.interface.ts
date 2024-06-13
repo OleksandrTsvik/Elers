@@ -1,6 +1,7 @@
 import { PermissionType } from '../auth';
 
 export interface AuthUser {
+  type: UserType;
   email: string;
   avatarUrl?: string;
   permissions: PermissionType[];

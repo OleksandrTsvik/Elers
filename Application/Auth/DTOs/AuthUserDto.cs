@@ -4,7 +4,8 @@ namespace Application.Auth.DTOs;
 
 public class AuthUserDto
 {
-    public string Email { get; set; } = string.Empty;
-    public string? AvatarUrl { get; set; }
-    public List<PermissionType> Permissions { get; set; } = [];
+    public required UserType Type { get; init; }
+    public required string Email { get; init; }
+    public required string? AvatarUrl { get; init; }
+    public required List<PermissionType> Permissions { get; init; }
 }

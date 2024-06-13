@@ -19,7 +19,7 @@ import {
   PermissionType,
   useCoursePermission,
 } from '../../auth';
-import { AuthItemAction } from '../../common/types';
+import { AuthCourseItemAction } from '../../common/types';
 import { DeleteIcon, EditIcon } from '../../components';
 import useDisplayError from '../../hooks/use-display-error';
 
@@ -30,8 +30,7 @@ export default function useCourseActions(
   const { t } = useTranslation();
   const navigate = useNavigate();
 
-  const { isCreator, isMember, filterActions, isLoadingCoursePermission } =
-    useCoursePermission(courseId);
+  const { isCreator, isMember, filterActions } = useCoursePermission(courseId);
 
   const { modal } = App.useApp();
   const { displayError } = useDisplayError();
@@ -69,7 +68,7 @@ export default function useCourseActions(
     });
   };
 
-  const courseActions: AuthItemAction[] = [
+  const courseActions: AuthCourseItemAction[] = [
     {
       key: 'enroll',
       icon: <UserAddOutlined />,
@@ -132,7 +131,6 @@ export default function useCourseActions(
 
   return {
     courseActions: filterActions(courseActions),
-    isLoading:
-      isLoadingCoursePermission || isLoadingEnroll || isLoadingUnenroll,
+    isLoading: isLoadingEnroll || isLoadingUnenroll,
   };
 }

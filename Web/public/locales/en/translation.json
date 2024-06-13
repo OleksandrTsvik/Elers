@@ -307,6 +307,10 @@
     "head_title": "My courses",
     "title": "My courses"
   },
+  "my_progress_page": {
+    "go_to_course": "Go to the course",
+    "head_title": "My progress"
+  },
   "not_found_page": {
     "go_back": "Go back",
     "head_title": "Page not found",
@@ -359,6 +363,7 @@
   "sider_items": {
     "courses": "My courses",
     "home": "Home",
+    "my_progress": "My progress",
     "user_permissions": "Permissions",
     "user_roles": "Roles",
     "users": "Users"

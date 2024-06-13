@@ -8,7 +8,7 @@ import {
   PermissionType,
   useCoursePermission,
 } from '../../auth';
-import { AuthItemColumn } from '../../common/types';
+import { AuthCourseItemColumn } from '../../common/types';
 import { ActionsDropdown, UserAvatar } from '../../components';
 import { GetColumnSearchProps } from '../../hooks/use-table-search-props';
 import { CourseMember } from '../../models/course-member.interface';
@@ -23,7 +23,7 @@ export default function useCourseMembersColumns(
   const { data: roles } = useGetListCourseRolesQuery({ courseId });
   const { getActionItems } = useCourseMembersActions(courseId);
 
-  const columns: AuthItemColumn<CourseMember>[] = [
+  const columns: AuthCourseItemColumn<CourseMember>[] = [
     {
       key: 'index',
       title: '#',

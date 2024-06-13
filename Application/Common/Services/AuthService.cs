@@ -24,6 +24,7 @@ public class AuthService : IAuthService
         {
             User = new AuthUserDto
             {
+                Type = user.Type,
                 Email = user.Email,
                 AvatarUrl = user.AvatarUrl,
                 Permissions = user.Roles

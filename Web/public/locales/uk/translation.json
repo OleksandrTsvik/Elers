@@ -307,6 +307,10 @@
     "head_title": "Мої курси",
     "title": "Мої курси"
   },
+  "my_progress_page": {
+    "go_to_course": "Перейти до курсу",
+    "head_title": "Моя успішність"
+  },
   "not_found_page": {
     "go_back": "Повернутися назад",
     "head_title": "Сторінку не знайдено",
@@ -359,6 +363,7 @@
   "sider_items": {
     "courses": "Мої курси",
     "home": "Головна",
+    "my_progress": "Моя успішність",
     "user_permissions": "Дозволи",
     "user_roles": "Ролі",
     "users": "Користувачі"

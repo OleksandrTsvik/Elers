@@ -8,11 +8,11 @@ import { PermissionType } from './permission-type.enum';
 import { useAuth } from './use-auth';
 import { useGetCourseMemberPermissionsQuery } from '../api/course-permissions.api';
 import {
-  AuthItem,
-  AuthItemAction,
-  AuthItemColumn,
-  AuthItemMenu,
-  AuthItemTab,
+  AuthCourseItem,
+  AuthCourseItemAction,
+  AuthCourseItemColumn,
+  AuthCourseItemMenu,
+  AuthCourseItemTab,
   MenuItem,
 } from '../common/types';
 
@@ -36,7 +36,7 @@ export function useCoursePermission(courseId: string | undefined) {
     hasCoursePermission(memberPermissions, coursePermissions) ||
     checkPermission(userPermissions);
 
-  const filterItems = <T extends AuthItem, U>(items: T[]): U[] =>
+  const filterItems = <T extends AuthCourseItem, U>(items: T[]): U[] =>
     items
       .filter(
         (item) =>
@@ -53,15 +53,16 @@ export function useCoursePermission(courseId: string | undefined) {
           item as U,
       );
 
-  const filterActions = (actions: AuthItemAction[]): ItemType[] =>
+  const filterActions = (actions: AuthCourseItemAction[]): ItemType[] =>
     filterItems(actions);
 
-  const filterTabs = (tabs: AuthItemTab[]): Tab[] => filterItems(tabs);
+  const filterTabs = (tabs: AuthCourseItemTab[]): Tab[] => filterItems(tabs);
 
-  const filterMenu = (items: AuthItemMenu[]): MenuItem[] => filterItems(items);
+  const filterMenu = (items: AuthCourseItemMenu[]): MenuItem[] =>
+    filterItems(items);
 
   const filterColumns = <RecordType>(
-    columns: AuthItemColumn<RecordType>[],
+    columns: AuthCourseItemColumn<RecordType>[],
   ): TableColumnsType<RecordType> => filterItems(columns);
 
   return {

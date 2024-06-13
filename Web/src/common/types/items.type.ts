@@ -12,16 +12,21 @@ export type GetActionItems<T = void> = (record: T) => ItemType[];
 export type AuthItem = {
   show?: boolean;
   check?: boolean;
-  coursePermissions?: CoursePermissionType[];
   userPermissions?: PermissionType[];
 };
 
-export type AuthItemAction = ItemType & AuthItem;
-export type AuthItemTab = Tab & AuthItem;
 export type AuthItemMenu = MenuItem & AuthItem;
 
-export type AuthItemColumn<RecordType> = (
+export type AuthCourseItem = AuthItem & {
+  coursePermissions?: CoursePermissionType[];
+};
+
+export type AuthCourseItemAction = ItemType & AuthCourseItem;
+export type AuthCourseItemTab = Tab & AuthCourseItem;
+export type AuthCourseItemMenu = MenuItem & AuthCourseItem;
+
+export type AuthCourseItemColumn<RecordType> = (
   | ColumnGroupType<RecordType>
   | ColumnType<RecordType>
 ) &
-  AuthItem;
+  AuthCourseItem;

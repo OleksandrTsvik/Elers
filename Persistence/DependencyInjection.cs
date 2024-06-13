@@ -143,6 +143,7 @@ public static class DependencyInjection
         services.AddScoped<IPermissionQueries, PermissionQueries>();
         services.AddScoped<IRoleQueries, RoleQueries>();
         services.AddScoped<IUserQueries, UserQueries>();
+        services.AddScoped<IProfileQueries, ProfileQueries>();
 
         services.AddScoped<IStudentQueries, StudentQueries>();
 

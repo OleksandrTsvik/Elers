@@ -22,7 +22,8 @@ export default function CourseMenu() {
   const { t } = useTranslation();
 
   const { isAuth } = useAuth();
-  const { isStudent, filterMenu } = useCoursePermission(courseId);
+  const { isStudent, filterMenu, isLoadingCoursePermission } =
+    useCoursePermission(courseId);
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -60,6 +61,10 @@ export default function CourseMenu() {
       userPermissions: [PermissionType.GradeStudents],
     },
   ]);
+
+  if (isLoadingCoursePermission) {
+    return <Skeleton active />;
+  }
 
   if (menuItems.length === 1) {
     return (

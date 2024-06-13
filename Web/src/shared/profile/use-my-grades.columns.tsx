@@ -7,8 +7,8 @@ import {
   GetCourseMyGradeItemResponse,
   GradeType,
 } from '../../models/grade.interface';
-import { CourseMaterialIcon, CourseMaterialType } from '../../shared';
 import { DATE_FORMAT } from '../../utils/constants/app.constants';
+import { CourseMaterialIcon, CourseMaterialType } from '../materials';
 
 const assessmentIcon: { [key in GradeType]: CourseMaterialType } = {
   Assignment: CourseMaterialType.Assignment,
@@ -20,7 +20,7 @@ const assessmentLink: { [key in GradeType]: string } = {
   Test: 'test',
 };
 
-export default function useCourseMyGradesColumns(
+export default function useMyGradesColumns(
   courseId: string | undefined,
 ): TableColumnsType<GetCourseMyGradeItemResponse> {
   const { t } = useTranslation();

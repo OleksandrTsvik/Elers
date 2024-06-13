@@ -3,6 +3,7 @@ import Icon, {
   HomeOutlined,
   SafetyOutlined,
   SolutionOutlined,
+  ThunderboltOutlined,
 } from '@ant-design/icons';
 import { ItemType } from 'antd/es/menu/hooks/useItems';
 import { useTranslation } from 'react-i18next';
@@ -10,32 +11,32 @@ import { PiUsers } from 'react-icons/pi';
 
 import { PermissionType, useAuth } from '../../auth';
 
-type SiderItem = ItemType & {
-  permissions: PermissionType[];
-};
-
-export default function useSiderItems(): SiderItem[] {
+export default function useSiderItems(): ItemType[] {
   const { t } = useTranslation();
-  const { checkPermission } = useAuth();
+  const { isStudent, filterMenu } = useAuth();
 
-  return [
+  return filterMenu([
     {
       key: '/',
       icon: <HomeOutlined />,
       label: t('sider_items.home'),
-      permissions: [],
     },
     {
       key: '/courses',
       icon: <BookOutlined />,
       label: t('sider_items.courses'),
-      permissions: [],
+    },
+    {
+      key: '/my-progress',
+      icon: <ThunderboltOutlined />,
+      label: t('sider_items.my_progress'),
+      show: isStudent,
     },
     {
       key: '/users',
       icon: <Icon component={PiUsers} />,
       label: t('sider_items.users'),
-      permissions: [
+      userPermissions: [
         PermissionType.CreateUser,
         PermissionType.ReadUser,
         PermissionType.UpdateUser,
@@ -46,7 +47,7 @@ export default function useSiderItems(): SiderItem[] {
       key: '/roles',
       icon: <SolutionOutlined />,
       label: t('sider_items.user_roles'),
-      permissions: [
+      userPermissions: [
         PermissionType.CreateRole,
         PermissionType.ReadRole,
         PermissionType.UpdateRole,
@@ -57,7 +58,10 @@ export default function useSiderItems(): SiderItem[] {
       key: '/permissions',
       icon: <SafetyOutlined />,
       label: t('sider_items.user_permissions'),
-      permissions: [PermissionType.ReadPermission, PermissionType.CreateRole],
+      userPermissions: [
+        PermissionType.ReadPermission,
+        PermissionType.CreateRole,
+      ],
     },
-  ].filter((item) => checkPermission(item.permissions));
+  ]);
 }

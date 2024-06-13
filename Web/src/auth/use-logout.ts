@@ -1,8 +1,8 @@
 import { App } from 'antd';
 import { useTranslation } from 'react-i18next';
 
+import { useLogoutMutation } from './auth.api';
 import { logout as resetAuthState } from './auth.slice';
-import { useLogoutMutation } from '../api/account.api';
 import { useAppDispatch } from '../hooks/redux-hooks';
 import useDisplayError from '../hooks/use-display-error';
 

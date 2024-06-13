@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
 import { useCoursePermission } from '../../auth';
-import { AuthItemColumn } from '../../common/types';
+import { AuthCourseItemColumn } from '../../common/types';
 import { TableContainer } from '../../components';
 import { TestAttemptItem } from '../../models/test.interface';
 import { DATE_TIME_FORMAT } from '../../utils/constants/app.constants';
@@ -22,7 +22,7 @@ export default function ResultsPreviousAttemptsTable({
 
   const { filterColumns } = useCoursePermission(courseId);
 
-  const columns: AuthItemColumn<TestAttemptItem>[] = [
+  const columns: AuthCourseItemColumn<TestAttemptItem>[] = [
     {
       key: 'index',
       title: '#',
