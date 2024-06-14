@@ -22,7 +22,6 @@ public static class ErrorCodes
         public const string FileAccessDenied = "Assignments.FileAccessDenied";
         public const string SubmittedAccessDenied = "Assignments.SubmittedAccessDenied";
         public const string GradeAccessDenied = "Assignments.GradeAccessDenied";
-        public const string GradeLimit = "Assignments.GradeLimit";
         public const string NotActive = "Assignments.NotActive";
     }
 
@@ -65,6 +64,20 @@ public static class ErrorCodes
         public const string Empty = "Files.Empty";
         public const string SizeLimit = "Files.SizeLimit";
         public const string InvalidImage = "Files.InvalidImage";
+    }
+
+    public static class Grades
+    {
+        public const string NotFound = "Grades.NotFound";
+        public const string GradeLimit = "Grades.GradeLimit";
+        public const string AccessDenied = "Grades.AccessDenied";
+        public const string StudentsOnly = "Grades.StudentsOnly";
+        public const string AlreadyExists = "Grades.AlreadyExists";
+    }
+
+    public static class ManualGradesColumns
+    {
+        public const string NotFound = "ManualGradesColumns.NotFound";
     }
 
     public static class RefreshTokens

@@ -88,6 +88,11 @@ internal class GradeRepository : MongoDbRepository<Grade>, IGradeRepository
                     .Set(nameof(GradeTest.GradingMethod), test.GradingMethod)
                     .Set(nameof(GradeTest.Values), test.Values);
                 break;
+            case GradeManual manual:
+                update = update
+                    .Set(nameof(GradeManual.TeacherId), manual.TeacherId)
+                    .Set(nameof(GradeManual.Value), manual.Value);
+                break;
         }
 
         await Collection.UpdateOneAsync(
@@ -129,5 +134,21 @@ internal class GradeRepository : MongoDbRepository<Grade>, IGradeRepository
     {
         await Collection.OfType<GradeTest>()
             .DeleteManyAsync(x => x.TestId == testId, cancellationToken);
+    }
+
+    public async Task RemoveRangeByColumnIdAsync(Guid columnId, CancellationToken cancellationToken = default)
+    {
+        await Collection.OfType<GradeManual>()
+            .DeleteManyAsync(x => x.ManualGradesColumnId == columnId, cancellationToken);
+    }
+
+    public Task<bool> ExistsByStudentIdAndColumnIdAsync(
+        Guid studentId,
+        Guid columnId,
+        CancellationToken cancellationToken = default)
+    {
+        return Collection.OfType<GradeManual>()
+            .Find(x => x.StudentId == studentId && x.ManualGradesColumnId == columnId)
+            .AnyAsync(cancellationToken);
     }
 }

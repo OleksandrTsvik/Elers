@@ -1,3 +1,4 @@
+import { ReloadOutlined } from '@ant-design/icons';
 import { Button, List } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
@@ -39,7 +40,11 @@ export default function SubmittedAssignmentsList({
 
   return (
     <>
-      <Button className="right-btn mt-field" onClick={refetch}>
+      <Button
+        className="right-btn mt-field"
+        icon={<ReloadOutlined />}
+        onClick={refetch}
+      >
         {t('assignment.update_list')}
       </Button>
       <List

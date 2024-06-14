@@ -1,4 +1,5 @@
 using Application.Common.Services;
+using Domain.Enums;
 using Microsoft.EntityFrameworkCore;
 
 namespace Persistence.Services;
@@ -10,6 +11,21 @@ public class CourseMemberService : ICourseMemberService
     public CourseMemberService(ApplicationDbContext dbContext)
     {
         _dbContext = dbContext;
+    }
+
+    public Task<bool> IsCourseStudentAsync(
+        Guid studentId,
+        Guid courseId,
+        CancellationToken cancellationToken = default)
+    {
+        return _dbContext.Courses.AnyAsync(x =>
+            x.Id == courseId &&
+            x.CourseMembers.Any(courseMember =>
+                courseMember.CourseId == courseId &&
+                courseMember.UserId == studentId &&
+                courseMember.User != null &&
+                courseMember.User.Type == UserType.Student),
+            cancellationToken);
     }
 
     public Task<bool> IsCourseMemberByCourseTabIdAsync(

@@ -1,7 +1,4 @@
-import {
-  MAX_ASSIGNMENT_GRADE,
-  MAX_FILES_STUDENT_UPLOAD_ASSIGNMENT,
-} from '../../utils/constants/app.constants';
+import { MAX_FILES_STUDENT_UPLOAD_ASSIGNMENT } from '../../utils/constants/app.constants';
 
 export const COURSE_MATERIAL_RULES = {
   link: {
@@ -14,7 +11,7 @@ export const COURSE_MATERIAL_RULES = {
   assignment: {
     title: { min: 2, max: 64 },
     maxFiles: { min: 0, max: MAX_FILES_STUDENT_UPLOAD_ASSIGNMENT },
-    maxGrade: { min: 1, max: MAX_ASSIGNMENT_GRADE },
+    maxGrade: { min: 1, max: 100 },
   },
   test: {
     title: { min: 2, max: 64 },

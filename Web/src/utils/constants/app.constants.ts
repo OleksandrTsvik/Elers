@@ -1,4 +1,3 @@
-export const MAX_ASSIGNMENT_GRADE = 100;
 export const MAX_FILES_STUDENT_UPLOAD_ASSIGNMENT = 5;
 
 const bytesInOneMb = 1_048_576;

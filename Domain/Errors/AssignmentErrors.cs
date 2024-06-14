@@ -54,10 +54,6 @@ public static class AssignmentErrors
         ErrorCodes.Assignments.GradeAccessDenied,
         "You do not have permission to grade this assignment.");
 
-    public static Error GradeLimit(int maxGrade) => Error.Validation(
-        ErrorCodes.Assignments.GradeLimit,
-        $"You can give a maximum of '{maxGrade}' grade.", maxGrade);
-
     public static Error NotActive() => Error.Forbidden(
         ErrorCodes.Assignments.NotActive,
         "The assignment is not active.");

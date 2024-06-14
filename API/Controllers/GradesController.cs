@@ -1,5 +1,7 @@
+using Application.Grades.CreateGread;
 using Application.Grades.GetCourseGrades;
 using Application.Grades.GetCourseMyGrades;
+using Application.Grades.UpdateGread;
 using Domain.Enums;
 using Infrastructure.CourseMemberPermissions;
 using Microsoft.AspNetCore.Mvc;
@@ -29,5 +31,33 @@ public class GradesController : ApiControllerBase
         var query = new GetCourseMyGradesQuery(courseId);
 
         return HandleResult(await Sender.Send(query, cancellationToken));
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> CreateGread(
+        [FromBody] CreateGreadRequest request,
+        CancellationToken cancellationToken)
+    {
+        var command = new CreateGreadCommand(
+            request.StudentId,
+            request.AssessmentId,
+            request.GradeType,
+            request.Value);
+
+        return HandleResult(await Sender.Send(command, cancellationToken));
+    }
+
+    [HasCourseMemberPermission(
+        [CoursePermissionType.GradeCourseStudents],
+        [PermissionType.GradeStudents])]
+    [HttpPut("{gradeId:guid}")]
+    public async Task<IActionResult> UpdateGread(
+        Guid gradeId,
+        [FromBody] UpdateGreadRequest request,
+        CancellationToken cancellationToken)
+    {
+        var command = new UpdateGreadCommand(gradeId, request.Value);
+
+        return HandleResult(await Sender.Send(command, cancellationToken));
     }
 }

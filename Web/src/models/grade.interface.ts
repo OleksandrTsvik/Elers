@@ -10,11 +10,15 @@ export interface GetCourseMyGradeItemResponse {
   grade?: MyGradeResponse;
 }
 
-export interface AssessmentItem {
+export type AssessmentItem = {
   id: string;
-  type: GradeType;
   title: string;
-}
+} & ConditionalAssessmentItem;
+
+export type ConditionalAssessmentItem =
+  | { type: GradeType.Test }
+  | { type: GradeType.Assignment; maxGrade: number }
+  | { type: GradeType.Manual; date: Date; maxGrade: number };
 
 export interface CourseGradeItemResponse {
   student: UserDto;
@@ -36,9 +40,11 @@ export type MyGradeResponse = {
 
 export type ConditionalGradeItemResponse =
   | { type: GradeType.Test }
-  | { type: GradeType.Assignment; teacher?: UserDto };
+  | { type: GradeType.Assignment; teacher?: UserDto }
+  | { type: GradeType.Manual; teacher?: UserDto };
 
 export enum GradeType {
   Assignment = 'Assignment',
   Test = 'Test',
+  Manual = 'Manual',
 }

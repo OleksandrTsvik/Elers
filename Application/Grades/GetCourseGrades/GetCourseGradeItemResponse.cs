@@ -18,6 +18,7 @@ public class CourseGradeItemResponse
 }
 
 [JsonDerivedType(typeof(GradeAssignmentItemResponse))]
+[JsonDerivedType(typeof(GradeManualItemResponse))]
 public class GradeItemResponse
 {
     public required Guid AssessmentId { get; init; }
@@ -28,6 +29,11 @@ public class GradeItemResponse
 }
 
 public class GradeAssignmentItemResponse : GradeItemResponse
+{
+    public required UserDto? Teacher { get; init; }
+}
+
+public class GradeManualItemResponse : GradeItemResponse
 {
     public required UserDto? Teacher { get; init; }
 }

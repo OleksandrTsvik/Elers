@@ -6,6 +6,7 @@ namespace Domain.Entities;
 
 [JsonDerivedType(typeof(GradeAssignment))]
 [JsonDerivedType(typeof(GradeTest))]
+[JsonDerivedType(typeof(GradeManual))]
 public abstract class Grade : Entity
 {
     public GradeType Type { get; protected set; }
@@ -47,4 +48,16 @@ public class GradeTestItem
 {
     public Guid TestSessionId { get; set; }
     public double Value { get; set; }
+}
+
+public class GradeManual : Grade
+{
+    public Guid ManualGradesColumnId { get; set; }
+    public Guid TeacherId { get; set; }
+    public double Value { get; set; }
+
+    public GradeManual() : base()
+    {
+        Type = GradeType.Manual;
+    }
 }

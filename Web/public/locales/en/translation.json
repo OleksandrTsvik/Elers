@@ -125,6 +125,12 @@
     "visible_section": "This tab is displayed on the course page"
   },
   "course_grades_page": {
+    "add_column": "Add column",
+    "column_date": "Date",
+    "column_max_grade": "Maximum grade",
+    "column_title": "Column title",
+    "edit_column": "Editing a column",
+    "grade": "Grade",
     "update_table": "Refresh the table"
   },
   "course_material": {

@@ -9,7 +9,7 @@ namespace Infrastructure.CourseMemberPermissions;
 /// <remarks>
 /// This attribute should be used on controller methods that have one of the following parameters
 /// in the reference: <c>courseId</c>, <c>tabId</c>, <c>materialId</c>, <c>roleId</c>,
-/// <c>memberId</c> or <c>testQuestionId</c>.
+/// <c>memberId</c>, <c>testQuestionId</c>, <c>gradeId</c> or <c>columnGradesId</c>.
 /// </remarks>
 public class HasCourseMemberPermissionAttribute : AuthorizeAttribute
 {

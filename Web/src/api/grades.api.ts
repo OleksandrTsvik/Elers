@@ -2,7 +2,20 @@ import { api } from '.';
 import {
   GetCourseGradesResponse,
   GetCourseMyGradeItemResponse,
+  GradeType,
 } from '../models/grade.interface';
+
+interface CreateGreadRequest {
+  studentId: string;
+  assessmentId: string;
+  gradeType: GradeType;
+  value: number;
+}
+
+interface UpdateGreadRequest {
+  gradeId: string;
+  value: number;
+}
 
 export const gradesApi = api.injectEndpoints({
   overrideExisting: false,
@@ -16,6 +29,7 @@ export const gradesApi = api.injectEndpoints({
       }),
       providesTags: [
         'Session',
+        'Grades',
         'Course',
         'Assignment',
         'CourseMaterialAssignment',
@@ -31,6 +45,7 @@ export const gradesApi = api.injectEndpoints({
       }),
       providesTags: [
         'Session',
+        'Grades',
         'Course',
         'Assignment',
         'Test',
@@ -38,7 +53,28 @@ export const gradesApi = api.injectEndpoints({
         'CourseMemberList',
       ],
     }),
+    createGread: builder.mutation<void, CreateGreadRequest>({
+      query: (data) => ({
+        url: '/grades',
+        method: 'POST',
+        body: data,
+      }),
+      invalidatesTags: (_, error) => (error ? [] : ['Grades']),
+    }),
+    updateGread: builder.mutation<void, UpdateGreadRequest>({
+      query: ({ gradeId, ...data }) => ({
+        url: `/grades/${gradeId}`,
+        method: 'PUT',
+        body: data,
+      }),
+      invalidatesTags: (_, error) => (error ? [] : ['Grades']),
+    }),
   }),
 });
 
-export const { useGetCourseGradesQuery, useGetCourseMyGradesQuery } = gradesApi;
+export const {
+  useGetCourseGradesQuery,
+  useGetCourseMyGradesQuery,
+  useCreateGreadMutation,
+  useUpdateGreadMutation,
+} = gradesApi;

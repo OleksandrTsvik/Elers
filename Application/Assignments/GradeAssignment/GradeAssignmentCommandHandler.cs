@@ -55,7 +55,7 @@ public class GradeAssignmentCommandHandler : ICommandHandler<GradeAssignmentComm
 
         if (request.Grade > assignment.MaxGrade)
         {
-            return AssignmentErrors.GradeLimit(assignment.MaxGrade);
+            return GradeErrors.GradeLimit(assignment.MaxGrade);
         }
 
         if (!await _courseMemberPermissionService

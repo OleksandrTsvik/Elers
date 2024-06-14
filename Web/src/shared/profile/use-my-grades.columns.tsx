@@ -1,24 +1,13 @@
-import { Space, TableColumnsType } from 'antd';
+import { TableColumnsType } from 'antd';
 import dayjs from 'dayjs';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
 
+import MyGradesTableTitle from './my-grades-table.title';
 import {
   GetCourseMyGradeItemResponse,
   GradeType,
 } from '../../models/grade.interface';
 import { DATE_FORMAT } from '../../utils/constants/app.constants';
-import { CourseMaterialIcon, CourseMaterialType } from '../materials';
-
-const assessmentIcon: { [key in GradeType]: CourseMaterialType } = {
-  Assignment: CourseMaterialType.Assignment,
-  Test: CourseMaterialType.Test,
-};
-
-const assessmentLink: { [key in GradeType]: string } = {
-  Assignment: 'assignment',
-  Test: 'test',
-};
 
 export default function useMyGradesColumns(
   courseId: string | undefined,
@@ -30,15 +19,7 @@ export default function useMyGradesColumns(
       key: 'title',
       width: 1,
       render: (_, { assessment }) => (
-        <Link
-          className="d-block"
-          to={`/courses/${courseId}/${assessmentLink[assessment.type]}/${assessment.id}`}
-        >
-          <Space align="start">
-            <CourseMaterialIcon type={assessmentIcon[assessment.type]} />
-            {assessment.title}
-          </Space>
-        </Link>
+        <MyGradesTableTitle courseId={courseId} assessment={assessment} />
       ),
     },
     {

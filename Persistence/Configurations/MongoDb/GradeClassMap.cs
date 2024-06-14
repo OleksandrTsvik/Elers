@@ -30,5 +30,9 @@ public static class GradeClassMap
                 .MapMember(grade => grade.GradingMethod)
                 .SetSerializer(new EnumSerializer<GradingMethod>(BsonType.String));
         });
+
+        BsonClassMap.RegisterClassMap<GradeManual>();
+
+        BsonClassMap.RegisterClassMap<ManualGradesColumn>();
     }
 }

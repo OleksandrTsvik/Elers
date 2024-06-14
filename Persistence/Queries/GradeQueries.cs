@@ -13,6 +13,7 @@ public class GradeQueries : IGradeQueries
 {
     private readonly ICourseQueries _courseQueries;
     private readonly IMongoCollection<CourseMaterial> _courseMaterialsCollection;
+    private readonly IMongoCollection<ManualGradesColumn> _manualGradesColumnsCollection;
 
     public GradeQueries(ICourseQueries courseQueries, IMongoDatabase mongoDatabase)
     {
@@ -20,6 +21,9 @@ public class GradeQueries : IGradeQueries
 
         _courseMaterialsCollection = mongoDatabase.GetCollection<CourseMaterial>(
             CollectionNames.CourseMaterials);
+
+        _manualGradesColumnsCollection = mongoDatabase.GetCollection<ManualGradesColumn>(
+            CollectionNames.ManualGradesColumns);
     }
 
     public async Task<List<AssessmentItem>> GetAssessments(
@@ -34,17 +38,18 @@ public class GradeQueries : IGradeQueries
             return [];
         }
 
-        List<AssessmentItem> assignmentAssessments = await _courseMaterialsCollection
+        List<AssessmentAssignmentItem> assignmentAssessments = await _courseMaterialsCollection
             .OfType<CourseMaterialAssignment>()
             .AsQueryable()
             .Where(x => tabIds.Contains(x.CourseTabId))
             .WhereIf(onlyActive, x => x.IsActive)
             .OrderBy(x => x.CreatedAt)
-            .Select(x => new AssessmentItem
+            .Select(x => new AssessmentAssignmentItem
             {
                 Id = x.Id,
                 Title = x.Title,
-                Type = GradeType.Assignment
+                Type = GradeType.Assignment,
+                MaxGrade = x.MaxGrade
             })
             .ToListAsync(cancellationToken);
 
@@ -64,7 +69,21 @@ public class GradeQueries : IGradeQueries
             })
             .ToListAsync(cancellationToken);
 
+        List<AssessmentManualItem> columnAssessments = await _manualGradesColumnsCollection
+            .Find(x => x.CourseId == courseId)
+            .SortBy(x => x.Date)
+            .Project(x => new AssessmentManualItem
+            {
+                Id = x.Id,
+                Title = x.Title,
+                Type = GradeType.Manual,
+                Date = x.Date,
+                MaxGrade = x.MaxGrade
+            })
+            .ToListAsync(cancellationToken);
+
         assessments.AddRange(testAssessments);
+        assessments.AddRange(columnAssessments);
 
         return assessments;
     }

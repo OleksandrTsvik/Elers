@@ -5,14 +5,7 @@ namespace Domain.Repositories;
 
 public interface IGradeRepository
 {
-    Task<List<Grade>> GetByCourseIdAsync(
-        Guid courseId,
-        CancellationToken cancellationToken = default);
-
-    Task<List<Grade>> GetByCourseIdAndStudentIdAsync(
-        Guid courseId,
-        Guid studentId,
-        CancellationToken cancellationToken = default);
+    Task<Grade?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default);
 
     Task<GradeAssignment?> GetByAssignmentIdAndStudentIdAsync(
         Guid assignmentId,
@@ -26,6 +19,15 @@ public interface IGradeRepository
 
     Task<double?> GetValueByAssignmentIdAndStudentIdAsync(
         Guid assignmentId,
+        Guid studentId,
+        CancellationToken cancellationToken = default);
+
+    Task<List<Grade>> GetByCourseIdAsync(
+        Guid courseId,
+        CancellationToken cancellationToken = default);
+
+    Task<List<Grade>> GetByCourseIdAndStudentIdAsync(
+        Guid courseId,
         Guid studentId,
         CancellationToken cancellationToken = default);
 
@@ -43,4 +45,11 @@ public interface IGradeRepository
     Task RemoveRangeByAssignmentIdAsync(Guid assignmentId, CancellationToken cancellationToken = default);
 
     Task RemoveRangeByTestIdAsync(Guid testId, CancellationToken cancellationToken = default);
+
+    Task RemoveRangeByColumnIdAsync(Guid columnId, CancellationToken cancellationToken = default);
+
+    Task<bool> ExistsByStudentIdAndColumnIdAsync(
+        Guid studentId,
+        Guid columnId,
+        CancellationToken cancellationToken = default);
 }

@@ -17,6 +17,8 @@ public class CourseMemberPermissionAuthorizationHandler
     private const string RouteCourseRoleId = "roleId";
     private const string RouteCourseMemberId = "memberId";
     private const string RouteTestQuestionId = "testQuestionId";
+    private const string RouteGradeId = "gradeId";
+    private const string RouteColumnGradesId = "columnGradesId";
 
     private readonly IServiceScopeFactory _serviceScopeFactory;
 
@@ -84,7 +86,9 @@ public class CourseMemberPermissionAuthorizationHandler
             RouteCourseMaterialId,
             RouteCourseRoleId,
             RouteCourseMemberId,
-            RouteTestQuestionId
+            RouteTestQuestionId,
+            RouteGradeId,
+            RouteColumnGradesId
         ];
 
         foreach (string typeRouteId in typeRouteIds)
@@ -127,6 +131,10 @@ public class CourseMemberPermissionAuthorizationHandler
                 .IsCreatorByCourseMemberIdAsync(userId, parsedRouteId),
             RouteTestQuestionId => await courseMemberPermissionService
                 .IsCreatorByTestQuestionIdAsync(userId, parsedRouteId),
+            RouteGradeId => await courseMemberPermissionService
+                .IsCreatorByGradeIdAsync(userId, parsedRouteId),
+            RouteColumnGradesId => await courseMemberPermissionService
+                .IsCreatorByColumnGradesIdAsync(userId, parsedRouteId),
             _ => false
         };
 
@@ -149,6 +157,10 @@ public class CourseMemberPermissionAuthorizationHandler
                 .GetCourseMemberPermissionsByCourseMemberIdAsync(userId, parsedRouteId),
             RouteTestQuestionId => await courseMemberPermissionService
                 .GetCourseMemberPermissionsByTestQuestionIdAsync(userId, parsedRouteId),
+            RouteGradeId => await courseMemberPermissionService
+                .GetCourseMemberPermissionsByGradeIdAsync(userId, parsedRouteId),
+            RouteColumnGradesId => await courseMemberPermissionService
+                .GetCourseMemberPermissionsByColumnGradesIdAsync(userId, parsedRouteId),
             _ => []
         };
 

@@ -7,4 +7,5 @@ internal static class CollectionNames
     internal const string Grades = nameof(Grades);
     internal const string TestQuestions = nameof(TestQuestions);
     internal const string TestSessions = nameof(TestSessions);
+    internal const string ManualGradesColumns = nameof(ManualGradesColumns);
 }

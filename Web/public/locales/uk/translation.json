@@ -125,6 +125,12 @@
     "visible_section": "Ця вкладка відображається на сторінці курсу"
   },
   "course_grades_page": {
+    "add_column": "Додати колонку",
+    "column_date": "Дата",
+    "column_max_grade": "Максимальна оцінка",
+    "column_title": "Заголовок колонки",
+    "edit_column": "Редагування колонки",
+    "grade": "Оцінка",
     "update_table": "Оновити таблицю"
   },
   "course_material": {

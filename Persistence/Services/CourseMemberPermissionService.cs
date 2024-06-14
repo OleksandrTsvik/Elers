@@ -13,6 +13,8 @@ public class CourseMemberPermissionService : ICourseMemberPermissionService
     private readonly ApplicationDbContext _dbContext;
     private readonly IMongoCollection<CourseMaterial> _courseMaterialsCollection;
     private readonly IMongoCollection<TestQuestion> _testQuestionsCollection;
+    private readonly IMongoCollection<Grade> _gradesCollection;
+    private readonly IMongoCollection<ManualGradesColumn> _manualGradesColumnsCollection;
 
     public CourseMemberPermissionService(ApplicationDbContext dbContext, IMongoDatabase mongoDatabase)
     {
@@ -23,6 +25,11 @@ public class CourseMemberPermissionService : ICourseMemberPermissionService
 
         _testQuestionsCollection = mongoDatabase.GetCollection<TestQuestion>(
             CollectionNames.TestQuestions);
+
+        _gradesCollection = mongoDatabase.GetCollection<Grade>(CollectionNames.Grades);
+
+        _manualGradesColumnsCollection = mongoDatabase.GetCollection<ManualGradesColumn>(
+            CollectionNames.ManualGradesColumns);
     }
 
     public Task<string[]> GetCourseMemberPermissionsByCourseIdAsync(Guid userId, Guid courseId)
@@ -120,6 +127,36 @@ public class CourseMemberPermissionService : ICourseMemberPermissionService
         return await GetCourseMemberPermissionsByCourseMaterialIdAsync(userId, courseMaterialTestId);
     }
 
+    public async Task<string[]> GetCourseMemberPermissionsByGradeIdAsync(Guid userId, Guid gradeId)
+    {
+        Guid courseId = await _gradesCollection
+            .Find(x => x.Id == gradeId)
+            .Project(x => x.CourseId)
+            .FirstOrDefaultAsync();
+
+        if (courseId == Guid.Empty)
+        {
+            return [];
+        }
+
+        return await GetCourseMemberPermissionsByCourseIdAsync(userId, courseId);
+    }
+
+    public async Task<string[]> GetCourseMemberPermissionsByColumnGradesIdAsync(Guid userId, Guid columnGradesId)
+    {
+        Guid courseId = await _manualGradesColumnsCollection
+            .Find(x => x.Id == columnGradesId)
+            .Project(x => x.CourseId)
+            .FirstOrDefaultAsync();
+
+        if (courseId == Guid.Empty)
+        {
+            return [];
+        }
+
+        return await GetCourseMemberPermissionsByCourseIdAsync(userId, courseId);
+    }
+
     public Task<bool> IsCreatorByCourseIdAsync(Guid userId, Guid courseId)
     {
         return _dbContext.Courses.AnyAsync(x => x.CreatorId == userId && x.Id == courseId);
@@ -174,6 +211,36 @@ public class CourseMemberPermissionService : ICourseMemberPermissionService
         }
 
         return await IsCreatorByCourseMaterialIdAsync(userId, courseMaterialTestId);
+    }
+
+    public async Task<bool> IsCreatorByGradeIdAsync(Guid userId, Guid gradeId)
+    {
+        Guid courseId = await _gradesCollection
+            .Find(x => x.Id == gradeId)
+            .Project(x => x.CourseId)
+            .FirstOrDefaultAsync();
+
+        if (courseId == Guid.Empty)
+        {
+            return false;
+        }
+
+        return await IsCreatorByCourseIdAsync(userId, courseId);
+    }
+
+    public async Task<bool> IsCreatorByColumnGradesIdAsync(Guid userId, Guid columnGradesId)
+    {
+        Guid courseId = await _manualGradesColumnsCollection
+            .Find(x => x.Id == columnGradesId)
+            .Project(x => x.CourseId)
+            .FirstOrDefaultAsync();
+
+        if (courseId == Guid.Empty)
+        {
+            return false;
+        }
+
+        return await IsCreatorByCourseIdAsync(userId, courseId);
     }
 
     public async Task<bool> CheckCoursePermissionsAsync(

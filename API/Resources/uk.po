@@ -134,7 +134,7 @@ msgstr "Надано результат null."
 msgid "Assignments.NotFound"
 msgstr "Завдання з Id = '{0}' не знайдено."
 
-msgid "Assignments.Assignments.SubmittedNotFound"
+msgid "Assignments.SubmittedNotFound"
 msgstr "Надіслане виконане завдання з Id = '{0}' не знайдено."
 
 msgid "Assignments.Unavailable"
@@ -210,7 +210,7 @@ msgid "CourseTabs.NotFound"
 msgstr "Вкладка курсу з Id = '{0}' не знайдено."
 
 msgid "CourseTabs.AccessDenied"
-msgstr "Ви не маєте дозволу змінювати вкладки курсу."
+msgstr "Ви не маєте дозволу на змінення вкладок курсу."
 
 msgid "Files.Empty"
 msgstr "Файл із назвою = '{0}' порожній."
@@ -220,6 +220,24 @@ msgstr "Файл із назвою = '{0}' перевищує максималь
 
 msgid "Files.InvalidImage"
 msgstr "Файл із назвою = '{0}' не є зображенням."
+
+msgid "Grades.NotFound"
+msgstr "Оцінку з Id = '{0}' не знайдено."
+
+msgid "Grades.GradeLimit"
+msgstr "Ви не можете поставити оцінку більшу за максимальну: {0}."
+
+msgid "Grades.AccessDenied"
+msgstr "Ви не маєте дозволу на виставлення оцінок."
+
+msgid "Grades.StudentsOnly"
+msgstr "Оцінку можна виставити лише студентам курсу!"
+
+msgid "Grades.AlreadyExists"
+msgstr "Оцінка уже виставлена."
+
+msgid "ManualGradesColumns.NotFound"
+msgstr "Колонка оцінок з Id = '{0}' не знайдено."
 
 msgid "RefreshTokens.InvalidToken"
 msgstr "Недійсний токен оновлення."

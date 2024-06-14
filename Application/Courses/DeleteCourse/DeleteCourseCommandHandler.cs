@@ -12,6 +12,7 @@ public class DeleteCourseCommandHandler : ICommandHandler<DeleteCourseCommand>
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly ICourseRepository _courseRepository;
+    private readonly IManualGradesColumnRepository _manualGradesColumnRepository;
     private readonly IGradeRepository _gradeRepository;
     private readonly IImageService _imageService;
     private readonly ICourseService _courseService;
@@ -19,12 +20,14 @@ public class DeleteCourseCommandHandler : ICommandHandler<DeleteCourseCommand>
     public DeleteCourseCommandHandler(
         IUnitOfWork unitOfWork,
         ICourseRepository courseRepository,
+        IManualGradesColumnRepository manualGradesColumnRepository,
         IGradeRepository gradeRepository,
         IImageService imageService,
         ICourseService courseService)
     {
         _unitOfWork = unitOfWork;
         _courseRepository = courseRepository;
+        _manualGradesColumnRepository = manualGradesColumnRepository;
         _gradeRepository = gradeRepository;
         _imageService = imageService;
         _courseService = courseService;
@@ -41,6 +44,7 @@ public class DeleteCourseCommandHandler : ICommandHandler<DeleteCourseCommand>
 
         IEnumerable<Guid> courseTabIds = course.CourseTabs.Select(x => x.Id);
 
+        await _manualGradesColumnRepository.RemoveRangeByCourseIdAsync(course.Id, cancellationToken);
         await _gradeRepository.RemoveRangeByCourseIdAsync(course.Id, cancellationToken);
         await _courseService.RemoveMaterialsByCourseTabIdsAsync(courseTabIds, false, cancellationToken);
 

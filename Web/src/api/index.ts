@@ -21,6 +21,7 @@ export const api = createApi({
     'TestSession',
     'TestQuestion',
     'TestQuestionIdsAndTypes',
+    'Grades',
     'Roles',
     'Users',
   ],

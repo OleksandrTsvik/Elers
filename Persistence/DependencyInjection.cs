@@ -120,6 +120,7 @@ public static class DependencyInjection
 
         services.AddScoped<IGradeRepository, GradeRepository>();
         services.AddScoped<ISubmittedAssignmentRepository, SubmittedAssignmentRepository>();
+        services.AddScoped<IManualGradesColumnRepository, ManualGradesColumnRepository>();
 
         services.AddScoped<ITestQuestionRepository, TestQuestionRepository>();
         services.AddScoped<ITestSessionRespository, TestSessionRespository>();

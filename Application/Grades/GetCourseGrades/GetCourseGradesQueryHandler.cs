@@ -49,7 +49,9 @@ public class GetCourseGradesQueryHandler : IQueryHandler<GetCourseGradesQuery, G
 
         List<Grade> grades = await _gradeRepository.GetByCourseIdAsync(request.CourseId, cancellationToken);
 
-        IEnumerable<Guid> teacherIds = grades.OfType<GradeAssignment>().Select(x => x.TeacherId);
+        var teacherIds = grades.OfType<GradeAssignment>().Select(x => x.TeacherId).ToList();
+        teacherIds.AddRange(grades.OfType<GradeManual>().Select(x => x.TeacherId));
+
         _teachers = await _userQueries.GetUserDtosByIds(teacherIds, cancellationToken);
 
         var studentGrades = new List<CourseGradeItemResponse>(students.Length);
@@ -99,6 +101,18 @@ public class GetCourseGradesQueryHandler : IQueryHandler<GetCourseGradesQuery, G
                     Grade = GetGradeTestValue(gradeTest),
                     Type = gradeTest.Type,
                     CreatedAt = gradeTest.CreatedAt
+                };
+            }
+            else if (studentGrade is GradeManual gradeManual)
+            {
+                grade = new GradeManualItemResponse
+                {
+                    AssessmentId = gradeManual.ManualGradesColumnId,
+                    GradeId = gradeManual.Id,
+                    Grade = gradeManual.Value,
+                    Type = gradeManual.Type,
+                    CreatedAt = gradeManual.CreatedAt,
+                    Teacher = _teachers.FirstOrDefault(x => x.Id == gradeManual.TeacherId),
                 };
             }
             else
