@@ -18,13 +18,21 @@ export const authSlice = createSlice({
     setCredentials: (state, { payload }: PayloadAction<AuthUser>) => {
       state.user = payload;
     },
+    changeAvatarUrl: (
+      state,
+      { payload }: PayloadAction<string | undefined>,
+    ) => {
+      if (state.user) {
+        state.user.avatarUrl = payload;
+      }
+    },
     logout: (state) => {
       state.user = null;
     },
   },
 });
 
-export const { setCredentials, logout } = authSlice.actions;
+export const { setCredentials, changeAvatarUrl, logout } = authSlice.actions;
 
 export const selectAuthState = (state: RootState) => state.authSlice;
 export const selectCurrentUser = (state: RootState) => state.authSlice.user;

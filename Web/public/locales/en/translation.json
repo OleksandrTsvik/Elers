@@ -307,6 +307,14 @@
     "head_title": "My courses",
     "title": "My courses"
   },
+  "my_profile_page": {
+    "birth_date": "Birthday",
+    "change_avatar": "Change avatar",
+    "change_password": "Change password",
+    "edit_data": "Edit data",
+    "passwords_do_not_match": "Passwords do not match",
+    "registration_date": "Date of registration"
+  },
   "my_progress_page": {
     "go_to_course": "Go to the course",
     "head_title": "My progress"
@@ -399,12 +407,15 @@
     "title": "Update user data"
   },
   "users_page": {
+    "confirmPassword": "Confirm password",
     "confirm_delete_title": "Are you sure you want to delete the user with the email address '{{email}}'?",
     "create_user": "Add user",
+    "currentPassword": "Current password",
     "email": "Email",
     "firstName": "First name",
     "head_title": "Users",
     "lastName": "Last name",
+    "newPassword": "New password",
     "password": "Password",
     "patronymic": "Patronymic",
     "roles": "Roles",

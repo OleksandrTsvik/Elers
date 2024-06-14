@@ -1,6 +1,5 @@
 using API.Constants;
 using Application.Auth.DTOs;
-using Application.Auth.GetInfo;
 using Application.Auth.Login;
 using Application.Auth.Logout;
 using Application.Auth.UpdateToken;
@@ -46,14 +45,6 @@ public class AuthController : ApiControllerBase
         var command = new UpdateTokenCommand(refreshToken);
 
         return HandleAuthResult(useCookies, await Sender.Send(command, cancellationToken));
-    }
-
-    [HttpGet("info")]
-    public async Task<IActionResult> Info(CancellationToken cancellationToken)
-    {
-        var query = new GetInfoQuery();
-
-        return HandleResult(await Sender.Send(query, cancellationToken));
     }
 
     [HttpPost("logout")]

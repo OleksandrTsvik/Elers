@@ -63,6 +63,11 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
             .HasMaxLength(UserRules.MaxAvatarUrlLength);
 
         builder
+            .Property(user => user.AvatarImageName)
+            .IsRequired(false)
+            .HasMaxLength(UserRules.MaxAvatarImageNameLength);
+
+        builder
             .Property(user => user.BirthDate)
             .IsRequired(false);
     }

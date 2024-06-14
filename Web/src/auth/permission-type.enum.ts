@@ -11,4 +11,7 @@ export enum PermissionType {
   CreateCourse = 'CreateCourse',
   ManageCourse = 'ManageCourse',
   GradeStudents = 'GradeStudents',
+  ManageTestQuestions = 'ManageTestQuestions',
+  UpdateOwnProfile = 'UpdateOwnProfile',
+  UpdateOwnPassword = 'UpdateOwnPassword',
 }

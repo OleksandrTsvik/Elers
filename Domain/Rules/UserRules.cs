@@ -18,5 +18,6 @@ public static class UserRules
     public const int MinPatronymicLength = 1;
     public const int MaxPatronymicLength = 64;
 
-    public const int MaxAvatarUrlLength = 512;
+    public const int MaxAvatarUrlLength = 2048;
+    public const int MaxAvatarImageNameLength = 256;
 }

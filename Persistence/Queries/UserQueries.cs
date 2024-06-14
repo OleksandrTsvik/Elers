@@ -1,5 +1,4 @@
 using System.Linq.Expressions;
-using Application.Auth.GetInfo;
 using Application.Common.Models;
 using Application.Common.Queries;
 using Application.Users.DTOs;
@@ -18,23 +17,6 @@ internal class UserQueries : IUserQueries
     public UserQueries(ApplicationDbContext dbContext)
     {
         _dbContext = dbContext;
-    }
-
-    public Task<GetInfoResponse?> GetInfo(Guid id, CancellationToken cancellationToken = default)
-    {
-        return _dbContext.Users
-            .Where(x => x.Id == id)
-            .Select(x => new GetInfoResponse
-            {
-                Email = x.Email,
-                RegistrationDate = x.RegistrationDate,
-                FirstName = x.FirstName,
-                LastName = x.LastName,
-                Patronymic = x.Patronymic,
-                AvatarUrl = x.AvatarUrl,
-                BirthDate = x.BirthDate
-            })
-            .FirstOrDefaultAsync(cancellationToken);
     }
 
     public Task<PagedList<GetListUserItemResponse>> GetListUsers(

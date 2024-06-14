@@ -38,6 +38,12 @@ msgstr "Allows the user to assign grades to students even if they are not a teac
 msgid "ManageTestQuestions"
 msgstr "Allows the user to change test questions even if they are not a teacher or course member."
 
+msgid "UpdateOwnProfile"
+msgstr "Allows the user to change information about themselves."
+
+msgid "UpdateOwnPassword"
+msgstr "Allows the user to change their password."
+
 # Description of course permissions
 msgid "UpdateCourse"
 msgstr "Update on the course information."

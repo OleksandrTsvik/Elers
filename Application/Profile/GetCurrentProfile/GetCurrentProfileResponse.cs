@@ -1,6 +1,6 @@
-namespace Application.Auth.GetInfo;
+namespace Application.Profile.GetCurrentProfile;
 
-public class GetInfoResponse
+public class GetCurrentProfileResponse
 {
     public required string Email { get; init; }
     public required DateTime RegistrationDate { get; init; }

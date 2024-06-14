@@ -38,6 +38,12 @@ msgstr "Оцінювання студентів. Дозволяє користу
 msgid "ManageTestQuestions"
 msgstr "Керування запитаннями тесту. Дозволяє користувачу змінювати запитання тесту, навіть якщо він не є викладачем або учасником курсу."
 
+msgid "UpdateOwnProfile"
+msgstr "Оновлення власного профілю. Дозволяє користувачу змінювати інформацію про себе."
+
+msgid "UpdateOwnPassword"
+msgstr "Оновлення власного паролю. Дозволяє користувачу змінювати свій пароль."
+
 # Description of course permissions
 msgid "UpdateCourse"
 msgstr "Оновлення інформації про курс."
@@ -283,6 +289,9 @@ msgstr "Користувач не знайдений."
 
 msgid "Users.Unauthorized"
 msgstr "Щоб отримати доступ до цього ресурсу, пройдіть авторизацію."
+
+msgid "Users.InvalidPassword"
+msgstr "Неправильний пароль."
 
 # Exception messages
 msgid "Internal Server Error."

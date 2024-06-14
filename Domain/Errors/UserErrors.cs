@@ -28,4 +28,8 @@ public static class UserErrors
     public static Error NotFoundByUserContext() => Error.Unauthorized(
         ErrorCodes.Users.NotFoundByUserContext,
         "User not found.");
+
+    public static Error InvalidPassword() => Error.Forbidden(
+        ErrorCodes.Users.InvalidPassword,
+        "Incorrect password.");
 }

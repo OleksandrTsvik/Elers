@@ -7,11 +7,23 @@ const MyProgressPage = lazy(
   () => import('../../pages/my-progress/my-progress.page'),
 );
 
+const MyProfilePage = lazy(
+  () => import('../../pages/my-profile-page/my-profile.page'),
+);
+
 export const profileRoutes: RoutesType = {
   private: {
-    path: 'my-progress',
-    element: <StudentOutlet />,
-    children: [{ index: true, element: <MyProgressPage /> }],
+    children: [
+      {
+        path: 'my-progress',
+        element: <StudentOutlet />,
+        children: [{ index: true, element: <MyProgressPage /> }],
+      },
+      {
+        path: 'profile',
+        element: <MyProfilePage />,
+      },
+    ],
   },
   public: {},
 };

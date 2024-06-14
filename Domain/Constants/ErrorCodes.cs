@@ -112,5 +112,6 @@ public static class ErrorCodes
         public const string InvalidCredentials = "Users.InvalidCredentials";
         public const string NotFoundByUserContext = "Users.NotFoundByUserContext";
         public const string Unauthorized = "Users.Unauthorized";
+        public const string InvalidPassword = "Users.InvalidPassword";
     }
 }

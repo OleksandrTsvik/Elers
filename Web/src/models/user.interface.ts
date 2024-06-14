@@ -25,6 +25,16 @@ export interface UserDto {
   avatarUrl?: string;
 }
 
+export interface UserProfile {
+  email: string;
+  registrationDate: Date;
+  firstName: string;
+  lastName: string;
+  patronymic: string;
+  avatarUrl?: string;
+  birthDate?: Date;
+}
+
 export enum UserType {
   User = 'User',
   Student = 'Student',

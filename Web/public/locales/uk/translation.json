@@ -307,6 +307,14 @@
     "head_title": "Мої курси",
     "title": "Мої курси"
   },
+  "my_profile_page": {
+    "birth_date": "День народження",
+    "change_avatar": "Змінити аватар",
+    "change_password": "Змінити пароль",
+    "edit_data": "Редагувати дані",
+    "passwords_do_not_match": "Паролі не співпадають",
+    "registration_date": "Дата реєстрації"
+  },
   "my_progress_page": {
     "go_to_course": "Перейти до курсу",
     "head_title": "Моя успішність"
@@ -399,12 +407,15 @@
     "title": "Оновлення даних користувача"
   },
   "users_page": {
+    "confirmPassword": "Підтвердіть пароль",
     "confirm_delete_title": "Ви дійсно бажаєте видалити користувача з електронною поштою '{{email}}'?",
     "create_user": "Додати користувача",
+    "currentPassword": "Поточний пароль",
     "email": "Електронна пошта",
     "firstName": "Ім'я",
     "head_title": "Користувачі",
     "lastName": "Прізвище",
+    "newPassword": "Новий пароль",
     "password": "Пароль",
     "patronymic": "По батькові",
     "roles": "Ролі",

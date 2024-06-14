@@ -15,4 +15,6 @@ public enum PermissionType
     ManageCourse,
     GradeStudents,
     ManageTestQuestions,
+    UpdateOwnProfile,
+    UpdateOwnPassword,
 }

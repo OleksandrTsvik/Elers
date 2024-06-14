@@ -13,6 +13,7 @@ public class User : Entity
     public string LastName { get; set; } = string.Empty;
     public string Patronymic { get; set; } = string.Empty;
     public string? AvatarUrl { get; set; }
+    public string? AvatarImageName { get; set; }
     public DateTime? BirthDate { get; set; }
 
     public List<Role> Roles { get; set; } = [];

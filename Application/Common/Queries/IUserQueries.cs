@@ -1,4 +1,3 @@
-using Application.Auth.GetInfo;
 using Application.Common.Models;
 using Application.Users.DTOs;
 using Application.Users.GetListUsers;
@@ -8,8 +7,6 @@ namespace Application.Common.Queries;
 
 public interface IUserQueries
 {
-    Task<GetInfoResponse?> GetInfo(Guid id, CancellationToken cancellationToken = default);
-
     Task<PagedList<GetListUserItemResponse>> GetListUsers(
         GetListUsersQueryParams queryParams,
         CancellationToken cancellationToken = default);
