@@ -1,9 +1,12 @@
+using Domain.Enums;
+
 namespace Application.CourseMembers.GetListCourseMembers;
 
 public class CourseMemberListItem
 {
     public required Guid Id { get; init; }
     public required Guid UserId { get; init; }
+    public UserType? UserType { get; set; }
     public required string FirstName { get; init; }
     public required string LastName { get; init; }
     public required string Patronymic { get; init; }

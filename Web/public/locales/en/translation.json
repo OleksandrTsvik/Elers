@@ -159,7 +159,8 @@
     "patronymic": "Patronymic",
     "remove_member": "Remove a course member",
     "role": "The role of the course",
-    "title": "Course members"
+    "title": "Course members",
+    "user_type": "User type"
   },
   "course_page": {
     "confirm_delete": "Are you sure you want to delete the course '{{title}}'?",

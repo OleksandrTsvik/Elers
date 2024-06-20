@@ -8,6 +8,7 @@ interface GetListCourseMembersRequest extends PagingParams, SortParams {
   lastName?: string;
   patronymic?: string;
   roles?: string[];
+  userTypes?: string[];
 }
 
 export const courseMembersQueriesApi = api.injectEndpoints({

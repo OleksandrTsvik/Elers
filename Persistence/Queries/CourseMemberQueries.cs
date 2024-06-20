@@ -44,7 +44,8 @@ public class CourseMemberQueries : ICourseMemberQueries
                 x => EF.Functions.ILike(x.User!.Patronymic, $"%{queryParams.Patronymic}%"))
             .WhereIf(
                 queryParams.Roles is not null,
-                x => x.CourseRole != null && queryParams.Roles!.Contains(x.CourseRole.Id));
+                x => x.CourseRole != null && queryParams.Roles!.Contains(x.CourseRole.Id))
+            .WhereIf(queryParams.UserTypes is not null, x => queryParams.UserTypes!.Contains(x.User!.Type));
 
         IQueryable<CourseMemberListItem> query;
 
@@ -54,6 +55,7 @@ public class CourseMemberQueries : ICourseMemberQueries
             {
                 Id = courseMember.Id,
                 UserId = courseMember.User!.Id,
+                UserType = courseMember.User.Type,
                 FirstName = courseMember.User.FirstName,
                 LastName = courseMember.User.LastName,
                 Patronymic = courseMember.User.Patronymic,

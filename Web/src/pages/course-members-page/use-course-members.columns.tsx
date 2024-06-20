@@ -12,6 +12,7 @@ import { AuthCourseItemColumn } from '../../common/types';
 import { ActionsDropdown, UserAvatar } from '../../components';
 import { GetColumnSearchProps } from '../../hooks/use-table-search-props';
 import { CourseMember } from '../../models/course-member.interface';
+import { UserType } from '../../models/user.interface';
 
 export default function useCourseMembersColumns(
   getColumnSearchProps: GetColumnSearchProps<CourseMember>,
@@ -74,6 +75,20 @@ export default function useCourseMembersColumns(
       title: t('course_members_page.role'),
       render: (_, record) => record.courseRole?.description,
       filters: roles?.map((item) => ({ text: item.name, value: item.id })),
+      coursePermissions: [CoursePermissionType.ChangeCourseMemberRole],
+      userPermissions: [PermissionType.ManageCourse],
+    },
+    {
+      key: 'userType',
+      title: t('course_members_page.user_type'),
+      render: (_, record) =>
+        record.userType
+          ? t([`users_page.user_types.${record.userType}`, record.userType])
+          : '',
+      filters: Object.values(UserType).map((type) => ({
+        text: t([`users_page.user_types.${type}`, type]),
+        value: type,
+      })),
       coursePermissions: [CoursePermissionType.ChangeCourseMemberRole],
       userPermissions: [PermissionType.ManageCourse],
     },

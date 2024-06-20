@@ -21,6 +21,7 @@ export default function CourseMembersTable({ courseId }: Props) {
   const { filters, getColumnSearchProps } = useTableSearchProps<CourseMember>();
   const { sortParams, updateTableSortParams } = useSortParams();
   const [roles, setRoles] = useState<string[]>();
+  const [userTypes, setUserTypes] = useState<string[]>();
 
   const { data, isFetching, error } = useGetListCourseMembersQuery({
     courseId,
@@ -28,6 +29,7 @@ export default function CourseMembersTable({ courseId }: Props) {
     ...filters,
     ...sortParams,
     roles,
+    userTypes,
   });
 
   const columns = useCourseMembersColumns(getColumnSearchProps, courseId);
@@ -45,6 +47,12 @@ export default function CourseMembersTable({ courseId }: Props) {
       setRoles(filters['role']);
     } else {
       setRoles(undefined);
+    }
+
+    if (isArrayOfStrings(filters['userType'])) {
+      setUserTypes(filters['userType']);
+    } else {
+      setUserTypes(undefined);
     }
   };
 
