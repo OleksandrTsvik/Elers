@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
+  <Class Name="Domain.Entities.CourseMaterial">
+    <Position X="44.75" Y="2.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAAAAAAAAECAAAAAAAAAAAAAAAQAgAAAAAAA=</HashCode>
+      <FileName>Entities\CourseMaterial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Domain.Entities.CourseMaterialContent">
+    <Position X="39" Y="5.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\CourseMaterial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Domain.Entities.CourseMaterialLink">
+    <Position X="41.25" Y="5.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAQAAAAAA=</HashCode>
+      <FileName>Entities\CourseMaterial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Domain.Entities.CourseMaterialFile">
+    <Position X="43.25" Y="5.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAACABAAAA=</HashCode>
+      <FileName>Entities\CourseMaterial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Domain.Entities.CourseMaterialAssignment">
+    <Position X="45.5" Y="5.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAEAAAAAAAAAAAAAAAAAAAAEAAAAEAIA=</HashCode>
+      <FileName>Entities\CourseMaterial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Domain.Entities.CourseMaterialTest">
+    <Position X="48" Y="5.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAABAAAgAEABAAAQAAAAAAAAAgAAAAEAAAAAAAA=</HashCode>
+      <FileName>Entities\CourseMaterial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Domain.Primitives.Entity">
+    <Position X="42.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Primitives\Entity.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="Domain.Enums.GradingMethod">
+    <Position X="48.75" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAACA=</HashCode>
+      <FileName>Enums\GradingMethod.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Domain.Enums.CourseMaterialType">
+    <Position X="47.25" Y="3.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAAAAAAAAAAAQAAAAAEAAAAAAAASAAAAAA=</HashCode>
+      <FileName>Enums\CourseMaterialType.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

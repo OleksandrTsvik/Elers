@@ -41,5 +41,5 @@ export function AuthMiddleware({ children }: Props) {
     return <Spin fullscreen tip={t('loading.app')} />;
   }
 
-  return <>{children}</>;
+  return children;
 }

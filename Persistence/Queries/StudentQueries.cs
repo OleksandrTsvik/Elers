@@ -18,6 +18,7 @@ public class StudentQueries : IStudentQueries
     {
         return _dbContext.CourseMembers
             .Where(x => x.CourseId == courseId && x.User != null && x.User.Type == UserType.Student)
+            .OrderBy(x => x.User!.LastName)
             .Select(x => new UserDto
             {
                 Id = x.User!.Id,

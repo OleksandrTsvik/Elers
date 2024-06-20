@@ -63,7 +63,6 @@ export default function CourseTabMaterial({ material }: Props) {
               {material.title}
             </Space>
           </Link>
-          <TextEditorOutput text={material.description} />
           {material.deadline && (
             <Typography.Paragraph className="m-0" type="secondary">
               {t('course_material.deadline')}:{' '}

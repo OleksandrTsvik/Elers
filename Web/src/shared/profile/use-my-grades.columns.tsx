@@ -33,7 +33,8 @@ export default function useMyGradesColumns(
       title: t('user.teacher'),
       width: 1,
       render: (_, { grade }) =>
-        grade?.type === GradeType.Assignment &&
+        (grade?.type === GradeType.Assignment ||
+          grade?.type === GradeType.Manual) &&
         grade.teacher && (
           <>
             {grade.teacher.lastName} {grade.teacher.firstName}{' '}

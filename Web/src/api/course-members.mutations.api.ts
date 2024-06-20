@@ -10,7 +10,7 @@ export const courseMembersApi = api.injectEndpoints({
         method: 'POST',
       }),
       invalidatesTags: (_, error) =>
-        error ? [] : ['MyCourses', 'CourseMemberList'],
+        error ? [] : ['MyCourses', 'CourseList', 'CourseMemberList'],
       async onQueryStarted({ courseId }, { dispatch, queryFulfilled }) {
         try {
           await queryFulfilled;
@@ -35,7 +35,7 @@ export const courseMembersApi = api.injectEndpoints({
         method: 'POST',
       }),
       invalidatesTags: (_, error) =>
-        error ? [] : ['MyCourses', 'CourseMemberList'],
+        error ? [] : ['MyCourses', 'CourseList', 'CourseMemberList'],
       async onQueryStarted({ courseId }, { dispatch, queryFulfilled }) {
         try {
           await queryFulfilled;
@@ -70,7 +70,8 @@ export const courseMembersApi = api.injectEndpoints({
         url: `/courseMembers/${memberId}`,
         method: 'DELETE',
       }),
-      invalidatesTags: (_, error) => (error ? [] : ['CourseMemberList']),
+      invalidatesTags: (_, error) =>
+        error ? [] : ['CourseList', 'CourseMemberList'],
     }),
   }),
 });

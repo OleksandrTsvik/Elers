@@ -1,4 +1,12 @@
-import { Checkbox, Flex, Form, FormInstance, Input } from 'antd';
+import {
+  Checkbox,
+  CheckboxProps,
+  Flex,
+  Form,
+  FormInstance,
+  Input,
+  Typography,
+} from 'antd';
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -35,9 +43,24 @@ export default function CourseRoleForm({
   const [form] = Form.useForm<CourseRoleFormValues>();
   const rules = useCourseRoleRules();
 
+  const formPermissionIds = Form.useWatch('permissionIds', form) ?? [];
+
   useEffect(() => {
     onFormInstanceReady(form);
   }, [form, onFormInstanceReady]);
+
+  const checkAllPermissions = permissions.length === formPermissionIds.length;
+
+  const indeterminate =
+    formPermissionIds.length > 0 &&
+    formPermissionIds.length < permissions.length;
+
+  const onCheckAllChange: CheckboxProps['onChange'] = (e) => {
+    form.setFieldValue(
+      'permissionIds',
+      e.target.checked ? permissions.map(({ id }) => id) : [],
+    );
+  };
 
   return (
     <Form
@@ -57,15 +80,25 @@ export default function CourseRoleForm({
         <Input showCount maxLength={COURSE_ROLE_RULES.name.max} />
       </Form.Item>
 
-      <Form.Item
-        name="permissionIds"
-        label={t('course_roles_page.permissions')}
+      <Typography.Paragraph className="m-0 pb-label-field">
+        {t('course_roles_page.permissions')}
+      </Typography.Paragraph>
+
+      <Checkbox
+        checked={checkAllPermissions}
+        indeterminate={indeterminate}
+        style={{ marginBottom: 8 }}
+        onChange={onCheckAllChange}
       >
+        {t('course_roles_page.select_all_permissions')}
+      </Checkbox>
+
+      <Form.Item name="permissionIds">
         <Checkbox.Group>
           <Flex vertical>
-            {permissions.map((item) => (
-              <Checkbox key={item.id} value={item.id}>
-                {item.description}
+            {permissions.map(({ id, description }) => (
+              <Checkbox key={id} value={id}>
+                {description}
               </Checkbox>
             ))}
           </Flex>

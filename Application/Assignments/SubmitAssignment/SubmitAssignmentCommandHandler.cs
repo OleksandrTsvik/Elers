@@ -37,6 +37,11 @@ public class SubmitAssignmentCommandHandler : ICommandHandler<SubmitAssignmentCo
 
     public async Task<Result> Handle(SubmitAssignmentCommand request, CancellationToken cancellationToken)
     {
+        if (string.IsNullOrEmpty(request.Text) && (request.Files is null || request.Files.Length == 0))
+        {
+            return AssignmentErrors.EmptyFields();
+        }
+
         Student? student = await _studentRepository.GetByIdAsync(_userContext.UserId, cancellationToken);
 
         if (student is null)
@@ -77,11 +82,6 @@ public class SubmitAssignmentCommandHandler : ICommandHandler<SubmitAssignmentCo
             student.Id, assignment.CourseTabId, cancellationToken))
         {
             return AssignmentErrors.StudentsOnly();
-        }
-
-        if (string.IsNullOrEmpty(request.Text) && (request.Files is null || request.Files.Length == 0))
-        {
-            return AssignmentErrors.EmptyFields();
         }
 
         var files = new List<SubmitAssignmentFile>();

@@ -7,6 +7,7 @@ import StartTestButton from './start-test.button';
 import StartTestGuard from './start-test.guard';
 import TestBreadcrumb from './test.breadcrumb';
 import TestHead from './test.head';
+import TestResult from './test.result';
 import { useGetTestQuery } from '../../api/tests.api';
 import { NavigateToError, NavigateToNotFound } from '../../common/navigate';
 import { TextEditorOutput } from '../../common/typography';
@@ -76,6 +77,8 @@ export default function TestPage() {
           />
         </>
       )}
+
+      <TestResult gradingMethod={data.gradingMethod} attempts={data.attempts} />
 
       <StartTestGuard
         courseId={courseId}

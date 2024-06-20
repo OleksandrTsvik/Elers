@@ -158,7 +158,7 @@
     "no_roles": "Ролі курсу відсутні",
     "patronymic": "По батькові",
     "remove_member": "Вилучити учасника курсу",
-    "role": "Роль",
+    "role": "Роль курсу",
     "title": "Учасники курсу"
   },
   "course_page": {
@@ -173,6 +173,7 @@
     "number_permissions": "Кількість дозволів",
     "permissions": "Дозволи",
     "role": "Роль",
+    "select_all_permissions": "Вибрати всі дозволи",
     "title": "Ролі курсу",
     "update": "Редагування ролі"
   },
@@ -194,6 +195,7 @@
     "finish_test": "Завершити тест",
     "finished_at": "Завершено",
     "grade": "Оцінка",
+    "grade_for_test": "Оцінка за тест",
     "grading_method": "Метод оцінювання",
     "grading_method_type": {
       "BestAttempt": "Краща оцінка",
@@ -258,7 +260,7 @@
   },
   "login_page": {
     "email": "Електронна пошта",
-    "head_title": "Аутентифікація",
+    "head_title": "Вхід",
     "password": "Пароль",
     "rules": {
       "email_required": "Введіть дійсну адресу електронної пошти",
@@ -266,7 +268,7 @@
       "password_required": "Введіть свій пароль"
     },
     "submit": "Увійти",
-    "title": "Аутентифікація"
+    "title": "Вхід"
   },
   "material_assignment_creation_page": {
     "head_title": "Додавання завдання"

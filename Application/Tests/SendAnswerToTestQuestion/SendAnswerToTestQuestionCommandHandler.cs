@@ -196,24 +196,24 @@ public class SendAnswerToTestQuestionCommandHandler : ICommandHandler<SendAnswer
         return Result.Success();
     }
 
-    private static bool IsAnswerInputCorrect(TestQuestionInput question, string? answer) =>
-        question.Answer == answer;
+private static bool IsAnswerInputCorrect(TestQuestionInput question, string? answer) =>
+    question.Answer == answer;
 
-    private static bool IsAnswerSingleChoiceCorrect(TestQuestionSingleChoice question, string? answer) =>
-        question.Options.FirstOrDefault(x => x.IsCorrect)?.Option == answer;
+private static bool IsAnswerSingleChoiceCorrect(TestQuestionSingleChoice question, string? answer) =>
+    question.Options.FirstOrDefault(x => x.IsCorrect)?.Option == answer;
 
-    private static bool IsAnswerMultipleChoiceCorrect(
-        TestQuestionMultipleChoice question,
-        List<string>? answers) =>
-        answers is not null &&
-        question.Options.Where(x => x.IsCorrect).Select(x => x.Option)
-            .All(x => answers.Contains(x));
+private static bool IsAnswerMultipleChoiceCorrect(
+    TestQuestionMultipleChoice question,
+    List<string>? answers) =>
+    answers is not null &&
+    question.Options.Where(x => x.IsCorrect).Select(x => x.Option)
+        .All(x => answers.Contains(x));
 
-    private static bool IsAnswerMatchingCorrect(
-        TestQuestionMatching question,
-        List<AnswerMatchOption>? matchOptions) =>
-        matchOptions is not null &&
-        question.Options.Where(x => !string.IsNullOrEmpty(x.Question))
-            .All(x => matchOptions
-                .Any(answer => answer.Question == x.Question && answer.Answer == x.Answer));
+private static bool IsAnswerMatchingCorrect(
+    TestQuestionMatching question,
+    List<AnswerMatchOption>? matchOptions) =>
+    matchOptions is not null &&
+    question.Options.Where(x => !string.IsNullOrEmpty(x.Question))
+        .All(x => matchOptions
+            .Any(answer => answer.Question == x.Question && answer.Answer == x.Answer));
 }

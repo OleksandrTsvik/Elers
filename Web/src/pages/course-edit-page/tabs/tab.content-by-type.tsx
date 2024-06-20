@@ -47,7 +47,6 @@ export default function TabContentByType({ material }: Props) {
       return (
         <>
           <Typography.Text>{material.title}</Typography.Text>
-          <TextEditorOutput text={material.description} />
           <Typography.Paragraph className="m-0" type="secondary">
             {t('course_material.deadline')}:{' '}
             {material.deadline

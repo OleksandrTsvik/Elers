@@ -47,7 +47,7 @@ export default function LayoutPage() {
     <>
       <ScrollRestoration />
       <Header collapsed={collapsed} setCollapsed={updateCollapsed} />
-      <Layout>
+      <Layout hasSider={breakpoints.lg}>
         <AuthGuard>
           <Sider collapsed={collapsed} setCollapsed={updateCollapsed} />
         </AuthGuard>

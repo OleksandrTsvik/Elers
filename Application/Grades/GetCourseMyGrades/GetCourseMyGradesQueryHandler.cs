@@ -72,7 +72,9 @@ public class GetCourseMyGradesQueryHandler
     {
         var result = new List<CourseMyGrade>(grades.Count());
 
-        IEnumerable<Guid> teacherIds = grades.OfType<GradeAssignment>().Select(x => x.TeacherId);
+        var teacherIds = grades.OfType<GradeAssignment>().Select(x => x.TeacherId).ToList();
+        teacherIds.AddRange(grades.OfType<GradeManual>().Select(x => x.TeacherId));
+
         UserDto[] teachers = await _userQueries.GetUserDtosByIds(teacherIds, cancellationToken);
 
         IEnumerable<Guid> testIds = grades.OfType<GradeTest>().Select(x => x.TestId);
@@ -112,6 +114,17 @@ public class GetCourseMyGradesQueryHandler
                         gradeTest),
                     Type = gradeTest.Type,
                     CreatedAt = gradeTest.CreatedAt
+                };
+            }
+            else if (grade is GradeManual gradeManual)
+            {
+                myGrade = new CourseMyGradeManual
+                {
+                    AssessmentId = gradeManual.ManualGradesColumnId,
+                    Grade = gradeManual.Value,
+                    Type = gradeManual.Type,
+                    CreatedAt = gradeManual.CreatedAt,
+                    Teacher = teachers.FirstOrDefault(x => x.Id == gradeManual.TeacherId)
                 };
             }
             else
