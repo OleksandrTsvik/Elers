@@ -17,23 +17,15 @@ public static class ApiOptionsExtensions
     {
         services.ConfigureOptions<JwtBearerOptionsSetup>();
 
-        services.AddOptionsWithFluentValidation<DatabaseSettings>(
-            ConfigurationSections.DatabaseSettings);
+        services.AddOptionsWithFluentValidation<DatabaseSettings>(ConfigurationSections.DatabaseSettings);
+        services.AddOptionsWithFluentValidation<JwtOptions>(ConfigurationSections.Jwt);
 
-        services.AddOptionsWithFluentValidation<JwtOptions>(
-            ConfigurationSections.Jwt);
+        services.AddOptionsWithFluentValidation<SupabaseSettings>(ConfigurationSections.Supabase);
+        services.AddOptionsWithFluentValidation<CloudinarySettings>(ConfigurationSections.Cloudinary);
 
-        services.AddOptionsWithFluentValidation<SupabaseSettings>(
-            ConfigurationSections.Supabase);
-
-        services.AddOptionsWithFluentValidation<CloudinarySettings>(
-            ConfigurationSections.Cloudinary);
-
-        services.AddOptionsWithFluentValidation<FileSettings>(
-            ConfigurationSections.FileSettings);
-
-        services.AddOptionsWithFluentValidation<AppVariables>(
-            ConfigurationSections.AppVariables);
+        services.AddOptionsWithFluentValidation<FileSettings>(ConfigurationSections.FileSettings);
+        services.AddOptionsWithFluentValidation<AppVariables>(ConfigurationSections.AppVariables);
+        services.AddOptionsWithFluentValidation<SeedOptions>(ConfigurationSections.Seed);
 
         services.AddScoped<IAppVariables, AppVariables>(sp =>
             sp.GetRequiredService<IOptions<AppVariables>>().Value);

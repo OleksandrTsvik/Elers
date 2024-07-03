@@ -9,42 +9,7 @@ dotnet restore
 dotnet build
 ```
 
-Fill in the `appsettings.json` file with the following required fields:
-
-```json
-{
-  "DatabaseSettings": {
-    "ApplicationDb": {
-      "ConnectionString": ""
-    },
-    "MongoDb": {
-      "ConnectionString": "",
-      "DatabaseName": ""
-    }
-  },
-  "Jwt": {
-    "Issuer": "",
-    "Audience": "",
-    "AccessTokenExpirationInMinutes": 0,
-    "RefreshTokenExpirationInDays": 0,
-    "SecretKey": ""
-  },
-  "Supabase": {
-    "Url": "",
-    "Key": "",
-    "BucketName": ""
-  },
-  "Cloudinary": {
-    "CloudName": "",
-    "ApiKey": "",
-    "ApiSecret": ""
-  },
-  "FileSettings": {
-    "SizeLimit": 0,
-    "ImageSizeLimit": 0
-  }
-}
-```
+Be sure to fill in the `appsettings.json` file!
 
 > **NOTES:**
 >

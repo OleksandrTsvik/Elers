@@ -45,6 +45,14 @@ Its settings for VS Code can be placed in the root of the entire project at the 
 }
 ```
 
+## Redux Toolkit (RTK)
+
+### Useful information:
+
+- [createApi](https://redux-toolkit.js.org/rtk-query/api/createApi)
+- [Code Splitting](https://redux-toolkit.js.org/rtk-query/usage/code-splitting)
+- [Manual Cache Updates](https://redux-toolkit.js.org/rtk-query/usage/manual-cache-updates)
+
 ## Setting up CKEditor 5
 
 [CKEditor 5](https://ckeditor.com/docs/ckeditor5/latest/index.html) is a convenient and multifunctional text editor.

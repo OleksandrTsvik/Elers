@@ -49,7 +49,7 @@ export const rolesApi = api.injectEndpoints({
         method: 'PUT',
         body: data,
       }),
-      invalidatesTags: (_, error) => (error ? [] : ['Roles']),
+      invalidatesTags: (_, error) => (error ? [] : ['Roles', 'Users']),
     }),
     deleteRole: builder.mutation<void, { id: string }>({
       query: ({ id }) => ({

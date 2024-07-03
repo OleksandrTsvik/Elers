@@ -31,9 +31,12 @@ app.UseRequestLocalization();
 
 app.ApplyApiMiddlewares();
 
+app.UseStaticFiles();
+
 app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+app.MapFallbackToController("Index", "Fallback");
 
 app.Run();

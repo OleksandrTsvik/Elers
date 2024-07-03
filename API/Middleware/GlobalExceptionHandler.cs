@@ -21,7 +21,7 @@ public class GlobalExceptionHandler : IExceptionHandler
         Exception exception,
         CancellationToken cancellationToken)
     {
-        _logger.LogError(exception, "{Message}", exception.Message);
+        // _logger.LogError(exception, "{Message}", exception.Message);
 
         int statusCode = GetStatusCode(exception);
         string message = _translator.GetString(GetMessage(exception));

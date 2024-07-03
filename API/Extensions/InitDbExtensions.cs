@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Persistence;
+using Persistence.Options;
 using Persistence.Seed.ApplicationDb;
 
 namespace API.Extensions;
@@ -18,8 +20,10 @@ public static class InitDbExtensions
             ApplicationDbContext dbContext = serviceProvider.GetRequiredService<ApplicationDbContext>();
             ApplicationDbContextSeed dbSeed = serviceProvider.GetRequiredService<ApplicationDbContextSeed>();
 
+            SeedOptions seedOptions = serviceProvider.GetRequiredService<IOptions<SeedOptions>>().Value;
+
             await dbContext.Database.MigrateAsync();
-            await dbSeed.SeedDataAsync(isDevelopment);
+            await dbSeed.SeedDataAsync(seedOptions, isDevelopment);
         }
         catch (Exception ex)
         {

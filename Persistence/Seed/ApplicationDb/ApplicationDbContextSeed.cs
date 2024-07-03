@@ -1,8 +1,8 @@
 using Application.Common.Services;
-using Domain.Constants;
 using Domain.Entities;
 using Domain.Enums;
 using Microsoft.EntityFrameworkCore;
+using Persistence.Options;
 
 namespace Persistence.Seed.ApplicationDb;
 
@@ -17,12 +17,12 @@ public class ApplicationDbContextSeed
         _passwordService = passwordService;
     }
 
-    public async Task SeedDataAsync(bool isDevelopment)
+    public async Task SeedDataAsync(SeedOptions seedOptions, bool isDevelopment)
     {
         List<Permission> allPermissions = await GetAndSeedPermissionsAsync();
         List<Role> allRoles = await GetAndSeedRolesAsync(isDevelopment, allPermissions);
 
-        await SeedUsersAsync(allRoles);
+        await SeedUsersAsync(allRoles, seedOptions);
 
         await SeedCoursePermissionsAsync();
 
@@ -38,7 +38,7 @@ public class ApplicationDbContextSeed
 
         foreach (Permission permission in existingPermissionsInDb)
         {
-            if (PermissionsSetup.AllPermissions.Contains(permission.Name))
+            if (PermissionSeed.AllPermissions.Contains(permission.Name))
             {
                 existingPermissions.Add(permission);
             }
@@ -50,7 +50,7 @@ public class ApplicationDbContextSeed
 
         var newPermissions = new List<Permission>();
 
-        foreach (PermissionType permissionType in PermissionsSetup.AllPermissions)
+        foreach (PermissionType permissionType in PermissionSeed.AllPermissions)
         {
             if (!existingPermissions.Any(x => x.Name == permissionType))
             {
@@ -72,19 +72,20 @@ public class ApplicationDbContextSeed
 
         var newRoles = new List<Role>();
 
-        foreach (DefaultRole role in PermissionsSetup.DefaultRolePermissions.Keys)
+        foreach (DefaultRole role in PermissionSeed.DefaultRolePermissions.Keys)
         {
-            Role? currentRole = existingRoles.Find(x => x.Name == role.ToString());
+            string roleName = RoleSeed.GetRoleName(role);
+            Role? currentRole = existingRoles.Find(x => x.Name == roleName);
 
             var rolePermissions = allPermissions
-                .Where(x => PermissionsSetup.DefaultRolePermissions[role].Contains(x.Name))
+                .Where(x => PermissionSeed.DefaultRolePermissions[role].Contains(x.Name))
                 .ToList();
 
             if (currentRole is null)
             {
                 var newRole = new Role
                 {
-                    Name = role.ToString(),
+                    Name = roleName,
                     Permissions = rolePermissions
                 };
 
@@ -101,9 +102,9 @@ public class ApplicationDbContextSeed
         return existingRoles.Concat(newRoles).ToList();
     }
 
-    private async Task SeedUsersAsync(List<Role> allRoles)
+    private async Task SeedUsersAsync(List<Role> allRoles, SeedOptions seedOptions)
     {
-        List<UserSeed> seedUsers = UserSeed.GetUsersSeedData();
+        List<UserSeed> seedUsers = UserSeed.GetUsersSeedData(seedOptions);
         var seedEmails = seedUsers.Select(x => x.Email).ToList();
 
         List<string> existingEmails = await _dbContext.Users
@@ -118,8 +119,8 @@ public class ApplicationDbContextSeed
             if (!existingEmails.Any(x => x == user.Email))
             {
                 string passwordHash = _passwordService.HashPassword(user.Password);
+                var userDefaultRoles = user.DefaultRoles.Select(RoleSeed.GetRoleName).ToList();
 
-                var userDefaultRoles = user.DefaultRoles.Select(x => x.ToString()).ToList();
                 var roles = allRoles
                     .Where(x => userDefaultRoles.Contains(x.Name))
                     .ToList();

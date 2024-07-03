@@ -1,4 +1,4 @@
-using Domain.Enums;
+using Persistence.Options;
 
 namespace Persistence.Seed.ApplicationDb;
 
@@ -11,14 +11,14 @@ public class UserSeed
     public required string Patronymic { get; init; }
     public required List<DefaultRole> DefaultRoles { get; init; }
 
-    public static List<UserSeed> GetUsersSeedData() =>
+    public static List<UserSeed> GetUsersSeedData(SeedOptions seedOptions) =>
         [
             new UserSeed
             {
-                Email = "ipz203_tsos@student.ztu.edu.ua",
-                Password = "123456",
-                FirstName = "Цвік",
-                LastName = "Олександр",
+                Email = seedOptions.AdminEmail,
+                Password = seedOptions.AdminPassword,
+                FirstName = "Олександр",
+                LastName = "Цвік",
                 Patronymic = "Сергійович",
                 DefaultRoles = [DefaultRole.Admin]
             }
