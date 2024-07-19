@@ -1,7 +1,7 @@
 using FluentValidation;
 using Infrastructure.SupabaseSetup;
 
-namespace API.Options.Supabase;
+namespace Api.Options.Supabase;
 
 public class SupabaseSettingsValidator : AbstractValidator<SupabaseSettings>
 {

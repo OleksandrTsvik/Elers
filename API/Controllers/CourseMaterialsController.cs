@@ -1,4 +1,4 @@
-using API.Contracts;
+using Api.Contracts;
 using Application.CourseMaterials.CreateCourseMaterialAssignment;
 using Application.CourseMaterials.CreateCourseMaterialContent;
 using Application.CourseMaterials.CreateCourseMaterialFile;
@@ -27,7 +27,7 @@ using Infrastructure.Files;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace API.Controllers;
+namespace Api.Controllers;
 
 public class CourseMaterialsController : ApiControllerBase
 {

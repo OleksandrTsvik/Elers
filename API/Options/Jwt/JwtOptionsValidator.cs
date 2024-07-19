@@ -1,7 +1,7 @@
 using FluentValidation;
 using Infrastructure.Authentication;
 
-namespace API.Options.Jwt;
+namespace Api.Options.Jwt;
 
 public class JwtOptionsValidator : AbstractValidator<JwtOptions>
 {

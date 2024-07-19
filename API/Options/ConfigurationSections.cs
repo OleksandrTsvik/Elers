@@ -1,4 +1,4 @@
-namespace API.Options;
+namespace Api.Options;
 
 public static class ConfigurationSections
 {

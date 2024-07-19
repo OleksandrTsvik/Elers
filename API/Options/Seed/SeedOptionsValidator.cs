@@ -2,7 +2,7 @@ using Domain.Rules;
 using FluentValidation;
 using Persistence.Options;
 
-namespace API.Options.Seed;
+namespace Api.Options.Seed;
 
 public class SeedOptionsValidator : AbstractValidator<SeedOptions>
 {

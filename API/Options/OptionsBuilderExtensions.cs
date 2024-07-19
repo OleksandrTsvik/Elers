@@ -1,6 +1,6 @@
 using Microsoft.Extensions.Options;
 
-namespace API.Options;
+namespace Api.Options;
 
 public static class OptionsBuilderExtensions
 {

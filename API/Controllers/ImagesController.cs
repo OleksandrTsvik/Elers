@@ -1,10 +1,10 @@
-using API.Contracts;
+using Api.Contracts;
 using Application.Images.UploadImage;
 using Infrastructure.Files;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace API.Controllers;
+namespace Api.Controllers;
 
 public class ImagesController : ApiControllerBase
 {

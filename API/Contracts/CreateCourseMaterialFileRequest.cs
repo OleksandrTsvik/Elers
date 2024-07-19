@@ -1,3 +1,3 @@
-namespace API.Contracts;
+namespace Api.Contracts;
 
 public record CreateCourseMaterialFileRequest(string Title, IFormFile File);

@@ -1,3 +1,3 @@
-namespace API.Contracts;
+namespace Api.Contracts;
 
 public record ChangeCourseImageRequest(IFormFile Image);

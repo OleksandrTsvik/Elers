@@ -1,4 +1,4 @@
-# Elers/API
+# Elers/Api
 
 ## Running Locally
 
@@ -22,15 +22,15 @@ Be sure to fill in the `appsettings.json` file!
 Then, create EF Migrations and database:
 
 ```sh
-dotnet ef migrations add InitialCreate -s API -p Persistence -c ApplicationDbContext -o Migrations/ApplicationDb
+dotnet ef migrations add InitialCreate -s Api -p Persistence -c ApplicationDbContext -o Migrations/ApplicationDb
 
-dotnet ef database update -s API -p Persistence -c ApplicationDbContext
+dotnet ef database update -s Api -p Persistence -c ApplicationDbContext
 ```
 
 Run api:
 
 ```sh
-cd API
+cd Api
 dotnet watch --no-hot-reload
 ```
 

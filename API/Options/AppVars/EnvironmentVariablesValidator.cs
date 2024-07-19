@@ -1,6 +1,6 @@
 using FluentValidation;
 
-namespace API.Options.AppVars;
+namespace Api.Options.AppVars;
 
 public class AppVariablesValidator : AbstractValidator<AppVariables>
 {

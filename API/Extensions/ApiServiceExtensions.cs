@@ -1,12 +1,12 @@
 using System.Reflection;
 using System.Text.Json.Serialization;
-using API.Constants;
-using API.Middleware;
+using Api.Constants;
+using Api.Middleware;
 using FluentValidation;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 
-namespace API.Extensions;
+namespace Api.Extensions;
 
 public static class ApiServiceExtensions
 {

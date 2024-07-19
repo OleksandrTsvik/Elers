@@ -5,7 +5,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.StaticFiles;
 
-namespace API.Controllers;
+namespace Api.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]

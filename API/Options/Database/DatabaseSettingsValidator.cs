@@ -1,7 +1,7 @@
 using FluentValidation;
 using Persistence.Options;
 
-namespace API.Options.Database;
+namespace Api.Options.Database;
 
 public class DatabaseSettingsValidator : AbstractValidator<DatabaseSettings>
 {

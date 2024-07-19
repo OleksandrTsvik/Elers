@@ -1,7 +1,7 @@
 using FluentValidation;
 using Infrastructure.CloudinarySetup;
 
-namespace API.Options.Cloudinary;
+namespace Api.Options.Cloudinary;
 
 public class CloudinarySettingsValidator : AbstractValidator<CloudinarySettings>
 {

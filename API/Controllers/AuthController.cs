@@ -1,4 +1,4 @@
-using API.Constants;
+using Api.Constants;
 using Application.Auth.DTOs;
 using Application.Auth.Login;
 using Application.Auth.Logout;
@@ -8,7 +8,7 @@ using Domain.Shared;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace API.Controllers;
+namespace Api.Controllers;
 
 public class AuthController : ApiControllerBase
 {

@@ -8,7 +8,7 @@ using Domain.Enums;
 using Infrastructure.Authentication;
 using Microsoft.AspNetCore.Mvc;
 
-namespace API.Controllers;
+namespace Api.Controllers;
 
 public class RolesController : ApiControllerBase
 {

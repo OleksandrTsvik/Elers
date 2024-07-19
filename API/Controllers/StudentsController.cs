@@ -1,7 +1,7 @@
 using Application.Students.GetCourseStudents;
 using Microsoft.AspNetCore.Mvc;
 
-namespace API.Controllers;
+namespace Api.Controllers;
 
 public class StudentsController : ApiControllerBase
 {

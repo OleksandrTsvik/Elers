@@ -7,12 +7,12 @@
 **/Dockerfile*
 **/.dockerignore
 
-API/wwwroot
+**/Api/wwwroot
 
 # Development configuration
-API/appsettings.json
-API/appsettings.Development.json
-API/appsettings.Production.json
+**/Api/appsettings.json
+**/Api/appsettings.Development.json
+**/Api/appsettings.Production.json
 .env
 .env.production
 

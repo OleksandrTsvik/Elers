@@ -22,7 +22,7 @@ export default defineConfig({
     include: ['ckeditor5-custom-build'],
   },
   build: {
-    outDir: '../API/wwwroot/',
+    outDir: '../Api/wwwroot/',
     target: 'ES2022',
     commonjsOptions: {
       include: [/ckeditor5-custom-build/, /node_modules/],

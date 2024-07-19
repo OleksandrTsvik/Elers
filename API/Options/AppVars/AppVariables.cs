@@ -1,6 +1,6 @@
 using Domain.Constants;
 
-namespace API.Options.AppVars;
+namespace Api.Options.AppVars;
 
 public class AppVariables : IAppVariables
 {

@@ -1,4 +1,4 @@
-using API.Extensions;
+using Api.Extensions;
 using Application;
 using Infrastructure;
 using Persistence;

@@ -28,12 +28,12 @@ password: 123456
 
 ### Step 1: Create Database Migration
 
-First, you need to create a database migration. Make sure to fill in the `appsettings.json` file in the `API` folder.
+First, you need to create a database migration. Make sure to fill in the `appsettings.json` file in the `Api` folder.
 
 Run the following command to update the database in the Production environment:
 
 ```sh
-dotnet ef database update -s API -p Persistence -c ApplicationDbContext -- --environment Production
+dotnet ef database update -s Api -p Persistence -c ApplicationDbContext -- --environment Production
 ```
 
 ### Step 2: Build Docker Image

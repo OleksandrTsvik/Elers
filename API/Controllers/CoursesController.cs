@@ -1,4 +1,4 @@
-using API.Contracts;
+using Api.Contracts;
 using Application.Courses.ChangeCourseImage;
 using Application.Courses.CreateCourse;
 using Application.Courses.DeleteCourse;
@@ -18,7 +18,7 @@ using Infrastructure.Files;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace API.Controllers;
+namespace Api.Controllers;
 
 public class CoursesController : ApiControllerBase
 {

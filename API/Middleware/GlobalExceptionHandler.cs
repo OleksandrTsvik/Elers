@@ -3,7 +3,7 @@ using Domain.Exceptions;
 using Domain.Shared;
 using Microsoft.AspNetCore.Diagnostics;
 
-namespace API.Middleware;
+namespace Api.Middleware;
 
 public class GlobalExceptionHandler : IExceptionHandler
 {

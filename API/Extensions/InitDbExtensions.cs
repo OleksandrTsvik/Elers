@@ -4,7 +4,7 @@ using Persistence;
 using Persistence.Options;
 using Persistence.Seed.ApplicationDb;
 
-namespace API.Extensions;
+namespace Api.Extensions;
 
 public static class InitDbExtensions
 {

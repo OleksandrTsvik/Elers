@@ -1,6 +1,6 @@
-using API.Middleware;
+using Api.Middleware;
 
-namespace API.Extensions;
+namespace Api.Extensions;
 
 public static class ApiMiddlewaresExtensions
 {

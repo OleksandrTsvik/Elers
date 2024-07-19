@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.CookiePolicy;
 
-namespace API.Extensions;
+namespace Api.Extensions;
 
 public static class ApiCorsExtensions
 {

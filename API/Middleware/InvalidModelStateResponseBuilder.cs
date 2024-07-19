@@ -3,7 +3,7 @@ using Domain.Shared;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
-namespace API.Middleware;
+namespace Api.Middleware;
 
 public static class InvalidModelStateResponseBuilder
 {

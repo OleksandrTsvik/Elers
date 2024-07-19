@@ -4,7 +4,7 @@ EXPOSE 8080
 
 # copy .csproj and restore as distinct layers
 COPY Elers.sln .
-COPY API/API.csproj API/
+COPY Api/Api.csproj Api/
 COPY Application/Application.csproj Application/
 COPY Domain/Domain.csproj Domain/
 COPY Infrastructure/Infrastructure.csproj Infrastructure/
@@ -28,11 +28,11 @@ RUN npm run build
 # build app
 FROM build AS publish
 WORKDIR /source
-COPY --from=web-build /source/API/wwwroot ./API/wwwroot
+COPY --from=web-build /source/Api/wwwroot ./Api/wwwroot
 RUN dotnet publish -c Release -o out
 
 # build a runtime image
 FROM mcr.microsoft.com/dotnet/aspnet:8.0
 WORKDIR /app
 COPY --from=publish /source/out .
-ENTRYPOINT [ "dotnet", "API.dll" ]
+ENTRYPOINT [ "dotnet", "Api.dll" ]

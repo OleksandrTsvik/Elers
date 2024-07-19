@@ -1,4 +1,4 @@
-using API.Contracts;
+using Api.Contracts;
 using Application.Profile.ChangeAvatar;
 using Application.Profile.ChangeCurrentUserPassword;
 using Application.Profile.DeleteAvatar;
@@ -10,7 +10,7 @@ using Infrastructure.Authentication;
 using Infrastructure.Files;
 using Microsoft.AspNetCore.Mvc;
 
-namespace API.Controllers;
+namespace Api.Controllers;
 
 public class ProfileController : ApiControllerBase
 {

@@ -1,4 +1,4 @@
-namespace API.Constants;
+namespace Api.Constants;
 
 public static class Auth
 {

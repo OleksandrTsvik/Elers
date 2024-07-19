@@ -6,7 +6,7 @@ using Domain.Enums;
 using Infrastructure.CourseMemberPermissions;
 using Microsoft.AspNetCore.Mvc;
 
-namespace API.Controllers;
+namespace Api.Controllers;
 
 public class GradesController : ApiControllerBase
 {

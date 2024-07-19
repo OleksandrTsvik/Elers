@@ -2,7 +2,7 @@ using FluentValidation;
 using FluentValidation.Results;
 using Microsoft.Extensions.Options;
 
-namespace API.Options;
+namespace Api.Options;
 
 public class FluentValidateOptions<TOptions> : IValidateOptions<TOptions>
     where TOptions : class

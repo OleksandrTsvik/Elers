@@ -1,7 +1,7 @@
 using FluentValidation;
 using Infrastructure.Files;
 
-namespace API.Options.File;
+namespace Api.Options.File;
 
 public class FileSettingsValidator : AbstractValidator<FileSettings>
 {
