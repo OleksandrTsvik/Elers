@@ -81,3 +81,4 @@ docker run \
 - [The .NET Weekly Newsletter | Milan Jovanović](https://www.milanjovanovic.tech/blog)
 - [Enforcing Software Architecture With Architecture Tests](https://www.milanjovanovic.tech/blog/enforcing-software-architecture-with-architecture-tests)
 - [GitHub Markup Reference](https://gist.github.com/ChrisTollefson/a3af6d902a74a0afd1c2d79aadc9bb3f#file-1_markup-md)
+- [Rename folder to lowercase - Git](https://dev.to/studentedge/rename-folder-to-lowercase-git-347d)
