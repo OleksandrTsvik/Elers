@@ -9,6 +9,7 @@ COPY Application/Application.csproj Application/
 COPY Domain/Domain.csproj Domain/
 COPY Infrastructure/Infrastructure.csproj Infrastructure/
 COPY Persistence/Persistence.csproj Persistence/
+COPY Architecture.Tests/Architecture.Tests.csproj Architecture.Tests/
 
 RUN dotnet restore
 
